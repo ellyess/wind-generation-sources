@@ -1,0 +1,72 @@
+id: dk-energinet-production-settlement
+name: Production and Consumption - Settlement (ProductionConsumptionSettlement)
+publisher: Energinet (Energi Data Service)
+publisher_role: tso
+countries: [DK]
+area: "Price areas DK1 (west) and DK2 (east)"
+level: zone
+technology: onshore-and-offshore-split
+measure: metered-energy
+resolution: hourly
+coverage:
+  start: 2005
+  update: daily, with a 9 to 15 day delay; values revised for up to 2 years
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: api
+  url: https://www.energidataservice.dk/tso-electricity/ProductionConsumptionSettlement
+  docs: https://www.energidataservice.dk/guides/api-guides
+  key_required: false
+  registration: false
+  formats: [json, csv, xlsx]
+  languages: [en, da]
+licence:
+  name: Creative Commons CC-BY 4.0
+  spdx: CC-BY-4.0
+  url: https://www.energidataservice.dk/terms-and-conditions
+  redistribution: allowed-with-attribution
+  attribution: "Source: Energinet (www.energidataservice.dk)"
+  verified: true
+  note: >-
+    The terms page says users may copy, change and distribute the data, even commercially, with
+    credit and a note of any changes, and without implying that Energinet endorses the use.
+traps:
+  - summary: Wind is split across four columns by size class, which must be summed for a total.
+    detail: >-
+      Offshore wind is reported as OffshoreWindLt100MW_MWh and OffshoreWindGe100MW_MWh, onshore
+      as OnshoreWindLt50kW_MWh and OnshoreWindGe50kW_MWh. Small offshore turbines near the coast
+      sit in the under-100 MW offshore column.
+    evidence: https://api.energidataservice.dk/meta/dataset/ProductionConsumptionSettlement
+  - summary: The start and end query parameters are read as Danish local time, not UTC.
+    detail: >-
+      A request for start=2005-01-01T00:00 returns a first row with HourUTC 2004-12-31T23:00.
+      Use the HourUTC column for joins; HourDK has 23 or 25 hours on clock-change days.
+    evidence: https://www.energidataservice.dk/guides/api-guides
+    found: 2026-11-06
+  - summary: Values keep changing for up to two years after the hour, so a download is a snapshot.
+    detail: >-
+      The publisher says data are normally 99% correct after 15 days and 99.9% after 3 months,
+      and recommends re-requesting a larger window monthly. Record the download date.
+    evidence: https://api.energidataservice.dk/meta/dataset/ProductionConsumptionSettlement
+  - summary: The calculation method changed from 1 September 2026 with the move to DataHub 3.0.
+    detail: >-
+      The dataset's caution note says values from 2026-09-01 onward are calculated using a
+      different method. Check for a step change before comparing across that date.
+    evidence: https://api.energidataservice.dk/meta/dataset/ProductionConsumptionSettlement
+  - summary: Without start or limit the API returns only 100 rows.
+    detail: Set limit=0 to return all records in the requested window.
+    evidence: https://www.energidataservice.dk/guides/api-guides
+notes: >-
+  Hourly settled production per Danish price area from DataHub, the national meter data hub,
+  with onshore and offshore wind in separate columns. Checked 2026-11-06: the first rows
+  (2005-01-01 local time) carry wind values, and DK1 and DK2 return different numbers. The
+  publisher's metadata gives data from 2005-01-01 to 2026-10-29 at the time of checking.
+  Installed capacity per municipality and type is in the separate CapacityPerMunicipality
+  dataset. For regional production, ProductionRegionHour (from 2021) exists but lumps wind with
+  hydro ("Vind+Vand") and suppresses hours for confidentiality, so it was not listed. The
+  ProductionMunicipalityHour dataset named in older guides returned "dataset not found".
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

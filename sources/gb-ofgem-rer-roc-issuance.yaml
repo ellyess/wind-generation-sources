@@ -1,0 +1,48 @@
+id: gb-ofgem-rer-roc-issuance
+name: Renewables Obligation certificates issued per station (Renewables and CHP Register public reports)
+publisher: Ofgem
+publisher_role: regulator
+countries: [GB]
+level: farm
+technology: onshore-and-offshore-split
+measure: certificates
+resolution: monthly
+coverage:
+  start: 2002
+capacity: included
+coordinates: none
+curtailment: not-reported
+access:
+  method: portal
+  url: https://rer.ofgem.gov.uk/
+  key_required: false
+  registration: false
+  languages: [en]
+licence:
+  name: Renewables and CHP Register terms and conditions (no reuse licence stated)
+  url: "https://rer.ofgem.gov.uk/Home/TermsAndConditions"
+  redistribution: unclear
+  verified: true
+  note: "The register says details are made freely available through its public reports, which is availability, not a reuse grant. Ofgem's main site uses the Open Government Licence, but that statement does not cover the register."
+traps:
+  - summary: Certificates are not energy; convert with the banding for each station's technology and vintage.
+    detail: >-
+      Onshore wind earns 0.9 certificates per MWh for 2013/14 and later accreditations and 1.0
+      before; offshore 2.0, 1.9 or 1.8 by vintage. Use Renewables Obligation certificates only;
+      adding guarantees of origin (REGOs) double-counts.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/uk.md
+  - summary: The per-station export is a manual report download, and the register keeps only about seven years of issuance.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/uk.md
+  - summary: Obligation years run April to March, not calendar years.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/uk.md
+  - summary: Station locations are not in the register; the Renewable Energy Planning Database has them, but no hub heights or turbine models for most sites.
+    detail: The planning database gives hub height for about 13% of sites.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/uk.md
+notes: >-
+  Station-level monthly output, recovered from certificates. Only stations accredited under the
+  Renewables Obligation appear. The start
+  year is when the Obligation began (2002) and is not checked against the register. For
+  half-hourly metered output per unit, Elexon's balancing mechanism data is the alternative.
+status: active
+last_checked: 2026-08-24
+checked_by: Ellyess Benmoufok, from the PyVWF runbook; licence read on the publisher's page 2026-11-06

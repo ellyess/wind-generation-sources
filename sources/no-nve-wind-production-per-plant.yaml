@@ -1,0 +1,47 @@
+id: no-nve-wind-production-per-plant
+name: Wind power production per plant, 2002-2021 (vindprod2002-2021_kraftverk)
+publisher: Norwegian Water Resources and Energy Directorate (NVE)
+publisher_role: government
+countries: [NO]
+level: farm
+technology: onshore-and-offshore-combined
+measure: metered-energy
+resolution: hourly
+coverage:
+  start: 2002
+  end: 2021
+capacity: separate-dataset
+coordinates: separate-dataset
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.nve.no/media/13399/vindprod2002-2021_kraftverk_utcplus1.xlsx
+  key_required: false
+  registration: false
+  formats: [xlsx]
+  languages: [no]
+licence:
+  name: "Not found for this file; NVE's APIs are under NLOD (version not stated)"
+  url: "https://api.nve.no/doc/"
+  redistribution: unclear
+  verified: true
+  note: "NVE's API documentation gives NLOD, 'compatible with CC BY 3.0', and asks for a link to the service. No terms were found for the per-plant production file itself."
+traps:
+  - summary: The file ends at 22:00 UTC on 31 December 2021, so the year's last hour is missing.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+  - summary: Times are UTC+1 all year (as the file name says), not Norwegian local time.
+    evidence: https://www.nve.no/media/13399/vindprod2002-2021_kraftverk_utcplus1.xlsx
+  - summary: There is no update after 2021; later years need another source.
+    detail: >-
+      Statistics Norway's monthly wind production (table 12824) matched this file's metered
+      output in every month of 2015-21, and ENTSO-E's Norwegian generation matched Statistics
+      Norway in 2023.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+notes: >-
+  Hourly output per wind farm, metered at the grid connection. Capacity, turbines and
+  commissioning dates come from NVE's wind power plant register API
+  (https://api.nve.no/web/WindPowerplant/GetWindPowerPlants). For 2015-21
+  this file is a better measure of the Norwegian fleet than ENTSO-E's summed zones.
+status: discontinued
+last_checked: 2026-10-27
+checked_by: Ellyess Benmoufok, from the PyVWF ENTSO-E runbook and scorecard audits; licence read on the publisher's page 2026-11-06

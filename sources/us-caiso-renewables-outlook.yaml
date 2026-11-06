@@ -1,0 +1,69 @@
+id: us-caiso-renewables-outlook
+name: Today's Outlook renewables history, and Production and Curtailments Data
+publisher: California Independent System Operator (CAISO)
+publisher_role: iso-rto
+countries: [US]
+area: CAISO balancing area (most of California)
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: 5min
+coverage:
+  start: 2014
+  update: daily (Today's Outlook history)
+capacity: none
+coordinates: not-applicable
+curtailment: reported
+access:
+  method: bulk-download
+  url: https://www.caiso.com/todays-outlook
+  docs: https://www.caiso.com/library/production-curtailments-data
+  key_required: false
+  registration: false
+  formats: [csv, xlsx]
+  languages: [en]
+licence:
+  name: California ISO website Terms of Use (last updated 2 October 2018)
+  url: "https://www.caiso.com/privacy-terms-of-use"
+  redistribution: allowed-with-attribution
+  attribution: Credit the California ISO and keep its copyright notices intact
+  verified: true
+  note: >-
+    The terms forbid copying or redistributing site material except as they authorise, then
+    authorise use of the mostly public-record material provided copyright notices are kept and
+    the California ISO is credited. Read as reuse with credit; check with CAISO before
+    large-scale re-hosting.
+traps:
+  - summary: The five-minute production and curtailment workbooks stopped on 1 June 2025.
+    detail: >-
+      CAISO no longer publishes the yearly Production and Curtailments Data workbook (May 2014 to
+      May 2025). Curtailment after that is only in the daily renewables reports, and production
+      only in Today's Outlook.
+    evidence: https://www.caiso.com/library/production-curtailments-data
+    found: 2026-11-06
+  - summary: The workbook says its data are raw and not of operational or settlement quality.
+    detail: >-
+      Its read-me also warns that five-minute values may not match the hourly figures in the
+      daily reports. Curtailed energy is not counted in the production columns.
+    evidence: https://www.caiso.com/documents/production-and-curtailments-data-2024.xlsx
+    found: 2026-11-06
+  - summary: Today's Outlook daily files only go back to 10 April 2018.
+    detail: >-
+      /outlook/history/20180410/renewables.csv is the first that answers; 20180409 returns 404.
+      Earlier five-minute wind is only in the 2014-2017 workbooks.
+    evidence: https://www.caiso.com/outlook/history/20180410/renewables.csv
+    found: 2026-11-06
+tools:
+  - name: gridstatus (CAISO class)
+    url: https://github.com/gridstatus/gridstatus
+    language: Python
+notes: >-
+  System-wide wind for the CAISO area, every five minutes. Daily files are at
+  https://www.caiso.com/outlook/history/<YYYYMMDD>/renewables.csv (columns Time, Solar, Wind,
+  Geothermal, Biomass, Biogas, Small hydro). The yearly workbooks
+  (production-and-curtailments-data-<year>.xlsx and older names on the library page) add load,
+  net load and a curtailment sheet with wind and solar curtailment per interval and a reason
+  (local or system). Nothing here is per plant; CAISO does not publish per-plant output openly.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

@@ -1,0 +1,87 @@
+id: gb-kelmarsh-scada
+name: Kelmarsh wind farm data
+publisher: Cubico Sustainable Investments (via Zenodo)
+publisher_role: owner-operator
+countries: [GB]
+area: Kelmarsh wind farm, Northamptonshire, England (6 turbines, 12.3 MW)
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2016
+  update: irregular new Zenodo versions; the latest, August 2025, runs to the end of 2024
+capacity: included
+coordinates: included
+curtailment: reported
+access:
+  method: bulk-download
+  url: https://doi.org/10.5281/zenodo.5841833
+  docs: https://zenodo.org/records/16807551
+  key_required: false
+  registration: false
+  formats: [csv, zip, kmz]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://zenodo.org/records/16807551
+  redistribution: allowed-with-attribution
+  attribution: Cite the Zenodo record (Plumley, C., Kelmarsh wind farm data, Zenodo, doi:10.5281/zenodo.5841833).
+  verified: true
+  note: >-
+    The Zenodo record states the data were released by Cubico Sustainable Investments Ltd under
+    CC-BY-4.0, provided as is. The publisher asks, but does not require, to be told how the data
+    are used.
+traps:
+  - summary: The record most often linked (Zenodo 5841834) is an old version that stops in mid-2021.
+    detail: >-
+      Zenodo keeps every version under its own id. 5841834 is version 0.0.3 (February 2022) with
+      SCADA to mid-2021. The latest version (16807551, August 2025) adds 2021 to 2024 files. Use the
+      concept DOI 10.5281/zenodo.5841833, which always resolves to the latest version, and record
+      which version you used.
+    evidence: https://zenodo.org/records/5841834
+    found: 2026-11-06
+  - summary: The column header row starts with a '#', like the comment lines above it.
+    detail: >-
+      Each turbine CSV opens with nine '#' comment lines, then a header line that also begins
+      '# Date and time'. Reading with a comment character set drops the header along with the
+      comments. Skip the first nine lines instead. Missing or erroneous values are written as NaN.
+    evidence: https://zenodo.org/records/16807551
+    found: 2026-11-06
+  - summary: The 2016 turbine files start on 3 January although their header says 1 January.
+    detail: >-
+      The Greenbyte export header gives the interval as 2016-01-01 to 2017-01-01, but the first
+      row is 2016-01-03 00:00, as the file name says. Early rows hold NaN for most signals.
+    evidence: https://zenodo.org/records/16807551
+    found: 2026-11-06
+  - summary: The fiscal grid meter file ends at the start of 2023.
+    detail: >-
+      Kelmarsh_Grid_Meter_4458.zip covers 2016-01-01 to 2023-01-01. The 2023 and 2024 additions
+      are turbine SCADA and substation (PMU) data only, so metered farm export cannot be checked
+      against turbine output for those years.
+    evidence: https://zenodo.org/records/16807551
+    found: 2026-11-06
+tools:
+  - name: OpenOA (examples/project_Cubico.py)
+    url: https://github.com/NatLabRockies/OpenOA
+    language: Python
+  - name: wind-up
+    url: https://github.com/resgroup/wind-up
+    language: Python
+  - name: OpenWindSCADA (notebooks/kelmarsh_open_data.ipynb)
+    url: https://github.com/sltzgs/OpenWindSCADA
+    language: Python
+notes: >-
+  Ten-minute SCADA (supervisory control and data acquisition) statistics for six Senvion MM92
+  turbines, 2.05 MW each, exported from the operator's Greenbyte system: active power, energy
+  export, wind speed, direction, status logs and lost-production estimates split by downtime and
+  curtailment, plus site substation and fiscal grid meter data. A static CSV gives each turbine's
+  latitude, longitude, rated power, hub height and rotor diameter. Turbine power is the operator's
+  SCADA reading, not settlement metering; the grid meter file is the metered check. All
+  timestamps are UTC per the file headers. Checked by downloading the 2016 SCADA archive and
+  comparing two turbines: their power values differ, as they should. Signals are not all present
+  for the whole period.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

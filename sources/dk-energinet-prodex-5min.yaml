@@ -1,0 +1,55 @@
+id: dk-energinet-prodex-5min
+name: Electricity Production and Exchange 5 min Realtime (ElectricityProdex5MinRealtime)
+publisher: Energinet (Energi Data Service)
+publisher_role: tso
+countries: [DK]
+area: "Price areas DK1 (west) and DK2 (east)"
+level: zone
+technology: onshore-and-offshore-split
+measure: estimated-generation
+resolution: 5min
+coverage:
+  start: 2015
+  update: every 5 minutes
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: api
+  url: https://www.energidataservice.dk/tso-electricity/ElectricityProdex5MinRealtime
+  docs: https://www.energidataservice.dk/guides/api-guides
+  key_required: false
+  registration: false
+  formats: [json, csv, xlsx]
+  languages: [en, da]
+licence:
+  name: Creative Commons CC-BY 4.0
+  spdx: CC-BY-4.0
+  url: https://www.energidataservice.dk/terms-and-conditions
+  redistribution: allowed-with-attribution
+  attribution: "Source: Energinet (www.energidataservice.dk)"
+  verified: true
+traps:
+  - summary: These are upscaled real-time measurements, and errors are generally not corrected.
+    detail: >-
+      The publisher says the values come from upscaled SCADA (control-system) measurements and
+      points to the settlement dataset for statistical use. Treat this as an operational
+      estimate, not metered energy.
+    evidence: https://api.energidataservice.dk/meta/dataset/ElectricityProdex5MinRealtime
+  - summary: The October 2026 clock change left a permanent gap.
+    detail: >-
+      Values between 2026-10-25 00:00 and 01:00 UTC are missing and the publisher says they will
+      not be added.
+    evidence: https://api.energidataservice.dk/meta/dataset/ElectricityProdex5MinRealtime
+  - summary: The start and end query parameters are read as Danish local time, not UTC.
+    detail: Use the Minutes5UTC column for joins.
+    evidence: https://www.energidataservice.dk/guides/api-guides
+notes: >-
+  Five-minute power (MW) per Danish price area, with onshore and offshore wind as separate
+  columns. Offshore includes large parks and local turbines located offshore. Checked
+  2026-11-06: the earliest record is 2015-01-01 local time, and DK1 and DK2 return different
+  values. Listed separately from the settlement dataset because it is a different measure and
+  resolution. Capacity is in the CapacityPerMunicipality dataset.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

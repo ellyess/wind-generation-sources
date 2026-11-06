@@ -1,0 +1,67 @@
+id: it-terna-download-centre
+name: Terna Dati download centre, Actual Generation by primary source
+publisher: Terna
+publisher_role: tso
+countries: [IT]
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2021
+  update: day D-1 for most generation data; rolling five-year window plus the current year
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: unknown
+access:
+  method: portal
+  url: https://dati.terna.it/en/download-center
+  docs: https://dati.terna.it/en/generation
+  key_required: false
+  registration: false
+  formats: [Excel]
+  languages: [it, en]
+licence:
+  name: No data licence found
+  url: https://developer.terna.it/API_Terms_of_Use
+  redistribution: unclear
+  verified: false
+  note: >-
+    The "Legal notes" link on dati.terna.it points to the developer portal's API terms, which
+    govern use of the API portal and personal keys and say nothing about reuse or
+    redistribution of the data. No reuse terms for the download centre were found on 2026-11-06.
+traps:
+  - summary: Only the last five years plus the current year can be downloaded, so the start year moves forward.
+    detail: >-
+      Terna states that the section holds data "over the last five years period, besides the
+      ones from the running year". On 2026-11-06 the year selector offered 2021 to 2026. Save
+      what you download; older years drop off.
+    evidence: https://dati.terna.it/en/generation
+    found: 2026-11-06
+  - summary: Values are provisional, built from measurements and estimates, and change until the annual statistics are out.
+    detail: >-
+      Terna describes the quarter-hourly figures as based on its measurements and estimates and
+      "subject to continuous change"; they are only definitive after the annual "Statistical
+      data on electricity in Italy" report. Record the download date with any result.
+    evidence: https://dati.terna.it/en/generation
+    found: 2026-11-06
+  - summary: Units are not labelled in the table and the number format is ambiguous.
+    detail: >-
+      The site says numbers use English format (comma for thousands), yet the Actual Generation
+      table for 2026-11-05 23:45 showed Wind 1,680, Thermal 24,440 and Geothermal 0,600. A value
+      of 0,600 only makes sense as a decimal comma, so these read as GW. Check the units in the
+      downloaded file before using it.
+    evidence: https://dati.terna.it/en/download-center#/generation/actual-generation
+    found: 2026-11-06
+notes: >-
+  Net quarter-hourly national production by primary source (wind, solar, hydro, geothermal,
+  thermal and self-consumption as separate rows), one row per source per quarter hour. Wind is
+  a single national series with no zone or onshore/offshore split. Installed capacity is in the
+  Installed Renewables section of the same download centre. The same data are offered through
+  Terna's API (Actual Generation and Renewable Generation endpoints) at
+  https://developer.terna.it/docs, which needs a registered application key; the API was not
+  tested. Terna says the data are also published on the ENTSO-E Transparency Platform. The
+  2021 start is the oldest year the selector offered on the check day, not a fixed start.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

@@ -1,0 +1,58 @@
+id: fi-fingrid-open-data
+name: Wind power generation (Fingrid Open Data datasets 75 and 181)
+publisher: Fingrid
+publisher_role: tso
+countries: [FI]
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2014
+  update: near real time
+capacity: separate-dataset
+coordinates: none
+curtailment: unknown
+access:
+  method: api
+  url: https://data.fingrid.fi/en/datasets/75
+  docs: https://data.fingrid.fi/en/instructions
+  key_required: true
+  registration: true
+  languages: [en, fi]
+licence:
+  name: Creative Commons Attribution 4.0 International (CC BY 4.0)
+  spdx: CC-BY-4.0
+  url: https://data.fingrid.fi/en/about
+  redistribution: allowed-with-attribution
+  attribution: "Source Fingrid / data.fingrid.fi, license CC 4.0 BY"
+  verified: true
+  note: >-
+    The about page says the licence applies to datasets produced by Fingrid; datasets from other
+    organisations may carry other terms, stated in each dataset's description. Fingrid's Legal
+    Terms also apply to the online service.
+traps:
+  - summary: Dataset 75 is hourly before 13 June 2023 and 15-minute after.
+    detail: Resample or flag the change before computing statistics across that date.
+    evidence: https://data.fingrid.fi/en/datasets/75
+  - summary: About two percent of capacity is estimated by Fingrid, not measured.
+    detail: >-
+      The series sums parks connected with Fingrid measurements and adds Fingrid's estimate for
+      parks without them, about two percent of capacity.
+    evidence: https://data.fingrid.fi/en/datasets/75
+  - summary: The capacity series that goes with it is not the official installed capacity.
+    detail: >-
+      Dataset 268 is the capacity used in Fingrid's wind forecast, updated by hand about weekly.
+      Fingrid says it cannot be considered the official amount of wind capacity in Finland.
+    evidence: https://data.fingrid.fi/en/datasets/268
+notes: >-
+  National Finnish wind generation in MW. Dataset 75 is the 15-minute series (valid from
+  2014-11-28, hourly before June 2023); dataset 181 is a 3-minute real-time series from Fingrid's
+  operation control system, valid from 2014-01-01. The schema has no 3-minute value, so the
+  resolution is given as 15min. The API needs a free key (x-api-key header), limited to 10,000
+  requests a day and one every two seconds. No key was available on 2026-11-06, so the data
+  themselves were not downloaded: the start years are as stated by the publisher, and formats
+  are left out. Capacity is in dataset 268 (from 2015-03-10).
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

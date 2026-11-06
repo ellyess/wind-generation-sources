@@ -1,0 +1,50 @@
+id: cl-cen-generacion-real
+name: Real generation per plant (Generación real, Coordinador SIP public information API)
+publisher: Coordinador Eléctrico Nacional (CEN)
+publisher_role: tso
+countries: [CL]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2010
+capacity: included
+coordinates: none
+curtailment: not-reported
+access:
+  method: api
+  url: https://portal.api.coordinador.cl/
+  key_required: true
+  registration: true
+  formats: [json]
+  languages: [es]
+licence:
+  name: Coordinador terms and conditions, section 4
+  url: "https://www.coordinador.cl/terminos-y-condiciones/"
+  redistribution: non-commercial-only
+  attribution: Cite the information, always stating the source clearly.
+  verified: true
+  note: Personal or academic use is allowed. Commercial distribution or reproduction needs prior authorisation, and the content may not be altered. No terms specific to the SIP API were found.
+traps:
+  - summary: Subscribe to the public information (SIP) product; the operations product gives aggregate energy only.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
+  - summary: The host (sipub.api.coordinador.cl) is not in the API specification, and results come back under "data", not the "content" the schema advertises.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
+  - summary: Paging with page and limit returns HTTP 502; send pageSize alone, larger than a day's rows.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
+  - summary: The technology filter must be "Eólica" with the accent; without it the API returns an empty list, not an error.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
+  - summary: Times are fixed UTC-4 with no daylight saving.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
+  - summary: The data are delivered energy after curtailment, and no curtailment series is reachable with a public key.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
+notes: >-
+  Hourly delivered energy per plant, with registered capacity on every row, so the denominator
+  tracks the build-out. Wind runs from at least 2010 (5 plants) to 2025 (65 plants). There are
+  no coordinates anywhere in the API. Endpoints: /generacion-real/v3/findByDate,
+  /centrales/v4/findByDate and /capacidad-instalada/v4/findByDate, with user_key as a query
+  parameter.
+status: active
+last_checked: 2026-09-19
+checked_by: Ellyess Benmoufok, from the PyVWF runbook (API verified July 2026); licence read on the publisher's page 2026-11-06

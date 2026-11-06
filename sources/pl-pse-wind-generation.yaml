@@ -1,0 +1,68 @@
+id: pl-pse-wind-generation
+name: PSE reports API, Polish Power System operation fundamental data (his-wlk-cal)
+publisher: Polskie Sieci Elektroenergetyczne (PSE)
+publisher_role: tso
+countries: [PL]
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2024
+  update: daily, the previous day published at about 03:00 local time, with later revisions
+capacity: none
+coordinates: not-applicable
+curtailment: reported
+access:
+  method: api
+  url: https://api.raporty.pse.pl/
+  docs: https://api.raporty.pse.pl/api/openapi
+  key_required: false
+  registration: false
+  formats: [json]
+  languages: [pl, en]
+licence:
+  name: No data licence found
+  redistribution: unclear
+  verified: false
+  note: No terms of use or reuse licence were found on raporty.pse.pl or api.raporty.pse.pl on 2026-11-06.
+traps:
+  - summary: The timestamp marks the end of each quarter hour, so the last quarter hour of a day carries the next day's date.
+    detail: >-
+      The record for 23:45-24:00 on 13 June 2024 has dtime "2024-06-14 00:00:00" but
+      business_date 2024-06-13. Group by business_date and period, not by the date part of dtime.
+      UTC fields (dtime_utc, period_utc) are given alongside local time.
+    evidence: https://api.raporty.pse.pl/api/his-wlk-cal?$orderby=dtime%20asc&$first=1
+    found: 2026-11-06
+  - summary: The API history starts on 13 June 2024; earlier PSE wind data are not in it.
+    detail: >-
+      The earliest record returned is the last quarter hour of 13 June 2024, when PSE moved to
+      15-minute reporting. Older hourly wind data from PSE's previous reporting pages were not
+      found; use the ENTSO-E Transparency Platform for earlier years.
+    evidence: https://api.raporty.pse.pl/api/his-wlk-cal?$orderby=dtime%20asc&$first=1
+    found: 2026-11-06
+  - summary: Past days are republished, so the same quarter hour can change after first release.
+    detail: >-
+      Rows for 1 June 2025 carried publication_ts 2026-01-18, seven months after the day. Keep
+      publication_ts with each value and re-download before final use.
+    evidence: https://api.raporty.pse.pl/api/his-wlk-cal?$filter=business_date%20eq%20'2025-06-01'&$first=3
+    found: 2026-11-06
+  - summary: Query filters can silently break when a client sends "$" as "%24".
+    detail: >-
+      PSE's site banner warns that automatic decoding of "%24" to "$" stopped working, so
+      $filter and $first may be ignored depending on how a client encodes the query.
+    evidence: https://raporty.pse.pl/
+    found: 2026-11-06
+notes: >-
+  The wi field is "Total generation of Wind Sources" in MW per quarter hour, for units both
+  inside and outside the balancing market (PSE's comment on the report page
+  https://raporty.pse.pl/report/his-wlk-cal). Checked by requesting 4 and 5 November 2026 and
+  1 June 2025 and seeing different values. Wind is a single national series; it is not split
+  onshore and offshore. Curtailment: the separate poze-redoze endpoint gives PSE's ordered
+  reductions of wind and solar output (negative MW, split into balance and network reasons),
+  populated from September 2024 and published ahead of the day, so it records instructions
+  rather than measured lost output. The API is OData-style ($filter, $select, $first, cursor
+  paging through nextLink). No installed wind capacity series was found in the same API.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

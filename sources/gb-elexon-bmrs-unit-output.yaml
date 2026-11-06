@@ -1,0 +1,88 @@
+id: gb-elexon-bmrs-unit-output
+name: Actual Generation Output Per Generation Unit (B1610), Elexon Insights Solution
+publisher: Elexon
+publisher_role: market-operator
+countries: [GB]
+area: Great Britain (England, Scotland and Wales); Northern Ireland is not part of this market
+level: farm
+technology: onshore-and-offshore-combined
+measure: metered-energy
+resolution: 30min
+coverage:
+  start: 2019
+  update: daily, about five days after the day, then revised by later settlement runs
+capacity: separate-dataset
+coordinates: none
+curtailment: reported
+access:
+  method: api
+  url: https://bmrs.elexon.co.uk/
+  docs: https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/B1610
+  key_required: false
+  registration: false
+  formats: [json, csv, xml]
+  languages: [en]
+licence:
+  name: Elexon licence to use BMRS open data
+  url: https://www.elexon.co.uk/bsc/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/
+  redistribution: allowed-with-attribution
+  attribution: "Contains BMRS data © Elexon Limited copyright and database right [year]"
+  verified: true
+  note: >-
+    Worldwide, royalty-free, perpetual licence to copy, publish, distribute, adapt and exploit
+    the data, commercially included, with the attribution statement and a link to the licence
+    where possible. The page says the licence applies to users who are not parties to the
+    Balancing and Settlement Code; parties are covered by the Code instead.
+traps:
+  - summary: The first value published for a half-hour is not final; later settlement runs replace it.
+    detail: >-
+      Elexon publishes the metered volume about five days after the day from the Interim
+      Information run (settlementRunType "II") and refreshes it with each later settlement run.
+      On 2026-11-06 recent days carried "II", November 2025 carried "R3" and January 2024 carried
+      "DF". Record the run type with any result.
+    evidence: https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/B1610
+    found: 2026-11-06
+  - summary: The values are energy in MWh per half-hour, not average power in MW.
+    detail: >-
+      Elexon's own description says the endpoint returns the metered volume and not the
+      instantaneous power output. Double a half-hour value to get average MW.
+    evidence: https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/B1610
+  - summary: The current API holds unit output only from February 2019; the retired BMRS API went further back.
+    detail: >-
+      On 2026-11-06 every date checked before 2019-02-01 returned an empty list, for all units,
+      while users of the old BMRS service report B1610 data for 2015 and 2018. Anyone who needs
+      earlier per-unit output must find an archived copy.
+    evidence: https://github.com/OSUKED/ElexonDataPortal/issues/21
+    found: 2026-11-06
+  - summary: Settlement days on clock-change dates have 46 or 50 half-hours, not 48.
+    detail: >-
+      Settlement dates and periods follow UK local time. The halfHourEndTime field is in UTC,
+      so join on it rather than rebuilding times from the period number.
+    evidence: https://github.com/OSUKED/ElexonDataPortal/issues/29
+  - summary: The dataset covers every balancing unit, including supplier and demand units, with no fuel label.
+    detail: >-
+      Rows such as "2__AALAB000" are supplier units. Select wind units by joining on the
+      reference list at /reference/bmunits/all, whose fuelType field is "WIND" (287 units on
+      2026-11-06). That list gives no onshore or offshore split, and large wind farms appear as
+      several units (for example HOWAO-1, -2 and -3 for Hornsea 1).
+    evidence: https://data.elexon.co.uk/bmrs/api/v1/reference/bmunits/all
+    found: 2026-11-06
+tools:
+  - name: Elexonpy (Open Climate Fix, wraps the Insights API)
+    url: https://github.com/openclimatefix-archives/Elexonpy
+    language: Python
+notes: >-
+  Settlement-metered half-hourly output for each balancing unit in Great Britain, the finest
+  open per-farm wind output for the country. Checked 2026-11-06: units T_WHILW-1 (Whitelee) and
+  T_HOWAO-1 (Hornsea 1) return different values for the same half-hours of 2024-01-15, and the
+  earliest data on the current API is 2019-02-01. Capacity comes from the generationCapacity field
+  of the reference list, which reflects current registration, not the history. Curtailment is not
+  in this dataset, but the same API publishes per-unit bid-offer acceptances (BOALF) and physical
+  notifications (PN), from which constrained-off volume can be reconstructed. The older
+  ElexonDataPortal client (OSUKED) targets the BMRS API that Elexon has shut down and no longer
+  works. Wind farms without their own balancing unit, mostly small farms on the distribution
+  network, do not appear, so summing the wind units understates total British wind output; see
+  gb-neso-embedded-wind for the system operator's estimate of that part.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

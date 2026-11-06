@@ -1,0 +1,49 @@
+id: eu-eurostat-nrg-bal-peh
+name: Gross and net production of electricity and derived heat by type of plant and operator (nrg_bal_peh)
+publisher: Eurostat
+publisher_role: statistics-office
+countries: [AL, AT, BA, BE, BG, CY, CZ, DE, DK, EE, ES, FI, FR, GB, GE, GR, HR, HU, IE, IS, IT, LT, LU, LV, MD, ME, MK, MT, NL, NO, PL, PT, RO, RS, SE, SI, SK, TR, UA]
+area: EU member states, the EU27 total, and other reporting countries including Kosovo
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 1990
+  update: annual (latest year available on 2026-11-06 was 2024)
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: api
+  url: https://ec.europa.eu/eurostat/databrowser/view/nrg_bal_peh/default/table
+  key_required: false
+  registration: false
+  formats: [json]
+  docs: https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-introduction
+licence:
+  name: Eurostat copyright notice
+  url: "https://ec.europa.eu/eurostat/help/copyright-notice"
+  redistribution: allowed-with-attribution
+  attribution: "Source: Eurostat, dataset DOI, access date"
+  verified: true
+  note: Data for countries outside the EU, EFTA and candidate countries, and data Eurostat did not produce, are for non-commercial use only.
+traps:
+  - summary: Eurostat codes Greece as EL and the United Kingdom as UK, not the ISO codes GR and GB.
+    detail: Map them before joining to any ISO-coded table, or both countries silently drop out.
+    evidence: https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Country_codes
+    found: 2026-11-06
+  - summary: Gross production runs above what transmission operators publish, so a ratio of 0.85-0.95 is normal, not an error.
+    detail: >-
+      Elia's complete Belgian series was 0.82-0.93 of Eurostat gross production; a series
+      missing a segment showed 0.34-0.44. PyVWF fails a country-year outside 0.70-1.30 and notes
+      it outside 0.85-1.15. A 10% band would fail correct data.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+notes: >-
+  The audit reference. Compare each year's energy from a higher-resolution source against
+  Eurostat's gross wind production to catch series that measure only part of a fleet. Wind is
+  product code RA300 with energy balance GEP (gross electricity production). Coverage 1990-2024
+  and the country list were read from the API on 2026-11-06.
+status: active
+last_checked: 2026-11-06
+checked_by: Ellyess Benmoufok and Claude Code; coverage read from the Eurostat API; licence read on the publisher's page 2026-11-06

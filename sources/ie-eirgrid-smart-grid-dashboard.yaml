@@ -1,0 +1,79 @@
+id: ie-eirgrid-smart-grid-dashboard
+name: Smart Grid Dashboard, actual wind generation
+publisher: EirGrid Group (EirGrid and SONI)
+publisher_role: tso
+countries: [IE, GB]
+area: "Island of Ireland: Ireland and Northern Ireland, reported separately and combined"
+level: zone
+technology: onshore-and-offshore-combined
+measure: estimated-generation
+resolution: 15min
+coverage:
+  start: 2014
+  update: near real time (every 15 minutes)
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: reported
+access:
+  method: api
+  url: https://www.smartgriddashboard.com/all/wind/
+  docs: https://www.eirgrid.ie/grid/system-and-renewable-data-reports
+  key_required: false
+  registration: false
+  formats: [json, xlsx]
+  languages: [en]
+licence:
+  name: EirGrid Group Open Data Licence
+  url: https://www.smartgriddashboard.com/all/open-data-license/
+  redistribution: allowed-with-attribution
+  attribution: "Supported by EirGrid Group Data"
+  verified: true
+  note: >-
+    Worldwide, royalty-free, perpetual licence to copy, publish, distribute, adapt and use the
+    data commercially, covering the EirGrid and SONI libraries and the Smart Grid Dashboards.
+    The general eirgrid.ie website disclaimer is stricter (no republishing without written
+    consent), so cite the open data licence page when reusing dashboard data.
+traps:
+  - summary: The publisher calls the series an estimate of all wind farms, not a metered total.
+    detail: >-
+      The dashboard says actual wind generation represents an estimate of the total production
+      of all wind farms on the system. How unmonitored farms are filled in is not explained.
+    evidence: https://www.smartgriddashboard.com/all/wind/
+  - summary: Times are local Irish wall-clock time, and the clock-change hours are mishandled.
+    detail: >-
+      A request for 26 October 2025 returned 96 quarter-hours with no repeated hour, so one of
+      the two 01:00 to 02:00 hours is missing. A request for 30 March 2025 returned four empty
+      values for the hour that does not exist. Convert to UTC with care and expect a gap each
+      autumn.
+    evidence: https://www.smartgriddashboard.com/DashboardService.svc/data?area=windactual&region=ALL&datefrom=26-Oct-2025+00:00&dateto=26-Oct-2025+23:45
+    found: 2026-11-06
+  - summary: The data service is undocumented and often answers with "Service Unavailable".
+    detail: >-
+      The JSON endpoint behind the dashboard has no published documentation, and on 2026-11-06
+      roughly half of the requests returned HTTP 503 until retried after a pause. The licence
+      warns that EirGrid may throttle feeds without notice. Space out requests and retry.
+    evidence: https://www.smartgriddashboard.com/all/open-data-license/
+    found: 2026-11-06
+  - summary: Requests for dates before 2014 succeed but return empty values.
+    detail: >-
+      Dates in 2010 to 2013 came back with status "Success" and every value null, so a
+      successful response does not mean data exist.
+    evidence: https://www.smartgriddashboard.com/DashboardService.svc/data?area=windactual&region=ALL&datefrom=15-Jun-2013+00:00&dateto=15-Jun-2013+00:15
+    found: 2026-11-06
+tools:
+  - name: EirGrid_Data_Download (Daniel Parke)
+    url: https://github.com/Daniel-Parke/EirGrid_Data_Download
+    language: Python
+notes: >-
+  Quarter-hourly wind generation for Ireland (region ROI), Northern Ireland (NI) and the whole
+  island (ALL) from the dashboard's JSON service
+  (DashboardService.svc/data?area=windactual&region=...). Checked 2026-11-06: for 2024-01-15
+  00:00, ROI gave 1,159 MW and NI 198 MW, summing to the 1,357 MW given for ALL; the first
+  non-empty values are in January 2014. The same EirGrid page publishes quarter-hourly system
+  data as yearly spreadsheets, a wind installed-capacity history, and dispatch-down
+  (curtailment and constraint) summaries with half-hourly detail. Those files were not opened
+  here. EirGrid's dispatch-down user guide says its figures are built from each wind farm's own
+  one-minute SCADA signal averaged to 30 minutes, which will differ from metered output.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

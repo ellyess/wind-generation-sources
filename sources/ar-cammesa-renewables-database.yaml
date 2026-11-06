@@ -1,0 +1,45 @@
+id: ar-cammesa-renewables-database
+name: Renewable energy database (Energías Renovables, Base de Datos)
+publisher: CAMMESA (Compañía Administradora del Mercado Mayorista Eléctrico)
+publisher_role: market-operator
+countries: [AR]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2011
+capacity: none
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://cammesaweb.cammesa.com/erenovables/
+  key_required: false
+  registration: false
+  formats: [xlsx, zip]
+  languages: [es]
+licence:
+  name: CAMMESA access policy (all rights reserved)
+  url: "https://cammesaweb.cammesa.com/politicas-de-acceso/"
+  redistribution: prohibited
+  verified: true
+  note: Reproduction and distribution are prohibited without express authorisation; only viewing is granted. Link to CAMMESA rather than re-host.
+traps:
+  - summary: The summary sheet's header is on row 4, and the region and province columns are merged cells, blank on continuation rows.
+    detail: Forward-fill them, or plants inherit the wrong province.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/dataset-survey.md
+  - summary: There is no capacity, so a capacity factor needs an external denominator, and farm-level registers over-count phases.
+    detail: >-
+      Plants with several phases (Loma Blanca 1, 2 and 3, for example) matched the whole farm's
+      nameplate in the Global Wind Power Tracker and read capacity factors of 0.03-0.07.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/ar.md
+  - summary: Some codes are duplicates with zero output, reported under another code.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/ar.md
+notes: >-
+  One ZIP of about 2 MB, no credentials. Sheet "Tabla Resumen x Central" holds monthly GWh per
+  plant from January 2011: 75 wind plants by mid-2026. Wind rows have FUENTE DE ENERGÍA equal to
+  EOLICO. No coordinates, capacity or hub heights.
+status: active
+last_checked: 2026-09-19
+checked_by: Ellyess Benmoufok, from the PyVWF runbook and dataset survey (file verified July 2026); licence read on the publisher's page 2026-11-06

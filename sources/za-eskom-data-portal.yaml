@@ -1,0 +1,74 @@
+id: za-eskom-data-portal
+name: Eskom Data Portal, hourly renewable generation
+publisher: Eskom Holdings SOC Ltd
+publisher_role: utility
+countries: [ZA]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2022
+  update: daily; the public file holds the current and previous month only
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.eskom.co.za/dataportal/renewables-performance/hourly-renewable-generation/
+  docs: https://www.eskom.co.za/dataportal/glossary/
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [en]
+licence:
+  name: Eskom Data Portal disclaimer and Eskom website terms of use
+  url: https://www.eskom.co.za/dataportal/disclaimer/
+  redistribution: prohibited
+  verified: true
+  note: >-
+    The disclaimer says the data "remains the sole property of Eskom and may not be exploited
+    by the User for any purposes, including but not limited to, commercial purposes", and
+    that any reproduction or use is deemed acceptance of the site's terms of use. Conclusions
+    drawn from the data must not be presented as Eskom's position.
+traps:
+  - summary: The public file is a rolling two-month window; older data need a request form.
+    detail: >-
+      The CSV behind each page holds only the current and previous month. Longer history is
+      sent by email through the data request form, up to five years per request, after giving
+      name, email and institution. Earlier monthly snapshots stay in the site's upload folders
+      (the oldest found, uploaded April 2022, starts on 1 March 2022), but nothing indexes them.
+    evidence: https://www.eskom.co.za/dataportal/data-request-form/
+    found: 2026-11-06
+  - summary: The download link on the page can point at a stale upload path and return 404.
+    detail: >-
+      On 2026-11-06 the "Download data file" link pointed at
+      wp-content/uploads/2026/07/Hourly_Generation.csv, which returned 404; the current file
+      was at wp-content/uploads/2026/11/Hourly_Generation.csv. The folder changes with the
+      month of upload, so build the path from the current year and month.
+    evidence: https://www.eskom.co.za/dataportal/wp-content/uploads/2026/11/Hourly_Generation.csv
+    found: 2026-11-06
+  - summary: Hours not yet reached are filled with zeros, not left blank.
+    detail: >-
+      The November 2026 file ran to 2026-11-30 23:00, with every hour from 2026-11-05 00:00
+      onwards set to 0. Drop trailing zero rows before treating them as calm hours.
+    evidence: https://www.eskom.co.za/dataportal/wp-content/uploads/2026/11/Hourly_Generation.csv
+    found: 2026-11-06
+  - summary: Only wind that Eskom owns or contracts is included; embedded generation is not.
+    evidence: https://www.eskom.co.za/dataportal/renewables-performance/hourly-renewable-generation/
+    found: 2026-11-06
+tools:
+  - name: Electricity Maps parser ESKOM.py (Station_Build_Up.csv)
+    url: https://github.com/electricitymaps/electricitymaps-contrib/blob/master/electricitymap/contrib/parsers/ESKOM.py
+    language: Python
+notes: >-
+  National hourly wind, solar PV, concentrated solar and other renewable generation, with
+  columns "Date Time Hour Beginning, Wind, PV, CSP, Other RE". The glossary defines Wind as
+  total contracted wind generation; the CSV does not state a unit, and values around 2,300
+  against about 4,227 MW of installed wind (RE_Current_Installed_Capacity.csv) read as MW
+  averages. The same wind column appears in Station_Build_Up.csv (last seven days, all
+  sources). Coverage start is the oldest public snapshot found (March 2022); the request form
+  may reach further back, which was not tested.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

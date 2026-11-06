@@ -1,0 +1,58 @@
+id: ca-ab-aeso-metered-volumes
+name: Hourly Generation Metered Volumes and Pool Price and AIL data, 2001 to July 2025
+publisher: Alberta Electric System Operator (AESO)
+publisher_role: iso-rto
+countries: [CA]
+area: Alberta
+level: farm
+technology: onshore
+measure: metered-energy
+resolution: hourly
+coverage:
+  start: 2001
+  end: 2025
+  update: one-off data release; AESO's API lists a Metered Volume Report for later data
+capacity: none
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://aeso.ca/market/market-and-system-reporting/data-requests/hourly-generation-metered-volumes-and-pool-price-and-ail-data-2001-to-july-2025/
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [en]
+licence:
+  name: AESO website Terms and Conditions
+  url: "https://www.aeso.ca/legal/"
+  redistribution: non-commercial-only
+  verified: true
+  note: >-
+    Material "may be used and copied for non-commercial, personal or educational purposes",
+    unmodified and with copyright notices kept. Any other use needs AESO's written permission.
+traps:
+  - summary: Columns are bare asset codes with no fuel type, so wind farms must be identified from another list.
+    detail: >-
+      Each column is a code such as CR1 or AKE1. AESO's asset list gives names (for example "CR1
+      ARM2262 Castle River", "AKE1 McBride Lake Windfarm") but no fuel field, so wind assets have
+      to be picked by name or from another register.
+    evidence: http://ets.aeso.ca/ets_web/ip/Market/Reports/AssetListReportServlet?contentType=csv
+    found: 2026-11-06
+  - summary: Volumes for April to July 2025 were not final when released.
+    evidence: https://aeso.ca/market/market-and-system-reporting/data-requests/hourly-generation-metered-volumes-and-pool-price-and-ail-data-2001-to-july-2025/
+  - summary: Only generators above 5 MW are included, and an asset's column is blank before it existed.
+    detail: >-
+      The column set changes between the three files (2001-2009, 2010-2019, 2020-July 2025).
+      Blank means not yet registered; zero means registered and not generating.
+    evidence: https://aeso.ca/market/market-and-system-reporting/data-requests/hourly-generation-metered-volumes-and-pool-price-and-ail-data-2001-to-july-2025/
+    found: 2026-11-06
+notes: >-
+  Hourly metered volumes per generating asset in Alberta, 1 January 2001 to 31 July 2025, in three
+  CSVs, with GMT and local time columns, pool price and Alberta internal load. Checked per asset:
+  the Castle River wind farm (CR1) has values from the first hour of 2001, and in January 2020
+  CR1, McBride Lake (AKE1) and Blue Trail (BTR1) give different series. For data after July 2025,
+  AESO's API page lists a Metered Volume Report; its access terms were not checked. Turbine
+  locations are in Natural Resources Canada's Canadian Wind Turbine Database, a separate source.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

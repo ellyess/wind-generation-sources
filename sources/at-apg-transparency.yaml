@@ -1,0 +1,75 @@
+id: at-apg-transparency
+name: APG market transparency, Generation per production type
+publisher: Austrian Power Grid (APG)
+publisher_role: tso
+countries: [AT]
+area: APG control area, all of Austria except a corridor in Vorarlberg (since 2012)
+level: country
+technology: onshore
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2011
+  update: near real time, about one hour behind; wind replaced by metered values on the 28th of the following month
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: unknown
+access:
+  method: api
+  url: https://transparency.apg.at/
+  docs: https://markt.apg.at/en/transparency/generation/generation-per-production-type/
+  key_required: false
+  registration: false
+  formats: [json, zip]
+  languages: [de, en]
+licence:
+  name: No data licence found; APG website terms of use
+  url: https://www.apg.at/en/terms-of-use/
+  redistribution: unclear
+  verified: false
+  note: >-
+    The apg.at terms of use (read 2026-11-06) say content may not be copied, reproduced or
+    exploited for commercial purposes without APG's written permission, allowing only personal,
+    non-commercial and non-public use. They do not mention the transparency data or
+    transparency.apg.at, so whether they govern this dataset is unclear.
+traps:
+  - summary: Recent wind values are a projection from weather data, not measurements, until the month after.
+    detail: >-
+      APG says wind figures are partly projected from meteorological data and are usually
+      replaced with measured generation on the 28th day of the following month, after the first
+      clearing. A download taken before then holds modelled wind for the latest weeks.
+    evidence: https://markt.apg.at/en/transparency/generation/generation-per-production-type/
+    found: 2026-11-06
+  - summary: The API refuses any date before 2023; older years are only in a separate ZIP archive.
+    detail: >-
+      Requests from before 2023 return "fromlocal may not be before 2023. If you need these
+      values use the download archives". APG states that data up to 31 December 2022 are only in
+      the download section (an 18 MB ZIP on the Generation per production type page).
+    evidence: https://transparency.apg.at/api/v1/AGPT/Data/English/PT15M/2015-01-15T000000/2015-01-16T000000
+    found: 2026-11-06
+  - summary: The "Settlement" quality option returned only missing values.
+    detail: >-
+      The site and API offer two qualities, newest and settlement. Settlement returned every
+      quarter hour flagged missing for days tried in 2023, 2024, 2025 and 2026, so use the
+      newest values and track their revisions yourself.
+    evidence: https://transparency.apg.at/api/v1/AGPT/Data/English/PT15M/2024-01-15T000000/2024-01-16T000000?p_agptMode=settlement&resolution=PT15M
+    found: 2026-11-06
+  - summary: The area covered grew in 2011 and 2012, which steps the series.
+    detail: >-
+      The Tyrolean grid area is included from 2011, and from 2012 the APG control area covers
+      all of Austria except a corridor in Vorarlberg. Do not compare totals across that change
+      without adjusting.
+    evidence: https://markt.apg.at/en/transparency/generation/generation-per-production-type/
+    found: 2026-11-06
+notes: >-
+  Net feed-in by production type in the APG control area, in MW per quarter hour (hourly also
+  offered), published under EU Regulation 543/2013 article 16.1.b, so it matches the ENTSO-E
+  "actual generation per type" category; wind is the column with code B19 (Wind Onshore).
+  Checked by requesting days in 2023, 2024, 2025 and 2026 and seeing different values. API
+  requests must start and end at midnight and use PT15M or PT60M. Installed capacity per
+  production type has its own visualisation on the same site. The 2011 start is inferred from
+  APG's note that the Tyrolean area was included from 2011; the historical ZIP was not opened,
+  so the true first year was not checked.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

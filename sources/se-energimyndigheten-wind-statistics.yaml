@@ -1,0 +1,41 @@
+id: se-energimyndigheten-wind-statistics
+name: Wind power statistics (Vindkraftsstatistik, table EN0105)
+publisher: Swedish Energy Agency (Energimyndigheten)
+publisher_role: statistics-office
+countries: [SE]
+level: country
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2015
+  update: annual
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: api
+  url: https://pxexternal.energimyndigheten.se/
+  key_required: false
+  registration: false
+licence:
+  name: Energimyndigheten terms of use for statistics (updated 18 September 2024; no named licence)
+  url: "https://www.energimyndigheten.se/statistik/statistik/anvandarvillkor/"
+  redistribution: allowed-with-attribution
+  attribution: "Källa: Energimyndigheten (Source: Swedish Energy Agency)"
+  verified: true
+  note: If the data are processed, do not name the agency as the source; say the figures are processed from its data. API use needs no permission.
+traps:
+  - summary: Annual totals only; use them as the denominator and the audit, not as a time series.
+    detail: >-
+      PyVWF divides ENTSO-E's hourly Swedish generation by this table's 31 December fleet,
+      interpolated through the year. ENTSO-E's own Swedish capacity is empty for 2015-19 and
+      counts onshore only at the start of each year.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+notes: >-
+  Official annual wind production and year-end installed capacity, onshore and offshore. ENTSO-E's
+  Swedish generation came to 0.976-1.007 of this table's production each year in 2015-21. Coverage
+  start is the earliest year PyVWF used; the table itself may go further back (not checked).
+status: active
+last_checked: 2026-10-27
+checked_by: Ellyess Benmoufok, from the PyVWF ENTSO-E runbook and scorecard audits; licence read on the publisher's page 2026-11-06

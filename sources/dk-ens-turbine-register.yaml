@@ -1,0 +1,56 @@
+id: dk-ens-turbine-register
+name: Master data register of wind turbines (Stamdataregister for vindkraftanlæg)
+publisher: Danish Energy Agency (Energistyrelsen)
+publisher_role: government
+countries: [DK]
+level: turbine
+technology: onshore-and-offshore-split
+measure: metered-energy
+resolution: monthly
+coverage:
+  start: 2002
+  update: register refreshed monthly; production workbook published as a fixed history
+capacity: included
+coordinates: included
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://ens.dk/en/analyses-and-statistics/overview-energy-sector
+  key_required: false
+  registration: false
+  formats: [xlsx]
+  languages: [da, en]
+licence:
+  name: Danish Energy Agency data policy (no named open licence)
+  url: "https://ens.dk/om-os/datapolitik"
+  redistribution: allowed-with-attribution
+  attribution: Credit the Danish Energy Agency (Energistyrelsen) as the source.
+  verified: true
+  note: The policy forbids altering or distorting the content, so re-hosting the files unchanged is fine, but cleaned or derived copies are open to question.
+traps:
+  - summary: Coordinates are ETRS89 / UTM zone 32N metres, not longitude and latitude.
+    detail: Reproject before any spatial join. Rows missing coordinates or capacity need dropping.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/dk.md
+  - summary: The monthly production workbook is served under a stale file name.
+    detail: >-
+      The download is named maanedsdata_2002_2017.xlsx but holds every year from 2002 to 2020,
+      one sheet per year (Månedsprod_<year>), header on row 7. The register workbook has its
+      header on row 9 and separate sheets for existing and decommissioned turbines.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/dk.md
+  - summary: The register's download link changes with every monthly refresh.
+    detail: >-
+      Each refresh gets a new media id, so a pinned link returns an old snapshot. Record the
+      snapshot date with any result. Newer snapshots add turbines but do not change the
+      2002-2020 production history.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/dk.md
+tools:
+  - name: PyVWF (fetch/dk.py, process/dk.py)
+    url: https://github.com/ellyess/PyVWF
+    language: Python
+notes: >-
+  Every grid-connected Danish turbine above 6 kW, with location, capacity, rotor, hub height,
+  model and monthly output: about 6,300 turbines. The most complete open per-turbine wind dataset
+  found, and the basis of Staffell and Pfenninger's 2016 validation of reanalysis wind.
+status: active
+last_checked: 2026-09-25
+checked_by: Ellyess Benmoufok, from the PyVWF runbook as last updated; licence read on the publisher's page 2026-11-06

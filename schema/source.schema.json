@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ellyess/wind-generation-sources/schema/source.schema.json",
+  "title": "Observed wind generation source",
+  "description": "One publisher's dataset of observed (metered or reported) wind power output. Modelled or simulated output does not belong here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "publisher",
+    "countries",
+    "level",
+    "technology",
+    "measure",
+    "resolution",
+    "coverage",
+    "capacity",
+    "coordinates",
+    "access",
+    "licence",
+    "status",
+    "last_checked"
+  ],
+  "properties": {
+    "id": {
+      "description": "Stable identifier: lower-case country or area code, then a short slug. Matches the file name.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)+$"
+    },
+    "name": {
+      "description": "The dataset's own name, in English where one exists.",
+      "type": "string",
+      "minLength": 3
+    },
+    "publisher": {
+      "description": "Organisation that publishes the data.",
+      "type": "string",
+      "minLength": 2
+    },
+    "publisher_role": {
+      "description": "What kind of body the publisher is.",
+      "enum": [
+        "tso",
+        "iso-rto",
+        "market-operator",
+        "regulator",
+        "government",
+        "statistics-office",
+        "utility",
+        "owner-operator",
+        "research",
+        "aggregator"
+      ]
+    },
+    "countries": {
+      "description": "ISO 3166-1 alpha-2 codes covered. Use the area field for a sub-national or multi-country market area.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{2}$"
+      }
+    },
+    "area": {
+      "description": "Sub-national or market area, where narrower or wider than whole countries (for example 'NEM: QLD, NSW, VIC, SA, TAS').",
+      "type": "string"
+    },
+    "level": {
+      "description": "Finest unit the output is reported for.",
+      "enum": [
+        "turbine",
+        "farm",
+        "connection-point",
+        "complex",
+        "company",
+        "zone",
+        "country"
+      ]
+    },
+    "technology": {
+      "description": "Which fleets the series covers, and whether they are split.",
+      "enum": [
+        "onshore",
+        "offshore",
+        "onshore-and-offshore-split",
+        "onshore-and-offshore-combined"
+      ]
+    },
+    "measure": {
+      "description": "What the number actually is. Metered at the connection point, reported by the operator, estimated by the system operator, or a capacity factor.",
+      "enum": [
+        "metered-energy",
+        "reported-generation",
+        "estimated-generation",
+        "capacity-factor",
+        "certificates"
+      ]
+    },
+    "resolution": {
+      "description": "Finest time step published.",
+      "enum": [
+        "1min",
+        "5min",
+        "10min",
+        "15min",
+        "30min",
+        "hourly",
+        "daily",
+        "monthly",
+        "annual"
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start"
+      ],
+      "properties": {
+        "start": {
+          "description": "First year with data.",
+          "type": "integer",
+          "minimum": 1970,
+          "maximum": 2100
+        },
+        "end": {
+          "description": "Last year with data. Omit if the series is still updated.",
+          "type": "integer",
+          "minimum": 1970,
+          "maximum": 2100
+        },
+        "update": {
+          "description": "How often new data appear (for example 'near real time', 'monthly', 'annual').",
+          "type": "string"
+        }
+      }
+    },
+    "capacity": {
+      "description": "Whether an installed-capacity denominator comes with the series, so a capacity factor can be formed.",
+      "enum": [
+        "included",
+        "separate-dataset",
+        "none"
+      ]
+    },
+    "coordinates": {
+      "description": "Whether the publisher gives locations for the reported units.",
+      "enum": [
+        "included",
+        "separate-dataset",
+        "none",
+        "not-applicable"
+      ]
+    },
+    "curtailment": {
+      "description": "Whether curtailed or constrained-off output is reported, so available output can be reconstructed.",
+      "enum": [
+        "reported",
+        "separate-dataset",
+        "not-reported",
+        "unknown"
+      ]
+    },
+    "access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "url",
+        "key_required"
+      ],
+      "properties": {
+        "method": {
+          "enum": [
+            "api",
+            "bulk-download",
+            "portal",
+            "request"
+          ]
+        },
+        "url": {
+          "description": "Landing page or API root.",
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        },
+        "docs": {
+          "description": "API or dataset documentation.",
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        },
+        "key_required": {
+          "description": "A key or token is needed (usually free).",
+          "type": "boolean"
+        },
+        "registration": {
+          "description": "An account is needed even to download.",
+          "type": "boolean"
+        },
+        "formats": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "languages": {
+          "description": "Languages the documentation is offered in (ISO 639-1).",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z]{2}$"
+          }
+        }
+      }
+    },
+    "licence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "redistribution",
+        "verified"
+      ],
+      "properties": {
+        "name": {
+          "description": "Licence as the publisher names it.",
+          "type": "string"
+        },
+        "spdx": {
+          "description": "SPDX identifier where one fits exactly.",
+          "type": "string"
+        },
+        "url": {
+          "description": "Page the licence was read from.",
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        },
+        "redistribution": {
+          "description": "Whether the raw series may be re-hosted. 'unclear' means no reuse terms could be found or read.",
+          "enum": [
+            "allowed",
+            "allowed-with-attribution",
+            "non-commercial-only",
+            "link-only",
+            "prohibited",
+            "unclear"
+          ]
+        },
+        "attribution": {
+          "description": "Attribution text the publisher asks for.",
+          "type": "string"
+        },
+        "verified": {
+          "description": "true only if the terms were read on the publisher's own page on last_checked.",
+          "type": "boolean"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "traps": {
+      "description": "Known problems a user would otherwise find the hard way. Each needs evidence.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "summary",
+          "evidence"
+        ],
+        "properties": {
+          "summary": {
+            "type": "string",
+            "minLength": 10
+          },
+          "detail": {
+            "type": "string"
+          },
+          "evidence": {
+            "description": "Link to a document, issue, commit or audit that shows the problem.",
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://"
+          },
+          "found": {
+            "description": "Date the trap was found or confirmed.",
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    },
+    "tools": {
+      "description": "Open-source clients that read this source.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "url"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://"
+          },
+          "language": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "discontinued",
+        "restricted"
+      ]
+    },
+    "last_checked": {
+      "description": "Date the entry was last checked against the source.",
+      "type": "string",
+      "format": "date"
+    },
+    "checked_by": {
+      "description": "Who checked it.",
+      "type": "string"
+    }
+  }
+}

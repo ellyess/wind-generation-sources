@@ -1,0 +1,83 @@
+id: au-open-electricity-api
+name: Open Electricity API (formerly OpenNEM)
+publisher: Open Electricity (The Superpower Institute)
+publisher_role: aggregator
+countries: [AU]
+area: "NEM: QLD, NSW, VIC, SA, TAS; WEM: Western Australia"
+level: farm
+technology: onshore
+measure: metered-energy
+resolution: 5min
+coverage:
+  start: 1998
+  update: near real time
+capacity: separate-dataset
+coordinates: separate-dataset
+curtailment: reported
+access:
+  method: api
+  url: https://platform.openelectricity.org.au/
+  docs: https://docs.openelectricity.org.au/api-reference/overview
+  key_required: true
+  registration: true
+  formats: [json]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0); commercial use only under a paid Enterprise licence
+  spdx: CC-BY-NC-4.0
+  url: https://platform.openelectricity.org.au/license
+  redistribution: non-commercial-only
+  attribution: Data sourced from Open Electricity (The Superpower Institute), licensed under CC BY-NC 4.0.
+  verified: true
+  note: >-
+    The licence page (last updated 11 October 2026) lists "reselling, sub-licensing or
+    redistributing the data, in bulk or through your own API" among uses the standard licence
+    does not cover, along with internal use by a for-profit organisation and training or
+    evaluating AI or machine-learning models. The underlying AEMO data stay under AEMO's own,
+    more permissive terms (see au-aemo-wem-facility-scada), so fetch from AEMO directly for
+    anything commercial or for re-hosting.
+traps:
+  - summary: The free Community plan only reaches back two years.
+    detail: >-
+      Requests with a date_start older than the plan's window return a 400 error. Full history
+      (from 1999) needs an Academic or Enterprise plan. Each request is also capped by interval:
+      8 days of 5-minute data, 32 days of hourly, 366 days of daily.
+    evidence: https://docs.openelectricity.org.au/api-reference/data-limits
+    found: 2026-11-06
+  - summary: Curtailment is only available for the NEM, not for Western Australia.
+    evidence: https://docs.openelectricity.org.au/guides/curtailment
+    found: 2026-11-06
+  - summary: Western Australian data are 30-minute before October 2023 and 5-minute after.
+    detail: >-
+      The networks guide gives WEM data from 19 September 2006, at 5-minute intervals only
+      since October 2023, following AEMO's own change at the market reform.
+    evidence: https://docs.openelectricity.org.au/guides/networks
+    found: 2026-11-06
+  - summary: Western Australian facility energy before 2014 was almost entirely empty until release 4.5.9.
+    detail: >-
+      The API returned null energy and power for WEM facilities on nearly every day before 2014.
+      The fix derived power from AEMO's published energy and backfilled the history. Any copy
+      pulled before the fix carries the gap.
+    evidence: https://github.com/opennem/opennem/issues/598
+tools:
+  - name: openelectricity-python (official client)
+    url: https://github.com/opennem/openelectricity-python
+    language: Python
+  - name: openelectricity-typescript (official client)
+    url: https://github.com/opennem/openelectricity-typescript
+    language: TypeScript
+  - name: opennem (the platform's backend and AEMO crawlers)
+    url: https://github.com/opennem/opennem
+    language: Python
+notes: >-
+  An aggregator, not a primary source: it re-serves AEMO's NEM (NEMWEB) and WEM facility
+  SCADA, cleaned and merged, through one API. GET /v4/data/facilities/{network} returns
+  metrics such as power and energy "grouped by unit", for up to 30 facility codes at once,
+  with intervals from 5 minutes to a year; facility metadata with location and units come
+  from /v4/facilities/. An API key from a free platform account is needed for every call.
+  Checked 2026-11-06 against the documentation only: the API answered 401 without a key and
+  no account was created, so per-facility values were not fetched. The measure is AEMO
+  SCADA as processed by Open Electricity, which also estimates some series.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

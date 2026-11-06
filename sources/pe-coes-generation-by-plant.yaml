@@ -1,0 +1,65 @@
+id: pe-coes-generation-by-plant
+name: Portal de información, Generación (daily production by plant, Excel export)
+publisher: Comité de Operación Económica del Sistema Interconectado Nacional (COES SINAC)
+publisher_role: iso-rto
+countries: [PE]
+area: Sistema Eléctrico Interconectado Nacional (national interconnected system)
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: daily
+coverage:
+  start: 2014
+  update: daily
+capacity: none
+coordinates: none
+curtailment: not-reported
+access:
+  method: portal
+  url: https://www.coes.org.pe/Portal/portalinformacion/generacion
+  key_required: false
+  registration: false
+  formats: [xlsx, json]
+  languages: [es]
+licence:
+  name: No terms found
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use or licence were found on the COES portal; its only rights page covers
+    personal data (ARCO rights). Redistribution stays unclear until COES states its terms.
+traps:
+  - summary: The page's JSON data call is keyed by company, not plant, with the plant fields left empty.
+    detail: >-
+      POST portalinformacion/Generacion returns 68 companies (1 October 2026) with "Central" and
+      "ListaCentral" empty, plus half-hourly totals by fuel for the whole system. Per-plant daily
+      values are only in the Excel export (portalinformacion/ExportarGeneracion), sheet
+      "PRODUCCIÓN DIARIA", column "GRUPO/CENTRAL".
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/dataset-survey.md
+    found: 2026-11-06
+  - summary: Some wind farms are split into blocks or extensions that must be added up.
+    detail: >-
+      Punta Lomitas appears as PUNTA LOMITAS-BL1, -BL2, PUN LOMITAS_EXP-BL1 and -BL2; Wayra as
+      WAYRA-I and WAYRA EXTENSION. Company names also change over time (PARQUE EOLICO MARCONA
+      S.R.L. in 2016, S.A.C. in 2026), so key on the plant column.
+    evidence: https://www.coes.org.pe/Portal/portalinformacion/ExportarGeneracion?fechaInicial=01%2F10%2F2026&fechaFinal=01%2F10%2F2026&indicador=0
+    found: 2026-11-06
+  - summary: Two measurement sources give slightly different numbers, and the meter one fills in late.
+    detail: >-
+      indicador=0 uses half-hourly SCADA power readings; indicador=1 uses 15-minute electronic
+      meter data, which the page says is obtained in the first days of each month. On 1 October
+      2026 San Juan read 1,411.45 MWh by SCADA and 1,433.83 MWh by meter.
+    evidence: https://www.coes.org.pe/Portal/Content/Scripts/PortalInformacion/generacion.js?v=1.5
+    found: 2026-11-06
+notes: >-
+  Daily energy (MWh) per generating plant in Peru, with company and technology (EÓLICA for wind),
+  from the generation page's Excel export: ExportarGeneracion?fechaInicial=dd/mm/yyyy&
+  fechaFinal=dd/mm/yyyy&indicador=0 or 1. Checked per plant and across years: on 1 October 2026
+  there were 13 wind rows with different values (for example Cupisnique 484.00 and Talara 374.05
+  MWh), and 1-3 March 2016 gave different daily values for Cupisnique, Talara and Marcona. The
+  export answers for 2010, but the first wind row found was Marcona on 1 June 2014, so the start
+  is given as 2014. COES's daily operations archive (IEOD) is a separate document library that
+  may hold sub-daily per-plant data; it was not tested.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

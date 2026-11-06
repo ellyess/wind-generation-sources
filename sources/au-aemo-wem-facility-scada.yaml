@@ -1,0 +1,83 @@
+id: au-aemo-wem-facility-scada
+name: Wholesale Electricity Market facility SCADA (Western Australia)
+publisher: Australian Energy Market Operator (AEMO)
+publisher_role: market-operator
+countries: [AU]
+area: "WEM: South West Interconnected System, Western Australia"
+level: farm
+technology: onshore
+measure: metered-energy
+resolution: 5min
+coverage:
+  start: 2006
+  update: daily (one file per trading day, about a day behind); monthly CSV rebuilt through the month
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://data.wa.aemo.com.au/
+  key_required: false
+  registration: false
+  formats: [csv, json, zip]
+  languages: [en]
+licence:
+  name: AEMO copyright permissions (general permission to use AEMO Material for any purpose with accurate attribution)
+  url: https://www.aemo.com.au/privacy-and-legal-notices/copyright-permissions
+  redistribution: allowed-with-attribution
+  attribution: Attribute the material and AEMO as its author.
+  verified: true
+  note: >-
+    The copyright page grants general permission for anyone to use AEMO Material for any
+    purpose, but only with accurate and appropriate attribution to AEMO. It covers material
+    AEMO makes publicly available; the data site carries no separate licence.
+traps:
+  - summary: The series splits in two at the market reform of 1 October 2023, with different folders, time steps and columns.
+    detail: >-
+      Before the reform, public-data/datafiles/facility-scada/ holds one CSV per month from
+      September 2006, on 30-minute trading intervals, with "Energy Generated (MWh)" and
+      "EOI Quantity (MW)". The last file, facility-scada-2023-10.csv, holds only 1 to 3
+      October 2023 and has the energy column empty. From 1 October 2023 08:00 the data are on
+      5-minute dispatch intervals, in public-data/datafiles/facility-scada-csv/ ("Average
+      MWh" per interval), facility-scada-eoi-csv/ ("EOI MW", end-of-interval power) and as
+      daily JSON zips under market-data/wemde/facilityScada/. Joining the two halves needs a
+      change of time step and of quantity.
+    evidence: https://data.wa.aemo.com.au/public/public-data/datafiles/facility-scada/facility-scada-2023-10.csv
+    found: 2026-11-06
+  - summary: The post-reform JSON gives a bare "quantity" with no unit stated.
+    detail: >-
+      Each record in the daily FacilityScada zip is a dispatch interval, a facility code and a
+      "quantity". The schema folder on the data site is empty. The matching monthly CSV
+      labels the same figure "Average MWh", which suggests energy per 5-minute interval
+      (multiply by 12 for average MW). Open Electricity's parser makes that conversion.
+    evidence: https://data.wa.aemo.com.au/public/market-data/wemde/facilityScada/schema/
+    found: 2026-11-06
+  - summary: The end-of-interval power column only starts on 17 December 2013.
+    detail: >-
+      Pre-reform files before then carry "Energy Generated (MWh)" alone, with "EOI Quantity
+      (MW)" empty (for example the November 2013 file). Work from the energy column for the
+      full history.
+    evidence: https://github.com/opennem/opennem/issues/598
+    found: 2026-11-06
+  - summary: Date formats differ between the old and new CSVs.
+    detail: >-
+      The pre-reform files use ISO dates ("2023-09-01") with a separate interval number, and
+      the WA trading day runs 08:00 to 08:00. The post-reform CSVs use day-first
+      "01/11/2023 07:55:00" timestamps, listed newest first. Parse each with its own format.
+    evidence: https://data.wa.aemo.com.au/public/public-data/datafiles/facility-scada-csv/FacilityScada-2023-10.csv
+    found: 2026-11-06
+tools:
+  - name: opennem (Open Electricity backend; clients/wem.py, clients/wemde.py)
+    url: https://github.com/opennem/opennem
+    language: Python
+notes: >-
+  Metered output for every registered facility on the Western Australian grid, wind farms
+  included (17 wind facility codes such as ALBANY_WF1, YANDIN_WF1 and WARRADARGE_WF1 in
+  November 2026). Checked 2026-11-06: the folder runs from facility-scada-2006-09.csv, which
+  already holds wind (ALBANY_WF1, EDWFMAN_WF1, ALINTA_WWF), to the current month; two wind
+  farms in the same interval give different values. Facility class and system size (MW) are
+  in post-facilities/facilities.csv. Western Australia is not part of the National Electricity
+  Market, so this is separate from the NEMWEB SCADA entry.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

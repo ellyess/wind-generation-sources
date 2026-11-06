@@ -1,0 +1,58 @@
+id: us-pjm-wind-generation
+name: Data Miner 2 Wind Generation (wind_gen)
+publisher: PJM Interconnection
+publisher_role: iso-rto
+countries: [US]
+area: PJM footprint (eastern and midwestern US), split into areas MIDATL, WEST, SOUTH and OTHER
+level: zone
+technology: onshore-and-offshore-combined
+measure: metered-energy
+resolution: hourly
+coverage:
+  start: 2011
+  update: daily, about 07:00 Eastern; values can change for up to 90 days
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: api
+  url: https://dataminer2.pjm.com/feed/wind_gen
+  docs: https://dataminer2.pjm.com/feed/wind_gen/definition
+  key_required: true
+  registration: true
+  formats: [csv, json]
+  languages: [en]
+licence:
+  name: PJM Legal and Privacy notice
+  url: "https://www.pjm.com/about-pjm/legal.aspx"
+  redistribution: unclear
+  verified: true
+  note: >-
+    The notice says access to the site "does not confer any license" in its content and that PJM
+    reserves all rights. It grants no reuse terms and does not mention data reuse explicitly, so
+    re-hosting is not covered.
+traps:
+  - summary: The area values overlap, so adding every row double-counts.
+    detail: >-
+      RFC equals MIDATL plus WEST, and RTO is roughly the sum of MIDATL, WEST, SOUTH and OTHER
+      (on 1 October 2026 at 23:00 the four summed to 5,645 MW against an RTO value of 5,627 MW).
+      In 2011 only MIDATL, WEST, RFC and RTO appear. Use RTO for the system total.
+    evidence: https://dataminer2.pjm.com/feed/wind_gen
+    found: 2026-11-06
+  - summary: Recent days show 0 MW in every area rather than being left blank.
+    detail: >-
+      On 6 November 2026 every hour of 4-6 November read 0 MW for all areas, while 1 October 2026
+      had normal values. The feed is settlement-based and lags; treat recent zeros as missing.
+    evidence: https://dataminer2.pjm.com/feed/wind_gen
+    found: 2026-11-06
+  - summary: The "OTHER" area holds external units and units whose location PJM does not know.
+    evidence: https://dataminer2.pjm.com/feed/wind_gen/definition
+notes: >-
+  Hourly wind generation for PJM and its sub-areas from settlement data, first available 1 January
+  2011, with UTC and Eastern-prevailing timestamps. The Data Miner web page can be browsed without
+  an account; the API needs a PJM account and subscription key. PJM also has a
+  separate instantaneous_wind_gen feed, which is what gridstatus reads. No per-plant output is
+  published.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

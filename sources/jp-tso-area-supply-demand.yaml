@@ -1,0 +1,80 @@
+id: jp-tso-area-supply-demand
+name: Area supply and demand results (エリア需給実績), ten regional transmission system operators
+publisher: Japan's ten general transmission and distribution operators (Hokkaido, Tohoku, TEPCO, Chubu, Hokuriku, Kansai, Chugoku, Shikoku, Kyushu and Okinawa)
+publisher_role: tso
+countries: [JP]
+area: Ten supply areas, one file series per operator
+level: zone
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: 30min
+coverage:
+  start: 2016
+  update: monthly file for the current fiscal year, refreshed through the month
+capacity: none
+coordinates: not-applicable
+curtailment: reported
+access:
+  method: bulk-download
+  url: https://www.kyuden.co.jp/td_area_jukyu/jukyu.html
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [ja]
+licence:
+  name: Each operator's own website terms
+  redistribution: unclear
+  verified: false
+  note: >-
+    There is no common open licence. Each of the ten operators publishes under its own site
+    terms, and none was read for this entry, so redistribution stays unclear.
+traps:
+  - summary: The format changed in April 2024, from hourly energy to 30-minute average power.
+    detail: >-
+      From April 2016 to March 2024 each operator published its own layout, hourly, in MWh,
+      in quarterly or annual files (Kyushu: area_jyukyu_jisseki_H28_1Q.csv onwards; Hokkaido:
+      sup_dem_results_2016_1q.csv onwards). From fiscal 2024 (Kyushu from March 2024) all
+      operators use monthly files named eria_jukyu_YYYYMM_NN.csv, where NN is the area number
+      (01 Hokkaido, 02 Tohoku, 09 Kyushu), at 30-minute resolution in average MW (単位[MW平均]).
+      The old values are energy per hour and the new ones are power per half hour, so convert
+      before joining the two periods.
+    evidence: https://www.kyuden.co.jp/td_area_jukyu/csv/eria_jukyu_202403_09.csv
+    found: 2026-11-06
+  - summary: Even the shared post-2024 format is not identical between operators.
+    detail: >-
+      In October 2026 Kyushu's file uses dates like "20261001", quoted fields and time labels
+      0:30 to 24:00 (end of interval). Hokkaido's uses "2026/10/01", unquoted fields and labels
+      00:00 to 23:30 (start of interval), and adds thermal and biomass curtailment columns that
+      Kyushu does not have. Map columns by header name and check each operator's time
+      convention before stacking areas.
+    evidence: https://www.hepco.co.jp/network/con_service/public_document/supply_demand_results/csv/eria_jukyu_202610_01.csv
+    found: 2026-11-06
+  - summary: Files are Shift-JIS (CP932) encoded, with a units line above the header.
+    detail: >-
+      Read with encoding cp932 and skip the first line(s); the pre-2024 Kyushu files have a
+      two-row header (technology on one row, actual and curtailed on the next).
+    evidence: https://www.kyuden.co.jp/td_area_jukyu/csv/area_jyukyu_jisseki_H28_1Q.csv
+    found: 2026-11-06
+tools:
+  - name: denki-carbon (scrapers for all ten operators)
+    url: https://github.com/FraserTooth/denki-carbon
+    language: TypeScript
+  - name: Electricity Maps parser JP.py
+    url: https://github.com/electricitymaps/electricitymaps-contrib/blob/master/electricitymap/contrib/parsers/JP.py
+    language: Python
+  - name: jpelectricdata
+    url: https://github.com/earth06/jpelectricdata
+    language: Python
+notes: >-
+  Area-total supply and demand for each of Japan's ten supply areas, with a wind column
+  (風力発電実績, or 風力実績 before 2024) and a wind curtailment column (風力出力制御量 or
+  風力抑制量), so available wind output can be reconstructed. Checked 2026-11-06 on Kyushu
+  (first file fiscal 2016 Q1, April 2016), Hokkaido (2016 Q1 onwards) and Tohoku (monthly
+  eria_jukyu files listed). TEPCO's pages refused automated requests (403) and were not
+  checked; the Electricity Maps parser lists the URL patterns for all ten. Coverage starts
+  April 2016 for the two operators checked. Wind is not split onshore and offshore. Kyushu
+  also publishes per-unit generation (bghatsu_09_*.csv) but on 2026-11-05 it listed only
+  thermal, nuclear and hydro units, no wind.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

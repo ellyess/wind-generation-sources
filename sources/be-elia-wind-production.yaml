@@ -1,0 +1,51 @@
+id: be-elia-wind-production
+name: Wind power production estimation and forecast on Belgian grid (Elia Open Data ods031)
+publisher: Elia
+publisher_role: tso
+countries: [BE]
+level: zone
+technology: onshore-and-offshore-split
+measure: estimated-generation
+resolution: 15min
+coverage:
+  start: 2015
+capacity: included
+coordinates: not-applicable
+curtailment: reported
+access:
+  method: api
+  url: https://opendata.elia.be/explore/dataset/ods031/information/
+  key_required: false
+  registration: false
+  formats: [csv, json, parquet, xlsx]
+licence:
+  name: Elia Open Data Licence (CC BY 4.0 under Belgian law)
+  spdx: CC-BY-4.0
+  url: "https://opendata.elia.be/pages/licence/"
+  redistribution: allowed-with-attribution
+  attribution: Elia Transmission Belgium SA
+  verified: true
+traps:
+  - summary: Elia's own notice says offshore "measured and upscaled" values differ from validated metering by 100-300 MW per quarter-hour, about 10% of the time in 2018-2023.
+    detail: >-
+      The series is upscaled from measurements, not fully metered, and Elia states it is still
+      investigating the offshore deltas. Treat offshore quarter-hours in that period with care.
+    evidence: https://opendata.elia.be/explore/dataset/ods031/information/
+    found: 2026-11-06
+  - summary: Rows are split by onshore or offshore, region and grid connection (Elia or distribution grid), so a national total is a sum over rows.
+    detail: >-
+      Sum output and monitored capacity over the same rows in each interval before dividing, so
+      both describe the same fleet.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/entsoe.md
+  - summary: Times display in local time on the portal but are UTC in downloads and the API.
+    evidence: https://opendata.elia.be/explore/dataset/ods031/information/
+    found: 2026-11-06
+notes: >-
+  Measured-and-upscaled output with monitored capacity and a load factor every 15 minutes, plus
+  Elia's forecasts with P10 and P90. A decremental-bid field marks quarter-hours when Elia asked
+  a park to reduce output, though Elia publishes no detail on bids at the owners' request. The
+  dataset's first record is 31 December 2014, 23:00 UTC. A better national series for Belgium
+  than ENTSO-E's per-type data, which needs onshore and offshore added correctly.
+status: active
+last_checked: 2026-11-06
+checked_by: Ellyess Benmoufok and Claude Code; dataset metadata read via the Opendatasoft API; licence read on the publisher's page 2026-11-06

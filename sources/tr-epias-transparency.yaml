@@ -1,0 +1,48 @@
+id: tr-epias-transparency
+name: EPİAŞ Transparency Platform (EXIST), generation and injection data
+publisher: Energy Exchange Istanbul (EPİAŞ)
+publisher_role: market-operator
+countries: [TR]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2016
+capacity: none
+coordinates: none
+curtailment: unknown
+access:
+  method: api
+  url: https://seffaflik.epias.com.tr/
+  docs: https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html
+  key_required: true
+  registration: true
+  formats: [json]
+  languages: [tr, en]
+licence:
+  name: EPİAŞ Transparency Platform site notice (no named licence)
+  url: "https://seffaflik.epias.com.tr/home"
+  redistribution: allowed-with-attribution
+  attribution: Give EPİAŞ Transparency Platform as the source.
+  verified: true
+  note: The site footer allows reproduction and use with the source given. The registration and web-service terms were not read and may add conditions.
+traps:
+  - summary: The injection endpoint silently ignores the plant filter and returns the national series under per-plant column names.
+    detail: >-
+      Requests for two different wind plants (or an invented plant id) return byte-identical
+      rows with HTTP 200. Per-plant wind output was not reachable on the free subscription in
+      July 2026; the licensed real-time endpoint returned 403. Always compare two plants.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/tr.md
+tools:
+  - name: eptr2
+    url: https://github.com/Tideseed/eptr2
+    language: Python
+notes: >-
+  Listed as national-level because that is what the free subscription returned in July 2026. The
+  plant list (2,584 plants) downloads, and a paid business subscription may unlock per-plant
+  licensed generation; untested. Turkey has kept permanent UTC+3 since 2016. The coverage start
+  is the platform's launch year as reported, not checked.
+status: restricted
+last_checked: 2026-08-24
+checked_by: Ellyess Benmoufok, from the PyVWF runbook (API probed July 2026); licence read on the publisher's page 2026-11-06

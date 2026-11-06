@@ -1,0 +1,55 @@
+id: in-cea-daily-re-generation
+name: Daily Renewable Generation Report
+publisher: Central Electricity Authority (CEA), Renewable Project Monitoring Division
+publisher_role: government
+countries: [IN]
+area: States and union territories, grouped into five regions
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: daily
+coverage:
+  start: 2024
+  update: daily, about a day behind
+capacity: none
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://cea.nic.in/reports/external/daily-renewable?lang=en
+  key_required: false
+  registration: false
+  formats: [xlsx, pdf]
+  languages: [en, hi]
+licence:
+  name: CEA website copyright policy
+  url: https://cea.nic.in/api/websitepolicy/pdf/view/en/2
+  redistribution: link-only
+  verified: true
+  note: >-
+    The policy says content may be reproduced free of charge, but only after obtaining prior
+    permission by email from CEA, without changes that alter its meaning, and with CEA
+    acknowledged as the source. Without that permission, link to the reports rather than
+    re-host them.
+traps:
+  - summary: Sheet order changes between workbooks, so read sheets by name, not position.
+    detail: >-
+      The 30 June 2024 workbook has sheets State-Wise, ISGS, Generation in that order; the
+      5 November 2026 workbook has Generation, ISGS, State-Wise. The State-Wise sheet covers
+      plants in each state's own control area, the ISGS sheet lists inter-state stations one
+      by one, and the Generation sheet is the all-India total by state.
+    evidence: https://gen-re.cea.gov.in/renewables/public/uploads/dailyReport/excel/Report-2024-06-30.xlsx
+    found: 2026-11-06
+notes: >-
+  Figures are net, in million units (MU, that is GWh).
+  One workbook per day, linked from CEA's site and served from the RE Generation Portal
+  (gen-re.cea.gov.in), with wind, solar and other renewable generation for each state, the
+  regional and all-India totals, and month-to-date cumulative values. Checked 2026-11-06: 805
+  daily reports are listed, from 30 June 2024 to 5 November 2026. The ISGS sheet goes further,
+  naming individual inter-state wind stations with their operational capacity and daily
+  generation (109 wind stations on 5 November 2026, 37 on 30 June 2024); only that subset of
+  wind farms is reported per station. CEA also publishes monthly renewable generation reports
+  as PDF, with a state-wise wind table, going back further; their start year was not checked.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

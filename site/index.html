@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wind Generation Sources</title>
+<meta name="description" content="An open catalogue of where to find observed wind power generation data worldwide, with the licence for every source read and dated, and the known traps of each source with evidence.">
+<meta name="color-scheme" content="light dark">
+<link rel="preload" href="fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-semi-condensed-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script src="map.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-chevron" viewBox="0 0 16 16"><path d="M5 3.5 9.5 8 5 12.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 16 16"><path d="M5.5 5.5h7v7h-7z M10.5 5.5v-2h-7v7h2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"/></symbol>
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="m3.5 8.5 3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
+  <symbol id="i-out" viewBox="0 0 16 16"><path d="M6.5 3.5h6v6 M12.5 3.5l-8 8" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"/></symbol>
+</svg>
+
+<a class="skip" href="#sources">Skip to the source table</a>
+
+<div class="sheet">
+  <header class="titleblock">
+    <div class="tb-title">
+      <h1>Wind Generation Sources</h1>
+      <p class="purpose">Where to find <strong>observed</strong> wind power generation, metered or reported by the publisher, for each country. Every entry says what the data are, how to get them, whether you may re-host them, and what goes wrong when you use them.</p>
+      <p class="tb-links">
+        <a href="catalogue.csv" download>Download CSV</a>
+        <a href="catalogue.json">JSON</a>
+        <a data-repo="/blob/main/CONTRIBUTING.md" href="#notes">Add or correct a source</a>
+      </p>
+    </div>
+    <dl class="tb-fields">
+      <div><dt>Revision</dt><dd data-field="generated">&nbsp;</dd></div>
+      <div><dt>Sources</dt><dd data-field="count">&nbsp;</dd></div>
+      <div><dt>Countries</dt><dd data-field="countries">&nbsp;</dd></div>
+      <div><dt>Known traps</dt><dd data-field="traps" class="is-trap">&nbsp;</dd></div>
+      <div class="wide"><dt>Maintained by</dt><dd>Ellyess Benmoufok</dd></div>
+      <div class="wide"><dt>Licence</dt><dd>Entries CC BY 4.0, code MIT</dd></div>
+    </dl>
+  </header>
+
+  <section class="mapsheet" data-map aria-labelledby="map-label">
+    <div class="map-head">
+      <h2 class="cell-label" id="map-label">Map, finest observed level by country</h2>
+      <p class="map-note">Shading follows every filter below. Pick a country to filter the table.</p>
+    </div>
+    <div class="map-body">
+      <figure class="view view-world">
+        <figcaption class="view-label"><span class="view-no">View 1</span><span class="view-name">World</span><span class="view-proj">Equal Earth</span></figcaption>
+        <div class="view-canvas">
+          <svg data-map-view="world" role="img" aria-labelledby="map-summary" viewBox="0 0 1000 435"></svg>
+          <span class="detail-tag" data-detail-tag hidden aria-hidden="true">Detail A</span>
+          <p class="map-state" data-map-state>Loading the map.</p>
+        </div>
+      </figure>
+      <figure class="view view-europe">
+        <figcaption class="view-label"><span class="view-no">Detail A</span><span class="view-name">Europe</span><span class="view-proj">Lambert azimuthal equal-area, 10°E 52°N</span></figcaption>
+        <div class="view-canvas">
+          <svg data-map-view="europe" aria-hidden="true" viewBox="0 0 560 398"></svg>
+        </div>
+      </figure>
+      <aside class="map-key" aria-label="Map key and readout">
+        <div class="key">
+          <h3 class="cell-label">Key, catalogued countries</h3>
+          <ul class="key-list" role="list">
+            <li><i class="sw" data-tier="1"></i><span>Turbine</span><b data-tier-n="1"></b></li>
+            <li><i class="sw" data-tier="2"></i><span>Farm, complex or connection point</span><b data-tier-n="2"></b></li>
+            <li><i class="sw" data-tier="3"></i><span>Zone or company</span><b data-tier-n="3"></b></li>
+            <li><i class="sw" data-tier="4"></i><span>National total only</span><b data-tier-n="4"></b></li>
+            <li><i class="sw" data-tier="0"></i><span>Nothing under these filters</span><b data-tier-n="0"></b></li>
+            <li class="key-farm"><i class="sw-farm"></i><span>Farm with output per unit</span><b data-farm-n></b></li>
+          </ul>
+        </div>
+        <div class="readout">
+          <h3 class="cell-label">Readout</h3>
+          <div class="ro-body" data-readout></div>
+        </div>
+      </aside>
+      <p class="map-credit"><span data-farm-licence></span> Country outlines from Natural Earth, public domain.</p>
+    </div>
+    <p class="visually-hidden" id="map-summary">Map of the catalogued countries.</p>
+  </section>
+
+  <nav class="index" aria-label="Country index">
+    <div class="index-head">
+      <h2 class="cell-label" id="index-label">Country index, sources per code</h2>
+      <button type="button" class="index-clear" data-clear-place hidden>Show all countries</button>
+    </div>
+    <div class="index-body" data-index></div>
+  </nav>
+
+  <form class="params" data-params role="search" aria-label="Filter sources">
+    <label class="param">
+      <span class="cell-label">Level</span>
+      <span class="select"><select name="level">
+        <option value="">Any level</option>
+      </select></span>
+    </label>
+    <label class="param">
+      <span class="cell-label">Time step</span>
+      <span class="select"><select name="step">
+        <option value="">Any step</option>
+        <option value="15min">15 minutes or finer</option>
+        <option value="hourly">Hourly or finer</option>
+        <option value="daily">Daily or finer</option>
+        <option value="monthly">Monthly or finer</option>
+      </select></span>
+    </label>
+    <label class="param">
+      <span class="cell-label">Re-hosting</span>
+      <span class="select"><select name="reuse">
+        <option value="">Any terms</option>
+        <option value="open">Allowed, with or without credit</option>
+        <option value="allowed">Allowed</option>
+        <option value="allowed-with-attribution">Allowed with credit</option>
+        <option value="non-commercial-only">Non-commercial only</option>
+        <option value="link-only">Link only, no copies</option>
+        <option value="prohibited">Not allowed</option>
+        <option value="unclear">Unclear</option>
+      </select></span>
+    </label>
+    <label class="param">
+      <span class="cell-label">Status</span>
+      <span class="select"><select name="status">
+        <option value="">Any status</option>
+        <option value="active">Active</option>
+        <option value="discontinued">Discontinued</option>
+        <option value="restricted">Restricted</option>
+      </select></span>
+    </label>
+    <label class="param param-search">
+      <span class="cell-label">Search</span>
+      <input type="search" name="q" placeholder="Publisher, dataset, trap" autocomplete="off" spellcheck="false">
+    </label>
+    <div class="param param-count">
+      <span class="cell-label">Showing</span>
+      <output data-count aria-live="polite">&nbsp;</output>
+    </div>
+  </form>
+
+  <main id="sources" tabindex="-1">
+    <table class="sources" role="table">
+      <caption class="visually-hidden">Wind generation sources. Open a row for its access, licence and known traps.</caption>
+      <thead role="rowgroup">
+        <tr role="row">
+          <th scope="col" class="part" role="columnheader">Part no.</th>
+          <th scope="col" class="name" role="columnheader">Source</th>
+          <th scope="col" class="area" role="columnheader">Area</th>
+          <th scope="col" class="level" role="columnheader">Level</th>
+          <th scope="col" class="step" role="columnheader">Step</th>
+          <th scope="col" class="cov" role="columnheader">Coverage</th>
+          <th scope="col" class="reuse" role="columnheader">Re-hosting</th>
+          <th scope="col" class="traps num" role="columnheader">Traps</th>
+        </tr>
+      </thead>
+      <tbody data-rows role="rowgroup">
+        <tr class="state-row" role="row"><td colspan="8" role="cell"><p class="state">Loading the catalogue.</p></td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <section class="notes" id="notes" aria-labelledby="notes-h">
+    <h2 id="notes-h">Notes on this sheet</h2>
+    <ol>
+      <li><strong>Observed output only.</strong> Every source here is metered, settled, certified or reported by its publisher. Simulated series, such as renewables.ninja, EMHIRES or capacity factors computed from reanalysis, have other homes and are left out.</li>
+      <li><strong>Licences are read, not inferred.</strong> Each licence was read on the publisher's own page on the date shown. Until it has been read, re-hosting stays <em>Unclear</em>.</li>
+      <li><strong>Every trap cites its evidence.</strong> A trap is a property of the source: a mislabelled column, a silent change, a gap. Each one links to the documentation, issue or audit that shows it.</li>
+      <li><strong>Links, not copies.</strong> The catalogue holds metadata only. It never re-hosts a publisher's data.</li>
+      <li><strong>One file per source.</strong> To add or correct an entry, edit its YAML file and open a pull request. The validator checks the schema and these rules.</li>
+    </ol>
+  </section>
+
+  <footer class="foot">
+    <p>Wind Generation Sources is maintained by Ellyess Benmoufok. Entries are licensed CC BY 4.0, code MIT. Publishers' data stay under their own terms.</p>
+    <p><a data-repo="" href="#notes">Source on GitHub</a></p>
+  </footer>
+</div>
+
+<template id="row-tpl">
+  <tr class="row" role="row">
+    <td class="part" role="cell"><span class="pn"></span><span class="flag"></span></td>
+    <th scope="row" class="name" role="rowheader"><button type="button" class="open" aria-expanded="false"><svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg><span class="nm"></span></button><span class="pub"></span></th>
+    <td class="area" role="cell" data-label="Area"></td>
+    <td class="level" role="cell" data-label="Level"></td>
+    <td class="step" role="cell" data-label="Step"></td>
+    <td class="cov" role="cell" data-label="Coverage"></td>
+    <td class="reuse" role="cell" data-label="Re-hosting"></td>
+    <td class="traps num" role="cell" data-label="Traps"></td>
+  </tr>
+</template>
+</body>
+</html>

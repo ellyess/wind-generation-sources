@@ -1,0 +1,64 @@
+id: de-netztransparenz-eeg-movement-data
+name: EEG movement data (EEG-Bewegungsdaten), annual EEG settlement per installation
+publisher: German transmission system operators (50Hertz, Amprion, TenneT, TransnetBW) via netztransparenz.de
+publisher_role: tso
+countries: [DE]
+level: turbine
+technology: onshore-and-offshore-combined
+measure: metered-energy
+resolution: monthly
+coverage:
+  start: 2025
+  update: annual, published in September for the previous year
+capacity: separate-dataset
+coordinates: separate-dataset
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.netztransparenz.de/en/Renewable-energies-and-levies/EEG/EEG-billing/EEG-annual-statements/EEG-movement-data
+  key_required: false
+  registration: false
+  formats: [csv, zip, xlsx]
+  languages: [de, en]
+licence:
+  name: Copyright of the German transmission system operators; reproduction needs prior written consent
+  url: https://www.netztransparenz.de/de-de/Impressum
+  redistribution: link-only
+  verified: true
+  note: >-
+    The imprint says the site's content is protected by copyright and that copying it needs
+    the German TSOs' prior written consent by email, unless the law already permits it. No open
+    data licence is given.
+traps:
+  - summary: Only the latest year stays online; older years are removed.
+    detail: >-
+      Files are kept until the end of the following calendar year, so a time series has to be
+      built by archiving each year's release. On 2026-11-06 only the 2025 release was listed.
+    evidence: https://www.netztransparenz.de/en/Renewable-energies-and-levies/EEG/EEG-billing/EEG-annual-statements/EEG-movement-data
+  - summary: Monthly and annual rows are mixed in one file.
+    detail: >-
+      The Monat column is 1 to 12 for market-premium volumes and 0 for an annual value. Wind
+      installations in the 50Hertz file have both kinds of row. Group by installation and
+      month before summing, and do not treat month 0 as January.
+    evidence: https://www.netztransparenz.de/cdn/files/9d2cf962-999e-4810-29d3-08defc51206b/bewegungsdaten_legende.xlsx
+    found: 2026-11-06
+  - summary: Files are too large for Excel, which drops rows silently.
+    detail: >-
+      The 50Hertz 2025 release unpacks to two CSVs of about 150 MB. The publisher recommends
+      database tools.
+    evidence: https://www.netztransparenz.de/en/Renewable-energies-and-levies/EEG/EEG-billing/EEG-annual-statements/EEG-movement-data
+  - summary: The Amprion entry labelled 2025 links to the 2024 file.
+    evidence: https://www.netztransparenz.de/en/Renewable-energies-and-levies/EEG/EEG-billing/EEG-annual-statements/EEG-movement-data
+    found: 2026-11-06
+notes: >-
+  Every installation paid under the Renewable Energy Sources Act (EEG) or its market premium,
+  with fed-in electricity (Strommenge, in kWh) and payments, one ZIP per transmission operator.
+  For wind an EEG installation is normally a single turbine. Checked 2026-11-06 on the 50Hertz
+  2025 file: 11,090 wind installations (remuneration categories starting with W) totalling about
+  38.4 TWh, and different installations return different volumes. Each row carries the Market
+  Master Data Register number (EEG_Mastr_Nr), which links to the register for capacity and
+  location; the register itself holds no generation. Onshore and offshore are not split by a
+  documented column. Plants outside EEG support are missing.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

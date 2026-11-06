@@ -1,0 +1,58 @@
+id: us-bpa-wind-generation
+name: Total Load, Wind and Solar Generation in the BPA Balancing Authority (5-minute)
+publisher: Bonneville Power Administration (BPA), US Department of Energy
+publisher_role: utility
+countries: [US]
+area: BPA balancing authority area (Pacific Northwest)
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: 5min
+coverage:
+  start: 2007
+  update: daily
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://transmission.bpa.gov/Business/Operations/Wind/
+  key_required: false
+  registration: false
+  formats: [xls, xlsx, txt]
+  languages: [en]
+licence:
+  name: Not stated on the data pages
+  redistribution: unclear
+  verified: false
+  note: >-
+    BPA is a federal agency, and US federal works are usually public domain, but no reuse
+    statement was found on the current BPA site; the privacy page does not cover it.
+    Redistribution stays unclear until BPA's own terms are read.
+traps:
+  - summary: The 2007-2010 workbooks put the year in two side-by-side column blocks (January-June and July-December).
+    detail: >-
+      Files for 2007-2010 are TotalWindLoad_5Min_<yy>.xls with a different layout from
+      WindGenTotalLoadYTD_<year>.xls(x) used from 2011. Read each half-year block separately.
+    evidence: https://transmission.bpa.gov/Business/Operations/Wind/OPITabularReports/TotalWindLoad_5Min_07.xls
+    found: 2026-11-06
+  - summary: A new file format began on 17 August 2022, with forecast "base schedule" and "basepoint" columns next to actual wind.
+    detail: >-
+      Only "TOTAL WIND GENERATION IN BPA CONTROL AREA" (SCADA point 79687) is measured output;
+      the base schedule and basepoint columns are operator forecasts and market dispatch targets.
+    evidence: https://transmission.bpa.gov/Business/Operations/Wind/OPITabularReports/WindGenTotalLoadYTD_2025.xlsx
+    found: 2026-11-06
+  - summary: Values are five-minute snapshots from the control system, and plants shared with other areas count only BPA's share.
+    detail: >-
+      The file notes say values are interpolated five-minute snapshots, and that for plants split
+      between control areas (such as Nine Canyon) only the BPA portion is included.
+    evidence: https://transmission.bpa.gov/Business/Operations/Wind/OPITabularReports/WindGenTotalLoadYTD_2025.xlsx
+    found: 2026-11-06
+notes: >-
+  A long open five-minute wind series: total wind generation in BPA's balancing authority from 1 January 2007, with load, hydro, thermal and (later) solar.
+  Timestamps are Pacific local time, with a UTC column in the newer files. BPA also publishes a
+  plant list with nameplate capacity and in-service dates, and five-minute flags for wind limits
+  and oversupply mitigation, but not curtailed megawatts. Not per plant.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

@@ -1,0 +1,65 @@
+id: fr-smarteole-scada
+name: SMARTEOLE Wind Farm Control open dataset
+publisher: SMARTEOLE project, deposited by ENGIE Green and NREL authors (via Zenodo)
+publisher_role: research
+countries: [FR]
+area: Sole du Moulin Vieux wind farm, France (7 turbines)
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 1min
+coverage:
+  start: 2020
+  end: 2020
+  update: fixed release (November 2022); covers 17 February to 25 May 2020
+capacity: included
+coordinates: included
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://doi.org/10.5281/zenodo.7342466
+  docs: https://zenodo.org/records/7342466
+  key_required: false
+  registration: false
+  formats: [csv, xlsx, zip, pdf]
+  languages: [en]
+licence:
+  name: Etalab Open Licence 2.0 (Licence Ouverte)
+  spdx: etalab-2.0
+  url: https://zenodo.org/records/7342466
+  redistribution: allowed-with-attribution
+  attribution: Cite the Zenodo record (Duc, T., Simley, E. et al., SMARTEOLE Wind Farm Control open dataset, doi:10.5281/zenodo.7342466).
+  verified: true
+  note: >-
+    The licence is the one shown on the Zenodo record. Etalab 2.0 is the French government open
+    licence, which allows reuse and redistribution, including commercial, with attribution.
+traps:
+  - summary: Every minute when any turbine was stopped has been removed.
+    detail: >-
+      The data were pre-processed for a wake-steering study: timesteps with at least one turbine
+      stopped were dropped and nacelle direction signals were corrected. The series is therefore
+      not a complete record of the farm's output and cannot give energy totals or availability.
+    evidence: https://zenodo.org/records/7342466
+    found: 2026-11-06
+  - summary: Turbine SMV6 was deliberately yawed off the wind for part of the period.
+    detail: >-
+      Wake steering was applied on SMV6 and toggled during the campaign; the applied yaw offset
+      is in the control log file. Its output, and that of the turbines downstream, reflects the
+      experiment and not normal operation.
+    evidence: https://wes.copernicus.org/articles/6/1427/2021/wes-6-1427-2021.html
+    found: 2026-11-06
+tools:
+  - name: wind-up
+    url: https://github.com/resgroup/wind-up
+    language: Python
+notes: >-
+  One-minute averaged SCADA (supervisory control and data acquisition) data for seven Senvion
+  MM82 turbines (2.05 MW each) during a three-month wind farm control field test, with min, max,
+  standard deviation and sample count per minute, a ground-based lidar, the control log, and
+  turbine coordinates in WGS84 and Lambert 93. Useful for wake and power-curve work, not for
+  long-run generation statistics. Checked by downloading the archive: per-turbine active power
+  columns are present and differ between turbines. The time zone of the timestamps is not
+  stated in the CSV header.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

@@ -1,0 +1,60 @@
+id: mx-cenace-generation-by-technology
+name: Energía Generada por Tipo de Tecnología (settled generation by technology)
+publisher: Centro Nacional de Control de Energía (CENACE)
+publisher_role: iso-rto
+countries: [MX]
+area: Sistema Eléctrico Nacional (national electricity system)
+level: country
+technology: onshore
+measure: metered-energy
+resolution: hourly
+coverage:
+  start: 2016
+  update: monthly, once each settlement run is complete
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: portal
+  url: https://www.cenace.gob.mx/Paginas/SIM/Reportes/EnergiaGeneradaTipoTec.aspx
+  key_required: false
+  registration: false
+  formats: [csv, pdf, html, zip]
+  languages: [es]
+licence:
+  name: No terms found
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use were found on the CENACE report page or in a web search. Redistribution
+    stays unclear until CENACE's own terms are read.
+traps:
+  - summary: Each month can be republished under several settlement runs, so the same hour has more than one value over time.
+    detail: >-
+      Files are listed by operating month and settlement number ("No. de Liquidación"); the
+      September 2026 file is the original run, L0. Record which run you used, and prefer the
+      latest.
+    evidence: https://www.cenace.gob.mx/Paginas/SIM/Reportes/EnergiaGeneradaTipoTec.aspx
+    found: 2026-11-06
+  - summary: The page says the statistics combine historical and forecast values, without saying which hours are which.
+    detail: >-
+      The description reads that the report "integra los valores históricos y pronosticados".
+      The column title says settled (liquidada) energy, which suggests metered values, but the
+      mix is not documented.
+    evidence: https://www.cenace.gob.mx/Paginas/SIM/Reportes/EnergiaGeneradaTipoTec.aspx
+    found: 2026-11-06
+  - summary: Downloads sit behind a form with a month picker, so there is no stable file link.
+    detail: >-
+      The CSV is returned by an ASP.NET form post for the chosen month; scripts must replay the
+      form, or use the zip download for a date range.
+    evidence: https://www.cenace.gob.mx/Paginas/SIM/Reportes/EnergiaGeneradaTipoTec.aspx
+    found: 2026-11-06
+notes: >-
+  Hourly settled generation in MWh for the whole Mexican system by technology, with an "Eolica"
+  (wind) column, published per operating month. The September 2026 file was downloaded and read
+  (720 hourly rows, one system, wind between about 2,200 and 3,100 MWh in the first hours). The
+  page's month picker starts at April 2016; that start is as set by the publisher and was not
+  downloaded. No per-plant output is published openly.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

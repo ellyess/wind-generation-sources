@@ -1,0 +1,48 @@
+id: fr-rte-eco2mix-national
+name: éCO2mix national consolidated and definitive data (Données éCO2mix nationales consolidées et définitives)
+publisher: RTE (Réseau de Transport d'Électricité), via the ODRE open data portal
+publisher_role: tso
+countries: [FR]
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: 30min
+coverage:
+  start: 2012
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: api
+  url: https://odre.opendatasoft.com/explore/dataset/eco2mix-national-cons-def/
+  key_required: false
+  registration: false
+  formats: [csv, json, parquet, xlsx]
+  languages: [fr]
+licence:
+  name: Licence Ouverte v2.0 (Etalab)
+  spdx: etalab-2.0
+  url: "https://odre.opendatasoft.com/explore/dataset/eco2mix-national-cons-def/"
+  redistribution: allowed-with-attribution
+  attribution: RTE, via ODRE (Open Data Réseaux Énergies)
+  verified: true
+  note: Licence named in the dataset metadata; the capacity dataset parc-prod-par-filiere carries the same licence.
+traps:
+  - summary: The single wind column ("eolien") holds onshore and offshore together, with no split.
+    evidence: https://odre.opendatasoft.com/explore/dataset/eco2mix-national-cons-def/
+    found: 2026-11-06
+  - summary: Clock-change hours are in local time and cannot be placed exactly in UTC.
+    detail: >-
+      PyVWF leaves three hours of each year's two clock-change days empty, because the series
+      cannot place them.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/guides/data-sources.md
+  - summary: Installed capacity is a separate dataset (parc-prod-par-filiere), given at year end.
+    detail: Interpolate through the year, or the year's growth is assigned to the wrong months.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/guides/data-sources.md
+notes: >-
+  The complete French national series, offshore included in every month. ENTSO-E's French
+  per-type data lacks offshore before June 2023 (see eu-entsoe-actual-generation). First record
+  31 December 2011, 23:00 UTC, which is midnight on 1 January 2012 in Paris.
+status: active
+last_checked: 2026-11-06
+checked_by: Ellyess Benmoufok and Claude Code; dataset metadata read via the Opendatasoft API; licence read on the publisher's page 2026-11-06

@@ -1,0 +1,72 @@
+id: es-ree-redata
+name: REData API, generation structure by technology (estructura-generacion)
+publisher: Red Eléctrica (REE)
+publisher_role: tso
+countries: [ES]
+area: Spain as a whole by default; peninsular, Balearic, Canary, Ceuta and Melilla systems selectable
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: daily
+coverage:
+  start: 2007
+  update: daily; the previous day was present on 2026-11-06
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: unknown
+access:
+  method: api
+  url: https://www.ree.es/en/datos/apidata
+  docs: https://www.ree.es/en/datos/apidata
+  key_required: false
+  registration: false
+  formats: [json]
+  languages: [es, en]
+licence:
+  name: Red Eléctrica website legal notice (Aviso legal), no named open licence
+  url: https://www.ree.es/en/legal-notice-privacy-policy
+  redistribution: non-commercial-only
+  attribution: >-
+    Name Red Eléctrica clearly as the source, do not alter the meaning, and give the date of
+    the latest update of the data.
+  verified: true
+  note: >-
+    Read 2026-11-06. Section 5.1 allows publishing content for information, company or academic
+    use only when not for commercial purposes; any other reproduction, distribution or reuse
+    needs written permission. The notice covers the ree.es site as a whole and does not name the
+    REData API, so check with REE before any commercial re-hosting.
+traps:
+  - summary: The documented hourly option does not work for generation by technology.
+    detail: >-
+      The API page lists time_trunc=hour, but estructura-generacion returned "The requested data
+      is currently unavailable" for every hourly request tried on 2026-11-06, while day and month
+      worked for the same dates. The finest wind series actually served is daily energy (MWh).
+    evidence: https://apidatos.ree.es/en/datos/generacion/estructura-generacion?start_date=2024-01-15T00:00&end_date=2024-01-15T23:59&time_trunc=hour
+    found: 2026-11-06
+  - summary: Requests outside the covered years return the same "currently unavailable" error as a real outage.
+    detail: >-
+      Daily values start in 2011 and monthly values in 2007. Earlier requests return HTTP 400
+      "The requested data is currently unavailable. Please try again later." rather than an
+      empty result, so a script cannot tell a gap in coverage from a server problem.
+    evidence: https://apidatos.ree.es/en/datos/generacion/estructura-generacion?start_date=2010-06-01T00:00&end_date=2010-06-02T23:59&time_trunc=day
+    found: 2026-11-06
+  - summary: Regional and installed-capacity requests failed with server error pages on the check day.
+    detail: >-
+      Queries filtered to an autonomous community (geo_limit=ccaa) and the potencia-instalada
+      (installed capacity) widget returned HTML "Internal Server Error" pages instead of JSON on
+      2026-11-06, while national queries worked. Retry, and check the response type before parsing.
+    evidence: https://apidatos.ree.es/en/datos/generacion/potencia-instalada?start_date=2023-01-01T00:00&end_date=2023-12-31T23:59&time_trunc=year
+    found: 2026-11-06
+notes: >-
+  Wind energy per day (MWh, with share of total) for Spain from 2011, and per month from 2007,
+  checked by requesting 2007, 2011, 2014 and 2026 and seeing different values. Timestamps are
+  Spanish local time (+01:00 or +02:00). REE says the generation figures exclude estimated
+  self-consumption but include surplus fed to the grid. Finer data sit in REE's separate ESIOS
+  system: indicator 551 (real-time peninsular wind, published every 5 minutes), 10037 (metered
+  wind, by province, from the month after) and 1159/1160 (metered onshore and offshore wind).
+  ESIOS needs a personal token requested from REE, so those series were not checked here; the
+  indicator descriptions were read from the public indicator list at
+  https://api.esios.ree.es/indicators. No maintained open-source REData client was found.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

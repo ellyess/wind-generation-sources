@@ -1,0 +1,74 @@
+id: gb-elexon-bmrs-fuel-type
+name: Generation by fuel type (FUELHH) and actual aggregated generation per type (AGPT / B1620), Elexon Insights Solution
+publisher: Elexon
+publisher_role: market-operator
+countries: [GB]
+area: Great Britain (England, Scotland and Wales)
+level: country
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: 30min
+coverage:
+  start: 2016
+  update: near real time (every half-hour)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: api
+  url: https://bmrs.elexon.co.uk/
+  docs: https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/AGPT
+  key_required: false
+  registration: false
+  formats: [json, csv, xml]
+  languages: [en]
+licence:
+  name: Elexon licence to use BMRS open data
+  url: https://www.elexon.co.uk/bsc/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/
+  redistribution: allowed-with-attribution
+  attribution: "Contains BMRS data © Elexon Limited copyright and database right [year]"
+  verified: true
+  note: >-
+    Worldwide, royalty-free, perpetual licence to copy, publish, distribute, adapt and exploit
+    the data, commercially included, with the attribution statement. The page says the licence
+    applies to users who are not parties to the Balancing and Settlement Code.
+traps:
+  - summary: The two national wind series disagree; AGPT reads well above FUELHH.
+    detail: >-
+      For settlement period 4 of 2024-01-15, AGPT gave 6,069 MW onshore plus 9,889 MW offshore
+      (15,958 MW), while FUELHH gave 14,482 MW of wind. Users report the gap and suspect AGPT
+      adds an estimate of embedded wind. Elexon's endpoint descriptions do not explain it, so
+      state which series you used.
+    evidence: https://github.com/OSUKED/ElexonDataPortal/issues/30
+    found: 2026-11-06
+  - summary: FUELHH has a single wind category with no onshore and offshore split.
+    detail: Only AGPT separates "Wind Onshore" and "Wind Offshore".
+    evidence: https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/FUELHH
+  - summary: The two endpoints are filtered differently; AGPT needs publish times, not settlement dates.
+    detail: >-
+      AGPT returns a validation error unless publishDateTimeFrom and publishDateTimeTo are
+      given, and the non-stream endpoint returns at most four days per call. FUELHH accepts
+      settlementDateFrom and settlementDateTo, which cannot be combined with publish-time
+      filters.
+    evidence: https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/AGPT
+    found: 2026-11-06
+  - summary: Settlement days on clock-change dates have 46 or 50 half-hours.
+    detail: >-
+      Settlement dates and periods follow UK local time; the startTime field is in UTC.
+    evidence: https://github.com/OSUKED/ElexonDataPortal/issues/29
+tools:
+  - name: Elexonpy (Open Climate Fix, wraps the Insights API)
+    url: https://github.com/openclimatefix-archives/Elexonpy
+    language: Python
+notes: >-
+  System-level half-hourly wind generation for Great Britain from the same API as the per-unit
+  B1610 data (gb-elexon-bmrs-unit-output). FUELHH gives average MW per half-hour by fuel type;
+  AGPT uses the generation categories of the European transparency regulation (EU 543/2013) and
+  splits onshore from offshore. Checked 2026-11-06: on the current API both series begin in
+  2016 (FUELHH from 2016-01-01, AGPT from spring 2016) and earlier dates return empty lists.
+  Neither endpoint is documented as covering wind farms on the distribution network; NESO's
+  estimate of those is gb-neso-embedded-wind. A 5-minute instantaneous series (FUELINST) also exists
+  on the same API and was not checked here.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

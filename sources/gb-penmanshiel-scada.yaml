@@ -1,0 +1,71 @@
+id: gb-penmanshiel-scada
+name: Penmanshiel wind farm data
+publisher: Cubico Sustainable Investments (via Zenodo)
+publisher_role: owner-operator
+countries: [GB]
+area: Penmanshiel wind farm, Scottish Borders, Scotland (14 turbines, 28.7 MW)
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2016
+  update: irregular new Zenodo versions; the latest, August 2025, runs to the end of 2024
+capacity: included
+coordinates: included
+curtailment: reported
+access:
+  method: bulk-download
+  url: https://doi.org/10.5281/zenodo.5946807
+  docs: https://zenodo.org/records/16807304
+  key_required: false
+  registration: false
+  formats: [csv, xlsx, zip, kmz]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://zenodo.org/records/16807304
+  redistribution: allowed-with-attribution
+  attribution: Cite the Zenodo record (Plumley, C., Penmanshiel wind farm data, Zenodo, doi:10.5281/zenodo.5946807).
+  verified: true
+  note: >-
+    The Zenodo record states the data were released by Cubico Sustainable Investments Ltd under
+    CC-BY-4.0, provided as is.
+traps:
+  - summary: The record most often linked (Zenodo 5946808) is an old version.
+    detail: >-
+      5946808 is version 0.0.2 from February 2022. The latest version (16807304, August 2025)
+      adds 2021 to 2024. Use the concept DOI 10.5281/zenodo.5946807 and record the version used.
+    evidence: https://zenodo.org/records/5946808
+    found: 2026-11-06
+  - summary: There is no turbine WT03, and turbines 1 to 10 are missing for January 2023 and all of 2024.
+    detail: >-
+      The farm has 14 turbines numbered 01 to 15 with 03 absent, as the record says. In the latest
+      version, 2023 data for turbines 01 to 10 come in pieces (February, March, Q2, Q3 and Q4) with
+      no January file, and 2024 has a file for turbines 11 to 15 only. A farm total built from the
+      turbine files will be short for those periods.
+    evidence: https://zenodo.org/records/16807304
+    found: 2026-11-06
+  - summary: The fiscal grid meter file runs from July 2016 to the start of 2023 only.
+    detail: >-
+      Penmanshiel_Grid_4464.zip covers 2016-07-01 to 2023-01-01. The 2023 and 2024 additions are
+      turbine SCADA and substation (PMU) data only.
+    evidence: https://zenodo.org/records/16807304
+    found: 2026-11-06
+tools:
+  - name: OpenOA (examples/project_Cubico.py)
+    url: https://github.com/NatLabRockies/OpenOA
+    language: Python
+notes: >-
+  Ten-minute SCADA (supervisory control and data acquisition) statistics for 14 Senvion MM82
+  turbines, 2.05 MW each, exported from the operator's Greenbyte system in the same layout as the
+  Kelmarsh dataset (same publisher): power, energy, wind, status logs and lost-production
+  estimates including curtailment, plus substation and fiscal grid meter data. A static CSV gives
+  coordinates, rated power, hub height and rotor diameter. Times are UTC per the file headers.
+  The same header quirk as Kelmarsh applies (the column header line begins with '#'); it was
+  confirmed here on the grid meter file. Turbine SCADA archives were not downloaded for this
+  check; contents are as listed on the record.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

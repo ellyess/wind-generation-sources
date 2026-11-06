@@ -1,0 +1,49 @@
+id: au-aemo-nem-unit-scada
+name: NEM unit SCADA (Market Management System Data Model archive, DISPATCH_UNIT_SCADA)
+publisher: Australian Energy Market Operator (AEMO)
+publisher_role: market-operator
+countries: [AU]
+area: "National Electricity Market: Queensland, New South Wales, Victoria, South Australia, Tasmania"
+level: farm
+technology: onshore
+measure: metered-energy
+resolution: 5min
+coverage:
+  start: 2009
+  update: monthly archive; current data on NEMweb
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://nemweb.com.au/Data_Archive/Wholesale_Electricity/MMSDM/
+  key_required: false
+  registration: false
+  formats: [csv, zip]
+  languages: [en]
+licence:
+  name: AEMO copyright permissions (general permission)
+  url: "https://www.aemo.com.au/privacy-and-legal-notices/copyright-permissions"
+  redistribution: allowed-with-attribution
+  attribution: Accurate and appropriate attribution of the AEMO material, and AEMO as its author.
+  verified: true
+  note: Excludes confidential documents and reports commissioned by others.
+traps:
+  - summary: Archives are cut on market-time month boundaries (Australian Eastern Standard Time, UTC+10, all year), not UTC months.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/au_nem.md
+  - summary: Capacity comes from the Generation Information workbook, whose download link changes every quarter.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/au_nem.md
+  - summary: Units are AEMO dispatch unit identifiers (DUIDs) with no coordinates; locations need a join to another register.
+    detail: PyVWF maps DUIDs to the Global Wind Power Tracker by hand, with the evidence for each match.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/au_nem.md
+tools:
+  - name: NEMOSIS
+    url: https://github.com/UNSW-CEEM/NEMOSIS
+    language: Python
+notes: >-
+  Five-minute output per wind farm for the eastern Australian market. Archive folders start in
+  2009; four years (2020-23) are about 0.9 GB zipped. Western Australia's separate market has its
+  own data.
+status: active
+last_checked: 2026-11-06
+checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, archive listing read on NEMweb; licence read on the publisher's page 2026-11-06

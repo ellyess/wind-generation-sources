@@ -1,0 +1,85 @@
+id: world-ember-monthly
+name: Monthly Electricity Data
+publisher: Ember
+publisher_role: aggregator
+countries: [AT, BA, BE, BG, BY, CH, CY, CZ, DE, DK, EE, ES, FI, FR, GB, GR, HR, HU, IE, IS, IT, LT, LU, LV, MD, ME, MK, MT, NL, NO, PL, PT, RO, RS, RU, SE, SI, SK, UA]
+area: >-
+  About 80 countries with a monthly wind series in the global file (40 European, 19 Asian, 8
+  South American, 7 North American, 5 African, 2 in Oceania); only the European ones are listed
+  in countries. Kosovo is also covered but has no ISO 3166-1 code.
+level: country
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2000
+  update: twice a month (first and third week)
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://ember-energy.org/data/monthly-electricity-data/
+  docs: https://files.ember-energy.org/public-downloads/ember_electricity_data_methodology.pdf
+  key_required: false
+  registration: false
+  formats: [csv, json]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://ember-energy.org/creative-commons/
+  redistribution: allowed-with-attribution
+  attribution: Credit Ember as the source; no fixed wording is given.
+  verified: true
+  note: >-
+    Ember's licence page releases its content under CC-BY-4.0 and asks to be told about reuse;
+    the logo needs permission. Underlying national and ENTSO-E data keep their own terms, which
+    the page does not discuss.
+traps:
+  - summary: The onshore and offshore split is only in the Europe file, and it is zero-filled.
+    detail: >-
+      The global file (release_generation_monthly_global.csv) has a single Wind source. The
+      Europe-only file (release_generation_monthly_lower.csv) adds Onshore wind and Offshore wind,
+      but gives Offshore wind rows of 0 for countries that have none, including landlocked North
+      Macedonia, so a zero is not evidence of a reported offshore figure.
+    evidence: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_monthly_lower.csv
+    found: 2026-11-06
+  - summary: European monthly figures are mostly net generation from ENTSO-E, while Ember's annual figures are gross, from Eurostat.
+    detail: >-
+      The methodology says the bulk of monthly European data comes from the ENTSO-E Transparency
+      Platform (net of auxiliary power), with national sources or Eurostat monthly data for some
+      countries and projection of recent months in three cases. Annual data use Eurostat (gross).
+      Twelve months summed will not match the annual dataset, and the monthly series inherits
+      any ENTSO-E gaps.
+    evidence: https://files.ember-energy.org/public-downloads/ember_electricity_data_methodology.pdf
+    found: 2026-11-06
+  - summary: Start dates differ by country; most of Europe begins in 2015.
+    detail: >-
+      The earliest wind month in the global file is January 2000 (Mongolia, Taiwan); the United
+      States begins in 2001, Ireland in 2010, the United Kingdom and most of Europe in January 2015,
+      Russia and Belarus in 2019. Ukraine stops in September 2022. Latest months also differ by
+      country.
+    evidence: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_monthly_global.csv
+    found: 2026-11-06
+  - summary: The file layout changed in July 2026.
+    detail: >-
+      Both files moved to one row per area, month and source with the metrics as columns, and
+      some labels changed (sentence-case source names, TRUE/FALSE membership flags). Code written
+      for the older long format needs updating.
+    evidence: https://ember-energy.org/data/monthly-electricity-data/
+    found: 2026-11-06
+notes: >-
+  Ember compiles monthly generation by source, in TWh, with shares and emissions, for 85 to 88 (the page gives both figures)
+  geographies from ENTSO-E, the US Energy Information Administration, Eurostat, the Energy
+  Institute and national statistics offices. The CSV files need no key; the Ember API
+  (https://api.ember-energy.org/v1/docs) serves the same data as JSON but needs a free key from
+  ember-energy.org/data/api. The figures are reported by the original sources and cleaned by
+  Ember, not modelled for individual country months, although the methodology describes
+  estimates in regional aggregates and in the latest annual figures. Installed capacity is in
+  the separate yearly dataset. Useful as a consistent cross-country monthly benchmark, not as a
+  primary source: for any one country, go to the national source it was compiled from.
+  Countries were confirmed by reading the global CSV on the check date.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

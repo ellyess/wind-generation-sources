@@ -1,0 +1,51 @@
+id: nz-ea-emi-generation-md
+name: Generation output by plant (Electricity Market Information, Generation_MD)
+publisher: Electricity Authority (Te Mana Hiko)
+publisher_role: regulator
+countries: [NZ]
+level: connection-point
+technology: onshore
+measure: metered-energy
+resolution: 30min
+coverage:
+  start: 1997
+  update: monthly
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0
+  spdx: CC-BY-4.0
+  url: "https://www.emi.ea.govt.nz/LegalInformation/"
+  redistribution: allowed-with-attribution
+  attribution: www.emi.ea.govt.nz provided by the Electricity Authority (New Zealand)
+  verified: true
+  note: EMI tools and models are under a separate licence; third-party works and restricted information-request data are excluded.
+traps:
+  - summary: Days have 46, 48 or 50 trading periods because of daylight saving; map periods to UTC through Pacific/Auckland.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/nz.md
+  - summary: Site codes are not stable across years; key farms on Gen_Code instead.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/nz.md
+  - summary: Some farms are metered at several connection points and must be summed.
+    detail: West Wind and Tararua I and II, for example.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/nz.md
+  - summary: Not every wind farm appears as wind.
+    detail: >-
+      Mahinerangi is metered inside the Waipori hydro scheme. About 28 MW of small farms on the
+      distribution network are outside the dataset.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/nz.md
+notes: >-
+  Half-hourly metered injection for every grid-connected generator, monthly files from August
+  1997. About 13 dispatched wind farms and 1.5 GW in 2024. The plant register gives capacity and
+  commissioning but no coordinates or hub heights. The Electricity Authority has said it plans to
+  replace Generation_MD with a richer dataset.
+status: active
+last_checked: 2026-11-06
+checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, earliest month read from the EMI listing; licence read on the publisher's page 2026-11-06

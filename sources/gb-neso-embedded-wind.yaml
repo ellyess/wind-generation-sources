@@ -1,0 +1,72 @@
+id: gb-neso-embedded-wind
+name: Historic Demand Data (estimated embedded wind generation and capacity columns)
+publisher: National Energy System Operator (NESO)
+publisher_role: tso
+countries: [GB]
+area: Great Britain, wind farms on the distribution network only
+level: country
+technology: onshore
+measure: estimated-generation
+resolution: 30min
+coverage:
+  start: 2007
+  update: monthly files, about 21 days in arrears; a daily "Demand Data Update" file runs about ten days behind
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.neso.energy/data-portal/historic-demand-data
+  docs: https://api.neso.energy/api/3/action/datastore_search?resource_id=8a4a771c-3929-4e56-93ad-cdf13219dea5&limit=1
+  key_required: false
+  registration: false
+  formats: [csv, json]
+  languages: [en]
+licence:
+  name: NESO Open Data Licence
+  url: https://www.neso.energy/data-portal/ngeso-open-licence
+  redistribution: allowed-with-attribution
+  attribution: "Supported by National Energy SO Open Data"
+  verified: true
+  note: >-
+    Based on the Open Government Licence v3.0 with NESO amendments: copy, publish, distribute,
+    adapt and use commercially, with the attribution statement. NESO may throttle access or
+    revise the licence.
+traps:
+  - summary: The wind figure is a model estimate, not a measurement.
+    detail: >-
+      NESO's column description says these wind farms are invisible to it, that their true
+      output is not known, and that the figure is an estimate from NESO's best model. The
+      capacity column is NESO's best view compiled from public sources, "not the definitive
+      view". Use it to fill the gap left by transmission-metered data, not to validate a model.
+    evidence: https://api.neso.energy/api/3/action/datastore_search?resource_id=8a4a771c-3929-4e56-93ad-cdf13219dea5&limit=1
+  - summary: The yearly files do not share one layout or one date format.
+    detail: >-
+      The 2026 file inserts a FORECAST_ACTUAL_INDICATOR column after ND, shifting every later
+      column by one; older files lack columns for later interconnectors and some have no
+      SCOTTISH_TRANSFER. Dates appear as 01-JAN-2009 in one file and 2008-01-01 in others, some
+      quoted and some not. Read columns by name and parse dates per file.
+    evidence: https://www.neso.energy/data-portal/historic-demand-data
+    found: 2026-11-06
+  - summary: Published values are revised, and a known bad period is awaiting correction.
+    detail: >-
+      NESO says the data undergo retrospective corrections. On 2026-11-06 the Demand Data Update
+      page carried a notice of data issues for 3 to 13 October 2026, pending re-publication. The
+      same file also holds forecast rows for the next seven days, flagged "F".
+    evidence: https://www.neso.energy/data-portal/daily-demand-update
+    found: 2026-11-06
+  - summary: Settlement periods follow UK local time, so clock-change days have 46 or 50 rows.
+    detail: NESO's field note on the settlement date says "This follows clock change."
+    evidence: https://api.neso.energy/api/3/action/datastore_search?resource_id=8a4a771c-3929-4e56-93ad-cdf13219dea5&limit=1
+notes: >-
+  Listed because it is the system operator's own half-hourly series for the British wind fleet
+  that has no transmission meter, roughly 6 GW of capacity by NESO's own estimate (6,606 MW at the
+  start of 2025, 5,906 MW in October 2026). It is modelled, so it is marked estimated-generation
+  and should not be read as observed output. Add it to the Elexon transmission-metered series
+  (gb-elexon-bmrs-fuel-type) to approximate total wind. Checked 2026-11-06: the files go back
+  to 2001, but embedded wind is NA until 2006 and zero until 28 October 2007, the first
+  half-hour with an estimate (458 MW against 1,129 MW of capacity). Files are also queryable
+  through the portal's CKAN datastore API.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

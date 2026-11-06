@@ -1,0 +1,71 @@
+id: de-smard
+name: SMARD market data, actual electricity generation (wind onshore and wind offshore)
+publisher: Bundesnetzagentur (Federal Network Agency)
+publisher_role: regulator
+countries: [DE]
+area: "Germany, and the four control areas 50Hertz, Amprion, TenneT and TransnetBW"
+level: zone
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2015
+capacity: none
+coordinates: not-applicable
+curtailment: unknown
+access:
+  method: bulk-download
+  url: https://www.smard.de/en/downloadcenter/download-market-data
+  docs: https://github.com/bundesAPI/smard-api
+  key_required: false
+  registration: false
+  formats: [csv, json]
+  languages: [de, en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://www.smard.de/en/datennutzung
+  redistribution: allowed-with-attribution
+  attribution: "Bundesnetzagentur | SMARD.de"
+  verified: true
+  note: >-
+    The data-use page says market data may be shared, redistributed and adapted with credit.
+    Wholesale prices are under separate licensing review; wind generation is not affected.
+traps:
+  - summary: Values are energy per interval (MWh), not average power (MW).
+    detail: >-
+      The CSV headers read "Wind onshore [MWh]". A quarter-hour value is a quarter of the
+      average MW; the hourly file for the same hour equals the sum of its four quarter-hours.
+    evidence: https://www.smard.de/en/downloadcenter/download-market-data
+    found: 2026-11-06
+  - summary: The data are ENTSO-E Transparency figures, not an independent measurement.
+    detail: >-
+      SMARD says it receives its data from ENTSO-E. Do not treat SMARD and ENTSO-E as two
+      sources that confirm each other.
+    evidence: https://www.smard.de/en/datennutzung
+  - summary: The JSON chart API is undocumented by the publisher and needs odd repeated path parts.
+    detail: >-
+      The community documentation notes that the filter and region must be repeated in the file
+      name, and that timestamps must first be read from an index file. Expect it to change
+      without notice.
+    evidence: https://github.com/bundesAPI/smard-api
+  - summary: The English CSV export uses local time, a 12-hour clock and comma thousands separators.
+    detail: >-
+      Rows read like "Jan 8, 2024 12:00 AM;...;3,815.25". Parse with care, and handle the
+      clock changes explicitly.
+    evidence: https://www.smard.de/en/downloadcenter/download-market-data
+    found: 2026-11-06
+tools:
+  - name: bundesAPI smard-api (OpenAPI documentation)
+    url: https://github.com/bundesAPI/smard-api
+notes: >-
+  Quarter-hourly wind onshore (filter 4067) and wind offshore (filter 1225) generation for
+  Germany and each of the four transmission control areas. Checked 2026-11-06: the first
+  non-empty quarter-hour is 2015-01-01 00:00 local time, and the DE, 50Hertz and TenneT series
+  return different values for the same interval. The same API also serves Austria and
+  Luxembourg. The series carries no capacity; SMARD's own installed-capacity figures were not
+  checked. A separate download covers generation by unit for units of at least 100 MW; it was
+  not checked here.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

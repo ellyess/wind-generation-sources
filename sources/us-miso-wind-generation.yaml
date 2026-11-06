@@ -1,0 +1,60 @@
+id: us-miso-wind-generation
+name: Historical Hourly Wind Data and Historical Generation Fuel Mix (market reports)
+publisher: Midcontinent Independent System Operator (MISO)
+publisher_role: iso-rto
+countries: [US]
+area: MISO footprint (central and southern US), split into North, Central and South regions in the fuel-mix file
+level: zone
+technology: onshore
+measure: estimated-generation
+resolution: hourly
+coverage:
+  start: 2023
+  update: daily (year-to-date files)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.misoenergy.org/markets-and-operations/real-time--market-data/market-reports/
+  docs: "https://docs.misoenergy.org/marketreports/Historical%20Hourly%20Wind%20Data_Historical%20Hourly%20Wind%20Data%20Report%20Readers%20Guide.pdf"
+  key_required: false
+  registration: false
+  formats: [csv, xlsx]
+  languages: [en]
+licence:
+  name: MISO website Terms of Use
+  url: "https://www.misoenergy.org/meet-miso/legal-and-privacy/"
+  redistribution: prohibited
+  verified: true
+  note: >-
+    The terms say users may not publish, transmit, reproduce, distribute or otherwise exploit any
+    content on the site, and that access confers no licence. Link to MISO rather than re-host.
+traps:
+  - summary: The fuel-mix workbook gives two different wind numbers, a day-ahead schedule and a real-time state-estimator value.
+    detail: >-
+      Columns are "DA Cleared UDS Generation" (what the day-ahead market cleared) and "RT
+      Generation State Estimator" (MISO's real-time estimate from telemetry). Only the second is
+      close to observed output, and it is an estimate rather than metered energy.
+    evidence: https://docs.misoenergy.org/marketreports/historical_gen_fuel_mix_2024.xlsx
+    found: 2026-11-06
+  - summary: Hours are hour-ending in Eastern Standard Time all year, with no daylight-saving shift.
+    evidence: https://docs.misoenergy.org/marketreports/20251231_hwd_HIST.csv
+    found: 2026-11-06
+  - summary: Older years are not at the predictable file names, so history before 2023 could not be found.
+    detail: >-
+      <year>1231_hwd_HIST.csv and historical_gen_fuel_mix_<year>.xlsx answer for 2023 to 2025;
+      the same names for 2008-2022 return "BlobNotFound". The wind report's reader's guide dates
+      from 2014, so older data may exist elsewhere on MISO's site.
+    evidence: https://docs.misoenergy.org/marketreports/20221231_hwd_HIST.csv
+    found: 2026-11-06
+notes: >-
+  Two files. The Historical Hourly Wind Data report (<YYYYMMDD>_hwd_HIST.csv) is one MISO-wide
+  hourly wind total in MWh, year to date, as the reader's guide describes. The Historical
+  Generation Fuel Mix workbook (historical_gen_fuel_mix_<year>.xlsx) splits generation by fuel and
+  by region (North, Central, South). No per-plant output is published. The start year is the
+  earliest file found at these names, not necessarily the start of the series. gridstatus reads
+  MISO's real-time fuel mix but not these historical files.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

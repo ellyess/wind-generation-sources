@@ -1,0 +1,66 @@
+id: co-xm-simem-generation
+name: SiMEM Generación real (hourly real generation per plant)
+publisher: XM S.A. E.S.P. (operator of Colombia's national grid and wholesale market), through SiMEM
+publisher_role: market-operator
+countries: [CO]
+level: farm
+technology: onshore
+measure: metered-energy
+resolution: hourly
+coverage:
+  start: 2013
+  update: daily, with later settlement versions replacing earlier ones
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+access:
+  method: api
+  url: https://www.simem.co/
+  docs: https://github.com/XM-SA-ESP/GEDeN-SIMEM-Tools
+  key_required: false
+  registration: false
+  formats: [json]
+  languages: [es]
+licence:
+  name: Not read on the publisher's site
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms page was found on simem.co. XM's SiMEM question-and-answer document is reported to
+    describe SiMEM as open public data under an open licence, but it could not be fetched at the
+    check, so this stays unverified.
+traps:
+  - summary: Each hour appears once per settlement version, so a plain download holds duplicate values.
+    detail: >-
+      On 1 October 2026 every plant-hour came three times, under versions TX1, TX2 and TXR. Older
+      days carry one later version (TX3 to TX6). Keep one version per hour, normally the latest.
+    evidence: "https://www.simem.co/backend-files/api/PublicData?startDate=2026-10-01&endDate=2026-10-01&datasetId=055A4D"
+    found: 2026-11-06
+  - summary: Plants are identified by short codes, and the wind farms are missing from the plant master list.
+    detail: >-
+      The three wind plants in the dataset (codes 3EE4, 3EXH and 4UK6) are tagged "Eolica" in
+      dataset E17D25, but do not appear in the plant list (dataset 0BFC9D) checked on 5 November
+      2026, so names and capacity need another source.
+    evidence: "https://www.simem.co/backend-files/api/PublicData?startDate=2026-10-01&endDate=2026-10-01&datasetId=E17D25"
+    found: 2026-11-06
+  - summary: The current wind plants only appear in the hourly data from 2023, and the fleet is small.
+    detail: >-
+      3EE4 and 3EXH are present on 1 January 2023 and absent on 1 January 2022 and earlier days
+      checked. Any older wind plant would sit under a code not identified here.
+    evidence: "https://www.simem.co/backend-files/api/PublicData?startDate=2023-01-01&endDate=2023-01-01&datasetId=055A4D"
+    found: 2026-11-06
+tools:
+  - name: pydataxm (XM's own Python client for the XM API and SiMEM)
+    url: https://github.com/EquipoAnaliticaXM/API_XM
+    language: Python
+notes: >-
+  Dataset 055A4D, "Generación real de cada una de las plantas, en kWh", hourly, per plant and
+  generating agent. Query it at https://www.simem.co/backend-files/api/PublicData with startDate,
+  endDate and datasetId; one day is about 9 MB of JSON. Checked per plant: on 1 October 2026 the
+  wind plants 3EE4 and 3EXH gave different hourly series. The first day with records found was
+  1 January 2013 (31 December 2012 returns none). Dataset E17D25 gives a daily SCADA-based estimate
+  and the scheduled generation for the same plants. XM's older API at servapibi.xm.com.co did not
+  resolve from the checking network, so it was not tested.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

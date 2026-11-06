@@ -1,0 +1,56 @@
+id: us-eia-923-plant-generation
+name: Form EIA-923 Power Plant Operations Report (net generation by plant)
+publisher: US Energy Information Administration (EIA)
+publisher_role: statistics-office
+countries: [US]
+level: farm
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2001
+capacity: separate-dataset
+coordinates: separate-dataset
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.eia.gov/electricity/data/eia923/
+  key_required: false
+  registration: false
+  formats: [xlsx, zip]
+  languages: [en]
+licence:
+  name: US government work, public domain
+  url: "https://www.eia.gov/about/copyrights_reuse.php"
+  redistribution: allowed
+  attribution: "Source: U.S. Energy Information Administration (with the date of access)"
+  verified: true
+  note: Photos, contributed private documents and the EIA logo are excluded.
+traps:
+  - summary: Most wind plants report annually, and EIA fills in their months; only about 40% are measured monthly.
+    detail: >-
+      In 2021, 777 of 1,279 wind plants were annual ("A") respondents whose monthly values are
+      imputed by EIA. Filter to monthly respondents for any monthly analysis.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/us.md
+  - summary: Net generation is net of station use, so it runs a little below gross output.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/us.md
+  - summary: Coordinates and nameplate are in a separate form (EIA-860), and a few plants use a placeholder code that joins to nothing.
+    detail: >-
+      Join on plant code to EIA-860. In 2021 one plant (code 99999 and similar placeholders) did
+      not join. Hub heights are not in either form; the US Wind Turbine Database (USGS) has them.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/us.md
+  - summary: The file covers Alaska and Hawaii, which fall outside a contiguous-US domain.
+    detail: Filter by location before matching plants to a gridded wind field.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/us.md
+tools:
+  - name: PUDL (Public Utility Data Liberation)
+    url: https://github.com/catalyst-cooperative/pudl
+    language: Python
+notes: >-
+  Plant-level monthly net generation for the whole US fleet, about 133 GW of wind in 2021. Pair it
+  with EIA-860 (nameplate, coordinates) and the US Wind Turbine Database
+  (https://energy.usgs.gov/uswtdb/) for hub heights. Files from 2001 to 2007 come from the
+  predecessor forms EIA-906 and EIA-920, on the same page.
+status: active
+last_checked: 2026-11-06
+checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, file list read from the EIA page; licence read on the publisher's page 2026-11-06

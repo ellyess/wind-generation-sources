@@ -1,0 +1,81 @@
+id: us-eia-930-hourly
+name: Hourly Electric Grid Monitor (Form EIA-930), net generation by energy source
+publisher: US Energy Information Administration (EIA)
+publisher_role: statistics-office
+countries: [US]
+area: Lower 48 states, by balancing authority (about 60 grid operators, each covering part of a state or several states)
+level: zone
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2018
+  update: daily; six-month bulk files refreshed as the half-year fills
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.eia.gov/electricity/gridmonitor/
+  docs: https://www.eia.gov/electricity/gridmonitor/about
+  key_required: false
+  registration: false
+  formats: [csv, xlsx, json]
+  languages: [en]
+licence:
+  name: US government work, public domain
+  url: "https://www.eia.gov/about/copyrights_reuse.php"
+  redistribution: allowed
+  attribution: "Source: U.S. Energy Information Administration (with the publication date)"
+  verified: true
+  note: >-
+    EIA's reuse page says US government publications are public domain and its data may be used
+    and distributed. It asks for an acknowledgment naming EIA and the date. Photos, contributed
+    documents and the EIA logo are excluded.
+traps:
+  - summary: Wind changed from one column to two in the second half of 2024, so a long series has to be stitched.
+    detail: >-
+      Files up to January-June 2024 have "Net Generation (MW) from Wind". From July-December 2024
+      on, it is split into "Wind without Integrated Battery Storage" and "Wind with Integrated
+      Battery Storage". Add the two to compare with earlier years.
+    evidence: https://docs.catalyst.coop/pudl/en/latest/data_sources/eia930.html
+    found: 2026-11-06
+  - summary: Balancing authorities meter only part of the fleet, so totals run below plant-level statistics such as EIA-923.
+    detail: >-
+      Summed to months or years, EIA-930 generation is lower than other EIA publications, and for
+      some small balancing authorities the fuel columns do not add up to the reported total.
+    evidence: https://docs.catalyst.coop/pudl/en/latest/data_sources/eia930.html
+  - summary: Each value comes three ways (as reported, imputed and adjusted); the reported column keeps outliers and gaps.
+    detail: >-
+      The files carry the raw value as the balancing authority sent it next to EIA's imputed and
+      adjusted versions. Pick one deliberately; the reported column has missing hours and spikes.
+    evidence: https://docs.catalyst.coop/pudl/en/latest/data_sources/eia930.html
+  - summary: The local-time column has daylight-saving gaps and repeated hours; use the UTC column.
+    detail: >-
+      Each row has a local time (the balancing authority's own reporting time zone, which may not
+      match where the plants are) and a UTC time at the end of the hour.
+    evidence: https://docs.catalyst.coop/pudl/en/latest/data_sources/eia930.html
+  - summary: Some column headers in the current files contain typos and double spaces, so exact name matching breaks.
+    detail: >-
+      The 2026 January-June file has "Solar witho Integrated Battery Storage (Adjusted)" and
+      "Pumped Storage  (Adjusted)" with two spaces. Normalise headers before selecting columns.
+    evidence: https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2026_Jan_Jun.csv
+    found: 2026-11-06
+tools:
+  - name: PUDL (Public Utility Data Liberation)
+    url: https://github.com/catalyst-cooperative/pudl
+    language: Python
+  - name: gridstatus (EIA class)
+    url: https://github.com/gridstatus/gridstatus
+    language: Python
+notes: >-
+  Hourly generation by fuel for each US balancing authority. Bulk files are named
+  EIA930_BALANCE_<year>_<Jan_Jun|Jul_Dec>.csv under /electricity/gridmonitor/sixMonthFiles/. Total
+  net generation starts in July 2015, but the files checked first carry a wind column in
+  July-December 2018; January-June 2018 and earlier have no fuel split. The same data are in EIA's
+  API v2 (electricity/rto/fuel-type-data), which needs a free key. On 1 March 2026 at noon local
+  time the files gave 16,642 MW for ERCOT, 11,222 MW for SPP and 55 MW for BPA, so the columns do
+  vary by balancing authority. For plant-level monthly data use us-eia-923-plant-generation.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

@@ -1,0 +1,62 @@
+id: uy-adme-hourly-by-plant
+name: Datos de operación, variables horarias por central (hourly injections by plant)
+publisher: Administración del Mercado Eléctrico (ADME)
+publisher_role: market-operator
+countries: [UY]
+level: farm
+technology: onshore
+measure: metered-energy
+resolution: hourly
+coverage:
+  start: 2019
+  update: monthly (latest month at the check was September 2026)
+capacity: none
+coordinates: none
+curtailment: unknown
+access:
+  method: portal
+  url: https://adme.com.uy/controlpanel.php
+  key_required: false
+  registration: false
+  formats: [csv, xlsx]
+  languages: [es]
+licence:
+  name: No terms found
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use or licence were found on ADME's site (home page, data panel, open-data
+    page). Redistribution stays unclear until ADME states its terms.
+traps:
+  - summary: Asking for a month before January 2019 silently returns January 2019 instead of an error.
+    detail: >-
+      Requests for March 2010 and March 2015 both came back as 1-31 January 2019 under the
+      requested file name. Check the dates in the file, not the name.
+    evidence: https://www.adme.com.uy/panelControl/variables_excel.php?anod=2015&mesd=03&anoh=2015&mesh=03&periodo=1&tipo=1&central%5B%5D=65
+    found: 2026-11-06
+  - summary: Some large wind farms read zero all month, which looks like no output rather than missing data.
+    detail: >-
+      In March 2025 and September 2026, Pampa and Valentines (wind farms) were
+      0 or close to it in every hour, while Artilleros and Florida I had normal values. Drop
+      plants whose series are near-zero before using the file.
+    evidence: https://www.adme.com.uy/panelControl/variables_excel.php?anod=2025&mesd=03&anoh=2025&mesh=03&periodo=1&tipo=1&central%5B%5D=65&central%5B%5D=128&central%5B%5D=119
+    found: 2026-11-06
+  - summary: The CSV can start with PHP warning text, and the injection and extraction columns are identical.
+    detail: >-
+      Several requests returned HTML warning lines before the semicolon-separated table. Skip
+      lines until the plant-name header. "Inyecciones" and "Extracciones" matched in every row
+      checked, so use one.
+    evidence: https://www.adme.com.uy/panelControl/variables_excel.php?anod=2026&mesd=09&anoh=2026&mesh=09&periodo=1&tipo=1&central%5B%5D=65&central%5B%5D=128&central%5B%5D=119
+    found: 2026-11-06
+notes: >-
+  Hourly energy in MWh for each generating plant in Uruguay, chosen from a list of about 130
+  plants, imports and exports, from the "Datos de operación" panel (form variables_excel.php,
+  hourly or monthly, CSV or xlsx). Checked per plant: Artilleros and Florida I give different
+  hourly series (11,027 and 10,490 MWh in March 2025). ADME also distributes ADME_DATA, a desktop
+  and command-line program for raw ten-minute SCADA series per plant, including wind speed and
+  direction from plant weather stations, described on https://adme.com.uy/imasd/adme_data.html
+  as unprocessed and unvalidated. That ten-minute route was not tested here (it needs the program
+  installed), so its history depth is unverified.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

@@ -1,0 +1,58 @@
+id: us-nyiso-fuel-mix
+name: Real-Time Fuel Mix (rtfuelmix)
+publisher: New York Independent System Operator (NYISO)
+publisher_role: iso-rto
+countries: [US]
+area: New York State control area
+level: zone
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: 5min
+coverage:
+  start: 2015
+  update: near real time (daily file), with monthly zip archives
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.nyiso.com/energy-market-operational-data
+  key_required: false
+  registration: false
+  formats: [csv, zip]
+  languages: [en]
+licence:
+  name: NYISO Legal Notice
+  url: "https://www.nyiso.com/legal-notice"
+  redistribution: unclear
+  verified: true
+  note: >-
+    The notice says use of the site confers no licence or ownership in its content and NYISO
+    reserves all rights; the only explicit ban is on reusing images and video. No reuse terms are
+    given for data.
+traps:
+  - summary: The value column header changed from "Gen MWh" to "Gen MW", but both hold five-minute megawatt readings.
+    detail: >-
+      The December 2015 files label the column "Gen MWh"; current files say "Gen MW". The values
+      are instantaneous five-minute power in both. Do not sum them as energy without dividing by
+      12.
+    evidence: http://mis.nyiso.com/public/csv/rtfuelmix/20151201rtfuelmix_csv.zip
+    found: 2026-11-06
+  - summary: Timestamps are local time with a separate EST or EDT label, so the autumn changeover repeats an hour.
+    detail: Combine the "Time Stamp" and "Time Zone" columns before converting to UTC.
+    evidence: https://mis.nyiso.com/public/csv/rtfuelmix/20261105rtfuelmix.csv
+    found: 2026-11-06
+tools:
+  - name: gridstatus (NYISO class)
+    url: https://github.com/gridstatus/gridstatus
+    language: Python
+notes: >-
+  One statewide wind value every five minutes, alongside the other fuel categories. Daily files
+  are at mis.nyiso.com/public/csv/rtfuelmix/<YYYYMMDD>rtfuelmix.csv and monthly archives at
+  <YYYYMM01>rtfuelmix_csv.zip. The earliest archive that answers is December 2015, whose first
+  file is 9 December 2015; the November 2015 archive returns 404. No per-plant output is
+  published. Whether offshore wind connected in New York is in the Wind category was not
+  checked.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

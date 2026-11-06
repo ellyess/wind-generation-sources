@@ -1,0 +1,82 @@
+id: eu-entsoe-actual-generation
+name: Actual Generation per Production Type (ENTSO-E Transparency Platform)
+publisher: European Network of Transmission System Operators for Electricity (ENTSO-E)
+publisher_role: tso
+countries: [BE, ES, FR, IE, IT, NL, NO, PT, SE]
+area: >-
+  Bidding zones, control areas and countries of the ENTSO-E members. The countries listed are
+  those audited here; most other members report too, with quality that varies by country.
+level: zone
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2015
+  update: near real time
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: api
+  url: https://transparency.entsoe.eu/
+  docs: https://documenter.getpostman.com/view/7009892/2s93JtP3F6
+  key_required: true
+  registration: true
+  formats: [xml]
+  languages: [en]
+licence:
+  name: ENTSO-E Transparency Platform Terms and Conditions (29 March 2023) and list of data available for reuse (18 October 2023)
+  url: "https://transparencyplatform.zendesk.com/hc/en-us/articles/40921911218961"
+  redistribution: link-only
+  attribution: Mention the ENTSO-E Transparency Platform as the source of publication.
+  verified: true
+  note: CC-BY-4.0 applies only to the 35 items on the reuse list. Actual generation per production type (16.1) and installed capacity (14.1) are not on it, so re-hosting them needs the prior agreement of the copyright holder. Link to the platform, or publish derived statistics.
+traps:
+  - summary: Onshore (B19) and offshore (B18) wind are separate production types, and a query for one is easy to mistake for the whole fleet.
+    detail: >-
+      Ask for both and add them. PyVWF's Belgian and French observation files measured onshore
+      alone in some years and whole fleets in others, and every physical check passed because
+      generation and capacity were onshore together. ENTSO-E held the offshore series; the
+      mistake was the client's, but the split makes it easy to make.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+    found: 2026-10-22
+  - summary: French offshore output is missing before June 2023, although RTE reports it every month of 2023.
+    detail: >-
+      RTE's definitive eCO2mix series gives 1.89 TWh of French offshore output in 2023;
+      ENTSO-E's per-type series holds only the June to December part (about 1.11 TWh). Use RTE
+      for France.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+    found: 2026-10-23
+  - summary: Offshore wind can come back with an "Actual Consumption" column beside generation.
+    detail: >-
+      For Belgium, entsoe-py returns ("Wind Offshore", "Actual Consumption"), about 0.2-0.3% of
+      offshore output in 2021 and 2023. Keep only the "Actual Aggregated" columns, or the
+      consumption is summed into generation.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+    found: 2026-10-22
+  - summary: The installed-capacity series disagrees with national registers by up to a third, and is sometimes empty.
+    detail: >-
+      Against national sources: France 1.0-2.9 GW below RTE's fleet in 2018-19, Norway 26% below
+      NVE's register in 2015 and 32% above it in 2020, Sweden counting onshore only at the start
+      of each year, and no capacity at all for Swedish zones in 2015-19. Check the denominator
+      against a national register before forming a capacity factor.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+    found: 2026-10-25
+  - summary: Summed bidding zones did not match metered national output for Norway.
+    detail: >-
+      For 2015-21 the sum of Norway's zones held 0.873 to 0.990 of the output NVE's farms
+      metered each year. In 2023 it matched Statistics Norway's monthly production.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+    found: 2026-10-25
+tools:
+  - name: entsoe-py
+    url: https://github.com/EnergieID/entsoe-py
+    language: Python
+notes: >-
+  The common starting point for European generation by type, at 15-minute, 30-minute or hourly
+  resolution depending on the area. Coverage, resolution and quality differ by country. Before
+  relying on any country, compare a year's energy with a national source or Eurostat's annual
+  wind production (see eu-eurostat-nrg-bal-peh).
+status: active
+last_checked: 2026-10-27
+checked_by: Ellyess Benmoufok, from the PyVWF ENTSO-E runbook and scorecard audits; licence read on the publisher's page 2026-11-06

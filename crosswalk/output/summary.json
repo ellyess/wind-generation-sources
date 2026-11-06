@@ -1,0 +1,24 @@
+{
+  "aemo-nem": {
+    "units": 109,
+    "osm_farms": 122,
+    "proposed": 80,
+    "review": 19,
+    "unmatched": 10
+  },
+  "elexon-bm": {
+    "units": 287,
+    "osm_farms": 727,
+    "proposed": 163,
+    "aggregate": 13,
+    "unmatched": 46,
+    "review": 65
+  },
+  "ieso": {
+    "units": 45,
+    "osm_farms": 102,
+    "review": 5,
+    "unmatched": 13,
+    "proposed": 27
+  }
+}

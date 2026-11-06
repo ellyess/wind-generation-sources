@@ -1,0 +1,62 @@
+id: us-isone-daily-generation-by-fuel
+name: Daily Generation by Fuel Type
+publisher: ISO New England (ISO-NE)
+publisher_role: iso-rto
+countries: [US]
+area: New England (Connecticut, Maine, Massachusetts, New Hampshire, Rhode Island, Vermont)
+level: zone
+technology: onshore-and-offshore-combined
+measure: metered-energy
+resolution: daily
+coverage:
+  start: 2008
+  update: yearly workbook, updated through the year
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.iso-ne.com/isoexpress/web/reports/operations/-/tree/daily-gen-fuel-type
+  key_required: false
+  registration: false
+  formats: [xlsx]
+  languages: [en]
+licence:
+  name: ISO New England website Terms and Conditions
+  url: "https://www.iso-ne.com/legal-privacy"
+  redistribution: unclear
+  verified: true
+  note: >-
+    The terms say the content is protected by US copyright and that "any duplication of the
+    Content or non-personal use may violate copyright". They give no licence for reuse, so
+    re-hosting is not covered; ask ISO-NE first.
+traps:
+  - summary: ISO-NE's five-minute "Dispatch Fuel Mix" sounds like observed output but is a dispatch-software forecast.
+    detail: >-
+      The ISO Express page describes it as the electricity "expected to be produced" by fuel type,
+      "as forecasted by the ISO's dispatch software". Only the Daily Generation by Fuel Type report
+      is metered.
+    evidence: https://www.iso-ne.com/isoexpress/web/reports/operations/-/tree/gen-fuel-mix
+    found: 2026-11-06
+  - summary: Fuel types are as registered, and before 2019 the workbook had separate pre- and post-2014 fuel tabs.
+    detail: >-
+      Since December 2014 dual-fuel units can declare blends, and ISO-NE applies them to metered
+      output. From 2019 the workbook only has the post-2014 fuel split. Wind is not affected by
+      blending but the tab layout changes between years.
+    evidence: https://www.iso-ne.com/static-assets/documents/2022/01/2022_daygenbyfuel.xlsx
+    found: 2026-11-06
+  - summary: The download page asks for a captcha, though the yearly workbooks also have direct links.
+    detail: >-
+      Workbooks sit at /static-assets/documents/<year>/<month>/<year>_daygenbyfuel.xlsx; the month
+      in the path varies, so find each link on the page.
+    evidence: https://www.iso-ne.com/isoexpress/web/reports/operations/-/tree/daily-gen-fuel-type
+    found: 2026-11-06
+notes: >-
+  Daily metered MWh by fuel, including a WIND column, for the whole New England system. The page
+  says the report runs from 1 January 2008; workbooks for 2020, 2022 and 2023 were opened at the
+  check. No per-plant output is published. ISO-NE's web services (webservices.iso-ne.com)
+  returned 401 without an ISO Express account and were not checked further. Whether offshore
+  wind is in the WIND column was not checked.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

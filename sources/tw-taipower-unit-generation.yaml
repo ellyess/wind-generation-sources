@@ -1,0 +1,84 @@
+id: tw-taipower-unit-generation
+name: Taipower generation by unit, real-time (各機組發電量即時資訊) and past (各機組過去發電量)
+publisher: Taiwan Power Company (Taipower), via the Government Open Data Platform (data.gov.tw)
+publisher_role: utility
+countries: [TW]
+level: farm
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2026
+  update: real-time file every 10 minutes; past file replaced monthly with a three-month window about three months behind
+capacity: included
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://data.gov.tw/dataset/8931
+  docs: https://data.gov.tw/dataset/37331
+  key_required: false
+  registration: false
+  formats: [json]
+  languages: [zh]
+licence:
+  name: Open Government Data License, version 1.0 (政府資料開放授權條款－第1版)
+  url: https://data.gov.tw/license
+  redistribution: allowed-with-attribution
+  attribution: Name the providing agency (Taiwan Power Company), the year and the dataset name, and state that it is released under the Open Government Data License.
+  verified: true
+  note: >-
+    Free, non-exclusive, irrevocable use for any purpose, including redistribution and
+    derivatives, on condition of the attribution statement. The licence says it is compatible
+    with CC BY 4.0.
+traps:
+  - summary: There is no long archive; the past-generation file is a rolling three-month window.
+    detail: >-
+      The real-time file is a single snapshot that is overwritten every 10 minutes. The past
+      file is replaced at each month end with a three-month block ending about three months
+      earlier (on 2026-11-06 it held 1 April to 30 June 2026). Anyone wanting a history has to
+      harvest one or both files on a schedule.
+    evidence: https://data.gov.tw/dataset/37331
+    found: 2026-11-06
+  - summary: The past file covers Taipower-owned units only, so most offshore wind is missing from it.
+    detail: >-
+      On 2026-11-06 the past file listed 17 wind units, all Taipower's own (for example 彰工,
+      觀園, 離岸一期). The large privately owned offshore farms whose output Taipower buys (沃一風,
+      海能風, 允西 and others) appear only in the real-time file, which is titled as including
+      purchased power.
+    evidence: https://data.gov.tw/dataset/37331
+    found: 2026-11-06
+  - summary: The real-time file mixes single farms, aggregates and a subtotal row.
+    detail: >-
+      Wind rows include named farms, catch-all rows such as 其它台電自有 (other Taipower-owned)
+      and 其它購電風力 (other purchased wind), and a 小計 (subtotal) row with percentages inside
+      the capacity and output fields. Some farms show capacity "-" (footnote 10) while
+      reporting output, and the remarks column flags states such as 部分檢修 (partial
+      maintenance) or 通訊異常 (communication fault). Drop the subtotal and parse numbers
+      defensively.
+    evidence: https://service.taipower.com.tw/data/opendata/apply/file/d006001/001.json
+    found: 2026-11-06
+  - summary: Values are instantaneous net power snapshots from the energy management system, not interval energy.
+    detail: >-
+      The past dataset describes its values as 10-minute net generation instantaneous values
+      (瞬間值) taken from the energy management system, which may differ slightly from
+      Taipower's official figures because of maintenance, configuration or transmission issues.
+    evidence: https://data.gov.tw/dataset/37331
+    found: 2026-11-06
+tools:
+  - name: Electricity Maps parser TAIPOWER.py
+    url: https://github.com/electricitymaps/electricitymaps-contrib/blob/master/electricitymap/contrib/parsers/TAIPOWER.py
+    language: Python
+notes: >-
+  Two related datasets. The real-time JSON (fields: unit type, unit name, installed capacity
+  MW, net generation MW, ratio, remarks) listed 32 wind rows at 2026-11-06 21:00, onshore and
+  offshore together, with about 4,187 MW of wind capacity. The past JSON (FUEL_TYPE,
+  UNIT_NAME, DATETIME, NET_P in MW) has every 10-minute step for each unit; two wind units
+  gave different values for the same steps. Onshore and offshore are not flagged and must be
+  told apart by farm name. The past file was about 191 MB and the copy downloaded on
+  2026-11-06 ended mid-record, so it did not parse as complete JSON; the wind records were
+  complete. The www.taipower.com.tw mirror refused these requests (403); the
+  service.taipower.com.tw links from data.gov.tw worked.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

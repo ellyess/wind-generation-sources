@@ -1,0 +1,75 @@
+id: kr-kpx-hourly-solar-wind-by-region
+name: Hourly solar and wind generation by region (한국전력거래소_지역별 시간별 태양광 및 풍력 발전량)
+publisher: Korea Power Exchange (KPX), via the Public Data Portal (data.go.kr)
+publisher_role: market-operator
+countries: [KR]
+area: Wind split into mainland (육지) and Jeju (제주)
+level: zone
+technology: onshore-and-offshore-combined
+measure: metered-energy
+resolution: hourly
+coverage:
+  start: 2017
+  update: annual (one calendar year per release; next release listed for 2027-04-21)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.data.go.kr/data/15065269/fileData.do
+  key_required: false
+  registration: false
+  formats: [csv, json, xml]
+  languages: [ko]
+licence:
+  name: Public Data Portal terms for this dataset, scope of permitted use "no restriction" (이용허락범위 제한 없음), free of charge
+  url: https://www.data.go.kr/data/15065269/fileData.do
+  redistribution: allowed
+  verified: true
+  note: >-
+    The dataset page states free use with no restriction on the scope of use. The CSV
+    downloads without login; the auto-generated JSON or XML API needs a portal account and a
+    service key.
+traps:
+  - summary: Wind is only split mainland and Jeju since December 2023; earlier releases were by province.
+    detail: >-
+      KPX says some provinces have three or fewer wind generators, so publishing them would
+      expose individual companies' trading information. Since December 2023 wind is given for
+      the mainland and Jeju only, while solar stays by province. Older releases on the page
+      may carry a different regional split.
+    evidence: https://www.data.go.kr/data/15065269/fileData.do
+    found: 2026-11-06
+  - summary: Generators that sell directly to KEPCO are left out, so the totals are not national wind output.
+    detail: >-
+      The figures are market trading volumes, sent-out (net of station use and transformer
+      losses). Plants trading directly with the Korea Electric Power Corporation under the
+      Electricity Business Act, and self-use generation, are excluded; KPX points to KEPCO's
+      statistics for national totals. Jeju wind summed to only about 76 GWh for 2025.
+    evidence: https://www.data.go.kr/data/15065269/fileData.do
+    found: 2026-11-06
+  - summary: Wind values include battery storage charge and discharge.
+    detail: >-
+      The page notes that solar and wind generation includes associated storage, so small
+      night-time output can come from battery discharge. Values may also change after
+      settlement revisions.
+    evidence: https://www.data.go.kr/data/15065269/fileData.do
+    found: 2026-11-06
+  - summary: Each release holds one year, and hours run 01 to 24.
+    detail: >-
+      The current file (_20251231, registered 2026-04-21) has 166,440 rows: 8,760 hours for 17
+      solar regions and 2 wind regions of 2025 only. Earlier years sit under "periodic past
+      data" on the same page. Hour 24 is the last hour of the day, so shift before converting
+      to timestamps.
+    evidence: https://www.data.go.kr/data/15065269/fileData.do
+    found: 2026-11-06
+notes: >-
+  Columns: trading date, trading hour, region, fuel (태양광 solar, 풍력 wind), traded energy
+  in MWh. Checked 2026-11-06: the 2025 file downloads as CSV; mainland and Jeju wind series
+  differ (about 3,571 GWh and 76 GWh for the year). The page lists nine past releases, the
+  oldest named _20171231 (registered 2020-09-18); none was downloaded, so the 2017 start is
+  as given by the release names, and the first year could be earlier. Per-plant series were
+  not found from KPX; some public generation companies publish their own wind farm data on
+  data.go.kr, which were not checked here.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

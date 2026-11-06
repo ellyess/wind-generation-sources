@@ -1,0 +1,79 @@
+id: gb-hill-of-towie-scada
+name: Hill of Towie wind farm open dataset
+publisher: RES on behalf of TRIG (via Zenodo)
+publisher_role: owner-operator
+countries: [GB]
+area: Hill of Towie wind farm, Moray, Scotland (21 turbines, 48.3 MW)
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2016
+  update: versioned Zenodo releases; version 2.1.0 (September 2026) runs to April 2026
+capacity: included
+coordinates: included
+curtailment: unknown
+access:
+  method: bulk-download
+  url: https://doi.org/10.5281/zenodo.14870021
+  docs: https://zenodo.org/records/22662930
+  key_required: false
+  registration: false
+  formats: [csv, zip, md, pdf]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://zenodo.org/records/22662930
+  redistribution: allowed-with-attribution
+  attribution: Cite the Zenodo record (Clerc, A. and Lingkan, E., Hill of Towie wind farm open dataset, doi:10.5281/zenodo.14870021).
+  verified: true
+  note: The Zenodo record states the data were released by RES on behalf of TRIG under CC-BY-4.0, provided as is.
+traps:
+  - summary: Turbine upgrades change the power curve partway through the record.
+    detail: >-
+      AeroUp blade upgrades went on turbine T13 in September 2021 and on the rest between July
+      2022 and May 2023; a TuneUp trial ran on nine turbines in 2024; and a Dynamic Yaw wake
+      control trial toggled 14 turbines on and off every 50 minutes from January to April 2026
+      (from February for T16 to T21). Output before and after these dates is not like for like.
+      Install dates are in Hill_of_Towie_AeroUp_install_dates.csv.
+    evidence: https://zenodo.org/records/22662930
+    found: 2026-11-06
+  - summary: Timestamps mark the end of each 10-minute period, in UTC.
+    detail: Subtract 10 minutes to get the period start before joining to start-stamped data.
+    evidence: https://zenodo.org/records/22662930/files/Hill_of_Towie_data_dictionary.md
+    found: 2026-11-06
+  - summary: The computed downtime file stops in August 2024, though the SCADA runs to April 2026.
+    detail: >-
+      Hill_of_Towie_ShutdownDuration.zip was carried over from version 1.0.0 and was not
+      extended, so downtime filtering for later months has to be rebuilt from the alarm logs.
+    evidence: https://zenodo.org/records/22662930
+    found: 2026-11-06
+  - summary: One secondary anemometer field steps on a correction switch-on date.
+    detail: >-
+      wtc_SecAnemo changes on 2017-08-01 for T14 and T17 and on 2018-04-10/11 for the rest; the
+      data dictionary says to use wtc_SeWindSp across those dates. Turbine north calibration
+      errors can also be large and change over time.
+    evidence: https://zenodo.org/records/22662930/files/Hill_of_Towie_data_dictionary.md
+    found: 2026-11-06
+tools:
+  - name: hill-of-towie-open-source-analysis
+    url: https://github.com/resgroup/hill-of-towie-open-source-analysis
+    language: Python
+  - name: wind-up
+    url: https://github.com/resgroup/wind-up
+    language: Python
+notes: >-
+  Ten-minute SCADA (supervisory control and data acquisition) statistics and alarm logs from 21
+  Siemens SWT-2.3-VS-82 turbines (2.3 MW each), January 2016 to April 2026, taken from the
+  Siemens SCADA backup and converted to CSV. Active power (wtc_ActPower) and the active power
+  setpoint (wtc_PowerRef_endvalue) are included; curtailment is not reported as such, although
+  the setpoint can show when output was held down. Version 2.0.0 added about 1 Hz controller
+  data and two lidars for January to April 2026. Turbine metadata gives coordinates, rated
+  power, hub height and rotor diameter. The yearly archives are about 1.4 to 1.6 GB each and
+  were not downloaded for this check; the data dictionary and metadata files were read. The
+  dataset has a changelog, and the concept DOI resolves to the latest version.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

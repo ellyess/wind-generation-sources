@@ -1,0 +1,72 @@
+id: ca-on-ieso-generator-output
+name: Generator Output and Capability Report (hourly, per generator)
+publisher: Independent Electricity System Operator (IESO), Ontario
+publisher_role: iso-rto
+countries: [CA]
+area: Ontario
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2010
+  update: hourly report; monthly CSV updated daily
+capacity: included
+coordinates: none
+curtailment: not-reported
+access:
+  method: bulk-download
+  url: https://www.ieso.ca/power-data/data-directory
+  docs: https://reports-public.ieso.ca/docrefs/helpfile/GenOutputCapability_h4.pdf
+  key_required: false
+  registration: false
+  formats: [xlsx, csv, xml]
+  languages: [en, fr]
+licence:
+  name: IESO website Terms of Use (limited licence to use and reproduce with notice)
+  url: "https://www.ieso.ca/Terms-of-Use"
+  redistribution: allowed-with-attribution
+  attribution: >-
+    Copyright © 2004-2022 Independent Electricity System Operator, all rights reserved. This
+    information is subject to the Terms of Use set out in the IESO's website (www.ieso.ca)
+  verified: true
+  note: >-
+    The terms grant a limited, non-exclusive, non-transferable licence to use and reproduce the
+    content provided that notice is included on all reproductions.
+traps:
+  - summary: Output is from operational metering, accurate to about plus or minus 10 MW, and is posted unvalidated.
+    detail: >-
+      The report description says operational meters are less accurate and less reliable than
+      revenue meters, telemetry faults show as N/A, and values are not checked before posting.
+      For small wind farms a 10 MW error is a large fraction of output.
+    evidence: https://reports-public.ieso.ca/docrefs/helpfile/GenOutputCapability_h4.pdf
+  - summary: For wind, the capacity row is "Available Capacity" (nameplate minus outages), not what the wind allowed.
+    detail: >-
+      Available Capacity ignores the wind resource; the "Forecast" row adds it. During
+      commissioning the report sets capability equal to output, so capacity factors from those
+      months are meaningless.
+    evidence: https://reports-public.ieso.ca/docrefs/helpfile/GenOutputCapability_h4.pdf
+  - summary: The 2010 to April 2019 archive is one wide sheet per year with a column per generator and no fuel type.
+    detail: >-
+      GOC-<year>.xlsx has sheets "Output" and "Capability", columns DATE, HOUR, then one column
+      per generator name. The May 2019 onward monthly CSVs are long format with a Fuel Type
+      column. Use the newer files to tag which names are wind.
+    evidence: https://www.ieso.ca/-/media/Files/IESO/Power-Data/data-directory/GOC-2010.xlsx
+    found: 2026-11-06
+  - summary: Only generators of 20 MW or more are listed, so smaller wind farms are missing.
+    evidence: https://reports-public.ieso.ca/docrefs/helpfile/GenOutputCapability_h4.pdf
+tools:
+  - name: gridstatus (IESO class, generator report)
+    url: https://github.com/gridstatus/gridstatus
+    language: Python
+notes: >-
+  Hourly output for each Ontario generator of 20 MW or more, by name. History is in yearly
+  workbooks GOC-2010 to GOC-2019 (January-April) on the data directory, then monthly CSVs from May
+  2019 at reports-public.ieso.ca/public/GenOutputCapabilityMonth/. Checked per plant: on
+  1 October 2025, ADELAIDE, AMARANTH and ARMOW gave different hourly series, and the October 2025
+  file lists 45 wind generators; the 2010 workbook also has distinct generator columns. The
+  hourly output is the average of five-minute outputs. Turbine locations and hub heights are in
+  Natural Resources Canada's Canadian Wind Turbine Database, which is a separate source.
+status: active
+last_checked: 2026-11-06
+checked_by: automated research (Claude Code), 2026-11-06

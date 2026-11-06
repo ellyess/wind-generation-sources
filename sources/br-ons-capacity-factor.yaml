@@ -1,0 +1,50 @@
+id: br-ons-capacity-factor
+name: Capacity factor of wind and solar generation (Fator de Capacidade de Geração Eólica e Solar)
+publisher: Operador Nacional do Sistema Elétrico (ONS)
+publisher_role: tso
+countries: [BR]
+level: complex
+technology: onshore
+measure: capacity-factor
+resolution: hourly
+coverage:
+  start: 2009
+  update: monthly
+capacity: included
+coordinates: included
+curtailment: separate-dataset
+access:
+  method: bulk-download
+  url: https://dados.ons.org.br/dataset/fator-capacidade-2
+  docs: https://dados.ons.org.br/api/3/action/package_show?id=fator-capacidade-2
+  key_required: false
+  registration: false
+  formats: [csv, parquet, xlsx]
+  languages: [pt]
+licence:
+  name: Creative Commons Atribuição (CC BY, version not stated)
+  url: "https://dados.ons.org.br/dataset/fator-capacidade-2"
+  redistribution: allowed-with-attribution
+  attribution: Credit ONS and say what changes were made.
+  verified: true
+  note: No version is given, so no exact SPDX identifier. Data are provided as is and may be discontinued.
+traps:
+  - summary: Curtailment is severe and sits inside the capacity factor unless removed with the separate constrained-off dataset.
+    detail: >-
+      In June 2023 the mean curtailed fraction was about 0.11, and 142 of 157 complexes were
+      constrained off by more than 5%. The constrained-off series (restricao_coff_eolica_usi)
+      starts in October 2021; earlier years cannot be screened.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/br.md
+  - summary: Output is per complex (conjunto), not per plant, and the coordinate is the collector substation.
+    detail: Mapping complexes to individual plants through ANEEL codes is incomplete, because the plant code is often blank at complex level.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/br.md
+  - summary: Files are semicolon-delimited with dot decimals, while ANEEL's registers use decimal commas and latin-1.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/br.md
+notes: >-
+  Hourly capacity factor per wind complex with its time-varying installed capacity and
+  coordinates in the same file: about 152 complexes and 26 GW in mid-2023. Pair with ONS
+  constrained-off data (https://dados.ons.org.br/dataset/restricao_coff_eolica_usi) to separate
+  curtailment from resource. Resource names on the portal start in 2009.
+status: active
+last_checked: 2026-11-06
+checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, metadata read via the ONS CKAN API; licence read on the publisher's page 2026-11-06
