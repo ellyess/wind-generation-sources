@@ -98,3 +98,113 @@ def test_dictionary_id_naming_another_farm_is_demoted():
 def test_words_joined_on_one_side_are_joined_on_the_other():
     assert cw.join_compounds(["doggerbank", "1"], ["dogger", "bank", "a"]) == ["doggerbank", "a"]
     assert cw.name_score("Doggerbank OWF Project 1", "Dogger Bank") > 0.85
+
+
+_lspec = importlib.util.spec_from_file_location(
+    "crosswalk_lists", Path(__file__).resolve().parents[1] / "crosswalk" / "lists.py")
+cl = importlib.util.module_from_spec(_lspec)
+_lspec.loader.exec_module(cl)
+
+
+def test_postcode_is_read_from_column_or_notes():
+    assert cl.unit_postcode({"postcode": "ne24 1se"}) == "NE241SE"
+    assert cl.unit_postcode({"notes": "Onshore wind; station postcode KW17  2PJ (from the "
+                                      "register's station address)"}) == "KW172PJ"
+    assert cl.unit_postcode({"notes": "Onshore wind; England"}) == ""
+
+
+def test_postcode_fallback_fills_gaps_and_keeps_osm_links():
+    # Postcode centroid near Edinburgh (Code-Point Open style: quality, lat, lon).
+    codepoint = {"EH11AA": (10, 55.95, -3.19)}
+    units = {u: {"unit_id": u, "area": "GB", "postcode": "EH1 1AA", "notes": "Onshore wind",
+                 "unit_name": u} for u in ("near", "far", "none", "kept", "sea")}
+    units["sea"]["notes"] = "Offshore wind"
+    units["ni"] = {"unit_id": "ni", "area": "GB", "postcode": "BT75 0LN", "notes": ""}
+    osm = {"farm_name": "Glen Farm", "osm_url": "https://www.openstreetmap.org/way/1",
+           "farm_capacity_mw": 10.0, "unit_capacity_mw": 9.0, "farm_capacity_ratio": 0.9}
+    rows = [
+        {"unit_id": "near", "status": "review", "method": "name", "lat": 55.96, "lon": -3.19,
+         "notes": "", **osm},
+        {"unit_id": "far", "status": "review", "method": "name", "lat": 57.5, "lon": -4.2,
+         "notes": "", **osm},
+        {"unit_id": "none", "status": "unmatched", "method": "name", "lat": 52.0, "lon": 0.1,
+         "notes": "", "unit_name": "Small Turbine; Owner Ltd", **osm},
+        {"unit_id": "kept", "status": "proposed", "method": "name", "lat": 58.9, "lon": -3.1,
+         "notes": "", **osm},
+        {"unit_id": "sea", "status": "unmatched", "lat": "", "lon": "", "notes": ""},
+        {"unit_id": "ni", "status": "unmatched", "lat": "", "lon": "", "notes": ""},
+    ]
+    cl.postcode_fallback(rows, units, codepoint)
+    near, far, none, kept, sea, ni = rows
+    # An OSM candidate close to the postcode, with agreeing capacity, is confirmed.
+    assert (near["status"], near["method"], near["lat"]) == ("proposed", "name+postcode", 55.96)
+    # A distant OSM candidate gives way to the postcode centroid, marked as approximate.
+    assert (far["status"], far["method"], far["location_source"]) == (
+        "approximate", "postcode", "os-codepoint-open")
+    assert (far["lat"], far["lon"], far["osm_url"]) == (55.95, -3.19, "")
+    assert "not at the turbine" in far["notes"] and "Glen Farm (review)" in far["notes"]
+    assert none["status"] == "approximate" and none["farm_name"] == "Small Turbine"
+    # Proposed OSM links keep their place; a distant postcode only adds a note.
+    assert (kept["status"], kept["lat"]) == ("proposed", 58.9)
+    assert "check: station postcode" in kept["notes"]
+    # Offshore stations and Northern Ireland postcodes stay unplaced.
+    assert sea["status"] == ni["status"] == "unmatched"
+    why = cl.unplaced_postcodes(rows, units, codepoint)
+    assert why["offshore (postcode is onshore)"] == 1
+    assert why["Northern Ireland postcode (not in Code-Point Open)"] == 1
+
+
+def _wd_item(qid, label, bmus, points=(), caps=(), rels=(), types=("onshore wind farm",)):
+    return cw.WikidataItem(qid, label, set(bmus), list(points), list(caps), set(rels), set(),
+                           set(types))
+
+
+def _elexon(code, cap):
+    return cw.Unit("elexon-bm", f"T_{code}", ["Some Party Ltd"], cap, "registered",
+                   {"ng_code": code, "repd": set()})
+
+
+def _row(unit, status, method, farm, lat, lon, url=""):
+    return {"market": "elexon-bm", "unit_id": unit.unit_id, "unit_name": unit.names[0],
+            "unit_capacity_mw": unit.capacity_mw, "unit_capacity_kind": "registered",
+            "status": status, "method": method, "location_source": "osm", "farm_name": farm,
+            "lat": lat, "lon": lon, "osm_url": url, "repd_id": "", "wikidata": "", "notes": ""}
+
+
+def test_wikidata_bmu_link_beats_a_name_match_and_names_the_dropped_candidate():
+    right = cw.Plant("relation", 7, ["Broken Cross Wind Farm"], 50.0, 55.6, -3.8, {})
+    wrong = cw.Plant("relation", 8, ["Brockaghboy Wind Farm"], 47.5, 54.9, -6.7, {})
+    unit = _elexon("BROCW-1", 48.0)
+    rows = [_row(unit, "review", "code-prefix", wrong.name, wrong.lat, wrong.lon,
+                 "https://www.openstreetmap.org/relation/8")]
+    items = {"BROCW-1": _wd_item("Q1", "Broken Cross wind farm", ["BROCW-1"],
+                                 points=[(55.61, -3.81)], caps=[48.0], rels=[7])}
+    outcome = cw.apply_wikidata([unit], rows, items, [right, wrong])
+    (row,) = rows
+    # The OSM farm the item links to (P402) gives the point; the name match is dropped.
+    assert (row["status"], row["method"], row["location_source"]) == (
+        "proposed", "wikidata-bmu", "osm")
+    assert (row["lat"], row["osm_url"], row["wikidata"]) == (
+        55.6, "https://www.openstreetmap.org/relation/7", "Q1")
+    assert "dropped the earlier candidate Brockaghboy Wind Farm" in row["notes"]
+    assert outcome["different farm, > 5 km"] == 1
+
+
+def test_wikidata_point_used_when_no_osm_farm_and_proposed_link_stands_against_doubt():
+    placed, doubted = _elexon("HYWDW-1", 30.0), _elexon("THNTO-1", 600.0)
+    rows = [_row(placed, "unmatched", "", "", "", ""),
+            _row(doubted, "proposed", "name", "Thanet Wind Farm", 51.43, 1.63)]
+    items = {"HYWDW-1": _wd_item("Q2", "Hywind Scotland", ["HYWDW-1"], points=[(57.48, -1.35)],
+                                 caps=[30.0], types=["floating wind farm"]),
+             "THNTO-1": _wd_item("Q3", "Thanet Wind Farm", ["THNTO-1"], points=[(51.43, 1.63)],
+                                 caps=[300.0], types=["offshore wind farm"])}
+    outcome = cw.apply_wikidata([placed, doubted], rows, items, [])
+    hywind, thanet = rows
+    # No OSM farm: the item's own coordinates (P625), labelled as Wikidata's.
+    assert (hywind["status"], hywind["location_source"], hywind["lat"]) == (
+        "proposed", "wikidata", 57.48)
+    # Twice the item's capacity makes the Wikidata row `review`, which does not unseat a
+    # proposed link: the row is kept and the Wikidata link is noted.
+    assert (thanet["status"], thanet["method"]) == ("proposed", "name")
+    assert "capacity disagrees" in thanet["notes"] and "Q3" in thanet["notes"]
+    assert outcome["newly placed"] == 1

@@ -70,9 +70,6 @@ export const REUSE_TONE: Record<string, string> = {
   "link-only": "serious", prohibited: "bad", unclear: "none",
 };
 
-export const REF_NAME: Record<string, string> = {
-  "eu-eurostat-nrg-bal-peh": "Eurostat", "world-ember-monthly": "Ember",
-};
 export const BAND_TEXT: Record<string, string> = {
   agrees: "Within 15%", noted: "Within 30%", outside: "More than 30% away", small: "Too small to judge",
 };

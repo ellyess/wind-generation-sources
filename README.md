@@ -36,8 +36,10 @@ uv run wgs check snippets         # run every snippet against the live source
   that is meant to fail (a 404 for a missing year) carries `evidence_is_error: true`; if it
   starts loading, the trap is flagged for a recheck.
 - **Annual totals.** Where a source can be read without a key, one calendar year of wind
-  output is summed from its own data and compared with Eurostat's gross electricity production,
-  or Ember's outside Eurostat's countries. Within 15% agrees and within 30% is noted, the bands
+  output is summed from its own data and compared with a reference: a national publisher's
+  figure for the whole wind fleet in that calendar year where there is one
+  (`checks/national-figures-2024.yaml` lists each with its quoted source), otherwise Eurostat's
+  gross electricity production, otherwise Ember's. Within 15% agrees and within 30% is noted, the bands
   used in the PyVWF scorecard audit. Gross production runs above what grid operators meter,
   so a ratio a little under 1 is normal.
 - **Time step.** The interval count in that year is compared with the time step the entry

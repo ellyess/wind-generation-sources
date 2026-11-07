@@ -136,7 +136,24 @@ Still open:
 - On request under an NDA: `dk-orsted`.
 - PDF tables that do not extract cleanly: `jm-mset`, `ma-mtedd`, `pk-cppa`.
 - Chart-only values: `ke-epra`.
-- Keyed (not attempted): the 9 entries with `key_required: true`, both `es-ree-esios` among them.
+- Keyed: since 7 November 2026 all 9 keyed entries have a snippet that reads its key from an
+  environment variable (`# wgs: needs ...`). None has run against live data. The ENTSO-E key on
+  the maintainer's machine returned HTTP 401 "Authentication failed." (regenerate it or check
+  API access is approved); its parser was checked on ENTSO-E's documented example response. The
+  other 8 were written from the publishers' API documentation without a key. `tr-epias` and
+  `lac-olacde-sielac` use a documented username and password token flow; the sieLAC snippet
+  reads wind "Production" from the energy balance, which may not be the series the entry
+  describes.
+
+**Found while writing the keyed snippets (not yet written into the entries)**
+- `us-pjm-wind-generation`: the Data Miner 2 API guide says "redistribution of information and
+  or data contained in or derived from Data Miner is strictly prohibited without a PJM
+  membership". The entry says `unclear`; a licence change is a maintainer decision.
+- `eu-entsoe-actual-generation`: the conventions note says position-to-time mapping is not
+  documented, but ENTSO-E's curve-type document gives "TimeStepPosition =
+  StartDateTimeofTimeInterval + ( Resolution * ( Pos − 1))".
+- Corrected the same day: `cl-cen` (the host is in the specification's key description) and
+  `es-ree-esios-real-time-wind` (the no-date request now also answers 403).
 
 ## Map points still missing
 
@@ -147,24 +164,40 @@ marked `review` or `unmatched` in `crosswalk/output/<entry>.csv` have no point y
 - **Costa Rica (CENCE, both entries):** apps.grupoice.com returns 403 to automated requests, so no unit list.
 - **Brazil, CCEE:** the dataset page, API and downloads return 403 "Acesso bloqueado". The ONS entries cover the same fleet.
 - **Greece, IPTO:** the SCADA file gives no technology. The 90 units listed are presumed wind (untagged renewables with output at night), and only names that matched an OpenStreetMap wind farm got a point. Confirm against a list of wind units before trusting the rest.
-- **Ofgem RER:** 1,273 of 1,882 wind stations found no OpenStreetMap farm. Most are single small turbines; the register gives postcodes, which could place them.
+- **Ofgem RER:** on 7 November 2026 stations with no confident OpenStreetMap farm were placed at their postcode centroid (OS Code-Point Open, shown as hollow rings on the map), and 591 of 1,882 now have a point. 1,291 remain: 817 have Northern Ireland postcodes, which Code-Point Open does not cover (ONS's NI postcode data is for internal business use only), 458 have no postcode, 11 are offshore and 5 postcodes are not found. Two existing matches look wrong and carry a "check:" note: KIRKSTANTON AIRFIELD (284 km from its postcode) and West Durham (21 km).
 - **Brazil, ONS generation by plant:** 103 older single plants have no coordinates in ONS's capacity-factor dataset and no confident OpenStreetMap match.
 - **Germany:** 461 units in the movement data had no wind unit in the Marktstammdatenregister export.
 - **Greece, underpin dataset:** the farm is anonymous, so it cannot be placed.
 
 ## Cross-check flags to confirm
 
-The 2024 annual cross-check (`checks/agreement-2024.json`) puts these more than 30% from the
-reference. A flag says two compilations disagree, not which one is wrong. South Africa in IRENA is
-already a trap in `world-irena-irenastat.yaml`.
+The 2024 annual cross-check (`checks/agreement-2024.json`) put eleven countries more than 30% from
+the reference. On 7 November 2026 each was checked against the national publisher, and the
+outliers are now traps in `world-eia-international`, `world-irena-irenastat`,
+`world-ember-monthly` and `world-ember-yearly`. The national figure supported:
 
-- **Kenya:** IRENA is 0.04 of Ember. EPRA's report gives Lake Turkana alone 1,466 GWh, so IRENA looks wrong.
-- **Colombia:** EIA is 6.0 times Ember.
-- **Pakistan:** EIA is 2.0 times Ember.
-- **Russia:** EIA is 1.7 times Ember.
-- **Bangladesh:** EIA is 0.05 of Ember; IRENA is 0.57.
-- **Peru, Kazakhstan, Sri Lanka, Mongolia:** EIA or IRENA is 0.53 to 0.66 of Ember.
-- **Moldova, Bosnia and Herzegovina:** Ember is 0.28 and 0.41 of Eurostat.
+- **Ember** in Kenya (EPRA 1,797.67 GWh; IRENA is low) and Bangladesh (BPDB 69 and 99 million kWh
+  for the fiscal years; EIA is low).
+- **Ember and IRENA** in Colombia, Peru, Kazakhstan and Pakistan (EIA is off).
+- **EIA** in Russia (SO-UPS 8,794.1 million kWh; Ember and IRENA are low).
+- **EIA and IRENA** in Sri Lanka and Mongolia, and **Eurostat and IRENA** in Bosnia and Herzegovina
+  and Moldova (Ember's monthly series is off; in Mongolia it is all renewables).
+
+Still open:
+- The cause of each EIA gap, IRENA's Kenya and Russia values, and Ember's Sri Lanka and Russia
+  series. Stale figures are suspected for EIA in Peru and Bangladesh, but nothing is proven.
+- Moldova: whether Ember's ENTSO-E series covers only the 40.84 MW on the transmission grid
+  (checking needs an ENTSO-E key). ANRE's site refused connections.
+- Pakistan and Bangladesh: no calendar-year national figure was found, only fiscal years.
+- South Africa is also flagged: IRENA gives 0.331 TWh against Ember 11.135 and EIA 12.574. IRENA has not been checked against Eskom or NERSA.
+
+Since 7 November 2026 the reference is a national figure for the whole wind fleet in the calendar
+year where one exists, then Eurostat, then Ember. Live national readers are used for Spain, France
+and Denmark; curated figures, each quoted with its URL in `checks/national-figures-2024.yaml`,
+for Kenya, Kazakhstan, Sri Lanka, Mongolia, Peru and Russia. Germany (SMARD), Great Britain
+(transmission only), Belgium (Elia's upscaled estimate) and New Zealand (grid-connected only) are
+not used, and Bosnia and Herzegovina's DERK figure covers only transmission-connected plants.
+`wgs check agreement` re-applies the rule to the saved totals without fetching anything.
 
 ## Decisions for the maintainer
 

@@ -4,6 +4,8 @@ import { CONTINENTS, LEVELS, STEPS, TIER, fold } from "./text";
 export const REPO = "https://github.com/ellyess/wind-generation-sources";
 export const VIEWS = ["map", "sources", "checks", "about"] as const;
 export type View = (typeof VIEWS)[number];
+// The map position in the address, as MapLibre writes it: #zoom/lat/lon.
+const POS = /^\d+(\.\d+)?\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/;
 const FILTERS = ["level", "step", "reuse", "cap", "status", "review", "region", "q"] as const;
 type FilterKey = (typeof FILTERS)[number];
 
@@ -14,6 +16,11 @@ class Store {
   checks = $state<Checks>({});
   farms = $state<Farms | null>(null);
   error = $state("");
+  /** A farm point (its index in `farms.farms`) flown to from the table, and one hovered on the map. */
+  focusFarm = $state<number | null>(null);
+  hoverFarm = $state<number | null>(null);
+  /** The map view as "zoom/lat/lon"; kept out of reactivity so panning does not re-run effects. */
+  pos = "";
 
   view = $state<View>("map");
   country = $state("");
@@ -67,6 +74,8 @@ class Store {
 
   continentOf = (code: string) => this.places[code]?.continent ?? "Elsewhere";
   placeName = (code: string) => this.places[code]?.name ?? code;
+  /** The country a farm point sits in. */
+  farmCountry = (f: { entry: string; iso?: string }) => f.iso ?? this.byId.get(f.entry)?.countries[0] ?? "";
 
   matches(s: Indexed) {
     if (this.region && !s.countries.some((c) => this.continentOf(c) === this.region)) return false;
@@ -104,10 +113,12 @@ class Store {
     this.view = v && VIEWS.includes(v) ? v : "map";
     this.country = p.get("country") ?? "";
     this.source = p.get("source") ?? "";
+    this.focusFarm = null;
     for (const k of FILTERS) this[k] = p.get(k) ?? "";
-    // Old links pointed at #<entry-id>.
+    // The hash holds the map position; old links pointed at #<entry-id>.
     const hash = decodeURIComponent(location.hash.slice(1));
-    if (hash && !this.source) this.source = hash;
+    this.pos = POS.test(hash) ? hash : "";
+    if (hash && !this.pos && !this.source) this.source = hash;
   }
 
   url() {
@@ -117,7 +128,8 @@ class Store {
     if (this.source) p.set("source", this.source);
     for (const k of FILTERS) if (this[k]) p.set(k, this[k]);
     const qs = p.toString();
-    return `${location.pathname}${qs ? `?${qs}` : ""}`;
+    const pos = this.view === "map" && this.pos ? `#${this.pos}` : "";
+    return `${location.pathname}${qs ? `?${qs}` : ""}${pos}`;
   }
 
   /** Navigation that should be undone with Back: views, countries, sources. */
@@ -125,6 +137,7 @@ class Store {
     if (patch.view !== undefined) this.view = patch.view;
     if (patch.country !== undefined) this.country = patch.country;
     if (patch.source !== undefined) this.source = patch.source;
+    this.focusFarm = null;
     history.pushState(null, "", this.url());
   }
 }

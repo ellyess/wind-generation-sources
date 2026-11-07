@@ -19,6 +19,7 @@ Columns:
 | `location_source` | `publisher` when lat/lon come from the publisher; blank otherwise |
 | `source_url` | the file or page the list was read from |
 | `notes` | anything a reviewer needs (e.g. "hybrid wind-solar plant") |
+| `postcode` | optional, GB only: the station's postcode as the publisher gives it. Without the column, `lists.py` reads "station postcode X (" from `notes`. Used only when no confident farm match is found |
 
 Never type coordinates from memory or from a third-party site: leave lat/lon blank and let the
 matcher look the name up.

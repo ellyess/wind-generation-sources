@@ -1,6 +1,7 @@
 <script lang="ts">
   import { store } from "../store.svelte";
-  import { BAND_TEXT, BAND_TONE, REF_NAME, twh } from "../text";
+  import { BAND_TEXT, BAND_TONE, twh } from "../text";
+  import Ext from "./Ext.svelte";
 
   // Each source's annual wind total as a ratio of the reference, on one shared axis.
   let { code }: { code: string } = $props();
@@ -8,22 +9,24 @@
   const pos = (r: number) => `${(((Math.min(Math.max(r, LO), HI) - LO) / (HI - LO)) * 100).toFixed(2)}%`;
   let agr = $derived(store.checks.agreement);
   let c = $derived(agr?.countries[code]);
-  let ref = $derived(c?.values.find((v) => v.source === c!.reference));
+  let ref = $derived(c?.values.find((v) => v.source === c!.reference.source));
 </script>
 
 {#if agr && c && ref && ref.twh > 0}
   <figure class="agree">
     <figcaption>
       <span class="t">Annual totals agree?</span>
-      <span class="n">{agr.year}, each source against {REF_NAME[c.reference]}'s {twh(ref.twh)} TWh. Shaded: within 15% and 30%.</span>
+      <span class="n">{agr.year}, each source against {c.reference.publisher ?? c.reference.name}'s {twh(ref.twh)} TWh. Shaded: within 15% and 30%.</span>
+      <span class="n">{c.reference.kind.startsWith("national") ? "National reference" : "No national reference"}: {c.reference.why}{#if c.reference.url} <Ext href={c.reference.url} label="Evidence" />{/if}</span>
     </figcaption>
     <ol>
       {#each c.values as v (v.source)}
-        {@const isRef = v.source === c.reference}
+        {@const isRef = v.source === c.reference.source}
         {@const s = store.byId.get(v.source)}
         {@const tone = isRef ? "ref" : BAND_TONE[v.band ?? "small"]}
         <li>
-          <button type="button" class="nm" onclick={() => store.go({ source: v.source })}>{s?.publisher ?? v.source}</button>
+          {#if s}<button type="button" class="nm" onclick={() => store.go({ source: v.source })}>{s.publisher}</button>
+          {:else}<a class="nm" href={v.url} target="_blank" rel="noopener">{v.publisher ?? v.source}</a>{/if}
           <span class="val num">{twh(v.twh)}<small> TWh</small></span>
           <span class="scale" role="img" aria-label={isRef ? "Reference" : `Ratio ${v.ratio?.toFixed(2)}, ${BAND_TEXT[v.band ?? "small"]}`}>
             <i class="b30"></i><i class="b15"></i><i class="one"></i>

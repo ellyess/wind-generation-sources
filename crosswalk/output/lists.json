@@ -113,9 +113,10 @@
   },
   "gb-ofgem-rer-roc-issuance": {
     "units": 1882,
-    "proposed": 406,
-    "review": 203,
-    "unmatched": 1273
+    "approximate": 127,
+    "proposed": 464,
+    "review": 93,
+    "unmatched": 1198
   },
   "gb-penmanshiel-scada": {
     "units": 1,

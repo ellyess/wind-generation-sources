@@ -9,10 +9,10 @@
   "elexon-bm": {
     "units": 287,
     "osm_farms": 727,
-    "proposed": 163,
-    "aggregate": 13,
-    "unmatched": 46,
-    "review": 65
+    "proposed": 229,
+    "aggregate": 4,
+    "unmatched": 27,
+    "review": 27
   },
   "ieso": {
     "units": 45,

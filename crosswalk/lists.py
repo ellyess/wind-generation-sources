@@ -10,6 +10,10 @@ row's `area`, using the same rules as `build.py`, and get `proposed`, `review` o
     uv run python crosswalk/lists.py br-ons-capacity-factor   # one list
 
 Writes `output/<entry-id>.csv` in build.py's columns plus `entry`, and `output/lists.json`.
+
+Great Britain rows that give a postcode (a `postcode` column, or "station postcode X (" in
+`notes`) and find no confident OpenStreetMap farm are placed at that postcode's centroid from
+Ordnance Survey Code-Point Open, with status `approximate` (see `postcode_fallback`).
 """
 
 from __future__ import annotations
@@ -17,11 +21,15 @@ from __future__ import annotations
 import argparse
 import csv
 import importlib.util
+import io
 import json
+import re
 import sys
 import time
 import urllib.parse
+import zipfile
 from collections import Counter, defaultdict
+from math import asin, cos, radians, sin, sqrt
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -146,6 +154,152 @@ def demote(row: dict) -> None:
         row["notes"] = "; ".join(filter(None, [row.get("notes", ""), *reasons]))
 
 
+# ---------- postcode fallback (Great Britain) ----------
+
+# Ordnance Survey Code-Point Open: one centroid per current GB postcode unit, in British National
+# Grid. Open Government Licence v3.0, downloaded without a key from the OS Downloads API. It has no
+# Northern Ireland (BT) postcodes, and positional quality 90 means "no coordinates" (0, 0).
+CODEPOINT = ("codepo_gb.zip", "https://api.os.uk/downloads/v1/products/CodePointOpen/downloads"
+             "?area=GB&format=CSV&redirect")
+POSTCODE_IN_NOTES = re.compile(r"station postcode (.+?) \(", re.I)
+POSTCODE_SHAPE = re.compile(r"^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$")
+# An OSM candidate under review counts as confirmed by the postcode when it lies this close to the
+# centroid: about the 90th percentile of the distance for onshore links already proposed.
+NEAR_KM = 5.0
+# A proposed onshore link this far from the station's postcode gets a note for a reviewer.
+FLAG_KM = 20.0
+
+
+def norm_postcode(text: str) -> str:
+    return re.sub(r"\s+", "", text or "").upper()
+
+
+def unit_postcode(row: dict) -> str:
+    """The postcode a unit list gives for a row: its `postcode` column, else from `notes`."""
+    if (row.get("postcode") or "").strip():
+        return norm_postcode(row["postcode"])
+    m = POSTCODE_IN_NOTES.search(row.get("notes") or "")
+    return norm_postcode(m.group(1)) if m else ""
+
+
+def is_offshore(unit: dict) -> bool:
+    return "offshore" in f"{unit.get('notes', '')} {unit.get('unit_name', '')}".lower()
+
+
+def load_codepoint(refresh: bool, wanted: set[str]) -> dict[str, tuple[int, float, float]]:
+    """Postcode (no spaces) -> (positional quality, latitude, longitude), for the wanted ones."""
+    path = cb.fetch(CODEPOINT[0], CODEPOINT[1], refresh)
+    out = {}
+    with zipfile.ZipFile(path) as z:
+        for name in z.namelist():
+            if not (name.startswith("Data/CSV/") and name.endswith(".csv")):
+                continue
+            for r in csv.reader(io.TextIOWrapper(z.open(name), encoding="utf-8")):
+                pc = norm_postcode(r[0])
+                if pc not in wanted:
+                    continue
+                quality, east, north = int(r[1]), float(r[2]), float(r[3])
+                if quality >= 90 or not (east or north):
+                    continue
+                out[pc] = (quality, *cb.bng_to_wgs84(east, north))
+    return out
+
+
+def km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    p1, p2, dp, dl = radians(lat1), radians(lat2), radians(lat2 - lat1), radians(lon2 - lon1)
+    return 2 * 6371.0 * asin(sqrt(sin(dp / 2) ** 2 + cos(p1) * cos(p2) * sin(dl / 2) ** 2))
+
+
+def capacity_agrees(row: dict) -> bool:
+    """The unit's capacity (summed over units sharing the farm) does not contradict the farm's."""
+    ratio = number(str(row.get("farm_capacity_ratio") or ""))
+    if ratio is None:
+        cap = number(str(row.get("unit_capacity_mw") or ""))
+        farm = number(str(row.get("farm_capacity_mw") or ""))
+        ratio = cap / farm if cap and farm else None
+    return ratio is None or 0.35 <= ratio <= 1.6
+
+
+def postcode_fallback(rows: list[dict], units: dict[str, dict],
+                      codepoint: dict[str, tuple[int, float, float]]) -> None:
+    """Place GB rows without a confident OSM farm at their postcode's centroid, in place.
+
+    A postcode centroid is where the postcode's addresses sit, not the turbine: on a farm it is
+    usually the farmhouse or the site entrance. So:
+    - `proposed` and `published` rows keep their location. A proposed onshore link more than
+      FLAG_KM from the postcode gets a note.
+    - A `review` row whose OSM farm lies within NEAR_KM of the centroid, with capacities that do
+      not disagree, is confirmed: it becomes `proposed` by method `<method>+postcode`.
+    - Any other `review` or `unmatched` row with a GB postcode is placed at the centroid: status
+      `approximate`, method `postcode`, location_source `os-codepoint-open`. The OSM candidate
+      under review, if any, is named in the notes with its distance.
+    - Offshore stations are skipped: their registered postcode is an onshore office or substation.
+    """
+    for row in rows:
+        unit = units.get(row["unit_id"], {})
+        pc = unit_postcode(unit)
+        if (unit.get("area") or "").upper() != "GB" or not pc:
+            continue
+        hit = codepoint.get(pc)
+        has_point = row.get("lat") not in (None, "")
+        dist = (km(hit[1], hit[2], float(row["lat"]), float(row["lon"]))
+                if hit and has_point else None)
+        if row["status"] in ("proposed", "published"):
+            if dist is not None and dist > FLAG_KM and not is_offshore(unit):
+                row["notes"] = "; ".join(filter(None, [
+                    row.get("notes"), f"check: station postcode is {dist:.0f} km from this farm"]))
+            continue
+        if row["status"] not in ("review", "unmatched") or not hit or is_offshore(unit):
+            continue
+        if (row["status"] == "review" and dist is not None and dist <= NEAR_KM
+                and capacity_agrees(row)):
+            row["status"] = "proposed"
+            row["method"] = f"{row.get('method') or 'name'}+postcode"
+            row["notes"] = "; ".join(filter(None, [
+                row.get("notes"), f"station postcode centroid {dist:.1f} km away confirms it"]))
+            continue
+        before = ""
+        if row["status"] == "review" and row.get("farm_name") and dist is not None:
+            before = f"OSM candidate {row['farm_name']} (review) is {dist:.1f} km away"
+        quality, lat, lon = hit
+        names = [n.strip() for n in (row.get("unit_name") or "").split(";") if n.strip()]
+        for key in ("score", "farm_state", "farm_capacity_mw", "farm_capacity_ratio", "osm_url",
+                    "repd_id", "wikidata", "runner_up"):
+            row[key] = ""
+        row.update({
+            "status": "approximate", "method": "postcode", "location_source": "os-codepoint-open",
+            "farm_name": names[0] if names else row["unit_id"],
+            "lat": round(lat, 5), "lon": round(lon, 5),
+            "notes": "; ".join(filter(None, [
+                f"placed at the station's postcode centroid ({pc[:-3]} {pc[-3:]}, Code-Point Open "
+                f"positional quality {quality}), not at the turbine", before])),
+        })
+
+
+def unplaced_postcodes(rows: list[dict], units: dict[str, dict],
+                       codepoint: dict[str, tuple[int, float, float]]) -> Counter:
+    """Why rows that are still not on the map got no postcode point."""
+    why: Counter = Counter()
+    for row in rows:
+        if row["status"] not in ("review", "unmatched"):
+            continue
+        unit = units.get(row["unit_id"], {})
+        pc = unit_postcode(unit)
+        if not pc:
+            why["no postcode"] += 1
+        elif pc.startswith("BT"):
+            why["Northern Ireland postcode (not in Code-Point Open)"] += 1
+        elif is_offshore(unit):
+            why["offshore (postcode is onshore)"] += 1
+        elif not POSTCODE_SHAPE.match(pc):
+            why["malformed postcode"] += 1
+        elif pc not in codepoint:
+            why["postcode not in Code-Point Open (terminated or mistyped)"] += 1
+        else:
+            why["other"] += 1
+    return why
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("entries", nargs="*", help="entry ids (default: every list)")
@@ -158,7 +312,15 @@ def main() -> None:
     summary_path = cb.OUT / "lists.json"
     summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
     for path in paths:
-        rows = place(path.stem, read_list(path), args.refresh)
+        units = read_list(path)
+        rows = place(path.stem, units, args.refresh)
+        by_id = {u["unit_id"]: u for u in units}
+        wanted = {unit_postcode(u) for u in units if (u.get("area") or "").upper() == "GB"} - {""}
+        if wanted:
+            codepoint = load_codepoint(args.refresh, wanted)
+            postcode_fallback(rows, by_id, codepoint)
+            for why, n in sorted(unplaced_postcodes(rows, by_id, codepoint).items()):
+                print(f"  {path.stem}: {n} not placed by postcode: {why}")
         with (cb.OUT / f"{path.stem}.csv").open("w", newline="", encoding="utf-8") as fh:
             w = csv.DictWriter(fh, FIELDS, extrasaction="ignore")
             w.writeheader()

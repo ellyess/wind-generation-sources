@@ -79,6 +79,20 @@ traps:
       wind was reported. Capacity is blank in about 660 country wind rows.
     evidence: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv
     found: 2026-11-06
+  - summary: >-
+      The latest year can be a projection from Ember's monthly series, so an error in the
+      monthly data carries into the annual value.
+    detail: >-
+      Ember's methodology projects the latest year for some countries from the change in
+      their monthly data. Sri Lanka's 2024 value, 0.626 TWh, equals the 2023 annual value
+      (0.82) plus the change in the monthly sum from 2023 (1.52) to 2024 (1.324). The
+      monthly series runs about 1.7 times the Ceylon Electricity Board's figure, which gives
+      792 GWh for 2024 (https://ceb.lk/front_img/img_reports/1763693550Sales_and_Generation_
+      Data_Book_2024.pdf), so the projected annual value is about 21% low. Check the latest
+      year against a national source before use. Found by an automated research pass on
+      2026-11-07; not yet reviewed by a person.
+    evidence: https://files.ember-energy.org/public-downloads/ember_electricity_data_methodology.pdf
+    found: 2026-11-07
 notes: >-
   Annual electricity generation by source in TWh, with installed capacity in GW, shares and
   emissions, for over 200 geographies (the dataset page's figure). Compiled from Eurostat (most of

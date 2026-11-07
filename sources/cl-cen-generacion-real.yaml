@@ -49,8 +49,13 @@ licence:
 traps:
   - summary: Subscribe to the public information (SIP) product; the operations product gives aggregate energy only.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
-  - summary: The host (sipub.api.coordinador.cl) is not in the API specification, and results come back under "data", not the "content" the schema advertises.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
+  - summary: The host (sipub.api.coordinador.cl) is not declared as the specification's server, and results come back under "data", not the "content" the schema advertises.
+    detail: >-
+      The specification sets no host, basePath or servers. The host appears only in the key's
+      description: "https://sipub.api.coordinador.cl/{backend}/{funcion}?user_key={APIKey}".
+      Corrected on 2026-11-07: this trap said the host was not in the specification at all.
+      Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://portal.api.coordinador.cl/swagger/spec/sip.json
   - summary: Paging with page and limit returns HTTP 502; send pageSize alone, larger than a day's rows.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
   - summary: The technology filter must be "Eólica" with the accent; without it the API returns an empty list, not an error.

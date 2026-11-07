@@ -8,13 +8,18 @@
   import { onMount } from "svelte";
   import { store } from "../store.svelte";
   import { TIER_TEXT, plural } from "../text";
+  import { PLACED, mwText } from "./FarmTable.svelte";
   import Icon from "./Icon.svelte";
   import LevelDot from "./LevelDot.svelte";
 
   const STYLE = { light: "https://tiles.openfreemap.org/styles/positron", dark: "https://tiles.openfreemap.org/styles/dark" };
   const WORLD: [number, number, number, number] = [-168, -50, 178, 72];
   // Locations matched to units by name (crosswalk/build.py); the rest come from the publisher.
-  const MATCHED = new Set(["osm", "repd"]);
+  const MATCHED = new Set(["osm", "repd", "wikidata"]);
+  // GB stations with no confident farm match, placed at their postcode's centroid (crosswalk/lists.py).
+  const POSTCODE = "os-codepoint-open";
+  const sizedCount = $derived((store.farms?.farms ?? []).filter((f) => f.mw != null).length);
+  const approxCount = $derived((store.farms?.farms ?? []).filter((f) => f.located_by === POSTCODE).length);
   const located = $derived([...new Set((store.farms?.farms ?? [])
     .map((f) => store.placeName(store.byId.get(f.entry)?.countries[0] ?? "")))].join(", "));
 
@@ -28,6 +33,34 @@
   let bounds = new Map<string, [number, number, number, number]>();
   let hovered: string | null = null;
   let tip = $state<{ x: number; y: number; title: string; lines: string[] } | null>(null);
+  const still = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /**
+   * Circle radius by zoom. A farm with a capacity scales with sqrt(MW) (so area tracks capacity),
+   * clamped so a small farm stays visible and a 1 GW offshore farm does not cover a country; one
+   * without keeps the old fixed size. Turbine-register points stay small and vary only mildly.
+   * At zoom 6: 10 MW is 3.3 px, 100 MW 6 px, 1 GW 14 px (the cap).
+   */
+  const SIZE: [zoom: number, plain: number, base: number, perRootMW: number, lo: number, hi: number, turbine: number][] = [
+    [2, 2.2, 1.4, 0.12, 1.2, 6, 0.8],
+    [6, 4.5, 2, 0.4, 2, 14, 1.8],
+    [10, 7, 3, 0.8, 3.5, 26, 4.5],
+  ];
+  function radius(extra = 0): ExpressionSpecification {
+    const mw: ExpressionSpecification = ["get", "mw"];
+    const root: ExpressionSpecification = ["sqrt", mw];
+    const stops = SIZE.flatMap(([z, plain, base, k, lo, hi, turb]) => [z, ["+", extra, ["case",
+      ["get", "turbine"], ["case", [">", mw, 0], ["*", turb, ["min", 1.5, ["max", 0.6, ["+", 0.6, ["*", 0.2, root]]]]], turb],
+      [">", mw, 0], ["min", hi, ["max", lo, ["+", base, ["*", k, root]]]],
+      plain]]]);
+    return ["interpolate", ["linear"], ["zoom"], ...stops] as ExpressionSpecification;
+  }
+  // A point without a capacity draws about as large as a 50 MW farm, so it sorts like one.
+  const sizeOf = (mw: number) => (mw > 0 ? mw : 50);
+  /** The smallest of the farm points under the pointer: the one drawn on top. */
+  const topFarm = (fs: MapGeoJSONFeature[]) => fs.reduce<MapGeoJSONFeature | undefined>((best, f) =>
+    !best || sizeOf(f.properties.mw) < sizeOf(best.properties.mw) ? f : best, undefined);
+  const focusFilter = (): ExpressionSpecification => ["==", ["id"], store.focusFarm ?? -1];
 
   const dark = () => {
     const t = document.documentElement.dataset.theme;
@@ -78,29 +111,40 @@
         "line-width": 2 } });
     m.addSource("farms", { type: "geojson", data: farmData() });
     m.addLayer({ id: "farms", type: "circle", source: "farms",
+      // Big circles first, so the small ones drawn over them stay visible and clickable.
+      layout: { "circle-sort-key": ["get", "sort"] },
       paint: {
-        "circle-color": css("--farm"),
-        // Single turbines (Denmark's register) draw smaller so a dense fleet does not hide the country.
-        "circle-radius": ["interpolate", ["linear"], ["zoom"],
-          2, ["case", ["get", "turbine"], 0.8, 2.2], 6, ["case", ["get", "turbine"], 1.8, 4.5],
-          10, ["case", ["get", "turbine"], 4.5, 7]],
-        "circle-stroke-color": dark() ? "#0e1114" : "#ffffff",
+        // Postcode centroids are approximate: drawn as hollow rings, not filled dots.
+        "circle-color": ["case", ["get", "approx"], css("--surface"), css("--farm")],
+        // Single turbines (Denmark's and Germany's registers) draw smaller so a dense fleet does not hide the country.
+        "circle-radius": radius(),
+        "circle-stroke-color": ["case", ["get", "approx"], css("--farm"), dark() ? "#0e1114" : "#ffffff"],
         "circle-stroke-width": ["interpolate", ["linear"], ["zoom"],
-          2, ["case", ["get", "turbine"], 0, 0.6], 8, ["case", ["get", "turbine"], 0.8, 1.5]],
+          2, ["case", ["get", "approx"], 1, ["get", "turbine"], 0, 0.6],
+          8, ["case", ["get", "approx"], 1.8, ["get", "turbine"], 0.8, 1.5]],
         "circle-opacity": ["case", ["boolean", ["get", "shown"], true], 1, 0.15],
         "circle-stroke-opacity": ["case", ["boolean", ["get", "shown"], true], 1, 0.15],
       } });
+    // The farm picked in the panel's table: an ink ring around its point.
+    m.addLayer({ id: "farm-focus", type: "circle", source: "farms", filter: focusFilter(),
+      paint: { "circle-radius": radius(3), "circle-color": "rgba(0,0,0,0)",
+        "circle-stroke-color": css("--ink"), "circle-stroke-width": 2 } });
     paint();
     ready = true;
   }
 
   function farmData(): GeoJSON.FeatureCollection {
     const shown = new Set(store.filtered.map((s) => s.id));
-    return { type: "FeatureCollection", features: (store.farms?.farms ?? []).map((f, i) => ({
-      type: "Feature", id: i, geometry: { type: "Point", coordinates: [f.lon, f.lat] },
-      properties: { name: f.name, entry: f.entry, units: f.n, shown: shown.has(f.entry),
-        turbine: !!f.turbine, matched: MATCHED.has(f.located_by) },
-    })) };
+    return { type: "FeatureCollection", features: (store.farms?.farms ?? []).map((f, i) => {
+      const on = shown.has(f.entry), mw = f.mw ?? 0;
+      return {
+        type: "Feature", id: i, geometry: { type: "Point", coordinates: [f.lon, f.lat] },
+        properties: { name: f.name, entry: f.entry, units: f.n, shown: on, mw, placed: f.located_by,
+          turbine: !!f.turbine, matched: MATCHED.has(f.located_by), approx: f.located_by === POSTCODE,
+          // Faded points sit under every shown one; within each, larger under smaller.
+          sort: (on ? 0 : -1e5) - sizeOf(mw) },
+      };
+    }) };
   }
 
   function paint() {
@@ -117,9 +161,9 @@
     (map.getSource("farms") as GeoJSONSource | undefined)?.setData(farmData());
   }
 
-  // Repaint when filters or the pick change.
+  // Repaint when filters or the pick change, or when the farm points arrive after the map.
   $effect(() => {
-    void store.tiers; void store.country; void store.filtered;
+    void store.tiers; void store.country; void store.filtered; void store.farms;
     paint();
   });
 
@@ -132,8 +176,20 @@
     const box = bounds.get(c);
     const narrow = innerWidth < 820;
     const padding = narrow ? 24 : { top: 48, bottom: 48, left: 48, right: 48 };
-    if (box) map.fitBounds(box, { padding, maxZoom: 5.2, duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900 });
-    else if (!c) map.fitBounds(WORLD, { padding: 8, duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 700 });
+    if (box) map.fitBounds(box, { padding, maxZoom: 5.2, duration: still() ? 0 : 900 });
+    else if (!c) map.fitBounds(WORLD, { padding: 8, duration: still() ? 0 : 700 });
+  });
+
+  // Fly to the farm picked in the table and ring it.
+  $effect(() => {
+    const id = store.focusFarm;
+    if (!ready || !map) return;
+    map.setFilter("farm-focus", focusFilter());
+    const f = id == null ? undefined : store.farms?.farms[id];
+    if (!f) return;
+    map.flyTo({ center: [f.lon, f.lat], zoom: Math.max(map.getZoom(), f.turbine ? 10 : 8), duration: still() ? 0 : 900 });
+    // On phones the map sits above the panel; bring it into view.
+    if (innerWidth < 820 && host.getBoundingClientRect().bottom < 80) host.scrollIntoView({ behavior: still() ? "auto" : "smooth" });
   });
 
   function showTip(e: MapMouseEvent, title: string, lines: string[]) {
@@ -167,15 +223,22 @@
       m.getCanvas().style.cursor = "";
     });
     m.on("mousemove", "farms", (e) => {
-      const p = e.features?.[0]?.properties;
+      const top = topFarm(e.features ?? []);
+      const p = top?.properties;
       if (!p) return;
       m.getCanvas().style.cursor = "pointer";
+      if (store.hoverFarm !== top.id) store.hoverFarm = top.id as number;
       const src = store.byId.get(p.entry);
-      showTip(e, p.name, [plural(p.units, "unit"), src ? src.publisher : p.entry,
-        p.matched ? "Location matched by name, not reviewed" : "Location from the publisher's register"]);
+      const via = PLACED[p.placed]?.via;
+      showTip(e, p.name, [p.mw > 0 ? `${mwText(p.mw)} MW, ${plural(p.units, "unit")}` : plural(p.units, "unit"),
+        src ? src.publisher : p.entry,
+        p.approx ? "Approximate: placed at the station's postcode centroid, not at the turbine"
+          : p.placed === "wikidata" ? "Location linked by unit ID on Wikidata, not reviewed"
+          : p.matched ? `Location matched by name${via ? ` (${via})` : ""}, not reviewed` : "Location from the publisher's register"]);
     });
+    m.on("mouseleave", "farms", () => { store.hoverFarm = null; });
     m.on("click", (e) => {
-      const farm = m.queryRenderedFeatures(e.point, { layers: ["farms"] })[0];
+      const farm = topFarm(m.queryRenderedFeatures(e.point, { layers: ["farms"] }));
       if (farm) {
         const src = store.byId.get(farm.properties.entry);
         store.go({ view: "map", country: src?.countries[0] ?? store.country, source: farm.properties.entry });
@@ -185,6 +248,24 @@
       const iso = f?.properties?.iso as string | undefined;
       if (iso && store.catalogued.has(iso)) store.go({ country: store.country === iso && !store.source ? "" : iso, source: "" });
     });
+  }
+
+  /** "zoom/lat/lon" from the address, as a camera. */
+  function place(pos: string) {
+    const [z, lat, lon] = pos.split("/").map(Number);
+    return pos && [z, lat, lon].every(Number.isFinite) ? { zoom: z, center: [lon, lat] as [number, number] } : null;
+  }
+  // Write the position into the address once the map settles, replacing the entry rather than
+  // adding one, so panning never floods the history.
+  let keepTimer: ReturnType<typeof setTimeout> | undefined;
+  function keep() {
+    clearTimeout(keepTimer);
+    keepTimer = setTimeout(() => {
+      if (!map || store.view !== "map") return;
+      const c = map.getCenter();
+      store.pos = `${map.getZoom().toFixed(2)}/${c.lat.toFixed(4)}/${c.lng.toFixed(4)}`;
+      history.replaceState(history.state, "", store.url());
+    }, 250);
   }
 
   function toggleGlobe() {
@@ -204,10 +285,13 @@
       }
       for (const f of outlines!.features) if (f.properties?.iso) bounds.set(f.properties.iso, mainBox(f.geometry));
       if (!alive) return;
+      // A position in the address wins over flying to the picked country.
+      const at = place(store.pos);
+      if (at) lastCountry = store.country;
       const m = new maplibregl.Map({
-        container: host, style: dark() ? STYLE.dark : STYLE.light, bounds: WORLD,
-        fitBoundsOptions: { padding: 8 }, minZoom: 0, maxZoom: 11, renderWorldCopies: false,
-        attributionControl: { compact: true, customAttribution: "Outlines: Natural Earth. Farms: OpenStreetMap (ODbL), REPD (OGL), Danish Energy Agency, US EIA, BNetzA MaStR (dl-de/by-2-0) and the data publishers" },
+        container: host, style: dark() ? STYLE.dark : STYLE.light,
+        ...(at ?? { bounds: WORLD, fitBoundsOptions: { padding: 8 } }), minZoom: 0, maxZoom: 11, renderWorldCopies: false,
+        attributionControl: { compact: true, customAttribution: "Outlines: Natural Earth. Farms: OpenStreetMap (ODbL), REPD (OGL), postcode centroids: Contains OS data © Crown copyright and database right 2026, Contains Royal Mail data © Royal Mail copyright and database right 2026, Contains National Statistics data © Crown copyright and database right 2026 (OS Code-Point Open, OGL), Danish Energy Agency, US EIA, BNetzA MaStR (dl-de/by-2-0) and the data publishers" },
         dragRotate: false, pitchWithRotate: false, touchPitch: false,
       });
       map = m;
@@ -216,7 +300,17 @@
       m.once("load", () => host.querySelector(".maplibregl-ctrl-attrib")?.classList.remove("maplibregl-compact-show"));
       m.on("error", (e: ErrorEvent) => { if (!ready) failed = `The basemap did not load (${e.error?.message ?? "network"}).`; });
       wire(m);
+      m.on("moveend", keep);
     })();
+
+    // Back and Forward restore the position each history entry had.
+    const pop = () => {
+      const at = place(store.pos);
+      if (!at || !map) return;
+      lastCountry = store.country;
+      map.jumpTo(at);
+    };
+    addEventListener("popstate", pop);
 
     // Follow the theme: swap the basemap and re-add the data layers on top.
     const swap = () => {
@@ -230,6 +324,8 @@
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     return () => {
       alive = false;
+      clearTimeout(keepTimer);
+      removeEventListener("popstate", pop);
       mq.removeEventListener("change", swap);
       mo.disconnect();
       map?.remove();
@@ -268,7 +364,9 @@
         </li>
       {/each}
       {#if counts[0]}<li class="muted"><LevelDot tier={0} size={12} /><span>None under these filters</span><b class="num">{counts[0]}</b></li>{/if}
-      {#if store.farms?.farms.length}<li class="muted"><i class="farm" aria-hidden="true"></i><span title="Units whose own output is published and whose location is known. So far: {located}">Farm or turbine with its own output</span><b class="num">{store.farms.farms.length}</b></li>{/if}
+      {#if store.farms?.farms.length}<li class="muted"><i class="farm" aria-hidden="true"></i><span title="Units whose own output is published and whose location is known. So far: {located}">Farm or turbine with its own output</span><b class="num">{store.farms.farms.length - approxCount}</b></li>{/if}
+      {#if sizedCount}<li class="muted"><i class="sizes" aria-hidden="true"><i></i><i></i></i><span title="Circle area grows with the capacity behind the point; points with no published capacity keep a middle size">Larger circle, more capacity</span><b></b></li>{/if}
+      {#if approxCount}<li class="muted"><i class="farm approx" aria-hidden="true"></i><span title="Great Britain stations with no confident farm match, placed at their postcode's centroid (Ordnance Survey Code-Point Open), not at the turbine">Approximate: at its postcode centroid</span><b class="num">{approxCount}</b></li>{/if}
     </ul>
   </div>
 
@@ -306,6 +404,11 @@
   li b { font-weight: 600; color: var(--ink); }
   li.muted { color: var(--ink-3); }
   .farm { width: 9px; height: 9px; margin: 0 1.5px; border-radius: 50%; background: var(--farm); box-shadow: 0 0 0 1.5px var(--surface); }
+  .farm.approx { background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--farm); }
+  .sizes { position: relative; display: block; width: 12px; height: 12px; }
+  .sizes i { position: absolute; bottom: 0; border-radius: 50%; background: var(--farm); box-shadow: 0 0 0 1px var(--surface); }
+  .sizes i:first-child { left: 0; width: 11px; height: 11px; }
+  .sizes i:last-child { right: -1px; width: 5px; height: 5px; }
   .proj {
     position: absolute; top: 84px; right: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 5px;
     height: 29px; padding: 0 9px; background: var(--surface); border: 0; border-radius: 4px;

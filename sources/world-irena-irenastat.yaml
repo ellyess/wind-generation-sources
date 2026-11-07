@@ -73,6 +73,30 @@ traps:
       releases. List the folder through the API to find the current one.
     evidence: https://pxweb.irena.org/api/v1/en/IRENASTAT/Power%20Capacity%20and%20Generation/
     found: 2026-11-06
+  - summary: >-
+      Kenya's 2024 wind is about 4% of the regulator's grid total, close to the state-owned
+      farm's output alone.
+    detail: >-
+      IRENASTAT gives 0.076 TWh for Kenya in 2024. EPRA's Bi-Annual Energy and Petroleum
+      Statistics Report 2024/2025 (Figure 3.7) labels "H1 2024 825.77" and "H2 2024 971.9"
+      GWh, 1,797.67 GWh for the calendar year, which Ember matches. KenGen's 2024 annual
+      report gives its own wind as "Wind 50 57" GWh for its last two fiscal years, so
+      IRENA's figure may leave out the private farms (Lake Turkana, Kipeto); that is
+      suspected, not proven. Found by an automated research pass on 2026-11-07; not yet
+      reviewed by a person.
+    evidence: https://www.epra.go.ke/sites/default/files/2025-03/Bi-Annual%20Energy%20%26%20Petroleum%20Statistics%20Report%202024_2025.pdf
+    found: 2026-11-07
+  - summary: >-
+      Russia's 2024 wind is about 37% below the system operator's figure.
+    detail: >-
+      IRENASTAT gives 5.5 TWh for Russia in 2024 (Ember 4.925). The system operator SO-UPS's
+      chart of 2024 results reads "ВЭС 8 794,1" million kWh for wind, with solar listed
+      separately ("СЭС 2 992,7"), so the gap is not solar counted in. EIA's 8.279 is close
+      to SO-UPS. The cause is not established. The SO-UPS figure was read from a chart image
+      on the page below. Found by an automated research pass on 2026-11-07; not yet reviewed
+      by a person.
+    evidence: https://www.so-ups.ru/functioning/ups/ups2025/
+    found: 2026-11-07
 notes: >-
   Annual electricity generation (GWh) and installed capacity (MW) by country, technology and grid
   connection, from 2000, with onshore and offshore wind as separate technologies (19 countries had

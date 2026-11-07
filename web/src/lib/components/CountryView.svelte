@@ -5,6 +5,7 @@
   import AgreementStrip from "./AgreementStrip.svelte";
   import AnnualChart from "./AnnualChart.svelte";
   import CoverageChart from "./CoverageChart.svelte";
+  import FarmTable from "./FarmTable.svelte";
   import LevelDot from "./LevelDot.svelte";
   import LiveChart from "./LiveChart.svelte";
   import SourceCard from "./SourceCard.svelte";
@@ -23,6 +24,14 @@
   let eurostat = $derived(store.byId.get("eu-eurostat-nrg-bal-peh")?.countries.includes(code) ?? false);
   let continent = $derived(store.continentOf(code));
   let checked = $derived(all.map((s) => s.last_checked).sort().at(-1));
+  // Located farms in this country from the sources passing the filters.
+  let farmRows = $derived.by(() => {
+    const ok = new Set(shown.map((s) => s.id));
+    const out: number[] = [];
+    (store.farms?.farms ?? []).forEach((f, i) => { if (ok.has(f.entry) && store.farmCountry(f) === code) out.push(i); });
+    return out;
+  });
+  let farmSources = $derived(new Set(farmRows.map((i) => store.farms!.farms[i].entry)).size);
 </script>
 
 <div class="country">
@@ -53,6 +62,8 @@
     {#each shown as s (s.id)}<SourceCard {s} />{/each}
     {#if !shown.length}<p class="empty">No source for {store.placeName(code)} matches these filters. <button type="button" onclick={() => store.clearFilters()}>Clear filters</button></p>{/if}
   </div>
+
+  <FarmTable rows={farmRows} showSource={farmSources > 1} />
 </div>
 
 <style>

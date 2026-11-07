@@ -1,7 +1,7 @@
 <script lang="ts">
   import { scaleLog } from "d3-scale";
   import { store } from "../store.svelte";
-  import { BAND_TEXT, BAND_TONE, REF_NAME, twh } from "../text";
+  import { BAND_TEXT, BAND_TONE, twh } from "../text";
   import Ext from "./Ext.svelte";
 
   let agr = $derived(store.checks.agreement);
@@ -16,10 +16,10 @@
   let rows = $derived.by(() => {
     if (!agr) return [];
     return Object.entries(agr.countries).map(([iso, c]) => {
-      const ref = c.values.find((v) => v.source === c.reference)!;
-      const vals = c.values.filter((v) => v.source !== c.reference && v.ratio != null);
+      const ref = c.values.find((v) => v.source === c.reference.source)!;
+      const vals = c.values.filter((v) => v.source !== c.reference.source && v.ratio != null);
       const worst = Math.max(0, ...vals.filter((v) => v.band !== "small").map((v) => Math.abs(Math.log(v.ratio!))));
-      return { iso, ref: c.reference, refTwh: ref?.twh ?? 0, vals, worst };
+      return { iso, ref: c.reference.name, refTwh: ref?.twh ?? 0, vals, worst };
     }).filter((r) => r.vals.length && r.refTwh > 0)
       .sort((a, b) => b.worst - a.worst || store.placeName(a.iso).localeCompare(store.placeName(b.iso)));
   });
@@ -29,6 +29,8 @@
   const ticks = [0.1, 0.25, 0.5, 0.7, 1, 1.3, 2, 4];
   let broken = $derived(links ? Object.entries(links.entries).flatMap(([id, r]) => r.broken.map((b) => ({ id, ...b }))) : []);
   let stepsOff = $derived(agr?.steps.filter((s) => !s.agrees) ?? []);
+  let natRefs = $derived(agr ? Object.entries(agr.countries).filter(([, c]) => c.reference.kind.startsWith("national"))
+    .sort(([a], [b]) => store.placeName(a).localeCompare(store.placeName(b))) : []);
 </script>
 
 <div class="checks">
@@ -36,8 +38,9 @@
     <h1>Checked by machine</h1>
     <p class="lead">
       Every link is requested again on each weekly run, each source's Python snippet is run, and where a source can be read without a key, its wind total for
-      {agr?.year ?? "one year"} is summed from the raw data and compared with Eurostat's gross production, or Ember's outside
-      Eurostat's countries. Within 15% agrees; within 30% is noted, following the PyVWF scorecard audit.
+      {agr?.year ?? "one year"} is summed from the raw data and compared with the national figure where one covers the whole wind fleet for the
+      calendar year, otherwise with Eurostat's gross production, or Ember's outside Eurostat's countries. A national figure is only as good as its
+      publisher. Within 15% agrees; within 30% is noted, following the PyVWF scorecard audit.
     </p>
   </header>
 
@@ -58,6 +61,9 @@
     <section class="plot">
       <h2>Each source's {agr.year} total as a ratio of the reference</h2>
       <p class="sub">One row per country, furthest disagreement first. Log scale from 0.05 to 8; shading marks 15% and 30%; arrows mark values beyond the scale. A match can mean shared upstream data, not independent confirmation.</p>
+      {#if natRefs.length}
+        <p class="sub">National references: {#each natRefs as [iso, c], i (iso)}{i ? "; " : ""}{store.placeName(iso)}, {#if c.reference.url}<Ext href={c.reference.url} label={c.reference.name} />{:else}<button type="button" class="lnk" onclick={() => store.go({ view: "sources", source: c.reference.source })}>{c.reference.name}</button>{/if}{/each}. Elsewhere Eurostat, or Ember outside Eurostat's countries.</p>
+      {/if}
       <div class="legend">
         {#each ["agrees", "noted", "outside", "small"] as b (b)}
           {@const tone = BAND_TONE[b]}
@@ -88,8 +94,8 @@
                 {@const cx = x(v.ratio!)}
                 {@const cy = ROW / 2}
                 <g class="mk t-{tone}" role="button" tabindex="-1"
-                  onpointerenter={(e) => (hover = { x: e.offsetX, y: e.offsetY, lines: [`${store.placeName(r.iso)}: ${s?.publisher ?? v.source}`, `${twh(v.twh)} TWh against ${REF_NAME[r.ref]}'s ${twh(r.refTwh)} TWh`, `Ratio ${v.ratio!.toFixed(2)}, ${BAND_TEXT[v.band ?? "small"].toLowerCase()}`, ...(off ? [`Off the scale: drawn at the ${off < 0 ? "left" : "right"} edge`] : [])] })}
-                  onclick={() => store.go({ view: "sources", source: v.source })} onkeydown={() => {}}>
+                  onpointerenter={(e) => (hover = { x: e.offsetX, y: e.offsetY, lines: [`${store.placeName(r.iso)}: ${s?.publisher ?? v.publisher ?? v.source}`, `${twh(v.twh)} TWh against ${r.ref}'s ${twh(r.refTwh)} TWh`, `Ratio ${v.ratio!.toFixed(2)}, ${BAND_TEXT[v.band ?? "small"].toLowerCase()}`, ...(off ? [`Off the scale: drawn at the ${off < 0 ? "left" : "right"} edge`] : [])] })}
+                  onclick={() => (s ? store.go({ view: "sources", source: v.source }) : v.url && window.open(v.url, "_blank", "noopener"))} onkeydown={() => {}}>
                   {#if off}
                     <path d={off < 0 ? `M${cx + 5},${cy - 6}L${cx - 3},${cy}L${cx + 5},${cy + 6}Z` : `M${cx - 5},${cy - 6}L${cx + 3},${cy}L${cx - 5},${cy + 6}Z`} />
                     <text class="edge" x={cx + (off < 0 ? 9 : -9)} y={cy} dy="0.32em" text-anchor={off < 0 ? "start" : "end"}>{off < 0 ? `<${LO}` : `>${HI}`}</text>
@@ -159,6 +165,7 @@
   .tip { position: absolute; z-index: 3; transform: translate(12px, 12px); pointer-events: none; display: grid; gap: 1px; padding: 8px 10px;
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-2); font-size: 12.5px; color: var(--ink-2); white-space: nowrap; }
   .tip .b { color: var(--ink); font-weight: 600; }
+  .lnk { border: 0; background: none; padding: 0; font: inherit; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 0.18em; }
   .issues ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; font-size: 13.5px; }
   .issues button { border: 0; background: none; padding: 0; color: var(--accent-ink); text-decoration: underline; font-weight: 500; }
   @media (max-width: 819px) { .checks { padding: 18px 16px 48px; } }

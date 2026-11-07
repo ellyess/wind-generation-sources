@@ -3,7 +3,9 @@
 Several catalogue sources publish output per unit (AEMO dispatch units, Elexon balancing
 mechanism units, IESO generators) with no location. OpenStreetMap maps most wind farms with a
 name, a capacity and a position. This script proposes a link from each unit to an OSM wind farm,
-scores it, and writes one CSV per market for a person to review.
+scores it, and writes one CSV per market for a person to review. In Great Britain, Wikidata's
+links from balancing mechanism unit codes to power stations (property P11610, CC0) take
+precedence over the name matches (see `apply_wikidata`).
 
 Nothing here is a verified link until someone reviews it. The output is derived from
 OpenStreetMap, so it is under the Open Database License (ODbL), not CC BY like the catalogue.
@@ -579,6 +581,234 @@ def check_repd_names(units: list[Unit], rows: list[dict], repd: list[Plant]) -> 
                 f"REPD names this ID {' / '.join(sorted(sites))}, not the unit's station"]))
 
 
+# ---------- Wikidata's links from balancing mechanism units to farms (GB) ----------
+
+# Wikidata property P11610, "National Grid Balancing Mechanism unit ID": the unit's National Grid
+# code (WHILW-1), on the item for the power station. Its formatter points at Elexon's BM unit list.
+# Wikidata is CC0 and community-edited, so a link is evidence, not a verified fact.
+WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
+# P625 coordinates, P2109 nameplate capacity (normalised to watts), P402 OSM relation,
+# P9891 REPD id, P31 instance of.
+WIKIDATA_QUERY = """
+SELECT ?item ?itemLabel
+  (GROUP_CONCAT(DISTINCT ?bmu; separator=";") AS ?bmus)
+  (GROUP_CONCAT(DISTINCT STR(?coord); separator=";") AS ?coords)
+  (GROUP_CONCAT(DISTINCT STR(?watts); separator=";") AS ?capacity_w)
+  (GROUP_CONCAT(DISTINCT ?osm; separator=";") AS ?osm_relations)
+  (GROUP_CONCAT(DISTINCT ?repd; separator=";") AS ?repd_ids)
+  (GROUP_CONCAT(DISTINCT ?typeLabel; separator=";") AS ?types)
+WHERE {
+  ?item wdt:P11610 ?bmu .
+  OPTIONAL { ?item wdt:P625 ?coord . }
+  OPTIONAL { ?item p:P2109/psn:P2109/wikibase:quantityAmount ?watts . }
+  OPTIONAL { ?item wdt:P402 ?osm . }
+  OPTIONAL { ?item wdt:P9891 ?repd . }
+  OPTIONAL { ?item wdt:P31 ?type . ?type rdfs:label ?typeLabel . FILTER(LANG(?typeLabel) = "en") }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?item ?itemLabel
+"""
+WIKIDATA_UA = f"{UA} (wind-generation-sources catalogue, unit-to-farm crosswalk; Python urllib)"
+# Two points for the same farm closer than this agree; farther apart, the old one has "moved".
+AGREE_KM = 5.0
+
+
+@dataclass
+class WikidataItem:
+    qid: str
+    label: str
+    bmus: set[str]
+    points: list[tuple[float, float]]  # (lat, lon)
+    capacities_mw: list[float]
+    osm_relations: set[int]
+    repd_ids: set[str]
+    types: set[str]
+
+    @property
+    def is_wind(self) -> bool:
+        return any("wind" in t.lower() for t in self.types)
+
+
+def fetch_wikidata(refresh: bool) -> Path:
+    """The SPARQL answer, cached as `.cache/wikidata/bmu_items.json`. Keyless."""
+    path = CACHE / "wikidata" / "bmu_items.json"
+    if path.exists() and path.stat().st_size and not refresh:
+        return path
+    path.parent.mkdir(parents=True, exist_ok=True)
+    url = WIKIDATA_SPARQL + "?" + urllib.parse.urlencode({"query": WIKIDATA_QUERY,
+                                                          "format": "json"})
+    req = urllib.request.Request(url, headers={"User-Agent": WIKIDATA_UA,
+                                               "Accept": "application/sparql-results+json"})
+    with urllib.request.urlopen(req, timeout=300) as res:
+        path.write_bytes(res.read())
+    return path
+
+
+def load_wikidata(path: Path) -> dict[str, WikidataItem]:
+    """Wikidata items keyed by every BM unit code they carry."""
+    by_code = {}
+    for b in json.loads(path.read_text())["results"]["bindings"]:
+        def get(key: str, b: dict = b) -> list[str]:
+            return [v for v in b.get(key, {}).get("value", "").split(";") if v]
+        points = []
+        for p in get("coords"):
+            m = re.match(r"Point\(([-\d.eE]+) ([-\d.eE]+)\)", p)
+            if m:
+                points.append((float(m.group(2)), float(m.group(1))))
+        item = WikidataItem(
+            b["item"]["value"].rsplit("/", 1)[-1], b.get("itemLabel", {}).get("value", ""),
+            set(get("bmus")), points, [float(w) / 1e6 for w in get("capacity_w")],
+            {int(v) for v in get("osm_relations") if v.isdigit()}, set(get("repd_ids")),
+            set(get("types")))
+        for code in item.bmus:
+            by_code[code] = item
+    return by_code
+
+
+def km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    from math import asin, cos, radians, sin, sqrt
+
+    p1, p2, dp, dl = radians(lat1), radians(lat2), radians(lat2 - lat1), radians(lon2 - lon1)
+    return 2 * 6371.0 * asin(sqrt(sin(dp / 2) ** 2 + cos(p1) * cos(p2) * sin(dl / 2) ** 2))
+
+
+def osm_url(p: Plant) -> str:
+    return f"https://www.openstreetmap.org/{p.osm_type}/{p.osm_id}"
+
+
+def same_entity(item: WikidataItem, row: dict, plant: Plant | None) -> bool:
+    """Whether an existing row's farm is the Wikidata item's farm, by an ID or by name."""
+    if plant and row.get("osm_url") == osm_url(plant):
+        return True
+    if row.get("wikidata"):  # the OSM farm's own wikidata tag settles it either way
+        return row["wikidata"] == item.qid
+    if item.repd_ids & set(re.split(r"[;,\s]+", row.get("repd_id") or "")):
+        return True
+    return bool(row.get("farm_name")) and name_score(item.label, row["farm_name"]) >= 0.85
+
+
+def apply_wikidata(units: list[Unit], rows: list[dict], items: dict[str, WikidataItem],
+                   plants: list[Plant]) -> Counter:
+    """Place GB units that Wikidata links to a farm by their BM unit code. Rows change in place.
+
+    The unit code is an exact key, so it outranks a name match: a Wikidata row replaces the
+    existing row unless the existing row is `proposed` and the Wikidata row is not. The point is
+    the OpenStreetMap farm the item links to (P402), else an OSM farm tagged with the item, else
+    the existing OSM farm when it is the same farm; failing those, the item's own coordinates
+    (P625). The Wikidata row is `proposed` when the item is a wind farm with one location and the
+    units' summed capacity agrees with one of its capacities (or the OSM farm's); else `review`.
+    Supplier units are placed too, unless their National Grid code marks them as an aggregate
+    (AG-): Wikidata links most of them to one named farm, so they are not aggregates after all.
+
+    Returns a count of what happened, for the summary.
+    """
+    by_rel = {p.osm_id: p for p in plants if p.osm_type == "relation"}
+    by_qid: dict[str, list[Plant]] = defaultdict(list)
+    for p in plants:
+        if p.tags.get("wikidata"):
+            by_qid[p.tags["wikidata"]].append(p)
+    by_url = {osm_url(p): p for p in plants}
+
+    links = {}
+    for u in units:
+        hits = {items[c].qid: items[c] for c in (u.extra.get("ng_code"), u.unit_id) if c in items}
+        if len(hits) == 1:
+            links[u.unit_id] = next(iter(hits.values()))
+    cap_sum: dict[str, float] = defaultdict(float)
+    n_units: Counter = Counter()
+    for u in {u.unit_id: u for u in units}.values():  # Elexon lists a few units twice
+        if u.unit_id in links:
+            n_units[links[u.unit_id].qid] += 1
+            cap_sum[links[u.unit_id].qid] += u.capacity_mw or 0.0
+
+    outcome: Counter = Counter()
+    for i, (u, r) in enumerate(zip(units, rows, strict=True)):
+        item = links.get(u.unit_id)
+        if not item:
+            continue
+        outcome["linked"] += 1
+        tag = f"Wikidata links this unit to {item.label} ({item.qid})"
+        if u.extra.get("aggregate") and u.extra.get("ng_code", "").startswith("AG-"):
+            r["notes"] = "; ".join(filter(None, [r["notes"], tag + ", not placed"]))
+            outcome["aggregate kept"] += 1
+            continue
+        plant = next((by_rel[o] for o in sorted(item.osm_relations) if o in by_rel), None)
+        plant = plant or next(iter(by_qid.get(item.qid, [])), None)
+        old_plant = by_url.get(r.get("osm_url") or "")
+        if not plant and old_plant and same_entity(item, r, None):
+            plant = old_plant
+        if plant:
+            point, source = (plant.lat, plant.lon), "osm"
+        elif item.points:
+            point, source = item.points[0], "wikidata"
+        else:
+            r["notes"] = "; ".join(filter(None, [r["notes"], tag + ", which has no location"]))
+            outcome["no location"] += 1
+            continue
+
+        why = []
+        if not item.is_wind:
+            why.append(f"Wikidata item is a {' / '.join(sorted(item.types)) or 'thing'}, "
+                       "not a wind farm")
+        if not plant and len(item.points) > 1:
+            why.append(f"Wikidata gives {len(item.points)} coordinates; the first is used")
+        farm_caps = item.capacities_mw + ([plant.capacity_mw] if plant and plant.capacity_mw
+                                          else [])
+        total = cap_sum[item.qid]
+        ratios = [total / c for c in farm_caps if c and total]
+        if ratios and not any(0.35 <= x <= 1.6 for x in ratios):
+            why.append("capacity disagrees")
+        status = "review" if why else "proposed"
+
+        had = r.get("lat") not in (None, "") and r["status"] in ("proposed", "review")
+        dist = km(point[0], point[1], float(r["lat"]), float(r["lon"])) if had else 0.0
+        same = had and same_entity(item, r, plant)
+        if RANK.get(status, 0) < RANK.get(r["status"], 0):
+            # A proposed link stands against a Wikidata link that has its own doubts.
+            where = f", {dist:.0f} km away" if had else ""
+            r["notes"] = "; ".join(filter(None, [
+                r["notes"], f"{tag}{where}; kept the existing link: {'; '.join(why)}"]))
+            outcome["kept existing (Wikidata row would be review)"] += 1
+            continue
+
+        notes = [tag]
+        if n_units[item.qid] > 1:
+            notes.append(f"{n_units[item.qid]} units point at this farm")
+        if u.extra.get("aggregate"):
+            notes.append("supplier unit, but Wikidata links it to one farm")
+        if had and not same:
+            notes.append(f"dropped the earlier candidate {r['farm_name']} ({r['status']}, "
+                         f"{r['method']}), {dist:.0f} km away")
+            outcome["different farm, > 5 km" if dist > AGREE_KM else "different farm, <= 5 km"] += 1
+        elif had and dist > AGREE_KM:
+            notes.append(f"moved {dist:.0f} km from the earlier {r['location_source']} point "
+                         "for the same farm")
+            outcome["same farm, moved > 5 km"] += 1
+        elif had:
+            outcome["same farm, within 5 km"] += 1
+        else:
+            outcome["newly placed"] += 1
+        notes += why
+        ratio = min(ratios, key=lambda x: abs(log(x))) if ratios else None
+        repd = plant.tags.get("repd:id", "") if plant else ""
+        rows[i] = {
+            **{k: r[k] for k in ("market", "unit_id", "unit_name", "unit_capacity_mw",
+                                 "unit_capacity_kind")},
+            "status": status, "method": "wikidata-bmu", "score": 1.0, "location_source": source,
+            "farm_name": plant.name if plant else item.label,
+            "farm_state": farm_state(plant) if plant else "",
+            "farm_capacity_mw": (plant.capacity_mw if plant and plant.capacity_mw
+                                 else max(item.capacities_mw, default="")),
+            "farm_capacity_ratio": round(ratio, 2) if ratio else "",
+            "lat": round(point[0], 5), "lon": round(point[1], 5),
+            "osm_url": osm_url(plant) if plant else "",
+            "repd_id": repd or ";".join(sorted(item.repd_ids)), "wikidata": item.qid,
+            "runner_up": "", "notes": "; ".join(notes),
+        }
+        outcome[f"-> {status}"] += 1
+    return outcome
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--refresh", action="store_true")
@@ -599,6 +829,9 @@ def main() -> None:
         if market == "elexon-bm":
             rows = add_repd_fallback(units, rows, repd)
             check_repd_names(units, rows, repd)
+            wd = apply_wikidata(units, rows, load_wikidata(fetch_wikidata(args.refresh)), plants)
+            print("  Wikidata BM unit links: "
+                  + "  ".join(f"{k} {v}" for k, v in sorted(wd.items())))
         with (OUT / f"{market}.csv").open("w", newline="", encoding="utf-8") as fh:
             w = csv.DictWriter(fh, FIELDS, extrasaction="ignore")
             w.writeheader()

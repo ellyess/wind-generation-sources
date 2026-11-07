@@ -19,9 +19,13 @@ export interface Catalogue { generated: string; count: number; countries: string
   places: Record<string, Place>; sources: Source[] }
 export interface LinkRow { ok: number; total: number; broken: { url: string; role: string }[];
   recheck: { url: string; role: string }[]; unchecked: { url: string; role: string }[] }
-export interface AgreeValue { source: string; twh: number; ratio?: number; band?: string }
+export interface AgreeValue { source: string; twh: number; ratio?: number; band?: string;
+  national?: boolean; publisher?: string; url?: string }
+/** The value a country's others are measured against; `source` names it in `values`. */
+export interface AgreeRef { source: string; kind: "national-adapter" | "national-figure" | "eurostat" | "ember";
+  name: string; publisher?: string; url?: string; why: string }
 export interface Agreement { checked: string; year: number;
-  countries: Record<string, { reference: string; values: AgreeValue[] }>;
+  countries: Record<string, { reference: AgreeRef; values: AgreeValue[] }>;
   steps: { source: string; stated_minutes: number; observed_minutes: number; agrees: boolean }[];
   failures: { source: string; error?: string }[] }
 export interface Checks { links?: { checked: string; summary: Record<string, number>;
@@ -29,6 +33,7 @@ export interface Checks { links?: { checked: string; summary: Record<string, num
   snippets?: Record<string, SnippetRun> }
 export interface SnippetRun { result: "ok" | "failed" | "skipped"; checked: string; last_ok?: string;
   seconds?: number; summary?: string; error?: string; reason?: string }
+/** `mw`: capacity behind the point where known. `iso`: set only when the entry spans countries. */
 export interface Farm { name: string; entry: string; n: number; lat: number; lon: number;
-  osm?: string; located_by: string; turbine?: boolean }
+  osm?: string; located_by: string; turbine?: boolean; mw?: number; iso?: string }
 export interface Farms { licence: string; farms: Farm[] }

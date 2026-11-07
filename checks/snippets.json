@@ -2,8 +2,8 @@
  "checked": "2026-11-07",
  "summary": {
   "ok": 103,
-  "failed": 0,
-  "skipped": 1
+  "failed": 1,
+  "skipped": 9
  },
  "entries": {
   "apec-egeda-power-generation": {
@@ -40,6 +40,11 @@
    "summary": "146880 intervals, 17 wind farms (1207 MW), 292.7 GWh",
    "checked": "2026-11-07",
    "last_ok": "2026-11-07"
+  },
+  "au-open-electricity-api": {
+   "result": "skipped",
+   "reason": "needs OPENELECTRICITY_API_KEY",
+   "checked": "2026-11-07"
   },
   "ba-fzs-monthly-energy-indicators": {
    "result": "ok",
@@ -136,6 +141,11 @@
    "summary": "365 days, 154.0 GWh",
    "checked": "2026-11-07",
    "last_ok": "2026-11-07"
+  },
+  "cl-cen-generacion-real": {
+   "result": "skipped",
+   "reason": "needs CEN_API_KEY",
+   "checked": "2026-11-07"
   },
   "co-xm-simem-generation": {
    "result": "ok",
@@ -235,12 +245,28 @@
    "checked": "2026-11-07",
    "last_ok": "2026-11-07"
   },
+  "es-ree-esios-measured-generation": {
+   "result": "skipped",
+   "reason": "needs ESIOS_API_KEY",
+   "checked": "2026-11-07"
+  },
+  "es-ree-esios-real-time-wind": {
+   "result": "skipped",
+   "reason": "needs ESIOS_API_KEY",
+   "checked": "2026-11-07"
+  },
   "es-ree-redata": {
    "result": "ok",
    "seconds": 1.8,
    "summary": "3 days, 638.2 GWh",
    "checked": "2026-11-07",
    "last_ok": "2026-11-07"
+  },
+  "eu-entsoe-actual-generation": {
+   "result": "failed",
+   "seconds": 4.8,
+   "error": "HTTP 401: Authentication failed.",
+   "checked": "2026-11-07"
   },
   "eu-eurostat-nrg-bal-peh": {
    "result": "ok",
@@ -262,6 +288,11 @@
    "summary": "1488 half-hours, about 6141 GWh (mean 8254 MW)",
    "checked": "2026-11-07",
    "last_ok": "2026-11-07"
+  },
+  "fi-fingrid-open-data": {
+   "result": "skipped",
+   "reason": "needs FINGRID_API_KEY",
+   "checked": "2026-11-07"
   },
   "fr-engie-la-haute-borne-scada": {
    "result": "ok",
@@ -480,6 +511,11 @@
    "checked": "2026-11-07",
    "last_ok": "2026-11-07"
   },
+  "lac-olacde-sielac": {
+   "result": "skipped",
+   "reason": "needs OLACDE_USERNAME",
+   "checked": "2026-11-07"
+  },
   "lu-statec-monthly-electricity-supply": {
    "result": "ok",
    "seconds": 2.5,
@@ -627,6 +663,11 @@
    "checked": "2026-11-07",
    "last_ok": "2026-11-07"
   },
+  "tr-epias-transparency": {
+   "result": "skipped",
+   "reason": "needs EPIAS_USERNAME",
+   "checked": "2026-11-07"
+  },
   "tw-taipower-unit-generation": {
    "result": "ok",
    "seconds": 3.2,
@@ -682,6 +723,11 @@
    "summary": "300 five-minute values, 14089 MWh",
    "checked": "2026-11-07",
    "last_ok": "2026-11-07"
+  },
+  "us-pjm-wind-generation": {
+   "result": "skipped",
+   "reason": "needs PJM_API_KEY",
+   "checked": "2026-11-07"
   },
   "uy-adme-hourly-by-plant": {
    "result": "ok",

@@ -24,7 +24,9 @@ def main(argv: list[str] | None = None) -> int:
     build = sub.add_parser("build", help="write the web app's data files and the CSV/JSON exports")
     build.add_argument("--out", type=Path, default=ROOT / "web" / "public" / "data")
     check = sub.add_parser("check", help="check the live sources (needs network)")
-    check.add_argument("what", choices=["links", "totals", "snippets"])
+    check.add_argument("what", choices=["links", "totals", "agreement", "snippets"],
+                       help="agreement re-applies the reference rule to the saved totals, "
+                            "offline")
     check.add_argument("--year", type=int, default=2024,
                        help="calendar year for the totals cross-check (default 2024)")
     check.add_argument("--only", help="comma-separated entry ids (totals and snippets)")
@@ -84,17 +86,23 @@ def _check(args: argparse.Namespace, entries: list[dict]) -> int:
                 print(f"failed: {entry_id}: {row['error']}", file=sys.stderr)
         return 1 if s["failed"] else 0
 
-    from wgs.checks.agreement import build_agreement
-    from wgs.checks.totals import run_totals
+    from wgs.checks.agreement import build_agreement, totals_from_report
 
-    only = set(args.only.split(",")) if args.only else None
-    totals = run_totals(entries, args.year, only)
-    report = build_agreement(totals)
-    _write(args.out / f"agreement-{args.year}.json", report)
+    path = args.out / f"agreement-{args.year}.json"
+    if args.what == "agreement":
+        saved = json.loads(path.read_text(encoding="utf-8"))
+        report = build_agreement(totals_from_report(saved))
+        report["checked"] = saved["checked"]  # the totals are as old as the saved run
+    else:
+        from wgs.checks.totals import run_totals
+
+        only = set(args.only.split(",")) if args.only else None
+        report = build_agreement(run_totals(entries, args.year, only))
+    _write(path, report)
     for iso, row in report["countries"].items():
         cells = ", ".join(f"{v['source']} {v['twh']}" + (f" ({v['ratio']})" if "ratio" in v
                                                           else "") for v in row["values"])
-        print(f"{iso}: {cells}")
+        print(f"{iso} against {row['reference']['name']}: {cells}")
     for fail in report["failures"]:
         print(f"failed: {fail['source']}: {fail['error']}", file=sys.stderr)
     bad_steps = [s for s in report["steps"] if not s["agrees"]]

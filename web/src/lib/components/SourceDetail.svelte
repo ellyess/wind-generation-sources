@@ -1,9 +1,10 @@
 <script lang="ts">
   import { hasLive } from "../live";
   import { REPO, store, type Indexed } from "../store.svelte";
-  import { BAND_TEXT, REF_NAME, STAMP, TEXT, VALUE, coverageText, twh, zoneText } from "../text";
+  import { BAND_TEXT, STAMP, TEXT, VALUE, coverageText, plural, twh, zoneText } from "../text";
   import CopyButton from "./CopyButton.svelte";
   import Ext from "./Ext.svelte";
+  import FarmTable from "./FarmTable.svelte";
   import Icon from "./Icon.svelte";
   import LevelDot from "./LevelDot.svelte";
   import LiveChart from "./LiveChart.svelte";
@@ -18,14 +19,19 @@
     if (!agr) return [];
     const out: { iso: string; twh: number; ratio?: number; band?: string; ref: string; refTwh: number }[] = [];
     for (const [iso, c] of Object.entries(agr.countries)) {
-      const ref = c.values.find((v) => v.source === c.reference);
-      for (const v of c.values) if (v.source === s.id && v.source !== c.reference && ref)
-        out.push({ iso, twh: v.twh, ratio: v.ratio, band: v.band, ref: c.reference, refTwh: ref.twh });
+      const ref = c.values.find((v) => v.source === c.reference.source);
+      for (const v of c.values) if (v.source === s.id && v.source !== c.reference.source && ref)
+        out.push({ iso, twh: v.twh, ratio: v.ratio, band: v.band, ref: c.reference.name, refTwh: ref.twh });
     }
     return out;
   });
-  let asRef = $derived(agr ? Object.values(agr.countries).filter((c) => c.reference === s.id).length : 0);
+  let asRef = $derived(agr ? Object.values(agr.countries).filter((c) => c.reference.source === s.id).length : 0);
   let step = $derived(agr?.steps.find((x) => x.source === s.id));
+  let farmRows = $derived.by(() => {
+    const out: number[] = [];
+    (store.farms?.farms ?? []).forEach((f, i) => { if (f.entry === s.id) out.push(i); });
+    return out;
+  });
   let entryLink = $derived(`${location.origin}${location.pathname}?source=${encodeURIComponent(s.id)}`);
   const yesNo = (v?: boolean) => (v == null ? "" : v ? "Yes" : "No");
   let notCross = $derived(s.access.key_required ? "it needs a key" : s.access.method === "api" ? "no reader is written for it yet" : "it is not read by machine yet");
@@ -137,6 +143,9 @@
     </dl>
   </section>
 
+  <!-- Rows fly the map to a farm, so the table shows only beside the map. -->
+  {#if store.view === "map" && farmRows.length}<FarmTable rows={farmRows} />{/if}
+
   <section>
     <h3>Checks</h3>
     <dl class="kv">
@@ -153,13 +162,13 @@
         <div><dt>Annual total, {agr.year}</dt><dd>
           {#if comps.length === 1}
             {@const r = comps[0]}
-            {twh(r.twh)} TWh against {REF_NAME[r.ref]}'s {twh(r.refTwh)} TWh{#if r.ratio != null}: ratio <span class="num">{r.ratio.toFixed(2)}</span>, {BAND_TEXT[r.band ?? "small"].toLowerCase()}{/if}.
+            {twh(r.twh)} TWh against {r.ref}'s {twh(r.refTwh)} TWh{#if r.ratio != null}: ratio <span class="num">{r.ratio.toFixed(2)}</span>, {BAND_TEXT[r.band ?? "small"].toLowerCase()}{/if}.
           {:else if comps.length > 1}
             Compared for {comps.length} countries: {comps.filter((r) => r.band === "agrees").length} within 15%.
             {@const off = comps.filter((r) => r.band === "outside" || r.band === "noted")}
             {#if off.length}<span class="block">Further out: {#each off as r, i (r.iso)}{i ? ", " : ""}<button type="button" class="lnk" onclick={() => store.go({ country: r.iso, source: "" })}>{store.placeName(r.iso)}</button> <span class="num">{r.ratio?.toFixed(2)}</span>{/each}</span>{/if}
           {:else if asRef}
-            The reference for {asRef} countries in the cross-check.
+            The reference for {plural(asRef, "country", "countries")} in the cross-check.
           {:else if agr.failures.some((f) => f.source === s.id)}
             The reader failed on the last run.
           {:else}

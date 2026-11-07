@@ -3,7 +3,13 @@
 import json
 
 from wgs.catalogue import ROOT, load_catalogue
-from wgs.checks.agreement import band, build_agreement
+from wgs.checks.agreement import (
+    NATIONAL_ADAPTERS,
+    band,
+    build_agreement,
+    load_figures,
+    totals_from_report,
+)
 from wgs.checks.links import ERROR_ROLE, _judge, entry_links
 from wgs.checks.totals import ADAPTERS, STEP_OF, _step
 
@@ -14,28 +20,89 @@ def test_bands_follow_the_scorecard_audit():
     assert band(0.69) == band(1.31) == "outside"
 
 
-def test_agreement_uses_eurostat_first_and_skips_lone_values():
+FIGURE = {"country": "LK", "publisher": "Ceylon Electricity Board (CEB)", "short": "CEB",
+          "twh": 0.792, "url": "https://ceb.lk/x.pdf", "whole_fleet": True, "why": "All wind."}
+
+
+def test_agreement_prefers_whole_fleet_national_figures_then_eurostat_then_ember():
     totals = {"year": 2024, "steps": [], "failures": [], "totals": [
         {"source": "world-ember-monthly", "country": "FR", "twh": 45.9},
         {"source": "eu-eurostat-nrg-bal-peh", "country": "FR", "twh": 47.5},
         {"source": "fr-rte-eco2mix-national", "country": "FR", "twh": 46.8},
         {"source": "world-ember-monthly", "country": "GB", "twh": 83.0},
         {"source": "gb-elexon-bmrs-fuel-type", "country": "GB", "twh": 65.6},
+        {"source": "world-ember-monthly", "country": "BE", "twh": 13.1},
+        {"source": "eu-eurostat-nrg-bal-peh", "country": "BE", "twh": 13.8},
+        {"source": "be-elia-wind-production", "country": "BE", "twh": 12.6},
+        {"source": "world-ember-monthly", "country": "LK", "twh": 1.324},
+        {"source": "world-irena-irenastat", "country": "LK", "twh": 0.797},
         {"source": "world-ember-monthly", "country": "CL", "twh": 8.0},
         {"source": "eu-eurostat-nrg-bal-peh", "country": "SK", "twh": 0.005},
         {"source": "world-ember-monthly", "country": "SK", "twh": 0.003},
     ]}
-    out = build_agreement(totals)["countries"]
-    assert out["FR"]["reference"] == "eu-eurostat-nrg-bal-peh"
+    out = build_agreement(totals, figures=[FIGURE])["countries"]
+    # A whole-fleet national adapter is the reference, and Eurostat gets a ratio like any other.
+    assert out["FR"]["reference"]["source"] == "fr-rte-eco2mix-national"
+    assert out["FR"]["reference"]["kind"] == "national-adapter"
     fr = {v["source"]: v for v in out["FR"]["values"]}
-    assert "ratio" not in fr["eu-eurostat-nrg-bal-peh"]
-    assert fr["fr-rte-eco2mix-national"]["band"] == "agrees"
+    assert "ratio" not in fr["fr-rte-eco2mix-national"]
+    assert fr["eu-eurostat-nrg-bal-peh"]["band"] == "agrees"
+    # A partial national series is compared but never the reference.
+    assert out["GB"]["reference"]["source"] == "world-ember-monthly"
     gb = {v["source"]: v for v in out["GB"]["values"]}
-    assert out["GB"]["reference"] == "world-ember-monthly"
     assert gb["gb-elexon-bmrs-fuel-type"]["band"] == "noted"
+    assert out["BE"]["reference"]["kind"] == "eurostat"
+    # A curated national figure is the reference, named and linked.
+    lk = out["LK"]
+    assert lk["reference"]["kind"] == "national-figure"
+    assert lk["reference"]["name"] == "CEB" and lk["reference"]["url"] == FIGURE["url"]
+    lkv = {v["source"]: v for v in lk["values"]}
+    assert lkv["national-LK"]["national"] and lkv["national-LK"]["publisher"] == "CEB"
+    assert lkv["world-ember-monthly"]["band"] == "outside"
+    assert lkv["world-irena-irenastat"]["band"] == "agrees"
     assert "CL" not in out  # one source alone has nothing to agree with
-    sk = {v["source"]: v for v in out["SK"]["values"]}
-    assert sk["world-ember-monthly"]["band"] == "small"
+    assert {v["source"]: v for v in out["SK"]["values"]}["world-ember-monthly"]["band"] == "small"
+
+
+def test_partial_or_fiscal_figures_are_compared_but_not_the_reference():
+    totals = {"year": 2024, "steps": [], "failures": [], "totals": [
+        {"source": "world-ember-monthly", "country": "LK", "twh": 1.324}]}
+    out = build_agreement(totals, figures=[{**FIGURE, "whole_fleet": False}])["countries"]
+    assert out["LK"]["reference"]["kind"] == "ember"
+    assert {v["source"]: v for v in out["LK"]["values"]}["national-LK"]["ratio"] == 0.598
+
+
+def test_saved_report_rebuilds_without_the_curated_rows():
+    totals = {"year": 2024, "steps": [], "failures": [], "totals": [
+        {"source": "world-ember-monthly", "country": "LK", "twh": 1.324},
+        {"source": "world-irena-irenastat", "country": "LK", "twh": 0.797}]}
+    report = build_agreement(totals, figures=[FIGURE])
+    again = totals_from_report(report)
+    assert sorted(t["source"] for t in again["totals"]) == sorted(
+        t["source"] for t in totals["totals"])
+    assert build_agreement(again, figures=[FIGURE])["countries"] == report["countries"]
+
+
+def test_every_national_adapter_has_an_eligibility_decision():
+    national = set(ADAPTERS) - {"eu-eurostat-nrg-bal-peh", "world-ember-monthly",
+                                "world-eia-international", "world-irena-irenastat"}
+    assert national == set(NATIONAL_ADAPTERS)
+    assert not NATIONAL_ADAPTERS["gb-elexon-bmrs-fuel-type"][0]
+
+
+def test_curated_national_figures_are_complete_and_convert_correctly():
+    entries, _ = load_catalogue()
+    ids = {e["id"] for e in entries}
+    factor = {"GWh": 1e-3, "million kWh": 1e-3, "TWh": 1.0}
+    figures = load_figures(2024)
+    assert figures
+    for f in figures:
+        for key in ("country", "publisher", "short", "value", "unit", "twh", "period", "url",
+                    "quote", "fetched", "whole_fleet", "why"):
+            assert key in f, (f["country"], key)
+        assert "calendar 2024" in f["period"]
+        assert abs(f["value"] * factor[f["unit"]] - f["twh"]) < 0.0006, f["country"]
+        assert f.get("entry") is None or f["entry"] in ids
 
 
 def test_observed_step_from_interval_counts():

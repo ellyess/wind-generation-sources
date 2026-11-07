@@ -1,0 +1,132 @@
+# National wind generation figures for 2024 that have no live adapter in src/wgs/checks/totals.py.
+# The annual cross-check (src/wgs/checks/agreement.py) uses a row as the country's reference when
+# it is a calendar-year total for the whole national wind fleet (`whole_fleet: true`).
+#
+# Every value was read from the publisher's own file on `fetched`, and `quote` is the text or
+# table cell as printed. `twh` is the value converted, nothing else. `entry` is the catalogue
+# entry for the publication when there is one. A national figure is only as good as its
+# publisher: these are preliminary in places and none has been reconciled with another source.
+#
+# Not added, because no calendar-year whole-fleet figure was found: Pakistan (NEPRA) and
+# Bangladesh (BPDB) publish fiscal years only; Bosnia and Herzegovina's regulator (DERK) gives
+# transmission-connected wind only, and the Federation statistics office one entity only;
+# Colombia's figure would be a sum over XM's plant rows rather than a published total.
+
+year: 2024
+figures:
+  - country: KE
+    publisher: Energy and Petroleum Regulatory Authority (EPRA), Kenya
+    short: EPRA
+    entry: ke-epra-energy-statistics-report
+    value: 1797.67
+    unit: GWh
+    twh: 1.798
+    period: calendar 2024, the sum of two half-years (January-June 825.77 and July-December 971.9)
+    url: https://www.epra.go.ke/sites/default/files/2025-03/Bi-Annual%20Energy%20%26%20Petroleum%20Statistics%20Report%202024_2025.pdf
+    where: Bi-Annual Energy and Petroleum Statistics Report 2024/2025, page 22, Figure 3.7
+    quote: >-
+      Figure 3.7, "A trend of the wind energy generated between 2022 and 2024", labels H1 2024
+      "825.77" and H2 2024 "971.9" GWh; the text above it reads "Wind energy contributed 971.90
+      GWh to the interconnected grid during the period under review" (July to December 2024).
+    fetched: "2026-11-07"
+    whole_fleet: true
+    why: >-
+      Wind delivered to the interconnected grid, which holds 435.5 of Kenya's 436.1 MW of wind
+      (Table 2.1 lists 0.6 MW off-grid). The chart's own title reads "Hydro Energy Generated", a
+      labelling slip: the caption and the H2 2024 value both match wind.
+
+  - country: KZ
+    publisher: KEGOC (Kazakhstan's grid operator), from National Dispatch Centre data
+    short: KEGOC
+    value: 4497.6
+    unit: million kWh
+    twh: 4.498
+    period: calendar 2024
+    url: https://ar2024.kegoc.kz/ru/download/electricity-balance
+    where: KEGOC Annual Report 2024, electricity balance section
+    quote: >-
+      "По итогам 2024 года объем электроэнергии (по данным НДЦ СО), выработанный объектами ВИЭ,
+      составил 7,55 млрд кВт•ч (ВЭС — 4 497,6 млн кВт•ч ...)"; the table row reads "ветровые
+      электростанции млн кВт•ч 4 497,6".
+    fetched: "2026-11-07"
+    whole_fleet: true
+    why: >-
+      The same page counts all 57 wind farms operating in the Republic of Kazakhstan in 2024
+      ("57 объектов ВЭС мощностью — 1 525,7 МВт"), so the figure is the national fleet.
+
+  - country: LK
+    publisher: Ceylon Electricity Board (CEB)
+    short: CEB
+    value: 792
+    unit: GWh
+    twh: 0.792
+    period: calendar 2024
+    url: https://ceb.lk/front_img/img_reports/1763693550Sales_and_Generation_Data_Book_2024.pdf
+    where: Sales and Generation Data Book 2024, page 3
+    quote: '"NCRE wind generation decreased from 818 GWh in 2023 to 792 GWh in 2024."'
+    fetched: "2026-11-07"
+    whole_fleet: true
+    why: >-
+      CEB counts its own Mannar farm (104 MW) and the private farms (163 MW) as "NCRE - Wind". The
+      2024 gross generation table gives Mannar 387.997 GWh less 5.023 GWh station use, plus
+      private wind 409.027 GWh, which is 792.0 GWh net: the whole grid fleet.
+
+  - country: MN
+    publisher: Energy Regulatory Commission of Mongolia (ERC)
+    short: ERC
+    value: 517.5
+    unit: million kWh
+    twh: 0.518
+    period: calendar 2024
+    url: https://online.fliphtml5.com/seigx/ERC-statistic---2025-eng/#p=16
+    where: >-
+      Statistics on Energy Performance 2025 (English), page 16, "Electricity Generation" table,
+      linked from https://erc.gov.mn/mn/statistic
+    quote: '"Wind Power Plant" row, 2024 column: "517.5" (million kWh); total generation 8,754.7.'
+    fetched: "2026-11-07"
+    whole_fleet: true
+    why: >-
+      The national generation table, by plant type, of the regulator that licenses every
+      generator; wind is a row of its own, separate from solar and hydro.
+
+  - country: PE
+    publisher: Ministry of Energy and Mines of Peru (MINEM), Directorate General of Electricity
+    short: MINEM
+    value: 3915
+    unit: GWh
+    twh: 3.915
+    period: calendar 2024 (January-December, preliminary)
+    url: https://cdn.www.gob.pe/uploads/document/file/7676275/6501622-estadistica-subsector-electricidad-diciembre-2024%282%29.pdf
+    where: >-
+      Revista Estadística, Electricidad, December 2024 (preliminary figures), table 4.3,
+      "Producción de energía eléctrica nacional por tipo de generación (GWh)"
+    quote: '"Eólica" row, "enero-diciembre 2024" column: "3 915" GWh.'
+    fetched: "2026-11-07"
+    whole_fleet: true
+    why: >-
+      The national total: table 4.6 splits it into the interconnected system (3 914 GWh) and
+      isolated systems (1 GWh), and table 4.5 shows no wind generated for own use. The figures
+      are marked preliminary.
+
+  - country: RU
+    publisher: System Operator of the Unified Power System of Russia (SO-UPS)
+    short: SO-UPS
+    value: 8794.1
+    unit: million kWh
+    twh: 8.794
+    period: calendar 2024
+    url: https://www.so-ups.ru/functioning/ups/ups2025/
+    where: >-
+      Chart "Структура выработки электроэнергии электростанциями энергосистемы России (на
+      01.01.2025 г.)", https://www.so-ups.ru/fileadmin/files/company/reports/disclosure/2025/v_010125_russia.jpg
+    quote: >-
+      Chart label "ВЭС 8 794,1" (0,73%) of a total "1 196 871,8 млн. кВт·ч"; solar is separate
+      ("СЭС 2 992,7"). Read from the chart image; the page text gives the same total, "1 196,9
+      млрд кВт∙ч".
+    fetched: "2026-11-07"
+    whole_fleet: true
+    why: >-
+      The page's total covers Russia's whole power system, both the unified system and the
+      isolated territorial systems ("в том числе в ЕЭС России - 1 180,7 млрд кВт∙ч, в ТИТЭС -
+      16,2"). Its geography is the operator's, which lists 89 regions and so includes occupied
+      Ukrainian territory; international compilers may draw it differently.

@@ -83,6 +83,26 @@ traps:
       Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
     evidence: https://www.eia.gov/opendata/bulk/INTL.zip
     found: 2026-11-07
+  - summary: >-
+      For several smaller fleets the 2024 wind value is far from the national system
+      operator's or regulator's figure, in both directions.
+    detail: >-
+      The catalogue's 2024 cross-check compared EIA with national publishers. Kazakhstan:
+      2.653 billion kWh against 4,497.6 million kWh from the KEGOC Annual Report 2024
+      ("ветровые электростанции … млн кВт•ч 4 497,6", National Dispatch Centre data).
+      Colombia: 0.897 against 148.8 GWh summed from XM's SiMEM dataset 055A4D (plants 3EE4,
+      3EXH and JPR1, latest settlement version). Peru: 2.092 against 3,913,508 MWh from the
+      COES generation export. Pakistan: 6.859 against NEPRA's "Wind 3,941.07 3,843.36" GWh
+      for the fiscal years 2023-24 and 2024-25 (State of Industry Report 2025). Bangladesh:
+      0.005 against BPDB's 69 million kWh for fiscal 2023-24 and 99 for 2024-25, nearly all
+      from the 60 MW Cox's Bazar farm. The causes are not established; Peru's value falls
+      between COES's 2022 (1.930) and 2023 (2.353) totals, and Bangladesh's predates Cox's
+      Bazar, which suggests stale figures. Russia, by contrast, is close to its system
+      operator (8.279 against 8,794.1 million kWh). Check smaller countries against the
+      national publisher before use. Found by an automated research pass on 2026-11-07; not
+      yet reviewed by a person.
+    evidence: https://ar2024.kegoc.kz/ru/download/electricity-balance
+    found: 2026-11-07
 notes: >-
   Annual wind electricity net generation in billion kWh (also given in
   terajoules, quadrillion Btu and million tonnes of oil equivalent), 1980 to 2024, for every country EIA tracks. Series ids follow

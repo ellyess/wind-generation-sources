@@ -81,6 +81,8 @@ notes: >-
   surname, email and reason for use (the form names no fee), and its example requests send the
   token in an x-api-key header. The analysis pages can still be browsed without a token, but
   history through the API needs one.
+  Rechecked 2026-11-07, later the same day: /indicators/551 with no dates and no token now
+  also answers 403, so no keyless API route remains.
 status: active
 reviewed: false
 last_checked: 2026-11-06
