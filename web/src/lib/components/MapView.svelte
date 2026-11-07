@@ -11,7 +11,8 @@
   import Icon from "./Icon.svelte";
   import LevelDot from "./LevelDot.svelte";
 
-  const STYLE = { light: "https://tiles.openfreemap.org/styles/positron", dark: "https://tiles.openfreemap.org/styles/dark" };
+  // OpenFreeMap's dark style, recoloured on load to the site palette (restyleBase).
+  const STYLE = "https://tiles.openfreemap.org/styles/dark";
   const WORLD: [number, number, number, number] = [-168, -50, 178, 72];
   // Locations matched to units by name (crosswalk/build.py); the rest come from the publisher.
   const MATCHED = new Set(["osm", "repd"]);
@@ -29,10 +30,6 @@
   let hovered: string | null = null;
   let tip = $state<{ x: number; y: number; title: string; lines: string[] } | null>(null);
 
-  const dark = () => {
-    const t = document.documentElement.dataset.theme;
-    return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-  };
   const css = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
   /** Bounding box of a country's largest polygon, so overseas territories do not zoom to the globe. */
@@ -50,9 +47,31 @@
     return [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
   }
 
+  /** Flatten the basemap to the site palette: sage land, charcoal sea, dark borders, quiet labels. */
+  function restyleBase(m: MLMap) {
+    const land = css("--land"), sea = css("--sea"), border = css("--land-line"), label = css("--map-label");
+    for (const l of m.getStyle().layers) {
+      const sl = (l as { "source-layer"?: string })["source-layer"] ?? "";
+      const set = (k: string, v: unknown) => m.setPaintProperty(l.id, k as never, v as never);
+      if (l.type === "background") set("background-color", land);
+      else if (sl === "water") set("fill-color", sea);
+      else if (sl === "waterway") set("line-color", sea);
+      else if (sl === "landcover" || sl === "landuse" || sl === "aeroway") m.setLayoutProperty(l.id, "visibility", "none");
+      else if (sl === "building") { set("fill-color", "#36443f"); set("fill-outline-color", "#36443f"); }
+      else if (sl === "transportation" && l.type === "line") { set("line-color", "#4b5a55"); }
+      else if (sl === "boundary") { set("line-color", l.id.startsWith("boundary_country") ? border : "#33403b"); set("line-blur", 0); }
+      else if (l.type === "symbol") {
+        set("text-color", sl === "water_name" ? "#56645f" : l.id.startsWith("place_country") ? "#c3cfca" : label);
+        set("text-halo-color", sl === "water_name" ? "rgba(0,0,0,0)" : "rgba(26,30,33,0.7)");
+        set("text-halo-width", 1); set("text-halo-blur", 0.5);
+      }
+    }
+  }
+
   function addLayers() {
     if (!map || !outlines) return;
     const m = map;
+    restyleBase(m);
     m.addSource("countries", { type: "geojson", data: outlines, promoteId: "iso" });
     const before = m.getLayer("water") ? "water" : undefined;
     // Roads and rail read as noise over a country fill; show them only when zoomed right in.
@@ -66,9 +85,9 @@
       paint: {
         "fill-color": tierColour,
         "fill-opacity": ["interpolate", ["linear"], ["zoom"],
-          1, ["case", ["boolean", ["feature-state", "cat"], false], 0.92, 0],
-          5, ["case", ["boolean", ["feature-state", "cat"], false], 0.6, 0],
-          8, ["case", ["boolean", ["feature-state", "cat"], false], 0.45, 0]],
+          1, ["case", ["boolean", ["feature-state", "cat"], false], 0.8, 0],
+          5, ["case", ["boolean", ["feature-state", "cat"], false], 0.55, 0],
+          8, ["case", ["boolean", ["feature-state", "cat"], false], 0.4, 0]],
       } }, before);
     m.addLayer({ id: "country-hover", type: "line", source: "countries",
       paint: { "line-color": css("--ink"), "line-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.55, 0],
@@ -84,7 +103,7 @@
         "circle-radius": ["interpolate", ["linear"], ["zoom"],
           2, ["case", ["get", "turbine"], 0.8, 2.2], 6, ["case", ["get", "turbine"], 1.8, 4.5],
           10, ["case", ["get", "turbine"], 4.5, 7]],
-        "circle-stroke-color": dark() ? "#0e1114" : "#ffffff",
+        "circle-stroke-color": css("--sea"),
         "circle-stroke-width": ["interpolate", ["linear"], ["zoom"],
           2, ["case", ["get", "turbine"], 0, 0.6], 8, ["case", ["get", "turbine"], 0.8, 1.5]],
         "circle-opacity": ["case", ["boolean", ["get", "shown"], true], 1, 0.15],
@@ -94,8 +113,12 @@
     ready = true;
   }
 
+  /** The open source's countries, outlined and framed while it is open. */
+  let srcCountries = $derived(store.source ? store.byId.get(store.source)?.countries ?? [] : []);
+
   function farmData(): GeoJSON.FeatureCollection {
-    const shown = new Set(store.filtered.map((s) => s.id));
+    // With a source open, only its own farms stay at full strength.
+    const shown = new Set(store.source && store.byId.has(store.source) ? [store.source] : store.filtered.map((s) => s.id));
     return { type: "FeatureCollection", features: (store.farms?.farms ?? []).map((f, i) => ({
       type: "Feature", id: i, geometry: { type: "Point", coordinates: [f.lon, f.lat] },
       properties: { name: f.name, entry: f.entry, units: f.n, shown: shown.has(f.entry),
@@ -111,7 +134,7 @@
       map.setFeatureState({ source: "countries", id: iso }, {
         tier: store.tiers.get(iso) ?? 0,
         cat: store.catalogued.has(iso),
-        picked: store.country === iso,
+        picked: store.country === iso || (!store.country && srcCountries.includes(iso)),
       });
     }
     (map.getSource("farms") as GeoJSONSource | undefined)?.setData(farmData());
@@ -119,21 +142,27 @@
 
   // Repaint when filters or the pick change.
   $effect(() => {
-    void store.tiers; void store.country; void store.filtered;
+    void store.tiers; void store.country; void store.filtered; void store.source;
     paint();
   });
 
-  // Fly to the picked country, or back to the world when it is cleared.
-  let lastCountry = "";
+  // Fly to the picked country, or to an open source's countries, or back to the world.
+  let lastFrame = "";
   $effect(() => {
     const c = store.country;
-    if (!ready || !map || c === lastCountry) return;
-    lastCountry = c;
-    const box = bounds.get(c);
+    const own = !c && srcCountries.length && srcCountries.length <= 6 ? srcCountries : [];
+    const key = c || own.join(",");
+    if (!ready || !map || key === lastFrame) return;
+    lastFrame = key;
+    const boxes = (c ? [c] : own).map((k) => bounds.get(k)).filter((b) => !!b);
     const narrow = innerWidth < 820;
     const padding = narrow ? 24 : { top: 48, bottom: 48, left: 48, right: 48 };
-    if (box) map.fitBounds(box, { padding, maxZoom: 5.2, duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900 });
-    else if (!c) map.fitBounds(WORLD, { padding: 8, duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 700 });
+    const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (boxes.length) {
+      const box: [number, number, number, number] = [Math.min(...boxes.map((b) => b[0])), Math.min(...boxes.map((b) => b[1])),
+        Math.max(...boxes.map((b) => b[2])), Math.max(...boxes.map((b) => b[3]))];
+      map.fitBounds(box, { padding, maxZoom: 5.2, duration: still ? 0 : 900 });
+    } else if (!key) map.fitBounds(WORLD, { padding: 8, duration: still ? 0 : 700 });
   });
 
   function showTip(e: MapMouseEvent, title: string, lines: string[]) {
@@ -205,10 +234,12 @@
       for (const f of outlines!.features) if (f.properties?.iso) bounds.set(f.properties.iso, mainBox(f.geometry));
       if (!alive) return;
       const m = new maplibregl.Map({
-        container: host, style: dark() ? STYLE.dark : STYLE.light, bounds: WORLD,
+        container: host, style: STYLE, bounds: WORLD,
         fitBoundsOptions: { padding: 8 }, minZoom: 0, maxZoom: 11, renderWorldCopies: false,
         attributionControl: { compact: true, customAttribution: "Outlines: Natural Earth. Farms: OpenStreetMap (ODbL), REPD (OGL), Danish Energy Agency, US EIA, BNetzA MaStR (dl-de/by-2-0) and the data publishers" },
         dragRotate: false, pitchWithRotate: false, touchPitch: false,
+        // On touch screens the page scrolls with one finger; the map pans with two.
+        cooperativeGestures: matchMedia("(pointer: coarse)").matches,
       });
       map = m;
       m.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
@@ -218,20 +249,8 @@
       wire(m);
     })();
 
-    // Follow the theme: swap the basemap and re-add the data layers on top.
-    const swap = () => {
-      if (!map) return;
-      ready = false;
-      map.setStyle(dark() ? STYLE.dark : STYLE.light, { diff: false });
-    };
-    const mq = matchMedia("(prefers-color-scheme: dark)");
-    mq.addEventListener("change", swap);
-    const mo = new MutationObserver(swap);
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     return () => {
       alive = false;
-      mq.removeEventListener("change", swap);
-      mo.disconnect();
       map?.remove();
     };
   });
@@ -278,7 +297,7 @@
 </div>
 
 <style>
-  .map-wrap { position: relative; min-height: 0; height: 100%; background: var(--surface-3); }
+  .map-wrap { position: relative; min-height: 0; height: 100%; background: var(--sea); }
   .map { position: absolute; inset: 0; }
   .tip {
     position: absolute; z-index: 3; pointer-events: none; transform: translate(12px, 12px);
@@ -312,6 +331,15 @@
     box-shadow: 0 0 0 2px rgb(0 0 0 / 0.1); font-size: 12.5px; font-weight: 500;
   }
   .map-wrap :global(.maplibregl-ctrl-attrib) { font-size: 11px; }
+  /* MapLibre's own controls, in the site palette. */
+  .map-wrap :global(.maplibregl-ctrl-group) { background: var(--surface); box-shadow: var(--shadow-1); border: 1px solid var(--line); }
+  .map-wrap :global(.maplibregl-ctrl-group button + button) { border-top-color: var(--line); }
+  .map-wrap :global(.maplibregl-ctrl-group button:not(:disabled):hover) { background: var(--surface-3); }
+  .map-wrap :global(.maplibregl-ctrl-icon) { filter: invert(1) brightness(0.85); }
+  .map-wrap :global(.maplibregl-ctrl-attrib) { background: color-mix(in srgb, var(--surface) 85%, transparent); color: var(--ink-3); }
+  .map-wrap :global(.maplibregl-ctrl-attrib a) { color: var(--ink-2); }
+  .map-wrap :global(.maplibregl-ctrl-attrib-button) { background-color: var(--surface); filter: invert(1) brightness(0.85); }
+  .map-wrap :global(.maplibregl-cooperative-gesture-screen) { background: color-mix(in srgb, var(--bg) 80%, transparent); color: var(--ink); }
   @media (max-width: 819px) {
     .legend { left: 8px; top: 8px; bottom: auto; min-width: 0; padding: 2px; font-size: 12px; }
     .proj { top: 76px; }

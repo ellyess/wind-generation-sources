@@ -38,7 +38,7 @@
   {:else if !store.cat}
     <p class="loading">Loading the catalogue.</p>
   {:else if store.view === "map"}
-    <div class="mapview"><Panel />
+    <div class="mapview" data-depth={store.source || store.country ? "detail" : "top"}><Panel />
       {#await mapView}<div class="map-wrap"></div>{:then m}<m.default />{:catch}<p class="loading">The map could not load; the lists still work.</p>{/await}
     </div>
   {:else if store.view === "sources"}
@@ -59,6 +59,8 @@
     .stage[data-view="map"] { height: auto; }
     .mapview { display: flex; flex-direction: column-reverse; height: auto; }
     .mapview :global(.map-wrap) { height: 40vh; min-height: 280px; }
+    /* On a country or source page the reading comes first; the map shrinks to a strip for context. */
+    .mapview[data-depth="detail"] :global(.map-wrap) { height: 26vh; min-height: 190px; }
     .mapview :global(.panel) { overflow: visible; }
   }
 </style>

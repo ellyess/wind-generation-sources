@@ -80,7 +80,7 @@
 </section>
 
 <style>
-  .snip { display: grid; gap: 8px; }
+  .snip { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
   h3 { font-size: 14px; display: flex; align-items: center; gap: 7px; }
   .lead { font-size: 13px; color: var(--ink-2); }
   .run { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; font-size: 12.5px; color: var(--ink-2); }

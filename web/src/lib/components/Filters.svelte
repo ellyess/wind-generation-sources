@@ -82,7 +82,7 @@
   label > span { font-size: 11.5px; font-weight: 500; color: var(--ink-3); }
   select {
     width: 100%; height: 32px; padding: 0 26px 0 8px; border: 1px solid var(--line); border-radius: var(--radius-sm);
-    background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 6.5 3.5 3.5 3.5-3.5' fill='none' stroke='%236b7480' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 6px center / 14px;
+    background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 6.5 3.5 3.5 3.5-3.5' fill='none' stroke='%2393a09a' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 6px center / 14px;
     appearance: none; font-size: 13px; text-overflow: ellipsis;
   }
   select:hover { border-color: var(--line-strong); }

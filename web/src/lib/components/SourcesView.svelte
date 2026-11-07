@@ -63,9 +63,10 @@
                 <button type="button" class="open" onclick={(e) => { e.stopPropagation(); store.go({ source: s.id }); }}>{s.name}</button>
                 <span class="pub">{s.publisher}
                   {#if hasLive(s.id)}<span class="tag live"><Icon name="live" size={11} />Live</span>{/if}
-                  {#if s.reviewed === false}<span class="tag dashed">Unreviewed</span>{/if}
+                  {#if s.reviewed !== false}<span class="tag rev"><Icon name="check" size={11} />Reviewed</span>{/if}
                   {#if s.status !== "active"}<span class="tag">{TEXT.status[s.status]}</span>{/if}
                 </span>
+                <span class="m-verdict"><Verdict value={s.licence.redistribution} /></span>
               </th>
               <td class="area">{s.countries.length > 3 ? plural(s.countries.length, "country", "countries") : s.countries.map(store.placeName).join(", ")}</td>
               <td class="level"><span class="lv"><LevelDot tier={s._tier} />{TEXT.level[s.level]}</span></td>
@@ -87,7 +88,7 @@
   {#if src}
     <aside class="drawer" aria-label="Source detail">
       <button type="button" class="close" onclick={() => store.go({ source: "" })} aria-label="Close the detail"><Icon name="close" /></button>
-      <SourceDetail s={src} />
+      <SourceDetail s={src} heading="h2" />
     </aside>
   {/if}
 </div>
@@ -95,7 +96,7 @@
 <style>
   .sources { display: grid; grid-template-columns: minmax(0, 1fr); height: 100%; min-height: 0; }
   .sources.has-detail { grid-template-columns: minmax(0, 1fr) min(520px, 42vw); }
-  .main { overflow-y: auto; padding: 24px 28px 48px; display: grid; gap: 16px; align-content: start; }
+  .main { overflow-y: auto; padding: 24px 28px 48px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-content: start; }
   .main > :global(*) { width: 100%; max-width: 1480px; justify-self: center; }
   header { display: grid; gap: 4px; }
   h1 { font-size: 22px; letter-spacing: -0.02em; }
@@ -112,7 +113,7 @@
   tbody tr.on { background: var(--accent-wash); }
   td, tbody th { padding: 9px 12px; vertical-align: top; text-align: left; font-weight: 400; }
   .name { min-width: 18rem; max-width: 34rem; }
-  .open { display: block; border: 0; background: none; padding: 0; text-align: left; font-weight: 600; line-height: 1.35; color: var(--ink); }
+  .open { display: block; border: 0; background: none; padding: 3px 0; margin: -3px 0; text-align: left; font-weight: 600; line-height: 1.35; color: var(--ink); }
   .open:hover { color: var(--accent-ink); }
   .pub { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 2px; font-size: 12.5px; color: var(--ink-2); }
   .area { color: var(--ink-2); min-width: 8rem; }
@@ -125,11 +126,12 @@
   .traps { text-align: right; font-weight: 600; color: var(--ink); }
   .traps.zero { color: var(--ink-3); font-weight: 400; }
   th.traps button { justify-content: flex-end; }
+  .m-verdict { display: none; }
   .tag { display: inline-flex; align-items: center; gap: 3px; padding: 0 6px; height: 18px; border-radius: 9px; background: var(--surface-3); font-size: 11px; font-weight: 500; }
   .tag.live { background: var(--accent-wash); color: var(--accent-ink); }
-  .tag.dashed { background: none; border: 1px dashed var(--line-strong); }
+  .tag.rev { gap: 3px; background: none; border: 1px solid var(--line-strong); color: var(--ink-2); }
   .empty { padding: 20px; font-size: 13.5px; color: var(--ink-2); }
-  .drawer { position: relative; overflow-y: auto; padding: 24px 24px 48px; background: var(--surface); border-left: 1px solid var(--line); box-shadow: var(--shadow-2); }
+  .drawer { --detail-bg: var(--surface); --toc-top: -24px; position: relative; overflow-y: auto; padding: 24px 24px 48px; background: var(--surface); border-left: 1px solid var(--line); box-shadow: var(--shadow-2); }
   .drawer :global(.detail > header) { padding-right: 40px; }
   .close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; display: grid; place-items: center; border: 0; border-radius: var(--radius-sm); background: var(--surface-3); }
   @media (max-width: 1100px) {
@@ -138,8 +140,9 @@
   @media (max-width: 819px) {
     .main { padding: 16px; }
     .sources.has-detail { grid-template-columns: 1fr; }
-    .drawer { position: fixed; inset: var(--top) 0 0 0; z-index: 20; padding: 20px 16px 48px; }
-    .cov, th.cov, .level, th.level { display: none; }
+    .drawer { --toc-top: -20px; position: fixed; inset: var(--top) 0 0 0; z-index: 20; padding: 20px 16px 48px; }
+    .cov, th.cov, .level, th.level, .reuse, th.reuse { display: none; }
+    .m-verdict { display: block; margin-top: 4px; font-size: 12.5px; }
     .name { min-width: 0; }
   }
 </style>

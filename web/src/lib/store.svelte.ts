@@ -7,6 +7,9 @@ export type View = (typeof VIEWS)[number];
 const FILTERS = ["level", "step", "reuse", "cap", "status", "review", "region", "q"] as const;
 type FilterKey = (typeof FILTERS)[number];
 
+// Codes the outlines file names oddly or not at all.
+const FALLBACK_NAMES: Record<string, string> = { XK: "Kosovo" };
+
 export type Indexed = Source & { _hay: string; _tier: number };
 
 class Store {
@@ -66,7 +69,7 @@ class Store {
   activeFilters = $derived(FILTERS.filter((k) => this[k] !== "").length);
 
   continentOf = (code: string) => this.places[code]?.continent ?? "Elsewhere";
-  placeName = (code: string) => this.places[code]?.name ?? code;
+  placeName = (code: string) => this.places[code]?.name ?? FALLBACK_NAMES[code] ?? code;
 
   matches(s: Indexed) {
     if (this.region && !s.countries.some((c) => this.continentOf(c) === this.region)) return false;
