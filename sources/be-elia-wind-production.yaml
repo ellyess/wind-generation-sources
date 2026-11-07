@@ -12,6 +12,19 @@ coverage:
 capacity: included
 coordinates: not-applicable
 curtailment: reported
+conventions:
+  timezone: UTC
+  timestamp: period-start
+  unit: MW
+  value: period-mean
+  evidence: "https://opendata.elia.be/api/explore/v2.1/catalog/datasets/ods031"
+  note: >-
+    The dataset's field metadata define datetime as "Time at which the interval starts" (displayed
+    in local time on the portal, UTC in downloads and the API, which returns "+00:00"), and the
+    measured field as "The value running average measured for the reported time interval", unit
+    MW. The description repeats that measured and forecast values are in MW. The loadfactor field
+    is described as a percentage, but the values read are fractions (0.3 for 21.2 MW of 70.35 MW
+    monitored). Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: api
   url: https://opendata.elia.be/explore/dataset/ods031/information/
@@ -40,6 +53,20 @@ traps:
   - summary: Times display in local time on the portal but are UTC in downloads and the API.
     evidence: https://opendata.elia.be/explore/dataset/ods031/information/
     found: 2026-11-06
+  - summary: The load factor is described as a percentage but stored as a fraction, and it sometimes exceeds 1.
+    detail: >-
+      The field metadata describe loadfactor as "The percentage ratio between measured power
+      generation and the total monitored power capacity", with no unit. The values are fractions:
+      at 2024-01-15T12:00:00+00:00 the federal offshore row reads measured 1912.18, monitored
+      capacity 2262.1, loadfactor 0.85, and the Wallonia distribution-grid onshore row reads
+      311.66, 1093.35, 0.29. Multiply by 100 if a percentage is wanted, and recompute a national
+      figure from summed output and capacity rather than averaging this field. Across the whole
+      dataset loadfactor runs from -0.12 to 2.58, with 786 rows above 1: for Flanders
+      Elia-connected onshore at 2018-03-01 22:45 UTC, measured is 138.75 MW against 53.86 MW of
+      monitored capacity. Check such rows before using them. Found by an automated research pass
+      on 2026-11-07; not yet reviewed by a person.
+    evidence: "https://opendata.elia.be/api/explore/v2.1/catalog/datasets/ods031/records?limit=10&select=datetime,offshoreonshore,region,gridconnectiontype,measured,monitoredcapacity,loadfactor&where=datetime%3Ddate%272024-01-15T12%3A00%3A00%2B00%3A00%27"
+    found: 2026-11-07
 notes: >-
   Measured-and-upscaled output with monitored capacity and a load factor every 15 minutes, plus
   Elia's forecasts with P10 and P90. A decremental-bid field marks quarter-hours when Elia asked

@@ -1,0 +1,90 @@
+id: world-iea-monthly-electricity-statistics
+name: Monthly Electricity Statistics (MES Generation)
+publisher: International Energy Agency (IEA)
+publisher_role: statistics-office
+countries: [AL, AR, AT, AU, BA, BE, BG, BR, CA, CH, CL, CN, CO, CR, CY, CZ, DE, DK, EE, ES, FI, FR, GB, GE, GR, HR, HU, IE, IN, IS, IT, JP, KR, LT, LU, LV, ME, MK, MT, MX, NL, NO, NZ, PL, PT, RO, RS, SE, SI, SK, TR, US]
+area: >-
+  The countries are those named in the documentation's country list (OECD members except Israel,
+  which the documentation says is not included, plus selected non-OECD economies). The product
+  page says 47 countries; the documentation list has 52 names. Whether each has a wind series was
+  not checked because the data need a login. Regional totals (OECD, OECD Europe, IEA Total) are
+  included.
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2010
+  update: monthly (next release 17 November 2026 on the check date)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://www.iea.org/files/871a6316-8470-4f6f-840e-f004cbd953fd/Monthly_electricity_statistics_Documentation_Sep_2026.pdf
+  note: >-
+    The documentation says "All values are reported in GWh", as monthly net production. The data
+    files need a login and were not opened on this pass. Read 2026-11-06 by an automated research
+    pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.iea.org/data-and-statistics/data-product/monthly-electricity-statistics
+  docs: https://www.iea.org/files/871a6316-8470-4f6f-840e-f004cbd953fd/Monthly_electricity_statistics_Documentation_Sep_2026.pdf
+  key_required: false
+  registration: true
+  formats: [sdmx, csv, xlsx]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International, with IEA additional terms
+  spdx: CC-BY-4.0
+  url: https://www.iea.org/terms/creative-commons-cc-licenses
+  redistribution: allowed-with-attribution
+  attribution: "IEA, Monthly Electricity Statistics, IEA, Paris https://www.iea.org/data-and-statistics/data-product/monthly-electricity-statistics, Licence: CC BY 4.0"
+  verified: true
+  note: >-
+    The product page marks it as a free product under CC BY 4.0. The IEA's CC terms add that
+    derived works must carry the disclaimer "This is a work derived by [name] from IEA material
+    and [name] is solely liable and responsible for this derived work. The derived work is not
+    endorsed by the IEA or its Member countries in any manner." Third-party components are not
+    licensed by the IEA.
+traps:
+  - summary: Monthly values are scaled to match the latest annual data, so they are not the raw monthly reports.
+    detail: >-
+      The documentation says monthly electricity data are adjusted proportionately to keep them
+      consistent with the most recent annual data for each source, and that historic data are
+      often revised, so the latest release should be used.
+    evidence: https://www.iea.org/files/871a6316-8470-4f6f-840e-f004cbd953fd/Monthly_electricity_statistics_Documentation_Sep_2026.pdf
+    found: 2026-11-06
+  - summary: Several countries' net figures are IEA estimates converted from gross reports.
+    detail: >-
+      The country notes say China's and India's raw monthly data are gross and the published net
+      values are IEA estimates; Colombia's monthly submissions are gross and net is estimated; China
+      reports January and February combined, which the IEA splits. Brazil and India monthly data
+      cover only main producers, with the remainder estimated from annual submissions.
+    evidence: https://www.iea.org/files/871a6316-8470-4f6f-840e-f004cbd953fd/Monthly_electricity_statistics_Documentation_Sep_2026.pdf
+    found: 2026-11-06
+  - summary: Non-OECD countries start in January 2015, not 2010, and some OECD members start later.
+    detail: >-
+      The documentation gives January 2010 for OECD countries and January 2015 for others;
+      Costa Rica starts in January 2020. Country borders also differ from ISO, for example France
+      includes its overseas departments from January 2017 (or 2018, per the country notes), Italy
+      includes San Marino and the Vatican, and the United States includes Puerto Rico and Guam.
+    evidence: https://www.iea.org/files/871a6316-8470-4f6f-840e-f004cbd953fd/Monthly_electricity_statistics_Documentation_Sep_2026.pdf
+    found: 2026-11-06
+notes: >-
+  Monthly net electricity production by source in GWh, with wind (onshore and offshore together)
+  as one product, from the IEA's Monthly Electricity Questionnaire to national administrations,
+  supplemented by other sources and IEA estimates where national data are missing. Free, but
+  downloading needs a free IEA account; files are SDMX zips, and the .Stat Data Explorer exports
+  CSV and Excel, per the product page (the legacy CSV file was discontinued after the August 2026
+  release). The data themselves were not downloaded for this entry, so per-country wind coverage is
+  unverified; the description, licence and documentation were read on the check date. The
+  documentation says the data can also be viewed in interactive charts at
+  https://www.iea.org/data-and-statistics/data-tools/monthly-electricity-statistics.
+status: restricted
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

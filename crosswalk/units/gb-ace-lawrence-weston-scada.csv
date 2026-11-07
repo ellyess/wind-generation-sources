@@ -1,0 +1,2 @@
+entry,unit_id,unit_name,alt_names,capacity_mw,area,lat,lon,location_source,source_url,notes
+gb-ace-lawrence-weston-scada,ace,Lawrence Weston,ACE wind turbine;Ambition Community Energy;Lawrence Weston wind turbine;Ambition Lawrence Weston,4.2,GB,51.537885,-2.673984,publisher,https://zenodo.org/records/23909980,"Single Enercon E-115 EP3 E3 4.2 MW turbine. unit_id is the parquet 'site' value (turbine asset 'wec-1'). Lat/lon is the turbine position in the publisher's 'ACE wind turbine.kmz' on the Zenodo record (a single point, so no averaging)."

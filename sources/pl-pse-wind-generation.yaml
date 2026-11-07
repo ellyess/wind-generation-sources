@@ -13,6 +13,18 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: reported
+conventions:
+  timezone: Europe/Warsaw
+  timestamp: period-end
+  unit: MW
+  value: unknown
+  evidence: "https://api.raporty.pse.pl/api/his-wlk-cal?$filter=business_date%20eq%20'2025-06-01'&$first=2"
+  note: >-
+    dtime is local time at the end of the quarter hour: the row with period "00:00 - 00:15" has
+    dtime "2025-06-01 00:15:00". dtime_utc and period_utc give the same in UTC ("2025-05-31
+    22:15:00", "22:00 - 22:15") and are the simplest join key. The wi field is "Total generation of
+    Wind Sources", charted in MW; PSE does not say whether a quarter-hour value is an average or a
+    reading. Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: api
   url: https://api.raporty.pse.pl/
@@ -66,3 +78,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

@@ -14,6 +14,17 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MWh
+  value: period-total
+  evidence: https://www.data.go.kr/data/15065269/fileData.do
+  note: >-
+    The page gives the unit as MWh and describes the values as market trading volumes (전력거래량) per
+    trading date and trading hour (거래시간), measured sent-out. Hours run 01 to 24 in the file (see
+    trap), but the page does not say whether hour 01 is the hour ending at 01:00, nor the time zone.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.data.go.kr/data/15065269/fileData.do
@@ -73,3 +84,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

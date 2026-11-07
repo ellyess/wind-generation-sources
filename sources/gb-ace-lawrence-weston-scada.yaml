@@ -1,0 +1,97 @@
+id: gb-ace-lawrence-weston-scada
+name: ACE Wind Turbine Data
+publisher: Ambition Community Energy (ACE) (via Zenodo)
+publisher_role: owner-operator
+countries: [GB]
+area: Single 4.2 MW Enercon community turbine at Lawrence Weston, Bristol, England
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 1s
+coverage:
+  start: 2026
+  update: monthly Zenodo versions (latest 2026.10, published 3 November 2026), plus a live dashboard and API
+capacity: included
+coordinates: included
+curtailment: reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: kW
+  value: period-mean
+  evidence: "https://zenodo.org/records/23909980"
+  note: >-
+    In the 2026.10 10-minute parquet, observed_at is typed as a UTC timestamp, and the raw OPC
+    payload keeps the turbine's local stamp with offset (2026-07-22T17:40:00.000+01:00 for 16:40
+    UTC). The signal catalogue in the file metadata defines active_power_mean as "Mean active
+    power" in kW and energy_produced as a kWh counter. Whether observed_at opens or closes the
+    10-minute period is not stated. In the first rows ingested_at is earlier than observed_at (a
+    16:40:00 row ingested at 16:39:25 UTC), so the turbine clock may run ahead of the ingest
+    clock. Checked 2026-11-07 across the whole file: ingested_at follows observed_at by a median of
+    274 seconds and a 95th percentile of 544, both less than the 600-second period, which
+    suggests observed_at marks the end of the 10 minutes; not stated, so left unknown. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://doi.org/10.5281/zenodo.22662372
+  docs: https://zenodo.org/records/23909980
+  key_required: false
+  registration: false
+  formats: [parquet, kmz]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://zenodo.org/records/23909980
+  redistribution: allowed-with-attribution
+  attribution: Cite the concept DOI 10.5281/zenodo.22662372 (Plumley, C. et al., ACE Wind Turbine Data).
+  verified: true
+  note: The Zenodo record states ACE releases the data under CC-BY-4.0, provided as is. The live API's own terms were not read.
+traps:
+  - summary: Missing sensors are filled with integer sentinel values, not blanks.
+    detail: >-
+      In the 2026.10 files, unavailable signals hold values such as 65535, 65.535, 6553.5,
+      2147483647 and 4294967295 (for example precipitation, visibility and every field of the
+      second converter family, fcu2ctr2). Filter these before averaging.
+    evidence: https://zenodo.org/records/23909980
+    found: 2026-11-06
+  - summary: Each row stores its signals as a list of name and value pairs, one row per signal family.
+    detail: >-
+      The 10-minute parquet has columns site, asset, family, observed_at, opc_node_id and a values
+      column of pairs; turbine power is under family wecstd (active_power_mean, kW) and the
+      converter's metered power under fcu2ctr1. Unpack before use. Timestamps are UTC.
+    evidence: https://zenodo.org/records/23909980
+    found: 2026-11-06
+  - summary: On the autumn clock change (25 October 2026) an hour of 10-minute rows is missing and the next row is stamped an hour late.
+    detail: >-
+      In ace-wind-2026-10m.parquet of version 2026.10, 25 October 2026 has 828 rows against 864
+      on every other full day, and no observed_at falls between 01:50 and 03:00 UTC. The
+      turbine's own stamp in raw_payload_json goes from "2026-10-25T02:50:00.000+01:00" (01:50
+      UTC, ingested 01:55:21 UTC) to "2026-10-25T03:00:00.000+00:00", ingested at 02:05:21 UTC,
+      an hour before its observed_at; the next row, 03:10, arrives at 03:15:24 as usual. The
+      turbine seems to have kept summer clock time past the change and then switched the offset,
+      so the 03:00 row most likely belongs to 02:00 UTC. Treat 02:00 to 03:00 UTC that day as
+      missing and do not trust the 03:00 row's stamp; expect the same at each clock change.
+      Separately, 4,241 rows on 46 days were ingested up to 53 seconds before their observed_at,
+      drifting through the day, so the turbine and ingest clocks disagree by up to about a
+      minute. That is harmless at 10 minutes but matters for the 1-second file. Found by an
+      automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://zenodo.org/records/23909980/files/ace-wind-2026-10m.parquet
+    found: 2026-11-07
+notes: >-
+  A community-owned turbine whose owner publishes its SCADA (supervisory control and data
+  acquisition) data openly: 10-minute and 60-second statistics, about 1-second instantaneous OPC
+  readings, event and status logs, configuration settings, daily summaries and availability.
+  Fields include active power,
+  energy produced, and available power by wind, after force majeure and after external setpoints,
+  so curtailed output can be reconstructed. Checked by downloading the 10-minute and daily files of
+  version 2026.10: 10-minute rows run from 2026-07-21 to 2026-10-31 and daily rows from 2026-06-01,
+  so the open record is short so far. It is a single turbine, so the level is turbine by
+  construction. The live dashboard (https://ace-api.duckdns.org/dashboard/) and API docs
+  (https://ace-api.duckdns.org/docs) are linked from the record but were not tested. The record
+  says static data with coordinates and rated power are included, but no separate static file
+  is listed in version 2026.10 and the KMZ file was not opened.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

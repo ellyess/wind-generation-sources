@@ -1,0 +1,83 @@
+id: eu-eurostat-nrg-cb-pem
+name: Net electricity generation by type of fuel - monthly data (nrg_cb_pem)
+publisher: Eurostat
+publisher_role: statistics-office
+countries: [AT, BA, BE, BG, CY, CZ, DE, DK, EE, ES, FI, FR, GB, GE, GR, HR, HU, IE, IS, IT, LT, LU, LV, MD, ME, MK, MT, NL, NO, PL, PT, RO, RS, SE, SI, SK, TR, UA]
+area: >-
+  EU member states, the EU27 total, and other reporting countries including Kosovo; countries
+  listed are those with a non-zero wind value on the check date.
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2010
+  update: monthly (latest month on 2026-11-06 was September 2026 for a few countries, August for most)
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: "https://ec.europa.eu/eurostat/cache/metadata/en/nrg_prd_esms.htm"
+  note: >-
+    The metadata says monthly statistics refer to calendar months, labelled like 2024-01. The
+    API unit dimension offers Gigawatt-hour (GWH) and Percentage (PC, share of total); this
+    entry records GWH. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://ec.europa.eu/eurostat/databrowser/view/nrg_cb_pem/default/table
+  docs: https://ec.europa.eu/eurostat/cache/metadata/en/nrg_prd_esms.htm
+  key_required: false
+  registration: false
+  formats: [json]
+  languages: [en]
+licence:
+  name: Eurostat copyright notice
+  url: https://ec.europa.eu/eurostat/help/copyright-notice
+  redistribution: allowed-with-attribution
+  attribution: "Source: Eurostat, dataset DOI (10.2908/NRG_CB_PEM), access date"
+  verified: true
+  note: >-
+    Reuse of Eurostat data is allowed for commercial and non-commercial purposes with the source
+    acknowledged. Data for countries outside the EU, EFTA and candidate countries, and data not
+    produced by Eurostat, may not be reused commercially.
+traps:
+  - summary: Wind is zero-filled before 2011, so early zeros are missing data, not calm years.
+    detail: >-
+      The table starts in January 2008, but every country with wind holds 0 for 2008 and 2009,
+      and most hold 0 until December 2010 (Germany and the United Kingdom start in 2010, Germany
+      with an implausible 32 GWh for January 2010). Start any analysis in 2011.
+    evidence: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_cb_pem?siec=RA300&unit=GWH&format=JSON&lang=en
+    found: 2026-11-06
+  - summary: Many German months are Eurostat estimates, flagged only in the status field.
+    detail: >-
+      On the check date 91 German wind months from 2017 onward carried status "e" (estimated) and
+      recent months carry "p" (provisional). The flags are lost if only values are read.
+    evidence: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_cb_pem?siec=RA300&unit=GWH&format=JSON&lang=en
+    found: 2026-11-06
+  - summary: Summed months do not always match the annual statistics, and can exceed them.
+    detail: >-
+      For 2015, Germany's twelve monthly net values sum to 88.0 TWh against 80.6 TWh annual gross
+      production in nrg_bal_peh, and the United Kingdom's to 47.1 TWh against 40.3 TWh. Across
+      complete country-years 2012-2023 the median ratio of monthly sum to annual gross was 0.99,
+      but 14 of 296 were more than 5% above it. Check the monthly totals against eu-eurostat-nrg-bal-peh before relying on
+      them.
+    evidence: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_cb_pem?siec=RA300&unit=GWH&format=JSON&lang=en
+    found: 2026-11-06
+  - summary: Eurostat codes Greece as EL and the United Kingdom as UK, not the ISO codes GR and GB.
+    evidence: https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Country_codes
+    found: 2026-11-06
+notes: >-
+  Monthly net electricity generation in GWh by fuel, with wind as product RA300, for EU and
+  reporting neighbour countries; a share-of-total unit (PC) is also given. Start years for wind
+  differ: 2011 for most of the EU, later for Austria (2012), Slovakia (2018), Malta (2024) and
+  several neighbour countries. The United Kingdom series stops in October 2020. Checked by reading the full wind series from the Eurostat API on
+  the check date and comparing annual sums with nrg_bal_peh. Useful where a national monthly
+  series is missing, but national transmission operator data are usually better.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

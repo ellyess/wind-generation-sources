@@ -1,0 +1,77 @@
+id: si-surs-monthly-electricity
+name: Electricity (GWh), Slovenia, monthly (SiStat table 1817601S)
+publisher: Statistical Office of the Republic of Slovenia (SURS)
+publisher_role: statistics-office
+countries: [SI]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2015
+  update: monthly, recent months marked provisional
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://pxweb.stat.si/SiStatData/api/v1/en/Data/1817601S.px
+  note: >-
+    The table is titled "Electricity (GWh) by MEASURES and MONTH"; months are labelled like 2026M09,
+    and recent ones carry "(provisional data)" in the label itself. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
+access:
+  method: api
+  url: https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/1817601S.px
+  docs: https://pxweb.stat.si/SiStatData/api/v1/en/Data/1817601S.px
+  key_required: false
+  registration: false
+  formats: [json, csv, xlsx, px]
+  languages: [sl, en]
+licence:
+  name: SURS copyright notice (free use with source acknowledged; no named licence)
+  url: https://www.stat.si/StatWeb/en/StaticPages/Index/Copyright
+  redistribution: allowed-with-attribution
+  attribution: "Source: Statistical Office of the Republic of Slovenia (or Source: SURS)."
+  verified: true
+  note: >-
+    The notice allows reproduction, distribution, modification and commercial use, on condition
+    that SURS is acknowledged and any changes are clearly marked.
+traps:
+  - summary: The months from 2004 to December 2014 are blank ("-"), not zero, and the national fleet is only a few megawatts.
+    detail: >-
+      Gross wind production is first non-zero in February 2015 and runs at roughly 0.4 to 0.7 GWh
+      a month (for example 0.581 GWh in September 2026), so one turbine outage moves the national
+      figure. The latest months are labelled provisional. Corrected 2026-11-07: the "-" cells run
+      from 2004M01 to 2014M12; January 2015 is "0.000", not "-". Also, 2015 and 2016 are given in
+      whole GWh only (every month "0.000" or "1.000"); three decimals start in January 2017
+      (0.923), so monthly values before 2017 are too coarse for a monthly profile.
+    evidence: https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/1817601S.px
+    found: 2026-11-06
+  - summary: In August 2025 net wind production is larger than gross, which cannot be right.
+    detail: >-
+      On 2026-11-07 the table gave 2025M08 as 0.370 GWh gross (code 10600, "Gross production -
+      Wind energy") and 0.540 GWh net (code 20600, "Net production - Wind energy"). Net is gross
+      less the plants' own use, so it cannot exceed gross. In every other month from 2015 the two
+      are equal (0.341 both in July 2025, 0.468 both in September 2025) except January 2025,
+      where net is below gross as expected (0.863 gross, 0.840 net). One of the two August
+      figures is wrong, and the table does not say which. The month is past the three-month
+      provisional window, so it may not be revised. Flag August 2025 rather than pick one.
+      Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/1817601S.px
+    found: 2026-11-07
+notes: >-
+  Gross (code 10600) and net (code 20600) production from wind energy in GWh per month, with
+  other sources, imports, exports and consumption, from January 2004 to September 2026 when
+  checked (wind values from February 2015). The annual table 1817602S runs from 1996 and splits
+  own use by plant type. Queried through the PxWeb API with a JSON POST. No Slovenian
+  transmission operator (ELES) wind series was verified: ELES's transmission production page
+  shows hydro, thermal and nuclear only, and a renewable-generation display that ELES announced
+  in 2024 was not found on the site.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

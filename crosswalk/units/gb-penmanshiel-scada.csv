@@ -1,0 +1,2 @@
+entry,unit_id,unit_name,alt_names,capacity_mw,area,lat,lon,location_source,source_url,notes
+gb-penmanshiel-scada,Penmanshiel,Penmanshiel,Penmanshiel Wind Farm,28.7,GB,55.903676,-2.291962,publisher,https://zenodo.org/records/16807304,"Lat/lon is the mean of the 14 turbines (T01, T02, T04 to T15; no T03) in Penmanshiel_WT_static.csv; capacity is 14 x 2,050 kW Senvion MM82 from the same file. Scottish Borders."

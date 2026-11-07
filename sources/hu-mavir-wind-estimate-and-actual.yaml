@@ -1,0 +1,104 @@
+id: hu-mavir-wind-estimate-and-actual
+name: MAVIR wind production, estimates and actuals (Széltermelés becslés és tény adatok)
+publisher: MAVIR Hungarian Independent Transmission Operator Company (MAVIR ZRt.)
+publisher_role: tso
+countries: [HU]
+level: country
+technology: onshore
+measure: metered-energy
+resolution: 15min
+coverage:
+  start: 2015
+  update: daily; the settlement column was already filled for the previous day when checked
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: Europe/Budapest
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://rtdwweb.mavir.hu/rtdwweb/webuser/GenerateChartsServlet?hunLang=hu-hu&tabId=tab11841
+  note: >-
+    The chart embedded on MAVIR's page has its y-axis in MW; the xlsx export headers carry no unit.
+    Each exported stamp (column 'Időpont') carries its UTC offset, for example '2026.11.02 00:15:00
+    +0100', so stamps are Hungarian local time. MAVIR does not say whether a stamp marks the start
+    or end of the quarter hour, or whether a value is a quarter-hour average; the first stamp of a
+    day is 00:15, which suggests period end, but that is read from the data, not documented. The
+    chart's user-guide button says no guide exists for it. Read 2026-11-06 by an automated research
+    pass; not yet reviewed. Rechecked 2026-11-07: a midnight-to-midnight request returns 00:15 to
+    24:00, and 26 October 2025 has 100 stamps, so the stamp end stays unknown here but the data fit
+    period end.
+access:
+  method: portal
+  url: https://mavir.hu/web/mavir/szeltermeles-becsles-es-teny-adatok
+  key_required: false
+  registration: false
+  formats: [xlsx]
+  languages: [hu]
+licence:
+  name: MAVIR website terms of use (Jogi nyilatkozat)
+  url: https://www.mavir.hu/web/mavir/jogi-nyilatkozat
+  redistribution: unclear
+  verified: true
+  note: >-
+    The terms say the site's content is under copyright, that news and information on it may be
+    used within the law and quoted for information purposes, and that other content may not be
+    reproduced, published or distributed without MAVIR's permission. They do not mention data
+    downloads, so re-hosting the series is not clearly covered.
+traps:
+  - summary: The two "actual" columns disagree by 10 to 16 per cent; the settlement column is the higher one.
+    detail: >-
+      The export carries net commercial settlement metering (nettó kereskedelmi elszámolási),
+      net operational metering (nettó üzemirányítási) and gross operational metering. On
+      2 November 2026 the quarter-hour values summed to 7,159.5 for settlement against 6,497.3 net
+      and 6,661.0 gross operational; on 5 November 2026, 1,074.9 against 926.7 and 955.0. Settlement
+      is above even the gross operational figure, so the two kinds of metering do not cover the
+      same plants. Choose one column and say which.
+    evidence: https://rtdwweb.mavir.hu/rtdwweb/webuser/chart/11840/export?exportType=xlsx&fromTime=1793574000000&toTime=1793660400000&periodType=min&period=15
+    found: 2026-11-06
+  - summary: Only the settlement column goes back to 2015; the operational columns are empty there, and before 2015 only the day-ahead forecast exists.
+    detail: >-
+      On 1 January 2015 the settlement column has all 96 quarter hours, while the operational
+      columns and the current and intraday estimates are empty. On 1 January 2011 only the
+      day-ahead estimate is filled, and on 1 January 2008 nothing is. A download over a long
+      period therefore mixes observed and forecast values unless the columns are kept apart.
+    evidence: https://rtdwweb.mavir.hu/rtdwweb/webuser/chart/11840/export?exportType=xlsx&fromTime=1293836400000&toTime=1293922800000&periodType=min&period=15
+    found: 2026-11-06
+  - summary: Timestamps behave as the end of each quarter hour in local time, though MAVIR does not say so, and the export headers carry no unit.
+    detail: >-
+      Requesting 2 November 2026 from local midnight to midnight returns stamps from
+      "2026.11.02 00:15:00 +0100" to "2026.11.03 00:00:00 +0100", with the UTC offset written into
+      each stamp, so each stamp closes the quarter hour it labels. The autumn change day
+      (26 October 2025) has 100 quarter hours, running "02:30:00 +0200", "02:45:00 +0200",
+      "02:00:00 +0100", "02:15:00 +0100"; read the offset, not the clock time. The period-end
+      reading is observed in the data: MAVIR's page states neither which end a stamp
+      marks nor whether a value is an average. The column headers give no unit; the magnitudes fit average MW per quarter hour, so
+      divide a sum of quarter-hour values by four for MWh, after checking against the chart on
+      the page. Reworded on 2026-11-07, after re-downloading both days, to say the period-end
+      convention is observed, not documented.
+    evidence: https://rtdwweb.mavir.hu/rtdwweb/webuser/chart/11840/export?exportType=xlsx&fromTime=1793574000000&toTime=1793660400000&periodType=min&period=15
+    found: 2026-11-06
+  - summary: MAVIR describes the data as informative only.
+    detail: >-
+      The page carries the notice "az adatok tájékoztató jellegűek" (the data are for information)
+      and asks for comments by email. No statement on later revision was found.
+    evidence: https://mavir.hu/web/mavir/szeltermeles-becsles-es-teny-adatok
+    found: 2026-11-06
+notes: >-
+  Hungarian national wind output per quarter hour, chart 11840 in MAVIR's data portal, with
+  three estimates (current, day-ahead, intraday) and four actual columns (net settlement, net
+  operational, gross operational, and a gross operational one-minute based column that matched
+  the gross one). The page embeds the chart from rtdwweb.mavir.hu; the export can be called
+  directly as
+  https://rtdwweb.mavir.hu/rtdwweb/webuser/chart/11840/export?exportType=xlsx&fromTime=<ms>&toTime=<ms>&periodType=min&period=15,
+  with times in epoch milliseconds. The endpoint answers HTTP 429 to rapid requests; waiting
+  about a minute between requests worked. The same settlement series appears as the onshore
+  wind column (Szárazföldi szélerőművek) of the net generation by fuel chart 12058 (identical
+  daily sums on 1 January 2015 and 2 November 2026), and the operational one in chart 9404.
+  The settlement column was empty on 1 December 2014 in chart 12058 and full on
+  1 January 2015. The start date of the operational columns was not established.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

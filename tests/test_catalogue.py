@@ -22,6 +22,12 @@ coverage:
   start: 2015
 capacity: included
 coordinates: none
+conventions:
+  timezone: UTC
+  timestamp: period-start
+  unit: MW
+  value: period-mean
+  evidence: https://example.org/docs
 access:
   method: api
   url: https://example.org/
@@ -41,6 +47,19 @@ def check(text: str, name: str = "no-example-source.yaml") -> list[str]:
 
 def test_minimal_entry_is_valid():
     assert check(MINIMAL) == []
+
+
+def test_conventions_are_required():
+    text = MINIMAL.replace(MINIMAL[MINIMAL.index("conventions:"):MINIMAL.index("access:")], "")
+    assert any("conventions" in m for m in check(text))
+
+
+def test_timezone_must_be_utc_an_offset_or_an_iana_zone():
+    for good in ("UTC", "UTC+01:00", "Europe/Madrid", "America/Argentina/Buenos_Aires",
+                 "not-applicable"):
+        assert check(MINIMAL.replace("timezone: UTC", f"timezone: {good}")) == []
+    for bad in ("CET", "local", "GMT+1"):
+        assert check(MINIMAL.replace("timezone: UTC", f"timezone: {bad}"))
 
 
 def test_norway_is_a_country_code_not_false():

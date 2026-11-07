@@ -12,6 +12,21 @@ coverage:
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: "https://odre.opendatasoft.com/explore/dataset/eco2mix-national-cons-def/"
+  note: >-
+    The API's date_heure field comes back with +00:00, while the date and heure fields give
+    French local time; the wind field is labelled "Eolien (MW)". The description says production
+    is given at the half-hour step, and rows come every quarter-hour with wind empty at :15 and
+    :45. The local-to-UTC conversion breaks on clock-change days: 27 October 2024 has 96
+    quarter-hour rows, so 00:00 to 00:45 UTC has no rows, and on 31 March 2024 the local 02:00
+    to 02:45 rows share UTC stamps with 03:00 to 03:45. Whether a value is a mean or a snapshot,
+    and whether the stamp opens or closes the period, are not stated. Read 2026-11-06 by an
+    automated research pass; not yet reviewed.
 access:
   method: api
   url: https://odre.opendatasoft.com/explore/dataset/eco2mix-national-cons-def/
@@ -36,6 +51,19 @@ traps:
       PyVWF leaves three hours of each year's two clock-change days empty, because the series
       cannot place them.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/guides/data-sources.md
+  - summary: The UTC date_heure field is wrong on both clock-change days, with a missing hour in October and a copied one in March.
+    detail: >-
+      Both days have 96 quarter-hour rows. On 31 March 2024 the rows for local 02:00 to 02:45,
+      an hour that did not exist, are present and copy the 03:00 to 03:45 rows, UTC stamp
+      included: "2024-03-31T01:00:00+00:00 02:00 8183" and "2024-03-31T01:00:00+00:00 03:00
+      8183" (date_heure, heure, eolien). On 27 October 2024 local 02:00 appears once, so
+      "2024-10-26T23:45:00+00:00 01:45" is followed by "2024-10-27T01:00:00+00:00 02:00" and
+      00:00 to 00:45 UTC have no rows. 30 March and 26 October 2025 show the same pattern. Drop
+      the duplicated March hour, and treat the October UTC hour as missing rather than
+      interpolating across it. Found by an automated research pass on 2026-11-07; not yet
+      reviewed by a person.
+    evidence: https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/eco2mix-national-cons-def/records?select=date_heure,date,heure,eolien&where=date%3D%272024-03-31%27&order_by=heure&limit=100
+    found: 2026-11-07
   - summary: Installed capacity is a separate dataset (parc-prod-par-filiere), given at year end.
     detail: Interpolate through the year, or the year's growth is assigned to the wrong months.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/guides/data-sources.md

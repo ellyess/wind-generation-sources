@@ -1,0 +1,68 @@
+id: nl-cbs-electricity-balance-monthly
+name: Electricity balance, supply and consumption (Elektriciteitsbalans; aanbod en verbruik, table 84575NED)
+publisher: Statistics Netherlands (Centraal Bureau voor de Statistiek, CBS)
+publisher_role: statistics-office
+countries: [NL]
+level: country
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2002
+  update: monthly, about two months after the reporting month
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://opendata.cbs.nl/ODataApi/odata/84575NED/DataProperties
+  note: >-
+    The table's properties give 'mln kWh' (GWh) for WindenergieTotaal_12, WindenergieOpLand_13 and
+    WindenergieOpZee_14; monthly rows have period codes such as 2026MM08, alongside quarterly and
+    yearly rows. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://opendata.cbs.nl/statline/#/CBS/nl/dataset/84575NED/table
+  docs: https://opendata.cbs.nl/ODataApi/odata/84575NED/TableInfos
+  key_required: false
+  registration: false
+  formats: [json, csv]
+  languages: [nl, en]
+licence:
+  name: Creative Commons Attribution 4.0 (CC BY 4.0)
+  spdx: CC-BY-4.0
+  url: https://www.cbs.nl/en-gb/about-us/website/copyright
+  redistribution: allowed-with-attribution
+  attribution: Cite Statistics Netherlands (CBS) as the source.
+  verified: true
+  note: The CBS copyright page licenses its content under CC BY 4.0 unless otherwise noted, and forbids implying that CBS endorses derived work.
+traps:
+  - summary: Recent figures are provisional and are revised for up to two years.
+    detail: >-
+      The table description (6 November 2026) lists 2023 as definitive, 2024 and 2025 as
+      revised provisional ("nader voorlopig") and 2026 as provisional. Record the download date
+      with any result.
+    evidence: https://opendata.cbs.nl/ODataApi/odata/84575NED/TableInfos
+    found: 2026-11-06
+  - summary: Monthly rows start in 1976, but the wind columns are empty before 2002 and offshore is empty before October 2006.
+    detail: >-
+      Filter on periods ending in MM (month codes such as 2026MM08); the same table also holds
+      quarterly and yearly rows. Empty means not published, not zero.
+    evidence: https://opendata.cbs.nl/ODataApi/odata/84575NED/TypedDataSet?$select=Perioden,WindenergieOpLand_13,WindenergieOpZee_14
+    found: 2026-11-06
+notes: >-
+  Net electricity production by source per month, with wind split into onshore
+  (WindenergieOpLand_13) and offshore (WindenergieOpZee_14), in million kWh (GWh). Checked via
+  the OData API on 6 November 2026: January 2002 onshore 113 GWh; August 2026 onshore 959 and
+  offshore 920 GWh. The wind columns sit under net production; the table also gives gross
+  production for all sources combined. It succeeds table 70802ned (wind per month 2002 to June
+  2019, onshore and offshore split, with a wind index), which was discontinued in 2019 and is
+  still downloadable. Installed capacity per province (onshore) is in table 70960ned
+  (nl-cbs-onshore-wind-by-province).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

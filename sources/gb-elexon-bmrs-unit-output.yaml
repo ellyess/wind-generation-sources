@@ -14,6 +14,18 @@ coverage:
 capacity: separate-dataset
 coordinates: none
 curtailment: reported
+conventions:
+  timezone: UTC
+  timestamp: period-end
+  unit: MWh
+  value: period-total
+  evidence: "https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/B1610"
+  note: >-
+    Elexon describes the values as "the actual metered volume output (MWh) per Settlement
+    Period" and "not the instantaneous power output". Each row's halfHourEndTime is the UTC end
+    of the half hour (2022-08-12T04:00:00Z for settlement period 10 in the schema example);
+    settlementDate and settlementPeriod follow UK local time. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
 access:
   method: api
   url: https://bmrs.elexon.co.uk/
@@ -62,11 +74,24 @@ traps:
   - summary: The dataset covers every balancing unit, including supplier and demand units, with no fuel label.
     detail: >-
       Rows such as "2__AALAB000" are supplier units. Select wind units by joining on the
-      reference list at /reference/bmunits/all, whose fuelType field is "WIND" (287 units on
-      2026-11-06). That list gives no onshore or offshore split, and large wind farms appear as
-      several units (for example HOWAO-1, -2 and -3 for Hornsea 1).
+      reference list at /reference/bmunits/all, whose fuelType field is "WIND". That list gives
+      no onshore or offshore split, and large wind farms appear as several units (for example
+      HOWAO-1, -2 and -3 for Hornsea 1). Corrected 2026-11-07: the 287 counted on 2026-11-06 are
+      rows, not units. On 2026-11-07 the list had 287 WIND rows: 239 distinct elexonBmUnit codes,
+      47 rows with elexonBmUnit null (only a nationalGridBmUnit such as "ACHYW-1", every other
+      field null) and one unit listed twice (see the next trap).
     evidence: https://data.elexon.co.uk/bmrs/api/v1/reference/bmunits/all
     found: 2026-11-06
+  - summary: The wind unit list repeats Walney Extension unit T_WLNYO-4, so a plain join doubles its output.
+    detail: >-
+      On 2026-11-07 /reference/bmunits/all held two rows with elexonBmUnit "T_WLNYO-4"
+      (bmUnitName "WALNEY_4", lead party "Walney Extension Ltd", generationCapacity "330.000").
+      They differ only in the eic field: "48W00000WLNYO-4-" and "48W00001WLNYO-4R". It was the
+      only repeated code in the 3,135-row list. Merging B1610 rows on this list without removing
+      duplicates counts every Walney 4 half-hour twice; drop duplicate elexonBmUnit codes first.
+      Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://data.elexon.co.uk/bmrs/api/v1/reference/bmunits/all
+    found: 2026-11-07
 tools:
   - name: Elexonpy (Open Climate Fix, wraps the Insights API)
     url: https://github.com/openclimatefix-archives/Elexonpy
@@ -86,3 +111,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

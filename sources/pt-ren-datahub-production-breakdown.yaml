@@ -1,0 +1,81 @@
+id: pt-ren-datahub-production-breakdown
+name: REN DataHub, daily electricity production breakdown by primary source (Repartição da produção)
+publisher: REN (Redes Energéticas Nacionais), the Portuguese transmission system operator
+publisher_role: tso
+countries: [PT]
+area: mainland Portugal
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2010
+  update: near real time (the site says electricity data are updated every 15 minutes)
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://servicebus.ren.pt/datahubapi/electricity/ElectricityProductionBreakdownDaily?culture=en-US&date=2025-01-25
+  note: >-
+    The API returns clock labels "00:00" to "23:45" under an x-axis titled "Hour" and a y-axis
+    titled "MW", with no offset, and the API instructions do not state the time zone, whether a
+    label starts or ends its quarter hour, or whether a value is an average. The entry's trap reads
+    the labels as Europe/Lisbon local time from the 92 and 100 values on clock-change days; that
+    fits local time but is inferred from the data, not stated by REN. Read 2026-11-06 by an
+    automated research pass; not yet reviewed. Rechecked 2026-11-07: the skipped and repeated
+    labels fall exactly on Portugal's 01:00 UTC clock changes, and the API instructions, glossary
+    and help pages still state no zone, so the time zone stays unknown here.
+access:
+  method: api
+  url: https://datahub.ren.pt/en/electricity/daily-balance/
+  docs: https://datahub.ren.pt/en/api-instructions/
+  key_required: false
+  registration: false
+  formats: [json, csv, xlsx]
+  languages: [pt, en]
+licence:
+  name: REN website terms and conditions (no open licence)
+  url: https://www.ren.pt/en-gb/terms-and-conditions
+  redistribution: prohibited
+  verified: true
+  note: >-
+    The DataHub footer links "Terms of use and privacy policy" to REN's corporate policies,
+    whose terms and conditions forbid reproducing, distributing or making the content available
+    without REN's express permission, and forbid extracting all or a large part of the content
+    including REN's databases. Using the public API for analysis is not addressed; re-hosting
+    the series needs REN's permission.
+traps:
+  - summary: Time steps behave as Lisbon local time in the data, though REN does not say so, so the spring clock-change day has 92 quarter-hours.
+    detail: >-
+      The response carries only clock labels ("00:00" to "23:45") for the requested date, with
+      no UTC offset. 30 March 2025 returns 92 labels running "00:30", "00:45", "02:00", "02:15",
+      skipping 01:00 to 01:45, the hour lost when Portugal's clocks go forward at 01:00 UTC.
+      26 October 2025 returns 100 labels, with "01:00", "01:15", "01:30", "01:45" appearing
+      twice in a row for the repeated hour; 29 March 2025 returns the usual 96. This is observed
+      in the data: the API instructions, glossary and help pages state no time zone. Build UTC
+      from the local date and the Europe/Lisbon zone, reading the first run of a repeated label
+      as summer time. Reworded on 2026-11-07 to say the convention is observed in the data, not
+      documented, after re-reading these three days and REN's pages.
+    evidence: https://servicebus.ren.pt/datahubapi/electricity/ElectricityProductionBreakdownDaily?culture=en-US&date=2025-03-30
+    found: 2026-11-06
+  - summary: Dates before 2010 return HTTP 404 with a "No data found" message rather than an empty series.
+    evidence: https://servicebus.ren.pt/datahubapi/electricity/ElectricityProductionBreakdownDaily?culture=en-US&date=2009-12-31
+    evidence_is_error: true
+    found: 2026-11-06
+notes: >-
+  One request per day returns chart-ready JSON (xAxis categories plus a series per source) in
+  MW at 15-minute steps, with a "Wind" series alongside hydro, solar, gas, imports and
+  consumption. Checked on 6 November 2026 for 1 January 2010, 25 January 2010, 2015 and 2025
+  (wind 4,279.7 MW at 00:00 on 25 January 2025). Wind is not split into onshore and the
+  WindFloat Atlantic floating offshore farm. The same API also serves the monthly energy
+  balance and monthly installed power (ElectricityInstalledPowerMonthly; WIND 5,408 MW in January 2025), which gives the
+  capacity denominator. Portugal's wind series in ENTSO-E is covered by
+  eu-entsoe-actual-generation.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

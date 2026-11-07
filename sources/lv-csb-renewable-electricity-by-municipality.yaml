@@ -1,0 +1,72 @@
+id: lv-csb-renewable-electricity-by-municipality
+name: Electricity generated from renewable energy in regions, municipalities and State cities (table ENA050)
+publisher: Central Statistical Bureau of Latvia (Centrālā statistikas pārvalde)
+publisher_role: statistics-office
+countries: [LV]
+area: Latvia by statistical region, municipality and State city (49 areas)
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2019
+  update: annual, about six months after the year
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://data.stat.gov.lv/pxweb/en/OSP_PUB/START__NOZ__EN__ENA/ENA050/
+  note: >-
+    The table's unit is 'Electricity generated, GWh', with annual periods from 2019. Read 2026-11-06
+    by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://data.stat.gov.lv/pxweb/en/OSP_PUB/START__NOZ__EN__ENA/ENA050/
+  docs: https://stat.gov.lv/en/api-un-kodu-vardnicas/api-v2
+  key_required: false
+  registration: false
+  formats: [json, csv, xlsx, px]
+  languages: [lv, en]
+licence:
+  name: Official Statistics Portal licence and copyright notice (corresponds to CC BY 4.0)
+  spdx: CC-BY-4.0
+  url: https://stat.gov.lv/en/about-osp
+  redistribution: allowed-with-attribution
+  attribution: Reference the responsible authority (Central Statistical Bureau of Latvia) and the Official Statistics Portal.
+  verified: true
+traps:
+  - summary: >-
+      For 2025, areas with no wind generation show "-" (a null in json-stat), not 0; the table
+      defines "-" as zero, so reading it as missing loses real zeros.
+    detail: >-
+      Corrected 2026-11-07: this trap first said six 2025 values (Daugavpils, Gulbene, Krāslava,
+      Rēzekne municipality, Saldus, Latgale region) were withheld and should be treated as
+      missing. A json-stat2 query on 2026-11-07 for wind power stations over all areas and years
+      showed the table's own note "- = Magnitude zero", and 34 cells flagged "-", all in 2025:
+      33 municipalities and State cities plus the Latgale region. The same areas carried explicit
+      0 in 2019 to 2024 (Riga, Jelgava and Ventspils city read 0 every year). Read as 0, the 2025
+      municipalities and State cities sum to 202.509 GWh, exactly the Latvia row, and the regions
+      agree: Vidzeme 0.845 GWh equals Limbaži alone, so Gulbene is 0. Set "-" cells to 0.
+    evidence: https://data.stat.gov.lv/pxweb/en/OSP_PUB/START__NOZ__EN__ENA/ENA050/
+    found: 2026-11-06
+  - summary: Statistical region boundaries changed on 1 January 2024.
+    detail: >-
+      The Riga, Vidzeme and Kurzeme region codes are labelled "(from 01.01.2024.)"; compare
+      municipalities rather than regions across years.
+    evidence: https://data.stat.gov.lv/pxweb/en/OSP_PUB/START__NOZ__EN__ENA/ENA050/
+    found: 2026-11-06
+notes: >-
+  Annual wind generation in GWh (three decimals) by municipality and State city, 2019 to 2025.
+  Checked by requesting the wind series for all areas: Ventspils municipality gives 61.5 to
+  198.2 GWh a year and Dienvidkurzeme municipality 52.6 to 71.6 GWh, with the Latvian total
+  202.5 GWh in 2025. Most of the Latvian fleet sits in these two Kurzeme municipalities, so the
+  table can split it roughly by place. A municipality can hold several wind farms, so this is a
+  zone-level series, not per farm.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

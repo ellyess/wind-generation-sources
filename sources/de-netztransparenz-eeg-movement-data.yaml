@@ -13,6 +13,20 @@ coverage:
 capacity: separate-dataset
 coordinates: separate-dataset
 curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: unknown
+  value: period-total
+  evidence: https://www.netztransparenz.de/de-de/Erneuerbare-Energien-und-Umlagen/EEG/EEG-Abrechnungen/EEG-Jahresabrechnungen/EEG-Bewegungsdaten
+  note: >-
+    Rows are labelled by the Monat column (1 to 12 for a calendar month, 0 for an annual value);
+    the page says the month column shows which month the market premium and its electricity
+    volume refer to. The unit of the Strommenge column is not stated on the page, in the legend
+    workbook or in the CSV header (50Hertz 2025 file: "Strommenge;EEG_Zahlung;EEG_Einnahmen;
+    Monat"), so it is recorded as unknown. The values are consistent with kWh (a payment of 1,128.2
+    euros on 8,586 units is about 13 cents a unit), but that is inferred from the data, not stated.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.netztransparenz.de/en/Renewable-energies-and-levies/EEG/EEG-billing/EEG-annual-statements/EEG-movement-data
@@ -62,3 +76,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

@@ -1,0 +1,80 @@
+id: ni-cndc-posdespacho-energia
+name: Postdespacho de Energía (daily post-dispatch energy by generating unit), MEMN Diarios
+publisher: Centro Nacional de Despacho de Carga (CNDC), Empresa Nacional de Transmisión Eléctrica (ENATREL)
+publisher_role: tso
+countries: [NI]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2009
+  update: daily (5 November 2026 was available on 6 November 2026)
+capacity: none
+coordinates: separate-dataset
+curtailment: unknown
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MWh
+  value: period-total
+  evidence: https://www.cndc.org.ni/MEMNDiarios
+  note: >-
+    The MEMN Diarios page titles the table 'Postdespacho de Energía (MWh)' (beside 'Predespacho de
+    Energía (MWh)'), and the JSON gives one value per unit per hour, labelled '00' to '23' in
+    fecha_hora. No time zone is stated, nor which end of the hour a label marks. Read 2026-11-06 by
+    an automated research pass; not yet reviewed.
+access:
+  method: portal
+  url: https://www.cndc.org.ni/MEMNDiarios
+  key_required: false
+  registration: false
+  formats: [json]
+  languages: [es]
+licence:
+  name: No terms found; page footer reads "Copyright © 2026 CNDC"
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use or licence were found on the CNDC site (home page, MEMN Diarios, Gráficos,
+    map page). The footer copyright notice is not a statement of reuse terms. Redistribution stays
+    unclear until CNDC states its terms.
+traps:
+  - summary: The response does not say which units are wind; they have to be picked out by code.
+    detail: >-
+      Each row has an agent name, a unit code ("ggd"), the hour and a value, with no technology
+      field. The wind units seen were AMY1 and AMY2 (Amayo), EOL (Eolo), PBP (Blue Power) and ABR
+      (listed under agent PCG-ABR; the CNDC map names the ABR substation ALBARIVAS). That ABR is a
+      wind farm is not stated on the CNDC pages checked.
+    evidence: https://www.cndc.org.ni/MEMNDiarios/consultarPosdespachoEnergia?fecha=15%2F02%2F2026
+    found: 2026-11-06
+  - summary: Some days return only the demand series and no generation rows.
+    detail: >-
+      1 January 2010 returns 24 rows, all "DEMANDA"; 15 February 2010 returns 696 rows with
+      generation. Check that a day has unit rows before treating missing wind as zero.
+    evidence: https://www.cndc.org.ni/MEMNDiarios/consultarPosdespachoEnergia?fecha=01%2F01%2F2010
+    found: 2026-11-06
+  - summary: Values come back as text and the endpoint is undocumented; it is the call the MEMN Diarios page makes.
+    detail: >-
+      "valor" is a string (for example "22.45"); the page's own script replaces a comma with a
+      point before parsing, so allow for both. Hours are labelled "00" to "23". The date parameter
+      is dd/mm/yyyy.
+    evidence: https://www.cndc.org.ni/js/customScript/MEMNDiarios/PrePos_Energia/posdespacho/postdespacho.js
+    found: 2026-11-06
+notes: >-
+  Nicaragua's dispatch centre shows the daily post-dispatch ("Postdespacho de Energía (MWh)") on
+  its MEMN Diarios page; the table is filled from the JSON endpoint
+  https://www.cndc.org.ni/MEMNDiarios/consultarPosdespachoEnergia?fecha=dd/mm/yyyy, which returns
+  24 hourly MWh values for every generating unit and interconnection, the unit's maximum power
+  ("potenciamaxima"), daily totals and demand. Checked per unit on 15 February 2026: AMY1 391.7,
+  AMY2 236.1, EOL 496.3, PBP 329.7 and ABR 389.2 MWh for the day, each with its own hourly profile.
+  History checked by request: 15 June 2009 has AMY1; 15 February 2012 has AMY1 and AMY2; 15
+  February 2015 has all five; 15 February 2009 and earlier return nothing. The CNDC "Gráficos"
+  page gives the source of its operating data as the SCADA database and the wholesale market
+  information system (SIIMEM). Substation coordinates, including AMAYO, ALBARIVAS, PLANTA EOLO and
+  PLANTA BLUE POWER, are embedded in https://www.cndc.org.ni/mapageneracion. The time zone of the
+  hour labels is not stated.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

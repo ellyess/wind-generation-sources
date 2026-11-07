@@ -1,0 +1,69 @@
+id: cw-aqualectra-annual-report-wind-intake
+name: Aqualectra annual report, electricity intake from wind farms
+publisher: Aqualectra (Curaçao's electricity and water utility)
+publisher_role: utility
+countries: [CW]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2011
+  update: annual (the 2025 report was posted in May 2026)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www.aqualectra.com/wp-content/uploads/2026/05/4999_AQ_Annual-Report_2025_DIGI.pdf
+  note: >-
+    Annual totals labelled by financial year (year ended 31 December). The 2025 report's key
+    figures row reads "Electricity intake from wind farms in MWh", with 2025 and 2024 columns.
+    The same report gives the cost of wind purchases separately, in thousands of guilders. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.aqualectra.com/annual-reports/
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en]
+licence:
+  name: No licence; site footer reads "© 2026 Aqualectra Holdings"
+  redistribution: unclear
+  verified: false
+  note: >-
+    The site's terms and conditions page only links the general conditions of supply for
+    customers; no terms of use or reuse terms for the website or reports were found. The footer is
+    a copyright notice only. Redistribution stays unclear until Aqualectra states terms.
+traps:
+  - summary: The 2025 report's comparison column for 2024 repeats the 2021 figures, including wind intake.
+    detail: >-
+      The 2025 report shows 196,955 MWh of wind intake for 2024, together with production of
+      612,050 MWh and other lines that match the 2021 column of the 2022 report exactly, although
+      the 2024 sales figure (735,778 MWh) is different. The 2024 report has no wind intake row and
+      shows only the cost of wind purchases. Treat the 2024 value as missing.
+    evidence: https://www.aqualectra.com/wp-content/uploads/2026/05/4999_AQ_Annual-Report_2025_DIGI.pdf
+    found: 2026-11-06
+  - summary: The figure is wind energy bought by the utility, and the series has gaps between reports.
+    detail: >-
+      Aqualectra buys wind energy from the wind farm operators and reports it as intake, so it is
+      energy received, not production at the turbines. The 2022 report's column header also prints
+      "Dec 31, 2022" twice. Not every report includes the row; values were found for 2011, 2012,
+      2021 to 2023 and 2025. The cost of wind purchases in the 2024 report (ANG 40,693 thousand for
+      2024, 34,521 thousand for 2023) confirms the energy is bought in.
+    evidence: https://www.aqualectra.com/wp-content/uploads/2024/01/4236_AQ_Annual-Report_2022_Web-1.pdf
+    found: 2026-11-06
+notes: >-
+  Values read on 2026-11-06, "Electricity intake from wind farms" in MWh: 538 (2011) and 62,681
+  (2012) from the 2012 report; 196,955 (2021) and 189,252 (2022) from the 2022 report; 172,670
+  (2023) from the 2023 report; 330,992 (2025) from the 2025 report. Curaçao's statistics office has
+  no energy tables, and the Regulatory Authority of Curaçao site holds tariffs only; an energy
+  report with 2025 figures that it has announced was not found.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

@@ -1,0 +1,104 @@
+id: ca-qc-hydroquebec-generation-by-source
+name: History of sources of electricity generated in Québec (Historique des sources d'électricité produite au Québec)
+publisher: Hydro-Québec
+publisher_role: utility
+countries: [CA]
+area: Quebec (main grid; off-grid regions excluded)
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2019
+  update: history extended yearly; a separate live file holds only the last two days, updated hourly
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: instant
+  unit: MW
+  value: unknown
+  evidence: https://donnees.hydroquebec.com/api/explore/v2.1/catalog/datasets/historique-production-electricite-quebec
+  note: >-
+    The portal defines the date field as "date and time the measurement was taken" and the wind
+    column (eolien) as "wind output in megawatts (MW)", the sum of telemetered output; it does not
+    say whether a value is a snapshot or an hourly average. The portal API returns ISO 8601 stamps
+    with an offset (+00:00 by default; the dataset's own time zone setting is America/Toronto, used
+    when timezone= is passed). The description says readings are sent on the half hour (08:30,
+    09:30), but stamps fall on the hour from 2022 (corrected 2026-11-07: this said from 2024; the
+    portal gives 2020-12-31T23:30 and 2021-01-01T04:30 UTC, then 2022-01-01T05:00 UTC, and 2021
+    has almost no dated rows). The yearly xlsx files on hydroquebec.com are
+    on the local clock instead, with daylight-saving handling that differs by year (see traps).
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://donnees.hydroquebec.com/explore/dataset/historique-production-electricite-quebec/
+  docs: https://www.hydroquebec.com/documents-data/open-data/history-electricity-generation-quebec/
+  key_required: false
+  registration: false
+  formats: [csv, json, xlsx]
+  languages: [fr, en]
+licence:
+  name: Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0)
+  spdx: CC-BY-NC-4.0
+  url: "https://www.hydroquebec.com/documents-data/open-data/history-electricity-generation-quebec/"
+  redistribution: non-commercial-only
+  attribution: Credit Hydro-Québec as the source.
+  verified: true
+  note: Both the dataset page and the open-data portal metadata give CC BY-NC 4.0. Hydro-Québec describes the data as raw, without quality guarantee and subject to change without notice.
+traps:
+  - summary: Wind covers only independent producers that sell all their output to Hydro-Québec, not every wind farm in Quebec.
+    detail: >-
+      The dataset page defines the wind column that way. Compare with Statistics Canada's
+      provincial wind series (ca-statcan-monthly-generation-by-type) before treating it as the
+      whole Quebec fleet.
+    evidence: https://www.hydroquebec.com/documents-data/open-data/electricity-generation-quebec/
+    found: 2026-11-06
+  - summary: In the portal's history dataset, 7,307 rows have no date, which is almost all of 2021.
+    detail: >-
+      Grouping by year gives 8,755 rows for 2019, 8,784 for 2020, only 5 for 2021 and 7,307 rows
+      with a null date that still carry values. The yearly xlsx file for 2021 on hydroquebec.com
+      is the way to recover those hours.
+    evidence: https://donnees.hydroquebec.com/api/explore/v2.1/catalog/datasets/historique-production-electricite-quebec/records?where=date%20is%20null&limit=3
+    found: 2026-11-06
+  - summary: The clock convention changes between years; daylight-saving hours are skipped, duplicated or handled differently.
+    detail: >-
+      The 2019 xlsx is on the local clock with daylight saving (no 02:30 on 10 March, 01:30
+      repeated on 3 November). The 2023 xlsx has neither the gap nor the repeat. From 2022 the
+      portal's stamps fall on the hour rather than the half hour, and on 2 November 2025 the UTC
+      stamp 05:00 is missing while 06:00 appears twice with different values. Rebuild a
+      continuous UTC index and check each autumn change by hand. Corrected and extended
+      2026-11-07: the switch to on-the-hour stamps is by 1 January 2022, not 2024. The portal
+      repeats the hour after the autumn change every year checked, not only in 2025: 06:30 UTC
+      twice with 05:30 missing on 3 November 2019 and 1 November 2020, and 06:00 twice with 05:00
+      missing on 6 November 2022, 5 November 2023, 3 November 2024 and 2 November 2025. In
+      America/Toronto both rows come back as 01:00-05:00, so the earlier 01:00-04:00 hour has been
+      put on standard time. Which row is which cannot be told from the response. For 2025 the
+      API returns the two 06:00 rows in the same order whatever is asked (order_by=date,
+      order_by=date desc, no order, the CSV export): first eolien 2209.0, autres 939.0, then
+      eolien 2406.0, autres 494.0. From 2022 the "autres" column about doubles at the change and
+      stays doubled for the following hours (2025: 494-495 at 03:00 and 04:00, 939 at 07:00), so
+      in 2025 the row returned first looks like the later hour, while in 2022 to 2024 the
+      doubled row comes second. Do not take the returned order as time order; drop both rows or
+      decide by hand. Found by an automated research pass on 2026-11-07; not yet reviewed by a
+      person.
+    evidence: https://donnees.hydroquebec.com/api/explore/v2.1/catalog/datasets/historique-production-electricite-quebec/records?where=date%3E%3D'2025-11-02T03:00:00Z'%20and%20date%3C'2025-11-02T09:00:00Z'&select=date,eolien&order_by=date&timezone=UTC
+    found: 2026-11-06
+  - summary: A few hours have a blank wind value (for example 19 February and 14 July 2023 in the xlsx).
+    evidence: https://www.hydroquebec.com/data/documents-donnees/donnees-ouvertes/xlsx/historique-source/2023-sources-electricite-quebec.xlsx
+    found: 2026-11-06
+notes: >-
+  Hourly province-wide wind output in MW (column "eolien", one reading on the half hour), next to
+  hydro, solar, thermal, other renewables and total. Checked on 2026-11-06: the open-data portal's
+  history dataset holds 59,915 rows from 1 January 2019 to 31 December 2025; yearly xlsx files are
+  posted on hydroquebec.com for 2019 to 2023 (the 2019 and 2023 files were opened; 2024 and 2025
+  xlsx names returned 404). The live file
+  https://www.hydroquebec.com/data/documents-donnees/donnees-ouvertes/json/production.json holds
+  only the last two days, so a continuous record from 2026 on means collecting it. Wind is
+  described as remotely measured (telemetered), not settlement metering. One provincial
+  aggregate, no per-farm split.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

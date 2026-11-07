@@ -14,6 +14,25 @@ coverage:
 capacity: separate-dataset
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: UTC+08:00
+  timestamp: period-start
+  unit: MWh
+  value: period-total
+  evidence: "https://data.wa.aemo.com.au/datasets/definitions/facility-scada-csv-definition.yaml"
+  note: >-
+    AEMO's field definitions say the post-reform "Average MWh" is the quantity in MWh measured by
+    SCADA during the Dispatch Interval, a 5-minute period "commencing at 0, 5, 10 ... minutes past
+    the hour", to be summed over six intervals for a trading interval. The pre-reform definition
+    (datasets/definitions/prereform-definitions/facility-scada-definition.yaml) gives "Energy
+    Generated (MWh)" during a 30-minute Trading Interval "commencing on the hour or on the half
+    hour", and "EOI Quantity (MW)" at the end of the interval. Times are Western Australian: the
+    definitions give extraction and update times in WST and AWST. Western Australia trialled
+    daylight saving from December 2006 to March 2009; the definitions do not mention it, and the
+    pre-reform files of those years stay on standard time (48 intervals every day, 02:00 present
+    on 3 December 2006; checked 2026-11-07, see trap). The definition gives the post-reform format
+    as YYYY-MM-DD HH:MM:SS, but the files read are day-first. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://data.wa.aemo.com.au/
@@ -64,8 +83,26 @@ traps:
       The pre-reform files use ISO dates ("2023-09-01") with a separate interval number, and
       the WA trading day runs 08:00 to 08:00. The post-reform CSVs use day-first
       "01/11/2023 07:55:00" timestamps, listed newest first. Parse each with its own format.
+      AEMO's field definition gives the post-reform Dispatch Interval and Extracted At formats as
+      "YYYY-MM-DD HH:MM:SS", but the file is day-first in both ("29/10/2023 23:55:00", and
+      "30/07/2026 08:26:05" for Extracted At), so a parser set up from the definition fails or,
+      for days up to the 12th, silently swaps day and month. Definition contrast added
+      2026-11-07.
     evidence: https://data.wa.aemo.com.au/public/public-data/datafiles/facility-scada-csv/FacilityScada-2023-10.csv
     found: 2026-11-06
+  - summary: The 2006-09 daylight-saving trial does not appear in the data, so stamps localised as Australia/Perth are shifted by an hour in those summers.
+    detail: >-
+      Neither field definition mentions daylight saving; both name only WST. Western Australia
+      used daylight time (UTC+09:00) from 3 December 2006 to March 2009, and a time-zone library
+      applies it to Australia/Perth. The pre-reform files do not: every trading day in December
+      2006, March 2007, October 2007 and March 2008 has 48 intervals, and on 3 December 2006,
+      when clocks jumped from 02:00 to 03:00, ALBANY_WF1 still has "2006-12-03 02:00:00" (4.751
+      MWh) and "2006-12-03 02:30:00" (5.228 MWh). The market ran on standard time throughout:
+      read every stamp as a fixed UTC+08:00, not as Australia/Perth. This is observed in the
+      data, not documented. Found by an automated research pass on 2026-11-07; not yet reviewed
+      by a person.
+    evidence: https://data.wa.aemo.com.au/public/public-data/datafiles/facility-scada/facility-scada-2006-12.csv
+    found: 2026-11-07
 tools:
   - name: opennem (Open Electricity backend; clients/wem.py, clients/wemde.py)
     url: https://github.com/opennem/opennem
@@ -81,3 +118,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

@@ -1,0 +1,78 @@
+id: world-ei-statistical-review
+name: Statistical Review of World Energy, Renewables - Wind generation (TWh)
+publisher: Energy Institute (EI)
+publisher_role: aggregator
+countries: [AE, AR, AT, AU, AZ, BD, BE, BG, BR, BY, CA, CH, CL, CN, CO, CY, CZ, DE, DK, DZ, EC, EE, EG, ES, FI, FR, GB, GR, HK, HR, HU, ID, IE, IL, IN, IR, IS, IT, JP, KR, KW, KZ, LK, LT, LU, LV, MA, MK, MX, NL, NO, NZ, OM, PE, PH, PK, PL, PT, RO, RU, SA, SE, SI, SK, TH, TR, TT, TW, UA, US, UZ, VE, VN, ZA]
+area: >-
+  The 2025 edition's wind generation sheet names 79 countries; the 74 listed in countries had a
+  non-zero value. Every other country is folded into regional "Other" rows (Other Europe, Other
+  Asia Pacific, Eastern Africa and so on), with world, OECD, non-OECD and EU totals.
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 1978
+  update: annual edition (the 2026 edition was current on the check date)
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: TWh
+  value: period-total
+  evidence: https://www.energyinst.org/__data/assets/excel_doc/0008/1656215/EI-Stats-Review-ALL-data.xlsx
+  note: >-
+    Annual values labelled by year, from the "Wind Generation - TWh" sheet as read for this entry in
+    the 2025 workbook; the sheet footnote says gross generation. On this pass the Energy Institute
+    site answered with a bot check (HTTP 403, "Just a moment..."), so the unit was not re-read from
+    the publisher's file. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.energyinst.org/statistical-review/resources-and-data-downloads
+  key_required: false
+  registration: true
+  formats: [xlsx, csv]
+  languages: [en]
+licence:
+  name: Energy Institute website terms and conditions (no dataset licence found)
+  url: https://www.energyinst.org/terms
+  redistribution: prohibited
+  attribution: "Energy Institute (2026), Statistical Review of World Energy 2026, Energy Institute, London (the citation the download page gives)"
+  verified: true
+  note: >-
+    The site terms say copies of documents on the EI's sites may be made "for information
+    purposes and solely for the private use" of users, and that any other use or reproduction is
+    forbidden without the EI's written permission. No separate licence for the Statistical Review
+    data was found on the download page or in the 2025 workbook. The current edition's download
+    form (email address and reCAPTCHA) may present further terms; it was not submitted. Other
+    aggregators (Ember, Our World in Data) republish EI figures; their basis for doing so was not
+    checked.
+traps:
+  - summary: The current edition's files sit behind an email form with a reCAPTCHA; only archived editions download directly.
+    detail: >-
+      On the check date the 2026 data buttons opened a form asking for an email address with a
+      reCAPTCHA. The 2023, 2024 and 2025 workbooks were plain links. The archive note says
+      historical data are revised between editions, so an archived workbook is not the latest
+      history.
+    evidence: https://www.energyinst.org/statistical-review/resources-and-data-downloads
+    found: 2026-11-06
+  - summary: Only about 75 countries are named; smaller producers exist only inside regional "Other" rows.
+    detail: >-
+      For a country not named in the sheet (for example most of Africa and Central America),
+      the Statistical Review has no country figure at all. Use IRENA, EIA or UNSD for those.
+    evidence: https://www.energyinst.org/__data/assets/excel_doc/0008/1656215/EI-Stats-Review-ALL-data.xlsx
+    found: 2026-11-06
+notes: >-
+  Annual wind generation in terawatt-hours by country. The sheet's columns start in 1965, but the
+  first non-zero value is Denmark in 1978, so coverage is given from 1978. The series is in the "Wind Generation - TWh" sheet of the all-data workbook, with wind
+  installed capacity in a separate sheet. The sheet's footnote says figures are "based on gross
+  generation and not accounting for cross-border electricity supply". The page also offers a
+  consolidated narrow-format CSV of all series. Checked by reading the 2025 edition workbook (data
+  to 2024) on the check date; the 2026 edition was not downloaded because of the email form. The
+  Statistical Review was published by BP until 2022 and by the Energy Institute since 2023.
+status: restricted
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

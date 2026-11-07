@@ -1,0 +1,64 @@
+id: cr-cence-monthly-energy-by-plant
+name: Servicio Web EnergiaMensualOficial (official monthly energy by plant)
+publisher: Instituto Costarricense de Electricidad (ICE), División Operación y Control del Sistema Eléctrico (DOCSE), through the CENCE website
+publisher_role: tso
+countries: [CR]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 1996
+  update: monthly (officialised months only; January to September 2026 were available at the check)
+capacity: separate-dataset
+coordinates: none
+curtailment: unknown
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://apps.grupoice.com/CenceWeb/data/servicios/json/WebServices/
+  note: >-
+    The service catalogue describes EnergiaMensualOficial as monthly generation energy in MWh
+    for the plants of the national system, returning only officialised data; EnergiaMensual has the
+    same wording but the current and previous month are under review. Direct requests to
+    apps.grupoice.com returned HTTP 403 on the check date; the catalogue was read through a fetch
+    tool instead.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://apps.grupoice.com/CenceWeb/data/sen/json/EnergiaMensualOficial?anno=2025
+  docs: https://apps.grupoice.com/CenceWeb/paginas/ServiciosWeb.html
+  key_required: false
+  registration: false
+  formats: [json, csv, xml]
+  languages: [es]
+licence:
+  name: No licence; site footer reads "© ICE Todos los Derechos Reservados"
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use or licence page was found on the CENCE site. The JSON response carries the
+    same disclaimer and "© ICE Todos los Derechos Reservados" notice as the web pages, which is not
+    a statement of reuse terms.
+traps:
+  - summary: There are two monthly services; only EnergiaMensualOficial is restricted to officialised data.
+    detail: >-
+      The catalogue describes EnergiaMensual as monthly MWh per plant with the current and
+      previous month under review, and EnergiaMensualOficial as returning "solamente datos ya
+      oficializados". Use the official one for validation.
+    evidence: https://apps.grupoice.com/CenceWeb/data/servicios/json/WebServices/
+    found: 2026-11-06
+notes: >-
+  Monthly generation in MWh for every plant in Costa Rica's national system, all technologies,
+  with company group and source type ("Eólico" for wind), one year per request (parameter anno,
+  optional planta). Checked: 1996 has one wind plant (Plantas Eólicas, 22,565 MWh); 2005 has four
+  (Tejona 60,858 MWh, MOVASA 56,257 MWh, Plantas Eólicas 63,733 MWh, Aeroenergía 23,492 MWh); 2025
+  has 19 with different annual totals (Chiripa 259,710 MWh, Orosí 232,907 MWh); 1990 returns no
+  rows. Plant names match the daily services in cr-cence-generation-by-plant, so the two can be
+  joined. Installed capacity per plant is in the CapacidadInstalada service (only from 2023).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

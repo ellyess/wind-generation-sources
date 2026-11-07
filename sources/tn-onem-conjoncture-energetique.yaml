@@ -1,0 +1,66 @@
+id: tn-onem-conjoncture-energetique
+name: Conjoncture énergétique (Energy situation bulletin), electricity production by source
+publisher: National Observatory of Energy and Mines (ONEM), Ministry of Industry, Mines and Energy, Tunisia
+publisher_role: government
+countries: [TN]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2020
+  update: monthly bulletin, year to date
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://www.energiemines.gov.tn/fileadmin/docs-u1/Conjoncture_%C3%A9nerg%C3%A9tique__Ao%C3%BBt__2026.pdf
+  note: >-
+    The production table is marked "Unité : GWh". Each bulletin's figure is cumulative from January
+    to the end of the bulletin month ("à fin août"), so the label is a year-to-date period, not a
+    single month. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.energiemines.gov.tn/fr/tc/publications/
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [fr]
+licence:
+  name: No terms found
+  url: https://www.energiemines.gov.tn/fr/tc/publications/
+  redistribution: unclear
+  verified: false
+  note: >-
+    No reuse terms were found on the ministry site. It links to an open data portal
+    (data.industrie.gov.tn), which could not be reached on 2026-11-06.
+traps:
+  - summary: Figures are cumulative from January to the bulletin month, not single months.
+    detail: >-
+      The August 2026 bulletin gives STEG wind production "à fin août" (85 GWh in 2026 against
+      191 GWh in 2025, and 259 GWh for all of 2025). Monthly values need differencing between
+      successive bulletins, and not every month's bulletin is listed on the page.
+    evidence: https://www.energiemines.gov.tn/fileadmin/docs-u1/Conjoncture_%C3%A9nerg%C3%A9tique__Ao%C3%BBt__2026.pdf
+    found: 2026-11-06
+  - summary: The wind row is STEG's own production only.
+    detail: >-
+      The production table lists wind under STEG (the national utility); private generation
+      appears only as independent solar, solar self-producers and third-party purchases, so any
+      private wind would sit in "Achat tiers", not in the wind row.
+    evidence: https://www.energiemines.gov.tn/fileadmin/docs-u1/Conjoncture_%C3%A9nerg%C3%A9tique__Ao%C3%BBt__2026.pdf
+    found: 2026-11-06
+notes: >-
+  Monthly year-to-date national electricity production by source in GWh, with a wind row. The
+  same page holds the annual Bilan National de l'Energie (2010 to 2025, the last provisional) and
+  annual key figures (Chiffres clés). Coverage start is the oldest bulletin listed (March 2020),
+  which has the wind row; older bulletins may exist elsewhere. The large fall in 2026 wind output
+  coincides with press reports of rehabilitation work at the Sidi Daoud wind plant; not verified
+  on a STEG page. STEG's own website (steg.com.tn) refused connections on 2026-11-06.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

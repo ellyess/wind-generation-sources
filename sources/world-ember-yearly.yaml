@@ -1,0 +1,97 @@
+id: world-ember-yearly
+name: Yearly Electricity Data
+publisher: Ember
+publisher_role: aggregator
+countries: [AE, AM, AR, AT, AU, AW, AZ, BA, BD, BE, BG, BO, BR, BY, CA, CH, CL, CN, CO, CR, CU, CV, CY, CZ, DE, DJ, DK, DO, DZ, EC, EE, EG, ES, ET, FI, FJ, FK, FO, FR, GB, GE, GP, GR, GT, HN, HR, HU, ID, IE, IL, IN, IR, IS, IT, JM, JO, JP, KE, KN, KR, KW, KZ, LB, LK, LT, LU, LV, MA, MD, ME, MK, MN, MQ, MR, MU, MX, NA, NC, NI, NL, NO, NP, NZ, OM, PA, PE, PH, PK, PL, PR, PT, RE, RO, RS, RU, SA, SC, SE, SI, SK, SN, SO, SV, TD, TH, TN, TR, TW, UA, US, UY, UZ, VE, VN, VU, ZA]
+area: >-
+  206 countries and economies have a Wind row in the global file; the 116 listed in countries are
+  those with a non-zero wind value in at least one year. Kosovo also has wind data but no ISO
+  3166-1 code. Regional aggregates (EU, ASEAN, continents, World) are in the same file.
+level: country
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 1985
+  update: twice a month (first and third week), per the dataset page
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: TWh
+  value: period-total
+  evidence: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv
+  note: >-
+    Values are in the "Generation (TWh)" column by "Year", with "Capacity (GW)" in the same row.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://ember-energy.org/data/yearly-electricity-data/
+  docs: https://files.ember-energy.org/public-downloads/ember_electricity_data_methodology.pdf
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://ember-energy.org/creative-commons/
+  redistribution: allowed-with-attribution
+  attribution: Credit Ember as the source; no fixed wording is given.
+  verified: true
+  note: >-
+    The dataset page footer says all content is released under CC-BY-4.0; the licence page was
+    read for the monthly entry on the same day. Underlying national, Eurostat, EIA and Energy
+    Institute figures keep their own terms, which Ember does not discuss.
+traps:
+  - summary: The latest year is an Ember projection from monthly data, not a reported annual figure.
+    detail: >-
+      The methodology says annual data are generally available to 2025 and, where the latest
+      year is missing, Ember applies the change seen in annualised monthly data to the last
+      reported annual value. Summed monthly values will not match the annual value. Treat the
+      most recent year as provisional, and check which countries have it (92 countries had a 2025
+      wind value on the check date, 100 stopped at 2024).
+    evidence: https://files.ember-energy.org/public-downloads/ember_electricity_data_methodology.pdf
+    found: 2026-11-06
+  - summary: Annual figures are gross generation, while Ember's monthly European figures are net.
+    detail: >-
+      The methodology says annual data aim to be gross (Eurostat, Energy Institute, EIA), while
+      monthly European data come mostly from ENTSO-E, which is net of auxiliary power. It also
+      describes EIA data as gross, although EIA's own international series are labelled "net
+      generation" (see world-eia-international). Do not mix the two Ember files without
+      allowing for the difference.
+    evidence: https://files.ember-energy.org/public-downloads/ember_electricity_data_methodology.pdf
+    found: 2026-11-06
+  - summary: The onshore and offshore split is only in the Europe file; the global file has a single Wind source.
+    detail: >-
+      release_generation_yearly_global.csv has Wind only. release_generation_yearly_lower.csv
+      (Europe) adds Onshore wind and Offshore wind; in the yearly Europe file Offshore wind rows
+      appear only for countries with offshore output (247 rows against 1,196 onshore rows on the
+      check date). The Europe file has no capacity column.
+    evidence: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_lower.csv
+    found: 2026-11-06
+  - summary: Most country rows are zero in early years, and a zero is not always a reported zero.
+    detail: >-
+      Of 5,658 country wind rows, 3,411 hold 0. Rows start in 1985 for 14 large economies, 1990
+      for most of Europe and 2000 for most others, so pre-2000 zeros mainly mark the period before
+      wind was reported. Capacity is blank in about 660 country wind rows.
+    evidence: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv
+    found: 2026-11-06
+notes: >-
+  Annual electricity generation by source in TWh, with installed capacity in GW, shares and
+  emissions, for over 200 geographies (the dataset page's figure). Compiled from Eurostat (most of
+  Europe to 2024), the Energy Institute Statistical Review, the US Energy Information
+  Administration, and national sources such as China's National Bureau of Statistics. Wind
+  capacity comes from IRENA (International Renewable Energy Agency) statistics, per the
+  methodology. Distinct from world-ember-monthly: annual not monthly, about 116 countries with wind
+  rather than about 80, gross rather than mostly net, and capacity in the same file. Like the
+  monthly file, it is a secondary compilation; for any single country, go to the national source.
+  Checked by downloading the global and Europe CSV files on the check date and counting
+  countries, years and zero values. The file uses the July 2026 layout (one row per area, year and
+  source, metrics as columns).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

@@ -1,0 +1,92 @@
+id: fr-engie-la-haute-borne-scada
+name: La Haute Borne wind farm SCADA data (ENGIE open data, now mirrored)
+publisher: ENGIE (original); re-deposited on Mendeley Data by AGH University of Krakow authors
+publisher_role: owner-operator
+countries: [FR]
+area: La Haute Borne wind farm, Meuse, Grand Est (4 Senvion MM82 turbines, 2.05 MW each)
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2013
+  end: 2018
+  update: none; ENGIE's portal is offline and the mirror is a fixed copy ending 13 January 2018
+capacity: included
+coordinates: included
+curtailment: not-reported
+conventions:
+  timezone: Europe/Paris
+  timestamp: unknown
+  unit: kW
+  value: period-mean
+  evidence: "https://data.mendeley.com/datasets/vmyg4yp3s8/2"
+  note: >-
+    Date_time carries French local time with its offset (2013-01-01T00:00:00+01:00, +02:00 in
+    summer). data_description.csv gives Active_power in kW, and the record says the average,
+    standard deviation, maximum and minimum were collected for each 10-minute interval, so P_avg
+    is the interval mean. Whether the stamp opens or closes the interval is not stated. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://doi.org/10.17632/vmyg4yp3s8.2
+  docs: https://data.mendeley.com/datasets/vmyg4yp3s8/2
+  key_required: false
+  registration: false
+  formats: [csv, zip]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International (Mendeley Data record)
+  spdx: CC-BY-4.0
+  url: https://data.mendeley.com/datasets/vmyg4yp3s8/2
+  redistribution: allowed-with-attribution
+  attribution: Credit ENGIE as the original source and cite the Mendeley record (doi:10.17632/vmyg4yp3s8.2).
+  verified: true
+  note: >-
+    The licence was read on the Mendeley record, which is a third-party re-deposit. ENGIE's own
+    terms could not be read because its portal no longer resolves; OpenOA's copy of the
+    2014-2015 data states ENGIE published it under the Etalab Open Licence 2.0, which also allows
+    reuse with attribution.
+traps:
+  - summary: ENGIE's original portal is gone, so every copy now in circulation is a third-party one.
+    detail: >-
+      opendata-renewables.engie.com did not resolve on the check date. The Mendeley re-deposit
+      covers 2013 to January 2018; OpenOA ships 2014-2015 only, as an example file
+      (examples/data/la_haute_borne.zip). The two copies were prepared differently.
+    evidence: https://github.com/NatLabRockies/OpenOA/blob/main/examples/data/readme.md
+    found: 2026-11-06
+  - summary: The Mendeley copy is cleaned, with about a fifth of the 10-minute rows removed.
+    detail: >-
+      The depositors removed missing, corrupted and negative-power rows. Each turbine file has
+      about 41,000 to 43,500 rows per full year out of 52,560, so the series cannot give energy
+      totals or availability. It comes in two versions (F95 and F99) whose filter is not explained
+      in the record; the cited paper (doi:10.3390/en18225954) describes the method.
+    evidence: https://data.mendeley.com/datasets/vmyg4yp3s8/2
+    found: 2026-11-06
+  - summary: The Mendeley title puts the farm in Villeneuve-d'Ascq, but the static file places it in Meuse.
+    detail: >-
+      static-information.csv gives latitudes near 48.45 N, 5.59 E, department Meuse, region Grand
+      Est. Villeneuve-d'Ascq is near Lille, in another region. Use the coordinates, not the title.
+    evidence: https://data.mendeley.com/datasets/vmyg4yp3s8/2
+    found: 2026-11-06
+  - summary: Timestamps are French local time with an explicit offset that changes with daylight saving.
+    detail: Rows read 2013-01-01T00:00:00+01:00 in winter and +02:00 in summer; parse the offset rather than dropping it.
+    evidence: https://data.mendeley.com/datasets/vmyg4yp3s8/2
+    found: 2026-11-06
+tools:
+  - name: OpenOA (examples, La Haute Borne)
+    url: https://github.com/NatLabRockies/OpenOA
+    language: Python
+notes: >-
+  Ten-minute SCADA (supervisory control and data acquisition) statistics from ENGIE's four-turbine
+  La Haute Borne farm, released by ENGIE as open data in 2017 and widely used in wind analytics
+  (it is OpenOA's example plant). Checked by downloading the Mendeley archive (77 MB): one file per
+  turbine and filter version, with active power (P_avg, kW), wind speed, temperatures and speeds;
+  the static file gives each turbine's coordinates, rated power, hub height, rotor diameter and
+  commissioning date (2009-01-15). Turbines R80711 and R80721 have different power values at the
+  same timestamps. The Mendeley description says the original data ran 2013 to 2020, but only
+  2013 to 13 January 2018 was re-deposited.
+status: discontinued
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

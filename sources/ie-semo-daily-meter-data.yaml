@@ -1,0 +1,136 @@
+id: ie-semo-daily-meter-data
+name: Daily Meter Data, metered generation by unit (SEMO report BM-086)
+publisher: Single Electricity Market Operator (SEMO; EirGrid and SONI)
+publisher_role: market-operator
+countries: [IE, GB]
+area: "Island of Ireland: Ireland (ROI) and Northern Ireland (NI) generator units"
+level: farm
+technology: onshore-and-offshore-combined
+measure: metered-energy
+resolution: 30min
+coverage:
+  start: 2026
+  update: daily (D+1), with a later D+5 version (report BM-086_MD5); rolling window of about two months
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: period-start
+  unit: MWh
+  value: period-total
+  evidence: https://www.sem-o.com/documents/general-publications/SEMO-Data-Publication-Guide-Issue-3.0.zip
+  note: >-
+    Each row has StartTime and EndTime (for example 00:00:00 to 00:29:59), which the SEMO Data
+    Publication Guide (Issue 3.0, BM-086 table) defines as the imbalance settlement period start and
+    end time; the guide does not give their time zone. It says the trading day 'commences at
+    23:00hrs (GMT)', yet winter files start at 00:00 and the 25 October 2026 file at
+    2026-10-24T23:00, which fits UTC stamps over the Irish local day (as the entry's trap says) but
+    is not documented. EndTime is written both ways, 00:29:59 in some rows and 11:30:00 in others,
+    so join on StartTime. Read 2026-11-06 by an automated research pass. Changed 2026-11-07: the
+    field is named MeteredMW, but the guide says the report 'contains metered generation (MWh)'
+    and describes METERED_MW as 'the total generation (MWh)', and the files agree (see the trap
+    on units), so unit is now MWh and value period-total, not MW and unknown. Not yet reviewed by
+    a person.
+access:
+  method: api
+  url: https://www.sem-o.com/market-data/static-reports/
+  docs: https://reports.sem-o.com/api/v1/documents/static-reports?DPuG_ID=BM-086&page_size=5&sort_by=Date&order_by=DESC
+  key_required: false
+  registration: false
+  formats: [xml]
+  languages: [en]
+licence:
+  name: No data licence found (SEMO website disclaimer only)
+  url: https://www.sem-o.com/disclaimer
+  redistribution: unclear
+  verified: false
+  note: >-
+    The SEMO disclaimer covers accuracy and liability only and says nothing about reuse. The
+    EirGrid Group Open Data Licence names the EirGrid and SONI libraries and the Smart Grid
+    Dashboards, not SEMO market reports, so it was not assumed to apply.
+traps:
+  - summary: Only about the last two months can be downloaded; nothing older is offered.
+    detail: >-
+      On 2026-11-06 the oldest BM-086 file listed was for trade date 2026-09-07, and the
+      historic-data page does not include meter data. Archive the files as you go.
+    evidence: https://reports.sem-o.com/api/v1/documents/static-reports?DPuG_ID=BM-086&page_size=1&sort_by=Date&order_by=ASC
+    found: 2026-11-06
+  - summary: >-
+      The files show UTC times over the Irish local calendar day (SEMO does not document this), so
+      clock-change days have 46 or 50 half-hours.
+    detail: >-
+      The file for trade date 2026-10-25 runs from 2026-10-24T23:00 to 2026-10-25T23:30 (50
+      periods per unit), while the file for 2026-11-05 runs from 00:00 to 23:30 (48 periods).
+      Reworded 2026-11-07: this is observed in the files, not documented. SEMO's Data
+      Publication Guide (Issue 3.0, BM-086) names no time zone for StartTime and says only that
+      the trading day "commences at 23:00hrs (GMT)", which matches the files in Irish summer
+      time (trade date 2026-09-07 starts StartTime="2026-09-06T23:00:00", file
+      PUB_DailyMeterDataD1_202609081400.xml) but not in winter, when files start at 00:00.
+    evidence: https://reports.sem-o.com/documents/PUB_DailyMeterDataD1_202610261446.xml
+    found: 2026-11-06
+  - summary: >-
+      Values are energy in MWh per half hour, although the field is called MeteredMW; do not
+      divide them by two.
+    detail: >-
+      Corrected 2026-11-07. This trap said the values were average MW and should be halved; the
+      publisher and the data both say otherwise. The SEMO Data Publication Guide (Issue 3.0,
+      section 8.3.2) says BM-086 "contains metered generation (MWh) for each Generator Unit" and
+      defines METERED_MW as "Represents the total generation (MWh)". The files agree: across 30
+      D+1 files from 2026-09-07 to 2026-11-05, no wind-tagged unit's half-hour value exceeded 53%
+      of its registered capacity (BM-003, November 2026), and 168 of 229 units reached 45%, the
+      ceiling expected of energy over half an hour (capacity x 0.5 h), not of MW. For example
+      Ardderroo, GU_405210, 91.2 MW registered, peaks at MeteredMW="33.6" on 2026-11-05. Sum the
+      half-hours for energy; multiply by two for average MW. Found by an automated research pass
+      on 2026-11-07; not yet reviewed by a person.
+    evidence: https://www.sem-o.com/documents/general-publications/SEMO-Data-Publication-Guide-Issue-3.0.zip
+    found: 2026-11-07
+  - summary: Several versions are published for the same trade date; keep the latest.
+    detail: >-
+      Two D+1 files were published for trade date 2026-11-05 (13:39 and 15:00 on 2026-11-06),
+      and a separate D+5 report (BM-086_MD5) republishes each day later.
+    evidence: https://reports.sem-o.com/api/v1/documents/static-reports?DPuG_ID=BM-086&page_size=5&sort_by=Date&order_by=DESC
+    found: 2026-11-06
+  - summary: The meter file does not say which units are wind; join on the registered-capacity report.
+    detail: >-
+      Units are identified only by codes such as GU_405210. The monthly Registered Capacity report
+      (BM-003) gives each unit's name, fuel type (WIND) and registered capacity.
+    evidence: https://reports.sem-o.com/api/v1/documents/static-reports?DPuG_ID=BM-003&page_size=1&sort_by=Date&order_by=DESC
+    found: 2026-11-06
+  - summary: >-
+      The registered-capacity report tags solar farms as WIND, so a fuel-type filter picks up
+      solar output.
+    detail: >-
+      BM-003 has no solar fuel type (its values are BATTERY_STORAGE, BIOMASS, DISTILLATE, GAS,
+      HYDRO, MULTI_FUEL, OIL, PUMP_STORAGE, SYNC_CON and WIND). In the November 2026 file, 15 of
+      the 229 WIND units (823.1 MW) are solar by UnitName, for example ResourceName="GU_407030"
+      UnitName="Gaskinstown Solar" RegisteredCapacity="85" FuelType="WIND" and
+      ResourceName="GU_407690" UnitName="Dunmurry Springs PV" FuelType="WIND". A sixteenth is
+      solar only by its participant: ParticipantName="Tullabeg Solar Farm Limited"
+      ResourceName="GU_406470" UnitName="TL1" RegisteredCapacity="50" FuelType="WIND", which
+      makes 16 units and 873.1 MW. Another 50 WIND units have no UnitName, so more may be solar.
+      Drop units whose UnitName or ParticipantName says solar or PV, and check unnamed units
+      against another register or for zero output at night. Found by an automated research pass
+      on 2026-11-07; not yet reviewed by a person. Corrected 2026-11-07: the count of 16 mixed the
+      two name fields without saying so; a UnitName filter alone finds 15 in the November and
+      October 2026 files (14 in September 2026), and TL1 is caught only through ParticipantName.
+    evidence: https://reports.sem-o.com/documents/PUB_MnlyRegisteredCapacity_202611011000.xml
+    found: 2026-11-07
+notes: >-
+  Half-hourly metered output for every generator unit in the all-island market, wind farms
+  included. Checked 2026-11-06: the November 2026 Registered Capacity report lists 224 units with
+  fuel type WIND (7,531 MW registered in total), and all 224 appear in the D+1 meter file for
+  2026-11-05 (171 in Ireland, 53 in Northern Ireland, by the meter file's jurisdiction field).
+  Two units differ as expected: Ardderroo (Rockgrid) wind farm, GU_405210, 91.2 MW registered,
+  metered 817.7 MWh that day; Seecon, GU_401990, 105 MW, 766.7 MWh. (Corrected 2026-11-07: these
+  two figures were halved, 408.9 and 383.3, under the old reading of the values as average MW; the
+  values are MWh per half hour, so the day's energy is their plain sum. A recount of the same
+  November report on 2026-11-07 found 229 WIND-tagged units, 7,594.4 MW, 16 of them solar farms by
+  unit or participant name, 15 by unit name alone; see the traps.) A generator unit is usually one wind farm, but whether any unit groups
+  several farms was not checked, and the report has no locations. Files are listed through the public static-reports API and downloaded from
+  https://reports.sem-o.com/documents/<ResourceName>. The same report family includes unit-level
+  wind forecasts (BM-012), which are not observations.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

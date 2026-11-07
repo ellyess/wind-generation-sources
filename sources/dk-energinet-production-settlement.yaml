@@ -14,6 +14,18 @@ coverage:
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: period-start
+  unit: MWh
+  value: period-total
+  evidence: "https://api.energidataservice.dk/meta/dataset/ProductionConsumptionSettlement"
+  note: >-
+    The metadata defines HourUTC so that "00:00 o'clock is the first hour of a given day
+    interval 00:00 - 00:59", so each stamp opens its hour. The four wind columns are in MWh.
+    HourDK gives the same hours in Danish local time, with 23 or 25 hours on clock-change days.
+    JSON stamps carry no Z suffix. Read 2026-11-06 by an automated research pass; not yet
+    reviewed.
 access:
   method: api
   url: https://www.energidataservice.dk/tso-electricity/ProductionConsumptionSettlement
@@ -70,3 +82,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

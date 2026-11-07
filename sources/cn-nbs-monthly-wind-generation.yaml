@@ -1,0 +1,72 @@
+id: cn-nbs-monthly-wind-generation
+name: Main data on industrial production above designated size, wind power generation (规模以上工业生产主要数据, 风力发电量)
+publisher: National Bureau of Statistics of China (国家统计局)
+publisher_role: statistics-office
+countries: [CN]
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2023
+  update: monthly, about the middle of the following month
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: other
+  value: period-total
+  evidence: https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202610/t20261019_1965613.html
+  note: >-
+    Monthly and year-to-date totals labelled by month, published in 亿千瓦时 (100 million kWh,
+    that is 0.1 TWh or 100 GWh), which the schema has no unit for; multiply by 100 for GWh. The
+    September 2026 release text gives generation in 亿千瓦时 throughout.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: portal
+  url: https://www.stats.gov.cn/sj/zxfb/
+  key_required: false
+  registration: false
+  formats: [html]
+  languages: [zh]
+licence:
+  name: National Bureau of Statistics website terms of service (服务条款)
+  url: https://www.stats.gov.cn/wzgl/202302/t20230217_1912857.html
+  redistribution: non-commercial-only
+  attribution: "Credit the National Bureau of Statistics website (国家统计局网站) and give the address www.stats.gov.cn, in a prominent place."
+  verified: true
+  note: >-
+    The terms welcome reproduction and citation with the source and address shown, and say users
+    may download and use the published statistics. Reuse must be reasonable, in good faith and for
+    news or reference purposes as free public information, without changing the original meaning,
+    and a re-user may not authorise others to reproduce the content further. Commercial reuse is
+    not addressed directly; the free-public-information condition is read here as non-commercial.
+traps:
+  - summary: The figure covers only industrial enterprises above designated size, not all wind farms.
+    detail: >-
+      Every output figure in the release is for enterprises with annual main business revenue of
+      20 million yuan or more (规模以上工业). Small and distributed wind below that threshold is
+      left out, so the total is lower than national wind generation from other sources. The
+      enterprise set changes each year, and year-on-year growth rates are computed on a matched
+      base, so they can differ from rates published a year earlier and cannot be reproduced from
+      the published levels.
+    evidence: https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202610/t20261019_1965613.html
+    found: 2026-11-06
+notes: >-
+  National monthly wind generation (风力发电量) in 100 million kWh (亿千瓦时, that is 0.1 TWh),
+  with the month value, the cumulative year-to-date value and both growth rates, in the table of
+  the monthly industrial production release. Checked 2026-11-06: the September 2026 release
+  (published 19 October 2026) gives 776 for the month and 8,022 for January to September; the
+  August 2023 release (published 15 September 2023) gives 441 and 5,308. Releases before 2023 were
+  not checked, so 2023 is the earliest year seen, not the start of the series. NBS's statistical
+  database (data.stats.gov.cn) carries the same indicator as a time series and, by its layout,
+  provincial monthly values, but it returned HTTP 403 to automated requests on the check date, so
+  neither the series start nor the provincial data were seen. No per-plant wind output from China
+  was found; the National Energy Administration and China Electricity Council publish national
+  capacity and utilisation hours rather than plant series.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

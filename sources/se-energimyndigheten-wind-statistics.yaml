@@ -13,6 +13,16 @@ coverage:
 capacity: included
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_5.px
+  note: >-
+    Table EN0105 gives "Wind power production, GWh" per year, with "Installed capacity, MW" and
+    turbine counts in the same table. EN0105_1 covers the whole country from 1982; EN0105_5 splits
+    offshore and onshore from 2003. Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: api
   url: https://pxexternal.energimyndigheten.se/
@@ -32,6 +42,32 @@ traps:
       interpolated through the year. ENTSO-E's own Swedish capacity is empty for 2015-19 and
       counts onshore only at the start of each year.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+  - summary: From 2025 there is a third, unassigned production figure that neither the onshore nor the offshore series includes.
+    detail: >-
+      EN0105_5 has a third installation type, "Supplementary source, not distributed"
+      (Swedish "Kompletterande källa, ej fördelad", code 2). It is "." for every year from 2003
+      to 2024 and, for 2025, holds production 524.20 GWh with "." for turbines and capacity.
+      EN0105_1 carries the same 524.20 GWh as a separate category, "Supplementary source, not
+      geographically distributed, GWh", and its 2025 "Wind power production, GWh" (38,446.99)
+      is onshore (37,950.28) plus offshore (496.72) only. So the headline 2025 figure leaves out
+      524 GWh, and summing all three types in EN0105_5 gives 38,971.20 GWh. Keep the
+      supplementary figure as its own column and say which total is used; it cannot be split
+      between onshore and offshore. Found by an automated research pass on 2026-11-07; not yet
+      reviewed by a person.
+    evidence: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_5.px
+    found: 2026-11-07
+  - summary: The API server does not send its intermediate certificate, so Python requests with certifi fail TLS verification.
+    detail: >-
+      On 2026-11-07 "openssl s_client -showcerts" against pxexternal.energimyndigheten.se:443
+      returned only the server certificate (issuer "GlobalSign GCC R46 OV TLS CA 2025") and
+      "Verify return code: 21 (unable to verify the first certificate)". Python requests with its
+      default certifi bundle fails with a certificate verification error. curl on macOS, and
+      Python with the truststore package (the operating system's verifier, which fetches the
+      missing intermediate), succeed. Keep verification on and use truststore, or add the
+      GlobalSign intermediate to the bundle. Found by an automated research pass on 2026-11-07;
+      not yet reviewed by a person.
+    evidence: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_5.px
+    found: 2026-11-07
 notes: >-
   Official annual wind production and year-end installed capacity, onshore and offshore. ENTSO-E's
   Swedish generation came to 0.976-1.007 of this table's production each year in 2015-21. Coverage

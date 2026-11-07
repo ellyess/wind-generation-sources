@@ -1,0 +1,1372 @@
+market,unit_id,unit_name,unit_capacity_mw,status,location_source,farm_name,lat,lon,notes
+eia-860,1,Sand Point,1.0,published,eia-860,Sand Point,55.33972,-160.49722,AK
+eia-860,10005,Dinosaur Point,17.4,published,eia-860,Dinosaur Point,37.0478,-121.1708,CA
+eia-860,10191,Tehachapi Wind Resource I,8.7,published,eia-860,Tehachapi Wind Resource I,35.06056,-118.38972,CA
+eia-860,10586,Cameron Ridge LLC,59.6,published,eia-860,Cameron Ridge LLC,35.075,-118.3158,CA
+eia-860,10597,Ridgetop Energy LLC,29.0,published,eia-860,Ridgetop Energy LLC,35.0697,-118.3167,CA
+eia-860,10718,Karen Avenue Wind Farm,11.7,published,eia-860,Karen Avenue Wind Farm,33.92194,-116.56222,CA
+eia-860,10823,Deer Island Treatment Plant,1.2,published,eia-860,Deer Island Treatment Plant,42.35333,-70.96278,MA
+eia-860,1172,Osage (IA),1.6,published,eia-860,Osage (IA),43.27972,-92.81056,IA
+eia-860,1998,Mountain Lake,1.2,published,eia-860,Mountain Lake,43.9405,-94.9434,MN
+eia-860,2024,Worthington,5.6,published,eia-860,Worthington,43.63349,-95.60923,MN
+eia-860,50281,San Gorgonio Farms Wind Farm,31.0,published,eia-860,San Gorgonio Farms Wind Farm,33.92611,-116.615,CA
+eia-860,50532,Victory Garden (Tehachapi),26.1,published,eia-860,Victory Garden (Tehachapi),35.0686,-118.3833,CA
+eia-860,50533,Painted Hills Wind Park,46.8,published,eia-860,Painted Hills Wind Park,33.9369,-116.6183,CA
+eia-860,50535,Mesa Wind Power LLC,30.0,published,eia-860,Mesa Wind Power LLC,33.9461,-116.6769,CA
+eia-860,50536,Sky River Wind Energy Center,60.2,published,eia-860,Sky River Wind Energy Center,35.2608,-118.2469,CA
+eia-860,50552,Salka Cabazon Wind,38.9,published,eia-860,Salka Cabazon Wind,33.91499,-116.71026,CA
+eia-860,50553,Edom Hills Project 1 LLC,20.0,published,eia-860,Edom Hills Project 1 LLC,33.88167,-116.46028,CA
+eia-860,50690,San Gorgonio Westwinds II LLC,43.4,published,eia-860,San Gorgonio Westwinds II LLC,33.934,-116.5781,CA
+eia-860,50754,Oak Creek Energy Systems I,34.5,published,eia-860,Oak Creek Energy Systems I,35.04389,-118.27639,CA
+eia-860,508,Lamar Plant,6.0,published,eia-860,Lamar Plant,38.03333,-102.53791,CO
+eia-860,50820,East Winds Project,3.0,published,eia-860,East Winds Project,33.89091,-116.54152,CA
+eia-860,50821,Mojave 16/17/18,88.5,published,eia-860,Mojave 16/17/18,35.045,-118.2642,CA
+eia-860,52142,Mojave 3/4/5,75.0,published,eia-860,Mojave 3/4/5,35.0506,-118.2572,CA
+eia-860,52162,85 A,21.3,published,eia-860,85 A,35.0958,-118.32477,CA
+eia-860,52163,85 B,25.2,published,eia-860,85 B,35.10258,-118.33253,CA
+eia-860,54298,Coram Energy LLC (ECT),7.5,published,eia-860,Coram Energy LLC (ECT),35.0583,-118.3417,CA
+eia-860,54299,Coram Energy LLC,3.0,published,eia-860,Coram Energy LLC,35.075,-118.3417,CA
+eia-860,54300,Coram Energy LLC (4.5MW),4.6,published,eia-860,Coram Energy LLC (4.5MW),35.0583,-118.3083,CA
+eia-860,54453,EDF Renewable Windfarm V Inc,15.5,published,eia-860,EDF Renewable Windfarm V Inc,38.1167,-121.8333,CA
+eia-860,54454,San Gorgonio Windplant WPP1993,49.5,published,eia-860,San Gorgonio Windplant WPP1993,33.91839,-116.57391,CA
+eia-860,54647,TPC Windfarms LLC,28.7,published,eia-860,TPC Windfarms LLC,35.05,-118.2572,CA
+eia-860,54686,Difwind Farms Ltd VI,27.1,published,eia-860,Difwind Farms Ltd VI,35.0506,-118.1714,CA
+eia-860,54750,Coram Tehachapi,6.5,published,eia-860,Coram Tehachapi,35.0663,-118.33944,CA
+eia-860,54793,Storm Lake 1,113.9,published,eia-860,Storm Lake 1,42.6878,-95.405,IA
+eia-860,54909,Tehachapi Wind Resource II,20.1,published,eia-860,Tehachapi Wind Resource II,35.1061,-118.3114,CA
+eia-860,54931,Ridgetop,46.8,published,eia-860,Ridgetop,35.074,-118.3153,CA
+eia-860,54979,Big Spring Wind Power Facility,34.3,published,eia-860,Big Spring Wind Power Facility,32.2075,-101.38833,TX
+eia-860,55125,Vansycle,25.0,published,eia-860,Vansycle,45.93616,-118.65999,OR
+eia-860,55208,Lake Benton I,107.2,published,eia-860,Lake Benton I,44.2917,-96.375,MN
+eia-860,55265,Lake Benton II,100.2,published,eia-860,Lake Benton II,44.12937,-96.11697,MN
+eia-860,55287,Storm Lake II,80.2,published,eia-860,Storm Lake II,42.8417,-95.405,IA
+eia-860,55339,Phoenix Wind Power LLC,2.1,published,eia-860,Phoenix Wind Power LLC,33.91667,-116.55,CA
+eia-860,55342,Woodstock Windfarm,9.2,published,eia-860,Woodstock Windfarm,43.98583,-96.07861,MN
+eia-860,55353,Lakota Ridge LLC,11.2,published,eia-860,Lakota Ridge LLC,44.39956,-96.42837,MN
+eia-860,55354,Shaokatan Hills LLC,11.8,published,eia-860,Shaokatan Hills LLC,44.42171,-96.43469,MN
+eia-860,55560,FPL Energy Vansycle LLC (WA),176.9,published,eia-860,FPL Energy Vansycle LLC (WA),46.06,-118.917,WA
+eia-860,55561,Tsar Nicholas LLC,1.9,published,eia-860,Tsar Nicholas LLC,44.42,-96.4347,MN
+eia-860,55562,Sun River LLC,1.9,published,eia-860,Sun River LLC,44.4289,-96.4358,MN
+eia-860,55563,Julia Hills LLC,1.9,published,eia-860,Julia Hills LLC,44.4231,-96.4458,MN
+eia-860,55564,Jessica Mills LLC,1.9,published,eia-860,Jessica Mills LLC,44.4278,-96.43,MN
+eia-860,55565,Jack River LLC,1.9,published,eia-860,Jack River LLC,44.4233,-96.4411,MN
+eia-860,55566,Autumn Hills LLC,1.9,published,eia-860,Autumn Hills LLC,44.4131,-96.4325,MN
+eia-860,55567,Winters Spawn LLC,1.9,published,eia-860,Winters Spawn LLC,44.2081,-96.1989,MN
+eia-860,55568,Twin Lake Hills LLC,1.9,published,eia-860,Twin Lake Hills LLC,44.2258,-96.2789,MN
+eia-860,55569,Spartan Hills LLC,1.9,published,eia-860,Spartan Hills LLC,44.2358,-96.2383,MN
+eia-860,55570,Soliloquoy Ridge LLC,1.9,published,eia-860,Soliloquoy Ridge LLC,44.2364,-96.2331,MN
+eia-860,55571,Ruthton Ridge LLC,1.9,published,eia-860,Ruthton Ridge LLC,44.2128,-96.2131,MN
+eia-860,55572,Hope Creek LLC,1.9,published,eia-860,Hope Creek LLC,44.2275,-96.2192,MN
+eia-860,55573,Hadley Ridge LLC,1.9,published,eia-860,Hadley Ridge LLC,44.2253,-96.235,MN
+eia-860,55574,Florence Hills LLC,1.9,published,eia-860,Florence Hills LLC,44.2297,-96.225,MN
+eia-860,55576,Agassiz Beach LLC,1.9,published,eia-860,Agassiz Beach LLC,47.0053,-96.4356,MN
+eia-860,55579,Llano Estacado Wind Ranch,80.0,published,eia-860,Llano Estacado Wind Ranch,35.4677,-101.2533,TX
+eia-860,55581,King Mountain Wind Ranch 1,278.0,published,eia-860,King Mountain Wind Ranch 1,31.2092,-102.2417,TX
+eia-860,55719,Mountain View I & II,70.9,published,eia-860,Mountain View I & II,33.9211,-116.5642,CA
+eia-860,55734,Gray County Wind Energy,112.2,published,eia-860,Gray County Wind Energy,37.61326,-100.3782,KS
+eia-860,55739,Condon Windpower LLC,49.8,published,eia-860,Condon Windpower LLC,45.2766,-120.2794,OR
+eia-860,55742,Montfort Wind Energy Center,30.0,published,eia-860,Montfort Wind Energy Center,42.9625,-90.38667,WI
+eia-860,55747,NWP Indian Mesa Wind Farm,82.5,published,eia-860,NWP Indian Mesa Wind Farm,30.93147,-102.20143,TX
+eia-860,55769,Madison Windpower LLC,11.5,published,eia-860,Madison Windpower LLC,42.89472,-75.45167,NY
+eia-860,55790,Fenner Wind,30.0,published,eia-860,Fenner Wind,42.98899,-75.76254,NY
+eia-860,55795,Woodward Mountain II,78.0,published,eia-860,Woodward Mountain II,30.9514,-102.41407,TX
+eia-860,55796,Woodward Mountain I,82.0,published,eia-860,Woodward Mountain I,30.9514,-102.41407,TX
+eia-860,55803,Somerset Windpower LLC,9.0,published,eia-860,Somerset Windpower LLC,39.97917,-79.01278,PA
+eia-860,55804,"Old Gold Energy Center, LLC",80.0,published,eia-860,"Old Gold Energy Center, LLC",43.3833,-93.4167,IA
+eia-860,55805,Mill Run Windpower LLC,15.0,published,eia-860,Mill Run Windpower LLC,39.91341,-79.39364,PA
+eia-860,55809,Kas Brothers Windfarm,1.5,published,eia-860,Kas Brothers Windfarm,44.0119,-96.1125,MN
+eia-860,55816,Hawkeye Power Partners LLC,42.0,published,eia-860,Hawkeye Power Partners LLC,43.04722,-93.4775,IA
+eia-860,55871,Klondike Wind Power,24.5,published,eia-860,Klondike Wind Power,45.5563,-120.5507,OR
+eia-860,55968,Trent Wind Farm,152.0,published,eia-860,Trent Wind Farm,32.4301,-100.23565,TX
+eia-860,55986,Mountaineer Wind Energy Center,66.0,published,eia-860,Mountaineer Wind Energy Center,39.1828,-79.5372,WV
+eia-860,55989,FPL Energy Vansycle LLC (OR),122.8,published,eia-860,FPL Energy Vansycle LLC (OR),46.01279,-118.81625,OR
+eia-860,55992,Desert Sky,167.7,published,eia-860,Desert Sky,30.9178,-102.0867,TX
+eia-860,55995,Minot Wind Project,4.5,published,eia-860,Minot Wind Project,48.02127,-101.28052,ND
+eia-860,56001,Waymart Wind,64.5,published,eia-860,Waymart Wind,41.5533,-75.4542,PA
+eia-860,56002,Minwind,3.8,published,eia-860,Minwind,43.5564,-96.30361,MN
+eia-860,56010,Hancock County Wind Energy Center,98.0,published,eia-860,Hancock County Wind Energy Center,43.05276,-93.62996,IA
+eia-860,56011,Cabazon Wind Partners,41.0,published,eia-860,Cabazon Wind Partners,33.9172,-116.735,CA
+eia-860,56012,Whitewater Hill Wind Partners,61.5,published,eia-860,Whitewater Hill Wind Partners,33.925,-116.61778,CA
+eia-860,56052,"Meyersdale Windpower, LLC",30.0,published,eia-860,"Meyersdale Windpower, LLC",39.79074,-79.00205,PA
+eia-860,56054,G McNeilus Wind Farm Dodge Center,43.0,published,eia-860,G McNeilus Wind Farm Dodge Center,43.97849,-92.85108,MN
+eia-860,56075,High Winds LLC,162.0,published,eia-860,High Winds LLC,38.1381,-121.8053,CA
+eia-860,56081,Blue Canyon Windpower,74.3,published,eia-860,Blue Canyon Windpower,34.85078,-98.57731,OK
+eia-860,56092,South Dakota Wind Energy Cente,40.5,published,eia-860,South Dakota Wind Energy Cente,44.5492,-99.5,SD
+eia-860,56093,TransAlta Wyoming Wind,144.0,published,eia-860,TransAlta Wyoming Wind,41.2874,-110.5556,WY
+eia-860,56094,Oklahoma Wind Energy Center,102.0,published,eia-860,Oklahoma Wind Energy Center,36.60397,-99.34005,OK
+eia-860,56097,New Mexico Wind Energy Center,204.0,published,eia-860,New Mexico Wind Energy Center,34.63566,-104.04733,NM
+eia-860,56099,FPL Energy North Dakota Wind I/II,61.5,published,eia-860,FPL Energy North Dakota Wind I/II,46.32717,-98.89836,ND
+eia-860,56106,Kimball Wind,30.0,published,eia-860,Kimball Wind,41.2736,-103.6983,NE
+eia-860,56111,Brazos Wind Farm,182.4,published,eia-860,Brazos Wind Farm,32.94793,-101.14778,TX
+eia-860,56112,Mountain View III,22.4,published,eia-860,Mountain View III,33.9141,-116.5914,CA
+eia-860,56160,"Mendota Hills, LLC",76.2,published,eia-860,"Mendota Hills, LLC",41.7194,-89.0492,IL
+eia-860,56162,Ainsworth Wind,59.4,published,eia-860,Ainsworth Wind,42.4489,-99.8917,NE
+eia-860,56172,Flying Cloud Power Partners LLC,43.5,published,eia-860,Flying Cloud Power Partners LLC,43.3897,-95.2997,IA
+eia-860,56173,Colorado Green Holdings LLC,162.0,published,eia-860,Colorado Green Holdings LLC,37.7033,-102.6231,CO
+eia-860,56174,Moraine Wind LLC,51.0,published,eia-860,Moraine Wind LLC,44.0667,-96.0667,MN
+eia-860,56195,Combine Hills I,43.0,published,eia-860,Combine Hills I,45.943,-118.591,OR
+eia-860,56199,TG Windfarm LLC,2.0,published,eia-860,TG Windfarm LLC,43.9897,-96.2236,MN
+eia-860,56200,CG Windfarm LLC,2.0,published,eia-860,CG Windfarm LLC,43.9931,-96.2186,MN
+eia-860,56201,Bisson Windfarm LLC,2.0,published,eia-860,Bisson Windfarm LLC,43.98444,-96.21944,MN
+eia-860,56202,Tofteland Windfarm LLC,2.0,published,eia-860,Tofteland Windfarm LLC,43.98028,-96.22333,MN
+eia-860,56203,Westridge Windfarm LLC,2.0,published,eia-860,Westridge Windfarm LLC,43.98861,-96.21556,MN
+eia-860,56204,Fey Windfarm LLC,2.0,published,eia-860,Fey Windfarm LLC,44.0364,-96.0736,MN
+eia-860,56205,Windcurrent Farms LLC,2.0,published,eia-860,Windcurrent Farms LLC,44.0236,-96.0789,MN
+eia-860,56206,K-Brink Windfarm LLC,2.0,published,eia-860,K-Brink Windfarm LLC,44.0197,-96.1183,MN
+eia-860,56207,DL Windy Acres LLC,2.0,published,eia-860,DL Windy Acres LLC,43.65139,-95.36861,MN
+eia-860,56208,S&P Windfarm LLC,2.0,published,eia-860,S&P Windfarm LLC,43.65139,-95.3825,MN
+eia-860,56209,Boeve Windfarm LLC,2.0,published,eia-860,Boeve Windfarm LLC,44.05,-96.0933,MN
+eia-860,56210,B&K Energy Systems LLC,2.0,published,eia-860,B&K Energy Systems LLC,43.65139,-95.3755,MN
+eia-860,56211,Sweetwater Wind 1 LLC,37.5,published,eia-860,Sweetwater Wind 1 LLC,32.3606,-100.3389,TX
+eia-860,56212,Sweetwater Wind 2 LLC,98.8,published,eia-860,Sweetwater Wind 2 LLC,32.3472,-100.3703,TX
+eia-860,56215,Allendorf,5.8,published,eia-860,Allendorf,43.4,-95.6333,IA
+eia-860,56240,Buffalo Gap Wind Farm,120.6,published,eia-860,Buffalo Gap Wind Farm,32.31156,-100.06159,TX
+eia-860,56251,Intrepid,175.5,published,eia-860,Intrepid,42.5539,-95.3283,IA
+eia-860,56252,Century,201.2,published,eia-860,Century,42.5644,-93.6369,IA
+eia-860,56255,Hopkins Ridge Wind,156.6,published,eia-860,Hopkins Ridge Wind,46.4211,-117.8331,WA
+eia-860,56270,Callahan Divide Wind Energy Center,114.0,published,eia-860,Callahan Divide Wind Energy Center,32.30389,-100.02167,TX
+eia-860,56271,Diablo Winds LLC,18.0,published,eia-860,Diablo Winds LLC,37.76365,-121.61439,CA
+eia-860,56273,Weatherford Wind Energy Center,147.0,published,eia-860,Weatherford Wind Energy Center,35.5094,-98.7346,OK
+eia-860,56275,Helzel & Schwarzhoff 86,2.4,published,eia-860,Helzel & Schwarzhoff 86,35.0925,-118.3952,CA
+eia-860,56276,ZCO,1.6,published,eia-860,ZCO,35.0772,-118.3811,CA
+eia-860,56290,Maple Ridge Wind Farm,321.2,published,eia-860,Maple Ridge Wind Farm,43.7853,-75.5753,NY
+eia-860,56291,Horse Hollow Wind Energy Center,735.5,published,eia-860,Horse Hollow Wind Energy Center,32.21402,-100.05712,TX
+eia-860,56293,Caprock Wind Farm,100.0,published,eia-860,Caprock Wind Farm,34.98056,-103.35389,NM
+eia-860,56295,Kumeyaay Wind,50.0,published,eia-860,Kumeyaay Wind,32.70556,-116.3425,CA
+eia-860,56296,Trimont Area Wind Farm,100.5,published,eia-860,Trimont Area Wind Farm,43.7938,-94.8499,MN
+eia-860,56297,Crescent Ridge,53.0,published,eia-860,Crescent Ridge,41.25,-89.5708,IL
+eia-860,56299,Wind Park Bear Creek,24.0,published,eia-860,Wind Park Bear Creek,41.23528,-75.75306,PA
+eia-860,56300,Jersey-Atlantic Wind Farm,7.5,published,eia-860,Jersey-Atlantic Wind Farm,39.38222,-74.4475,NJ
+eia-860,56301,Wolverine Creek,64.5,published,eia-860,Wolverine Creek,43.4195,-111.8294,ID
+eia-860,56302,Oasis Wind,60.3,published,eia-860,Oasis Wind,35.06094,-118.29241,CA
+eia-860,56303,Elk River Wind,150.0,published,eia-860,Elk River Wind,37.5797,-96.5503,KS
+eia-860,56304,San Juan Mesa Wind Project LLC,120.0,published,eia-860,San Juan Mesa Wind Project LLC,33.9716,-103.8604,NM
+eia-860,56307,Adams Wind Farm,23.3,published,eia-860,Adams Wind Farm,43.55478,-92.72414,MN
+eia-860,56308,Fossil Gulch,10.5,published,eia-860,Fossil Gulch,42.85806,-114.94944,ID
+eia-860,56311,Sweetwater Wind 3 LLC,135.0,published,eia-860,Sweetwater Wind 3 LLC,32.29083,-100.4219,TX
+eia-860,56320,Spring Canyon,60.0,published,eia-860,Spring Canyon,40.983,-102.9647,CO
+eia-860,56322,Wild Horse,272.6,published,eia-860,Wild Horse,47.03627,-120.20649,WA
+eia-860,56335,Blue Canyon Windpower II,151.4,published,eia-860,Blue Canyon Windpower II,34.8661,-98.6056,OK
+eia-860,56336,Aragonne Wind LLC,235.0,published,eia-860,Aragonne Wind LLC,34.8147,-105.0108,NM
+eia-860,56337,Sweetwater Wind 4 LLC,241.0,published,eia-860,Sweetwater Wind 4 LLC,32.3122,-100.5303,TX
+eia-860,56338,High Trail Wind Farm LLC,210.9,published,eia-860,High Trail Wind Farm LLC,40.4792,-88.7989,IL
+eia-860,56347,Cedar Ridge,67.7,published,eia-860,Cedar Ridge,43.69265,-88.32974,WI
+eia-860,56351,Spearville,148.5,published,eia-860,Spearville,37.8641,-99.7528,KS
+eia-860,56355,Whispering Willow Wind Farm - East,199.7,published,eia-860,Whispering Willow Wind Farm - East,42.63051,-93.20639,IA
+eia-860,56357,FPL Energy Burleigh County Wind,49.5,published,eia-860,FPL Energy Burleigh County Wind,47.1167,-100.7333,ND
+eia-860,56359,Klondike Windpower II,75.0,published,eia-860,Klondike Windpower II,45.571,-120.593,OR
+eia-860,56360,Leaning Juniper,110.4,published,eia-860,Leaning Juniper,45.65246,-120.20978,OR
+eia-860,56361,Big Horn Wind Project,199.0,published,eia-860,Big Horn Wind Project,45.8877,-120.2896,WA
+eia-860,56362,Shiloh I Wind Project,150.0,published,eia-860,Shiloh I Wind Project,38.12,-121.85,CA
+eia-860,56369,Casselman Wind Power Project,34.5,published,eia-860,Casselman Wind Power Project,39.85,-79.138,PA
+eia-860,56371,Cedar Creek Wind,300.5,published,eia-860,Cedar Creek Wind,40.8944,-104.0206,CO
+eia-860,56372,Sweetwater Wind 5,80.5,published,eia-860,Sweetwater Wind 5,32.23694,-100.4833,TX
+eia-860,56377,Judith Gap Wind Energy Center,135.0,published,eia-860,Judith Gap Wind Energy Center,46.5725,-109.7531,MT
+eia-860,56378,Pakini Nui Wind Farm,21.0,published,eia-860,Pakini Nui Wind Farm,18.9742,-155.6914,HI
+eia-860,56379,Victory Wind Farm,105.0,published,eia-860,Victory Wind Farm,42.1169,-95.1292,IA
+eia-860,56380,Centennial Wind Farm,120.0,published,eia-860,Centennial Wind Farm,36.63773,-99.60187,OK
+eia-860,56383,Northern Iowa Windpower II,80.0,published,eia-860,Northern Iowa Windpower II,43.3608,-93.2978,IA
+eia-860,56386,Top of Iowa Windfarm III,29.7,published,eia-860,Top of Iowa Windfarm III,43.3597,-93.3208,IA
+eia-860,56391,Blue Sky Green Field Wind Project,145.2,published,eia-860,Blue Sky Green Field Wind Project,43.8794,-88.2708,WI
+eia-860,56392,FPL Energy Oliver Wind I LLC,50.6,published,eia-860,FPL Energy Oliver Wind I LLC,47.15285,-101.19772,ND
+eia-860,56394,Forest Creek Wind Farm LLC,124.2,published,eia-860,Forest Creek Wind Farm LLC,32.039,-101.22,TX
+eia-860,56395,Mesquite Wind Power LLC,200.0,published,eia-860,Mesquite Wind Power LLC,32.6256,-99.4928,TX
+eia-860,56399,Lempster Wind LLC,24.0,published,eia-860,Lempster Wind LLC,43.233,-72.1455,NH
+eia-860,56408,Agriwind,8.4,published,eia-860,Agriwind,41.3017,-89.6236,IL
+eia-860,56409,Stahl Wind Energy,1.7,published,eia-860,Stahl Wind Energy,44.0256,-96.4303,MN
+eia-860,56410,Carstensen Wind,1.7,published,eia-860,Carstensen Wind,44.0247,-96.4369,MN
+eia-860,56411,Northern Lights Wind LLC,1.7,published,eia-860,Northern Lights Wind LLC,44.015,-96.4367,MN
+eia-860,56412,Lucky Wind,1.7,published,eia-860,Lucky Wind,44.0211,-96.4406,MN
+eia-860,56413,Greenback Energy,1.7,published,eia-860,Greenback Energy,44.0208,-96.4331,MN
+eia-860,56414,Redwood Falls Wind,3.4,published,eia-860,Redwood Falls Wind,44.50278,-95.175,MN
+eia-860,56415,Fairmont Wind,5.4,published,eia-860,Fairmont Wind,43.575,-94.44667,MN
+eia-860,56416,Michigan Wind 1,69.0,published,eia-860,Michigan Wind 1,43.7092,-82.9633,MI
+eia-860,56424,Mower County Wind Energy Center,98.9,published,eia-860,Mower County Wind Energy Center,43.61407,-92.59882,MN
+eia-860,56432,Wildorado Wind LLC,161.0,published,eia-860,Wildorado Wind LLC,35.29194,-102.30306,TX
+eia-860,56433,Pine Tree Wind Power Project,135.0,published,eia-860,Pine Tree Wind Power Project,35.24801,-118.17536,CA
+eia-860,56434,Burley Butte Windpark,21.3,published,eia-860,Burley Butte Windpark,42.49034,-113.9266,ID
+eia-860,56435,Golden Valley Wind Park LLC,12.0,published,eia-860,Golden Valley Wind Park LLC,42.4368,-113.92554,ID
+eia-860,56437,Milner Dam Wind Park LLC,19.5,published,eia-860,Milner Dam Wind Park LLC,42.46063,-114.0173,ID
+eia-860,56439,Oregon Trail Wind Park,13.5,published,eia-860,Oregon Trail Wind Park,42.84056,-114.98972,ID
+eia-860,56440,Pilgrim Stage Wind Park,10.5,published,eia-860,Pilgrim Stage Wind Park,42.7975,-114.99861,ID
+eia-860,56441,Salmon Falls Wind Park,21.0,published,eia-860,Salmon Falls Wind Park,42.68194,-114.98917,ID
+eia-860,56442,Thousand Springs Wind Park,12.0,published,eia-860,Thousand Springs Wind Park,42.87028,-114.96778,ID
+eia-860,56443,Tuana Gulch Wind Park,10.5,published,eia-860,Tuana Gulch Wind Park,42.83685,-114.96934,ID
+eia-860,56446,Buena Vista Energy LLC,38.0,published,eia-860,Buena Vista Energy LLC,37.805,-121.6672,CA
+eia-860,56447,Hawi Wind Farm,10.6,published,eia-860,Hawi Wind Farm,20.25725,-155.85038,HI
+eia-860,56448,Mars Hill Wind Farm Project,42.0,published,eia-860,Mars Hill Wind Farm Project,46.54422,-67.8111,ME
+eia-860,56449,Kaheawa Pastures Wind Farm Hybrid,30.0,published,eia-860,Kaheawa Pastures Wind Farm Hybrid,20.81421,-156.551,HI
+eia-860,56450,GSG LLC,80.0,published,eia-860,GSG LLC,41.64361,-89.17306,IL
+eia-860,56451,Allegheny Ridge Wind Farm,80.0,published,eia-860,Allegheny Ridge Wind Farm,40.38389,-78.57944,PA
+eia-860,56457,Post Wind Farm LP,84.0,published,eia-860,Post Wind Farm LP,32.92544,-101.2194,TX
+eia-860,56459,MinnDakota Wind LLC,150.0,published,eia-860,MinnDakota Wind LLC,44.2667,-96.3444,MN
+eia-860,56460,Twin Buttes Wind Project,75.0,published,eia-860,Twin Buttes Wind Project,37.6735,-102.8622,CO
+eia-860,56466,Marengo Wind Plant,234.0,published,eia-860,Marengo Wind Plant,46.3747,-117.7772,WA
+eia-860,56468,Klondike Windpower III,297.5,published,eia-860,Klondike Windpower III,45.5836,-120.5042,OR
+eia-860,56470,Locust Ridge,26.0,published,eia-860,Locust Ridge,40.855,-76.1292,PA
+eia-860,56479,Sand Bluff Wind Farm,89.5,published,eia-860,Sand Bluff Wind Farm,31.99144,-101.30264,TX
+eia-860,56483,Post Oak Wind LLC,200.0,published,eia-860,Post Oak Wind LLC,32.5144,-99.6564,TX
+eia-860,56484,Buffalo Gap 2 Wind Farm,232.5,published,eia-860,Buffalo Gap 2 Wind Farm,32.31822,-100.17699,TX
+eia-860,56485,Biglow Canyon Wind Farm,449.7,published,eia-860,Biglow Canyon Wind Farm,45.65375,-120.60341,OR
+eia-860,56487,White Creek Wind Farm,204.0,published,eia-860,White Creek Wind Farm,45.81547,-120.34188,WA
+eia-860,56488,Smoky Hills Wind Project Phase I,100.8,published,eia-860,Smoky Hills Wind Project Phase I,38.87994,-98.16016,KS
+eia-860,56494,Prairie Star Wind Farm,100.7,published,eia-860,Prairie Star Wind Farm,43.6861,-92.6272,MN
+eia-860,56495,NedPower Mount Storm,264.0,published,eia-860,NedPower Mount Storm,39.2175,-79.2094,WV
+eia-860,56501,Pomeroy Wind Farm,286.4,published,eia-860,Pomeroy Wind Farm,42.5842,-94.7467,IA
+eia-860,56506,Scurry County Wind LP,130.5,published,eia-860,Scurry County Wind LP,32.7204,-100.9952,TX
+eia-860,56536,Cow Branch,50.4,published,eia-860,Cow Branch,40.4535,-95.4683,MO
+eia-860,56537,Conception,50.4,published,eia-860,Conception,40.2572,-94.6722,MO
+eia-860,56538,Loess Hills,5.0,published,eia-860,Loess Hills,40.4144,-95.54,MO
+eia-860,56543,Eastridge Wind Project,10.4,published,eia-860,Eastridge Wind Project,43.9358,-95.9222,MN
+eia-860,56544,Windom Wind Project,15.6,published,eia-860,Windom Wind Project,43.9578,-95.1306,MN
+eia-860,56555,Bluegrass Ridge,56.7,published,eia-860,Bluegrass Ridge,40.1006,-94.4869,MO
+eia-860,56560,Porterhouse Wind (4) LLC,79.8,published,eia-860,Porterhouse Wind (4) LLC,36.4144,-101.3864,TX
+eia-860,56561,Filet Wind (5) LLC,10.0,published,eia-860,Filet Wind (5) LLC,36.4453,-101.8761,TX
+eia-860,56562,Tenderloin Wind (6) LLC,10.0,published,eia-860,Tenderloin Wind (6) LLC,36.4669,-101.8222,TX
+eia-860,56563,Peetz Table Wind Energy,199.5,published,eia-860,Peetz Table Wind Energy,40.986,-103.436,CO
+eia-860,56570,Terra-Gen VG Wind LLC,7.4,published,eia-860,Terra-Gen VG Wind LLC,35.1161,-118.3789,CA
+eia-860,56573,FPL Energy Oliver Wind II LLC,48.0,published,eia-860,FPL Energy Oliver Wind II LLC,47.15285,-101.19772,ND
+eia-860,56575,Steel Winds Wind Farm,20.0,published,eia-860,Steel Winds Wind Farm,42.8167,-78.8675,NY
+eia-860,56577,Shane's Wind Machine,1.3,published,eia-860,Shane's Wind Machine,44.1508,-96.1361,MN
+eia-860,56580,Blue Breezes LLC,1.3,published,eia-860,Blue Breezes LLC,43.6558,-94.1536,MN
+eia-860,56581,Blue Breezes II LLC,1.3,published,eia-860,Blue Breezes II LLC,43.6558,-94.1564,MN
+eia-860,56586,Sunset Breeze LLC,1.3,published,eia-860,Sunset Breeze LLC,43.5811,-95.78,MN
+eia-860,56587,Minnesota Breeze LLC,1.3,published,eia-860,Minnesota Breeze LLC,43.5833,-95.7781,MN
+eia-860,56588,G Flow Wind LLC,1.3,published,eia-860,G Flow Wind LLC,43.58611,-95.77611,MN
+eia-860,56589,Wolf Wind Enterprises LLC,1.3,published,eia-860,Wolf Wind Enterprises LLC,43.58111,-95.77583,MN
+eia-860,56590,Green Acres Breeze LLC,1.3,published,eia-860,Green Acres Breeze LLC,43.58611,-95.78028,MN
+eia-860,56591,Horseshoe Bend Wind Park,9.7,published,eia-860,Horseshoe Bend Wind Park,47.4983,-111.4392,MT
+eia-860,56592,Champion Wind Farm LLC,126.5,published,eia-860,Champion Wind Farm LLC,32.3983,-100.6481,TX
+eia-860,56593,Roscoe Wind Farm LLC,209.0,published,eia-860,Roscoe Wind Farm LLC,32.4694,-100.6664,TX
+eia-860,56594,Munnsville Wind Farm LLC,34.5,published,eia-860,Munnsville Wind Farm LLC,42.9086,-75.5697,NY
+eia-860,56605,"Langdon Renewables, LLC",118.5,published,eia-860,"Langdon Renewables, LLC",48.63,-98.315,ND
+eia-860,56607,Prairie Winds ND1,115.5,published,eia-860,Prairie Winds ND1,47.93362,-101.26919,ND
+eia-860,56608,Prairie Winds SD1,162.0,published,eia-860,Prairie Winds SD1,43.88639,-98.7875,SD
+eia-860,56613,Logan Wind Energy,201.0,published,eia-860,Logan Wind Energy,40.941,-103.259,CO
+eia-860,56614,Old Trail Wind Farm,213.8,published,eia-860,Old Trail Wind Farm,40.4792,-88.7989,IL
+eia-860,56617,Fenton Wind Farm,205.5,published,eia-860,Fenton Wind Farm,43.85278,-96.01833,MN
+eia-860,56618,Clinton,100.5,published,eia-860,Clinton,44.8914,-74.0061,NY
+eia-860,56619,Ellenburg,81.0,published,eia-860,Ellenburg,44.8914,-74.0061,NY
+eia-860,56620,Bliss (NY),100.5,published,eia-860,Bliss (NY),42.5367,-78.3047,NY
+eia-860,56621,Sleeping Bear LLC,94.5,published,eia-860,Sleeping Bear LLC,36.64028,-99.50056,OK
+eia-860,56622,Providence Heights Wind LLC,72.0,published,eia-860,Providence Heights Wind LLC,41.2294,-89.5572,IL
+eia-860,56623,Elkhorn Valley Wind Farm,100.7,published,eia-860,Elkhorn Valley Wind Farm,45.08522,-117.81627,OR
+eia-860,56626,"Ewington Energy Systems, LLC",22.5,published,eia-860,"Ewington Energy Systems, LLC",43.6181,-95.4172,MN
+eia-860,56630,Taconite Ridge 1 Wind Energy Center,25.0,published,eia-860,Taconite Ridge 1 Wind Energy Center,47.5747,-92.5917,MN
+eia-860,56633,Dutch Hill Wind Project,37.5,published,eia-860,Dutch Hill Wind Project,42.5456,-77.4967,NY
+eia-860,56634,Cohocton Wind Project,87.5,published,eia-860,Cohocton Wind Project,42.45,-77.52,NY
+eia-860,56635,Harvest,52.8,published,eia-860,Harvest,43.83,-83.2064,MI
+eia-860,56636,Mountain Home,21.0,published,eia-860,Mountain Home,43.0272,-115.4656,ID
+eia-860,56637,Bennett Creek Windfarm LLC - Mountain Home,21.0,published,eia-860,Bennett Creek Windfarm LLC - Mountain Home,43.0536,-115.4803,ID
+eia-860,56638,Buffalo Gap 3 Wind Farm,170.2,published,eia-860,Buffalo Gap 3 Wind Farm,32.2878,-100.1,TX
+eia-860,56640,Camp Grove Wind Farm,150.0,published,eia-860,Camp Grove Wind Farm,41.09058,-89.63981,IL
+eia-860,56644,Stanton Wind Energy LLC,120.0,published,eia-860,Stanton Wind Energy LLC,32.2353,-101.8367,TX
+eia-860,56645,Osceola Windpower LLC,98.2,published,eia-860,Osceola Windpower LLC,43.4303,-95.4167,IA
+eia-860,56647,Butler Ridge,54.0,published,eia-860,Butler Ridge,43.40028,-88.48111,WI
+eia-860,56648,Majestic 1 Wind Farm,79.5,published,eia-860,Majestic 1 Wind Farm,35.3919,-101.53,TX
+eia-860,56649,South Trent Wind Farm,101.2,published,eia-860,South Trent Wind Farm,32.4081,-100.1286,TX
+eia-860,56650,Wessington Springs,51.0,published,eia-860,Wessington Springs,44.0025,-98.59083,SD
+eia-860,56651,North Allegheny Windpower Project,75.0,published,eia-860,North Allegheny Windpower Project,40.4381,-78.5436,PA
+eia-860,56654,Hatchet Ridge Wind Project,101.2,published,eia-860,Hatchet Ridge Wind Project,40.8981,-121.8036,CA
+eia-860,56659,Michigan Wind 2,90.0,published,eia-860,Michigan Wind 2,43.66306,-82.74694,MI
+eia-860,56661,Pattern Gulf Wind,283.2,published,eia-860,Pattern Gulf Wind,27.0011,-97.5994,TX
+eia-860,56665,Dempsey Ridge Wind Farm,132.0,published,eia-860,Dempsey Ridge Wind Farm,35.52978,-99.81446,OK
+eia-860,56666,Goodnoe Hills,103.4,published,eia-860,Goodnoe Hills,45.78182,-120.52115,WA
+eia-860,56669,Tatanka Wind Power LLC,180.0,published,eia-860,Tatanka Wind Power LLC,45.95932,-98.94633,ND
+eia-860,56670,Velva Windfarm LLC,11.9,published,eia-860,Velva Windfarm LLC,48.08362,-100.9215,ND
+eia-860,56673,Whirlwind Energy Center,59.8,published,eia-860,Whirlwind Energy Center,34.105,-101.0986,TX
+eia-860,56677,Charles City Wind Farm,80.0,published,eia-860,Charles City Wind Farm,43.0003,-92.62,IA
+eia-860,56679,Benton County Wind Farm,130.5,published,eia-860,Benton County Wind Farm,40.695,-87.4886,IN
+eia-860,56699,Forward Windpower LLC,29.4,published,eia-860,Forward Windpower LLC,40.0853,-78.8633,PA
+eia-860,56700,Lookout Windpower LLC,37.8,published,eia-860,Lookout Windpower LLC,39.8794,-78.9183,PA
+eia-860,56702,Washington Wind,136.3,published,eia-860,Washington Wind,45.8797,-120.8072,WA
+eia-860,56750,Jeffers Wind 20 LLC,50.0,published,eia-860,Jeffers Wind 20 LLC,44.05778,-95.2525,MN
+eia-860,56751,Spanish Fork Wind Park 2 LLC,18.9,published,eia-860,Spanish Fork Wind Park 2 LLC,40.07139,-111.58222,UT
+eia-860,56752,Mountain Wind Power LLC,61.0,published,eia-860,Mountain Wind Power LLC,41.28806,-110.48074,WY
+eia-860,56753,Mountain Wind Power II LLC,80.0,published,eia-860,Mountain Wind Power II LLC,41.26389,-110.54444,WY
+eia-860,56754,Goat Wind LP,149.6,published,eia-860,Goat Wind LP,31.95194,-100.79139,TX
+eia-860,56755,Odin Wind Farm LLC,20.0,published,eia-860,Odin Wind Farm LLC,43.8953,-94.9142,MN
+eia-860,56763,Capricorn Ridge Wind LLC,662.5,published,eia-860,Capricorn Ridge Wind LLC,31.95196,-101.01894,TX
+eia-860,56764,Winnebago Wind Power Project,20.0,published,eia-860,Winnebago Wind Power Project,43.315,-93.77,IA
+eia-860,56765,Barton Windpower LLC,158.0,published,eia-860,Barton Windpower LLC,43.393,-93.091,IA
+eia-860,56767,Farmers City Wind LLC,146.0,published,eia-860,Farmers City Wind LLC,40.575,-95.5228,MO
+eia-860,56770,Locust Ridge II LLC,102.0,published,eia-860,Locust Ridge II LLC,40.8411,-76.1547,PA
+eia-860,56771,Silver Star I Wind Power Project,52.8,published,eia-860,Silver Star I Wind Power Project,32.33866,-98.47605,TX
+eia-860,56773,McAdoo Wind Energy LLC,150.0,published,eia-860,McAdoo Wind Energy LLC,33.7522,-100.9674,TX
+eia-860,56774,Turkey Track Wind Energy LLC,169.5,published,eia-860,Turkey Track Wind Energy LLC,32.1981,-100.2686,TX
+eia-860,56775,Scurry County Wind II,120.0,published,eia-860,Scurry County Wind II,32.71806,-100.79333,TX
+eia-860,56776,Gunsight Mountain Wind Energy LLC,120.0,published,eia-860,Gunsight Mountain Wind Energy LLC,32.24028,-101.47361,TX
+eia-860,56777,Fowler Ridge Wind Farm LLC,588.3,published,eia-860,Fowler Ridge Wind Farm LLC,40.58389,-87.3336,IN
+eia-860,56782,Diamond Willow Wind Facility,30.0,published,eia-860,Diamond Willow Wind Facility,46.2753,-104.1836,MT
+eia-860,56783,Elbow Creek Wind Project LLC,121.9,published,eia-860,Elbow Creek Wind Project LLC,32.1408,-101.3986,TX
+eia-860,56784,Cloud County Wind Farm,201.0,published,eia-860,Cloud County Wind Farm,39.4375,-97.6644,KS
+eia-860,56789,Pebble Springs Wind LLC,98.7,published,eia-860,Pebble Springs Wind LLC,45.7119,-120.125,OR
+eia-860,56790,Hay Canyon Wind Power LLC,100.8,published,eia-860,Hay Canyon Wind Power LLC,45.52,-120.5744,OR
+eia-860,56791,Dillon Wind LLC,45.0,published,eia-860,Dillon Wind LLC,33.9393,-116.5527,CA
+eia-860,56792,Buffalo Ridge I LLC,50.4,published,eia-860,Buffalo Ridge I LLC,44.4328,-96.4779,SD
+eia-860,56793,Elm Creek Wind LLC,99.0,published,eia-860,Elm Creek Wind LLC,43.7542,-94.9497,MN
+eia-860,56794,Moraine II Wind LLC,49.5,published,eia-860,Moraine II Wind LLC,44.1238,-96.0784,MN
+eia-860,56795,Penascal Wind Power LLC,201.6,published,eia-860,Penascal Wind Power LLC,27.02211,-97.49848,TX
+eia-860,56796,South Chestnut LLC,50.4,published,eia-860,South Chestnut LLC,39.7513,-79.7271,PA
+eia-860,56797,Pioneer Prairie Wind Farm,300.0,published,eia-860,Pioneer Prairie Wind Farm,43.4839,-92.6131,IA
+eia-860,56804,Red Hills Wind Project LLC,123.0,published,eia-860,Red Hills Wind Project LLC,35.535,-99.3828,OK
+eia-860,56805,EcoGrove Wind LLC,100.5,published,eia-860,EcoGrove Wind LLC,42.45148,-89.87843,IL
+eia-860,56809,Carroll Wind Farm,159.1,published,eia-860,Carroll Wind Farm,42.1622,-94.93,IA
+eia-860,56810,Adair Wind Farm,174.8,published,eia-860,Adair Wind Farm,41.4236,-94.665,IA
+eia-860,56811,Walnut Wind Farm,165.2,published,eia-860,Walnut Wind Farm,41.4517,-95.2383,IA
+eia-860,56818,Central Plains Wind Farm,99.0,published,eia-860,Central Plains Wind Farm,38.50317,-101.16147,KS
+eia-860,56819,Flat Ridge Wind Farm,50.0,published,eia-860,Flat Ridge Wind Farm,37.36917,-98.46028,KS
+eia-860,56823,Hackberry Wind Farm,165.6,published,eia-860,Hackberry Wind Farm,32.7683,-99.4228,TX
+eia-860,56824,Marshall Wind 2 LLC,4.2,published,eia-860,Marshall Wind 2 LLC,44.3236,-95.8222,MN
+eia-860,56825,Marshall Wind 3 LLC,4.2,published,eia-860,Marshall Wind 3 LLC,44.3211,-95.7942,MN
+eia-860,56826,Marshall Wind 4 LLC,4.2,published,eia-860,Marshall Wind 4 LLC,44.3361,-95.8242,MN
+eia-860,56827,Marshall Wind 5 LLC,2.1,published,eia-860,Marshall Wind 5 LLC,44.3303,-95.8344,MN
+eia-860,56828,Marshall Wind 6 LLC,2.1,published,eia-860,Marshall Wind 6 LLC,44.3308,-95.8297,MN
+eia-860,56829,Kibby Wind Facility,132.0,published,eia-860,Kibby Wind Facility,45.3853,-70.5258,ME
+eia-860,56831,Crane Creek Wind Energy Center,99.0,published,eia-860,Crane Creek Wind Energy Center,43.39778,-92.47361,IA
+eia-860,56835,Ribeye Wind (11) LLC,10.0,published,eia-860,Ribeye Wind (11) LLC,35.8119,-101.9789,TX
+eia-860,56836,T-Bone Wind (10) LLC,8.8,published,eia-860,T-Bone Wind (10) LLC,35.8081,-101.9986,TX
+eia-860,56837,Tri-Tip Wind (9) LLC,10.0,published,eia-860,Tri-Tip Wind (9) LLC,35.9614,-101.8033,TX
+eia-860,56838,Brisket Wind (8) LLC,10.0,published,eia-860,Brisket Wind (8) LLC,36.0075,-101.8614,TX
+eia-860,56839,Flat Iron Wind (7) LLC,10.0,published,eia-860,Flat Iron Wind (7) LLC,36.0264,-101.9,TX
+eia-860,56840,Marshall Wind 1 LLC,2.1,published,eia-860,Marshall Wind 1 LLC,44.3253,-95.8142,MN
+eia-860,56841,Glenrock,165.6,published,eia-860,Glenrock,43.0181,-105.83528,WY
+eia-860,56842,Rolling Hills,115.8,published,eia-860,Rolling Hills,43.0572,-105.8543,WY
+eia-860,56843,Seven Mile Hill,146.2,published,eia-860,Seven Mile Hill,41.9203,-106.3758,WY
+eia-860,56854,Wheat Field Wind Power Project,102.9,published,eia-860,Wheat Field Wind Power Project,45.6758,-120.31832,OR
+eia-860,56855,Arlington Wind Power Project,102.9,published,eia-860,Arlington Wind Power Project,45.7167,-120.2008,OR
+eia-860,56856,Rail Splitter Wind Farm,100.5,published,eia-860,Rail Splitter Wind Farm,40.3692,-89.4022,IL
+eia-860,56857,Marble River Wind Farm,215.3,published,eia-860,Marble River Wind Farm,44.97583,-73.92972,NY
+eia-860,56858,Sagebrush Power Partners,100.7,published,eia-860,Sagebrush Power Partners,47.1356,-120.6872,WA
+eia-860,56859,Crosswind Energy Project,21.0,published,eia-860,Crosswind Energy Project,43.0475,-94.9228,IA
+eia-860,56860,Hardin Hilltop Wind LLC,14.7,published,eia-860,Hardin Hilltop Wind LLC,42.0822,-94.365,IA
+eia-860,56874,Shiloh Wind Project 2 LLC,150.0,published,eia-860,Shiloh Wind Project 2 LLC,38.1711,-121.8461,CA
+eia-860,56876,Wapsipinicon Wind Project,100.5,published,eia-860,Wapsipinicon Wind Project,43.8006,-92.6822,MN
+eia-860,56878,Hoosier Wind Project LLC,106.0,published,eia-860,Hoosier Wind Project LLC,40.7178,-87.2631,IN
+eia-860,56879,Flat Ridge Wind Energy LLC,44.0,published,eia-860,Flat Ridge Wind Energy LLC,37.3764,-98.4583,KS
+eia-860,56901,Altona,97.5,published,eia-860,Altona,44.8216,-73.6509,NY
+eia-860,56902,Wethersfield,126.0,published,eia-860,Wethersfield,42.6697,-78.2278,NY
+eia-860,56904,Chateaugay,106.5,published,eia-860,Chateaugay,44.8917,-74.0299,NY
+eia-860,56905,Great Plains Windpark LLC,114.0,published,eia-860,Great Plains Windpark LLC,36.4964,-101.3917,TX
+eia-860,56912,Langdon Wind II LLC,40.5,published,eia-860,Langdon Wind II LLC,48.6292,-98.3164,ND
+eia-860,56913,Osceola Windpower II,49.6,published,eia-860,Osceola Windpower II,43.4303,-95.4167,IA
+eia-860,56919,FPL Energy Ashtabula Wind LLC,148.5,published,eia-860,FPL Energy Ashtabula Wind LLC,47.1294,-97.8853,ND
+eia-860,56920,Panther Creek Wind Farm I,142.5,published,eia-860,Panther Creek Wind Farm I,32.10082,-101.45139,TX
+eia-860,56921,Panther Creek Wind Farm II,115.5,published,eia-860,Panther Creek Wind Farm II,31.9361,-101.2983,TX
+eia-860,56923,FPL Energy Crystal Lake Wind LLC,150.0,published,eia-860,FPL Energy Crystal Lake Wind LLC,43.2125,-93.8311,IA
+eia-860,56924,FPL Energy Story Wind LLC,150.0,published,eia-860,FPL Energy Story Wind LLC,42.1044,-93.2722,IA
+eia-860,56925,FPL Energy Crystal Lake Wind II LLC,200.0,published,eia-860,FPL Energy Crystal Lake Wind II LLC,43.27373,-93.8,IA
+eia-860,56933,Threemile Canyon,9.9,published,eia-860,Threemile Canyon,45.6758,-119.9375,OR
+eia-860,56934,Cassia Wind,8.4,published,eia-860,Cassia Wind,42.8444,-115.0369,ID
+eia-860,56935,Cassia Gulch,18.9,published,eia-860,Cassia Gulch,42.8744,-115.0172,ID
+eia-860,56941,Grand Ridge Wind Energy Center,210.0,published,eia-860,Grand Ridge Wind Energy Center,41.2269,-88.6836,IL
+eia-860,56942,Forward Wind Energy Center,129.0,published,eia-860,Forward Wind Energy Center,43.6161,-88.4969,WI
+eia-860,56945,High Lonesome Mesa LLC,100.0,published,eia-860,High Lonesome Mesa LLC,34.46667,-105.9625,NM
+eia-860,56946,Buffalo Bear LLC,18.9,published,eia-860,Buffalo Bear LLC,36.7767,-99.6353,OK
+eia-860,56947,Elkhorn Ridge Wind LLC,81.0,published,eia-860,Elkhorn Ridge Wind LLC,42.6978,-97.6189,NE
+eia-860,56952,Willow Creek Energy Center,72.0,published,eia-860,Willow Creek Energy Center,45.6533,-119.9914,OR
+eia-860,56953,High Sheldon Wind Farm,112.5,published,eia-860,High Sheldon Wind Farm,42.7794,-78.4269,NY
+eia-860,56956,Bull Creek Wind,180.0,published,eia-860,Bull Creek Wind,32.92901,-101.57862,TX
+eia-860,56959,Ocotillo Windpower,58.8,published,eia-860,Ocotillo Windpower,32.1217,-101.3853,TX
+eia-860,56960,Happy Jack Windpower Project,29.4,published,eia-860,Happy Jack Windpower Project,41.13972,-104.99778,WY
+eia-860,56961,Notrees Windpower Hybrid,152.5,published,eia-860,Notrees Windpower Hybrid,31.995,-102.82833,TX
+eia-860,56967,Butter Creek Power LLC,5.0,published,eia-860,Butter Creek Power LLC,45.7017,-119.4222,OR
+eia-860,56968,Big Top LLC,1.7,published,eia-860,Big Top LLC,45.655,-119.4647,OR
+eia-860,56969,Four Corners Windfarm LLC,8.0,published,eia-860,Four Corners Windfarm LLC,45.7286,-119.4181,OR
+eia-860,56970,Four Mile Canyon Windfarm LLC,10.0,published,eia-860,Four Mile Canyon Windfarm LLC,45.6447,-119.4533,OR
+eia-860,56971,Oregon Trail Windfarm LLC,9.9,published,eia-860,Oregon Trail Windfarm LLC,45.7122,-119.4044,OR
+eia-860,56972,Pacific Canyon Windfarm LLC,8.3,published,eia-860,Pacific Canyon Windfarm LLC,45.6542,-119.4869,OR
+eia-860,56973,Sand Ranch Windfarm LLC,9.9,published,eia-860,Sand Ranch Windfarm LLC,45.6447,-119.4767,OR
+eia-860,56974,Wagon Trail LLC,3.3,published,eia-860,Wagon Trail LLC,45.6531,-119.4625,OR
+eia-860,56975,Ward Butte Windfarm LLC,6.6,published,eia-860,Ward Butte Windfarm LLC,45.6967,-119.4097,OR
+eia-860,56979,Panther Creek Wind Farm Three,215.5,published,eia-860,Panther Creek Wind Farm Three,31.9925,-101.1167,TX
+eia-860,56980,Stony Creek Wind Farm LLC,52.5,published,eia-860,Stony Creek Wind Farm LLC,40.0311,-78.8153,PA
+eia-860,56981,Pyron Wind Farm LLC Hybrid,249.0,published,eia-860,Pyron Wind Farm LLC Hybrid,32.5886,-100.6728,TX
+eia-860,56983,Papalote Creek I LLC,180.0,published,eia-860,Papalote Creek I LLC,27.9386,-97.4586,TX
+eia-860,56984,Inadale Wind Farm LLC Hybrid,197.0,published,eia-860,Inadale Wind Farm LLC Hybrid,32.4969,-100.5797,TX
+eia-860,56985,Smoky Hills Wind Project Phase II,148.5,published,eia-860,Smoky Hills Wind Project Phase II,38.89265,-98.16888,KS
+eia-860,56989,Stetson Wind I,57.0,published,eia-860,Stetson Wind I,45.4822,-67.9944,ME
+eia-860,56990,Rollins Wind Project,60.0,published,eia-860,Rollins Wind Project,45.34598,-68.3802,ME
+eia-860,56991,Stetson Wind II,25.5,published,eia-860,Stetson Wind II,45.61498,-67.971,ME
+eia-860,56994,Grand Meadow,100.5,published,eia-860,Grand Meadow,43.7189,-92.705,MN
+eia-860,57002,Oakfield Wind Project,148.0,published,eia-860,Oakfield Wind Project,46.05806,-68.14722,ME
+eia-860,57031,Luverne Wind Energy Center,49.5,published,eia-860,Luverne Wind Energy Center,47.3272,-97.8975,ND
+eia-860,57032,Ashtabula Wind Energy Center,48.0,published,eia-860,Ashtabula Wind Energy Center,47.1244,-97.8961,ND
+eia-860,57033,Langdon Wind Energy Center,40.5,published,eia-860,Langdon Wind Energy Center,48.6303,-98.3169,ND
+eia-860,57038,Bison I Wind Energy Center,81.8,published,eia-860,Bison I Wind Energy Center,46.98,-101.55472,ND
+eia-860,57039,McFadden Ridge,35.2,published,eia-860,McFadden Ridge,41.7244,-105.9906,WY
+eia-860,57040,High Plains,122.1,published,eia-860,High Plains,41.67505,-106.01112,WY
+eia-860,57044,Armenia Mountain Wind Farm,100.5,published,eia-860,Armenia Mountain Wind Farm,41.7619,-76.8553,PA
+eia-860,57045,Rolling Thunder Wind Farm Hybrid,25.0,published,eia-860,Rolling Thunder Wind Farm Hybrid,44.47778,-99.13389,SD
+eia-860,57047,Nobles Wind Project,201.0,published,eia-860,Nobles Wind Project,43.7036,-95.7131,MN
+eia-860,57048,Merricourt Wind Energy Center,150.0,published,eia-860,Merricourt Wind Energy Center,46.1075,-99.0592,ND
+eia-860,57049,NaturEner Glacier Wind Energy 1,106.5,published,eia-860,NaturEner Glacier Wind Energy 1,48.51,-112.1097,MT
+eia-860,57050,NaturEner Glacier Wind Energy 2,103.5,published,eia-860,NaturEner Glacier Wind Energy 2,48.5333,-112.1847,MT
+eia-860,57078,Steel Winds II,15.0,published,eia-860,Steel Winds II,42.8072,-78.8617,NY
+eia-860,57079,Milford Wind Corridor I LLC,203.5,published,eia-860,Milford Wind Corridor I LLC,38.53569,-112.935,UT
+eia-860,57080,Sheffield Wind,40.0,published,eia-860,Sheffield Wind,44.67598,-72.1013,VT
+eia-860,57082,Kaheawa Wind Power II LLC,21.0,published,eia-860,Kaheawa Wind Power II LLC,20.79467,-156.536,HI
+eia-860,57083,Bull Hill Wind Project,34.5,published,eia-860,Bull Hill Wind Project,44.72306,-68.2425,ME
+eia-860,57087,Kahuku Wind Power LLC,30.0,published,eia-860,Kahuku Wind Power LLC,21.68097,-157.975,HI
+eia-860,57090,Campbell Hill Windpower,99.0,published,eia-860,Campbell Hill Windpower,43.01455,-105.999,WY
+eia-860,57091,Silver Sage Windpower,42.0,published,eia-860,Silver Sage Windpower,41.12968,-105.024,WY
+eia-860,57093,Casper Wind Farm,17.0,published,eia-860,Casper Wind Farm,42.8847,-106.22144,WY
+eia-860,57094,Streator Cayuga Ridge South,300.0,published,eia-860,Streator Cayuga Ridge South,40.9969,-88.49,IL
+eia-860,57095,Penascal II Wind Project LLC,201.6,published,eia-860,Penascal II Wind Project LLC,27.12253,-97.55737,TX
+eia-860,57096,Star Point Wind Project LLC,98.7,published,eia-860,Star Point Wind Project LLC,45.51,-120.48,OR
+eia-860,57097,Rugby Wind Power Project,149.0,published,eia-860,Rugby Wind Power Project,48.4968,-99.9513,ND
+eia-860,57098,Dry Lake Wind LLC,63.0,published,eia-860,Dry Lake Wind LLC,34.6596,-110.2842,AZ
+eia-860,57106,Mesalands Comm College Wind Turbine,1.5,published,eia-860,Mesalands Comm College Wind Turbine,35.17,-103.74,NM
+eia-860,57107,Milford Wind Corridor Stage II LLC,102.0,published,eia-860,Milford Wind Corridor Stage II LLC,38.58523,-112.931,UT
+eia-860,57108,Blue Canyon Windpower V LLC,99.0,published,eia-860,Blue Canyon Windpower V LLC,34.8217,-98.4525,OK
+eia-860,57109,Meadow Lake Wind Farm LLC,199.7,published,eia-860,Meadow Lake Wind Farm LLC,40.6275,-86.935,IN
+eia-860,57110,Blackstone Wind Farm LLC,106.0,published,eia-860,Blackstone Wind Farm LLC,41.1508,-88.6233,IL
+eia-860,57111,Lost Lakes Wind Farm LLC,100.0,published,eia-860,Lost Lakes Wind Farm LLC,43.3456,-95.3233,IA
+eia-860,57112,Meadow Lake Wind Farm II LLC,102.3,published,eia-860,Meadow Lake Wind Farm II LLC,40.6431,-87.0242,IN
+eia-860,57113,Blackstone Wind Farm II LLC,200.0,published,eia-860,Blackstone Wind Farm II LLC,41.1406,-88.53,IL
+eia-860,57115,Meadow Lake Wind Farm III LLC,103.5,published,eia-860,Meadow Lake Wind Farm III LLC,40.5986,-87.0194,IN
+eia-860,57116,Quilt Block Wind Farm LLC,98.0,published,eia-860,Quilt Block Wind Farm LLC,42.67333,-90.26528,WI
+eia-860,57118,Greensburg,12.5,published,eia-860,Greensburg,37.5499,-99.3444,KS
+eia-860,57120,Wilton Wind II LLC,49.5,published,eia-860,Wilton Wind II LLC,47.1333,-100.7011,ND
+eia-860,57121,Ashtabula Wind II LLC,120.0,published,eia-860,Ashtabula Wind II LLC,47.29244,-97.93169,ND
+eia-860,57124,Payne's Ferry,21.0,published,eia-860,Payne's Ferry,42.82528,-115.01083,ID
+eia-860,57125,Camp Reed,22.5,published,eia-860,Camp Reed,42.81194,-115.04889,ID
+eia-860,57126,Yahoo Creek,21.0,published,eia-860,Yahoo Creek,42.77083,-114.98861,ID
+eia-860,57130,Beaver Ridge Wind,4.5,published,eia-860,Beaver Ridge Wind,44.4967,-69.35,ME
+eia-860,57131,Stoney Corners Wind Farm,60.0,published,eia-860,Stoney Corners Wind Farm,44.19,-85.2983,MI
+eia-860,57135,Big Sky Wind LLC,239.4,published,eia-860,Big Sky Wind LLC,41.59917,-89.45611,IL
+eia-860,57136,Tuana Springs,16.8,published,eia-860,Tuana Springs,42.8925,-115.0164,ID
+eia-860,57137,Eurus Combine Hills Turbine Ranch 2,66.1,published,eia-860,Eurus Combine Hills Turbine Ranch 2,45.943,-118.591,OR
+eia-860,57139,Cambria Wind LLC,62.5,published,eia-860,Cambria Wind LLC,40.3042,-78.6908,PA
+eia-860,57151,Beech Ridge Energy LLC,100.5,published,eia-860,Beech Ridge Energy LLC,38.0878,-80.4925,WV
+eia-860,57152,Harvest Wind Project,98.9,published,eia-860,Harvest Wind Project,45.8131,-120.3475,WA
+eia-860,57153,Langford Wind Power,150.0,published,eia-860,Langford Wind Power,31.08544,-100.67882,TX
+eia-860,57156,Barton Chapel Wind Farm,120.0,published,eia-860,Barton Chapel Wind Farm,33.05223,-98.32842,TX
+eia-860,57159,Windy Flats Wind Project,262.2,published,eia-860,Windy Flats Wind Project,45.7269,-120.8339,WA
+eia-860,57171,Cedar Hills Wind Farm,19.5,published,eia-860,Cedar Hills Wind Farm,46.24556,-103.76722,ND
+eia-860,57174,Colorado Highlands Wind,96.1,published,eia-860,Colorado Highlands Wind,40.75694,-102.74305,CO
+eia-860,57176,University of Delaware Wind Turbine,2.0,published,eia-860,University of Delaware Wind Turbine,38.78293,-75.1649,DE
+eia-860,57177,Meadow Lake Wind Farm IV,105.7,published,eia-860,Meadow Lake Wind Farm IV,40.6778,-87.0328,IN
+eia-860,57182,PPL Frey Farm Landfill Wind,3.2,published,eia-860,PPL Frey Farm Landfill Wind,39.95917,-76.45556,PA
+eia-860,57187,Pillar Mountain Wind Project Microgrid,9.0,published,eia-860,Pillar Mountain Wind Project Microgrid,57.7869,-152.4406,AK
+eia-860,57188,Vantage Wind Energy LLC,90.0,published,eia-860,Vantage Wind Energy LLC,46.9547,-120.1819,WA
+eia-860,57189,Lost Creek Wind Energy Facility,168.0,published,eia-860,Lost Creek Wind Energy Facility,39.98139,-94.51806,MO
+eia-860,57192,Spring Valley Wind Project,150.0,published,eia-860,Spring Valley Wind Project,39.10417,-114.49222,NV
+eia-860,57194,Day County Wind LLC,99.0,published,eia-860,Day County Wind LLC,45.215,-97.9056,SD
+eia-860,57195,Lower Snake River Wind Energy Project,342.7,published,eia-860,Lower Snake River Wind Energy Project,46.52417,-117.82167,WA
+eia-860,57198,Bent Tree Wind Farm Phase 1,201.3,published,eia-860,Bent Tree Wind Farm Phase 1,43.7246,-93.45043,MN
+eia-860,57199,Glacier Hills,162.0,published,eia-860,Glacier Hills,43.56389,-89.14806,WI
+eia-860,57201,FPL Energy Montezuma Winds LLC,36.8,published,eia-860,FPL Energy Montezuma Winds LLC,38.16358,-121.79661,CA
+eia-860,57210,Cedar Creek II,248.3,published,eia-860,Cedar Creek II,40.9475,-103.78389,CO
+eia-860,57211,Goshen Phase II,124.5,published,eia-860,Goshen Phase II,43.46706,-111.83638,ID
+eia-860,57212,Papalote Creek II LLC,200.1,published,eia-860,Papalote Creek II LLC,27.9958,-97.2967,TX
+eia-860,57214,Waverly Community Wind Project,2.7,published,eia-860,Waverly Community Wind Project,42.7317,-92.4711,IA
+eia-860,57239,Roth Rock Wind Farm LLC,40.0,published,eia-860,Roth Rock Wind Farm LLC,39.25444,-79.46722,MD
+eia-860,57240,"Roth Rock North Wind Farm, LLC",10.0,published,eia-860,"Roth Rock North Wind Farm, LLC",39.28722,-79.43444,MD
+eia-860,57244,Kit Carson Windpower,51.0,published,eia-860,Kit Carson Windpower,39.3383,-102.3533,CO
+eia-860,57248,Welcome Wind Turbine,2.1,published,eia-860,Welcome Wind Turbine,43.6825,-94.5892,MN
+eia-860,57251,Lakota Wind Wind Farm,10.5,published,eia-860,Lakota Wind Wind Farm,43.3839,-94.1475,IA
+eia-860,57252,Iowa Lakes Superior Wind Farm,10.5,published,eia-860,Iowa Lakes Superior Wind Farm,43.445,-94.98028,IA
+eia-860,57253,MA Military Reservation Wind Project,4.5,published,eia-860,MA Military Reservation Wind Project,41.6647,-70.5942,MA
+eia-860,57257,Iowa Lakes Community College Wind Farm,1.7,published,eia-860,Iowa Lakes Community College Wind Farm,43.38535,-94.81566,IA
+eia-860,57260,Cedro Hill Wind LLC,300.0,published,eia-860,Cedro Hill Wind LLC,27.57611,-98.90528,TX
+eia-860,57261,Taloga Wind LLC,130.0,published,eia-860,Taloga Wind LLC,35.85556,-98.96833,OK
+eia-860,57262,Laredo Ridge Wind LLC,79.9,published,eia-860,Laredo Ridge Wind LLC,41.88028,-98.02389,NE
+eia-860,57268,Chestnut Flats Wind Farm,38.0,published,eia-860,Chestnut Flats Wind Farm,40.52285,-78.47692,PA
+eia-860,57274,Grant County Wind LLC,21.0,published,eia-860,Grant County Wind LLC,45.8033,-95.8844,MN
+eia-860,57278,Crofton Bluffs Wind LLC,40.0,published,eia-860,Crofton Bluffs Wind LLC,42.69833,-97.58,NE
+eia-860,57282,Alta Wind Energy Center I,150.0,published,eia-860,Alta Wind Energy Center I,35.03372,-118.35342,CA
+eia-860,57283,Flat Water Wind Farm LLC,60.0,published,eia-860,Flat Water Wind Farm LLC,40.0011,-95.9289,NE
+eia-860,57284,Minonk Wind Farm,200.0,published,eia-860,Minonk Wind Farm,40.88861,-88.99722,IL
+eia-860,57285,Sandy Ridge Wind Farm,50.0,published,eia-860,Sandy Ridge Wind Farm,40.72921,-78.28735,PA
+eia-860,57286,OU Spirit Wind Farm,101.2,published,eia-860,OU Spirit Wind Farm,36.3338,-99.48014,OK
+eia-860,57287,Hardscrabble Wind Power LLC,74.0,published,eia-860,Hardscrabble Wind Power LLC,43.11222,-74.87889,NY
+eia-860,57289,Big Blue,36.0,published,eia-860,Big Blue,43.61222,-94.19194,MN
+eia-860,57290,Northern Colorado Wind LLC,174.3,published,eia-860,Northern Colorado Wind LLC,40.9881,-102.8969,CO
+eia-860,57291,Alta Wind Energy Center II,150.0,published,eia-860,Alta Wind Energy Center II,35.02389,-118.29528,CA
+eia-860,57292,Alta Wind Energy Center III,150.0,published,eia-860,Alta Wind Energy Center III,35.02389,-118.29528,CA
+eia-860,57293,Alta Wind Energy Center IV,102.0,published,eia-860,Alta Wind Energy Center IV,35.00861,-118.24222,CA
+eia-860,57294,Alta Wind Energy Center V,168.0,published,eia-860,Alta Wind Energy Center V,35.00861,-118.24222,CA
+eia-860,57296,Carleton College,3.2,published,eia-860,Carleton College,44.46191,-93.15639,MN
+eia-860,57299,Dunlap,129.5,published,eia-860,Dunlap,42.04361,-106.16028,WY
+eia-860,57300,Criterion,70.0,published,eia-860,Criterion,39.4047,-79.29,MD
+eia-860,57302,Garnet Wind Energy Center,6.5,published,eia-860,Garnet Wind Energy Center,33.9053,-116.5825,CA
+eia-860,57303,Loraine Windpark Project LLC,150.0,published,eia-860,Loraine Windpark Project LLC,32.4375,-100.7444,TX
+eia-860,57315,Cedar Point Wind,252.0,published,eia-860,Cedar Point Wind,39.42179,-103.67814,CO
+eia-860,57319,Big Horn Wind II,50.0,published,eia-860,Big Horn Wind II,45.9192,-120.3039,WA
+eia-860,57320,Juniper Canyon I Wind Project,151.2,published,eia-860,Juniper Canyon I Wind Project,45.9215,-120.2355,WA
+eia-860,57325,FPL Energy Illinois Wind LLC Hybrid,217.5,published,eia-860,FPL Energy Illinois Wind LLC Hybrid,41.7678,-88.8867,IL
+eia-860,57326,Sunray Wind I,49.5,published,eia-860,Sunray Wind I,35.9454,-101.9005,TX
+eia-860,57327,Top of the World Windpower Project,200.0,published,eia-860,Top of the World Windpower Project,42.9258,-105.7872,WY
+eia-860,57332,Crossroads Wind Farm,227.5,published,eia-860,Crossroads Wind Farm,36.035,-98.72222,OK
+eia-860,57333,Leaning Juniper Wind Power II,199.2,published,eia-860,Leaning Juniper Wind Power II,45.651,-120.2598,OR
+eia-860,57342,White Oak Energy LLC,150.0,published,eia-860,White Oak Energy LLC,40.59083,-89.04667,IL
+eia-860,57346,Elk City LLC,198.1,published,eia-860,Elk City LLC,35.4642,-99.8983,OK
+eia-860,57347,Baldwin Wind LLC,102.4,published,eia-860,Baldwin Wind LLC,47.1133,-100.7086,ND
+eia-860,57351,Uilk Wind LLC,4.5,published,eia-860,Uilk Wind LLC,43.9811,-96.4269,MN
+eia-860,57354,Fox Island Wind LLC,4.5,published,eia-860,Fox Island Wind LLC,44.09417,-68.86583,ME
+eia-860,57357,Red Mesa Wind LLC,102.4,published,eia-860,Red Mesa Wind LLC,35.2689,-107.3828,NM
+eia-860,57358,Keenan II Renewable Energy Co LLC,151.8,published,eia-860,Keenan II Renewable Energy Co LLC,36.27611,-99.49083,OK
+eia-860,57374,Lakefield Wind Project LLC,205.5,published,eia-860,Lakefield Wind Project LLC,43.675,-95.15667,MN
+eia-860,57375,Adams Wind Generations LLC,20.0,published,eia-860,Adams Wind Generations LLC,44.91694,-94.73556,MN
+eia-860,57379,"Poseidon Wind, LLC",65.1,published,eia-860,"Poseidon Wind, LLC",34.6062,-110.1734,AZ
+eia-860,57380,New England Wind LLC,28.5,published,eia-860,New England Wind LLC,42.7297,-73.0236,MA
+eia-860,57385,Community Wind North LLC,30.0,published,eia-860,Community Wind North LLC,44.24556,-96.40639,MN
+eia-860,57386,Ridgewind,25.3,published,eia-860,Ridgewind,44.01889,-96.06528,MN
+eia-860,57387,Ashtabula Wind III LLC,62.4,published,eia-860,Ashtabula Wind III LLC,47.1242,-97.8956,ND
+eia-860,57396,Danielson Wind Farms LLC,20.0,published,eia-860,Danielson Wind Farms LLC,45.07167,-94.75222,MN
+eia-860,57414,Notus Wind 1,1.7,published,eia-860,Notus Wind 1,41.6083,-70.6089,MA
+eia-860,57415,Sherbino II,132.0,published,eia-860,Sherbino II,30.77257,-102.50581,TX
+eia-860,57417,Elk Wind Farm,40.8,published,eia-860,Elk Wind Farm,42.58389,-91.37083,IA
+eia-860,57421,Gratiot Wind Park,102.0,published,eia-860,Gratiot Wind Park,43.43389,-84.4975,MI
+eia-860,57424,Buffalo Ridge II LLC,210.0,published,eia-860,Buffalo Ridge II LLC,44.5281,-96.6267,SD
+eia-860,57427,Ryegrass Windfarm,23.0,published,eia-860,Ryegrass Windfarm,43.03715,-115.43973,ID
+eia-860,57428,Hammett Hill Windfarm,23.0,published,eia-860,Hammett Hill Windfarm,43.00613,-115.46329,ID
+eia-860,57429,Mainline Windfarm,23.0,published,eia-860,Mainline Windfarm,43.04835,-115.41289,ID
+eia-860,57430,Desert Meadow Windfarm,23.0,published,eia-860,Desert Meadow Windfarm,43.05662,-115.45203,ID
+eia-860,57431,Cold Springs Windfarm,23.0,published,eia-860,Cold Springs Windfarm,43.02806,-115.40047,ID
+eia-860,57432,Oak Glen Wind Farm,44.0,published,eia-860,Oak Glen Wind Farm,43.92056,-93.14056,MN
+eia-860,57434,Valley View Transmission LLC,10.0,published,eia-860,Valley View Transmission LLC,43.90275,-96.02174,MN
+eia-860,57444,Two Ponds Windfarm,23.0,published,eia-860,Two Ponds Windfarm,43.03378,-115.48259,ID
+eia-860,57447,Laurel Mountain Hybrid,97.6,published,eia-860,Laurel Mountain Hybrid,39.0072,-79.8866,WV
+eia-860,57449,Blue Creek Wind Project,302.0,published,eia-860,Blue Creek Wind Project,40.93151,-84.56182,OH
+eia-860,57459,Mountain View IV,49.0,published,eia-860,Mountain View IV,33.8816,-116.5527,CA
+eia-860,57463,Bishop Hill Energy LLC,200.0,published,eia-860,Bishop Hill Energy LLC,41.21528,-90.12083,IL
+eia-860,57468,Crystal Lake 3 LLC,66.0,published,eia-860,Crystal Lake 3 LLC,43.3192,-93.8836,IA
+eia-860,57469,Garden Wind LLC,150.0,published,eia-860,Garden Wind LLC,42.22444,-93.37363,IA
+eia-860,57474,Ralls Wind Farm,10.0,published,eia-860,Ralls Wind Farm,33.66111,-101.39,TX
+eia-860,57484,Manzana Wind LLC,189.0,published,eia-860,Manzana Wind LLC,34.9349,-118.4612,CA
+eia-860,57493,Settlers Trail Wind Farm LLC,150.4,published,eia-860,Settlers Trail Wind Farm LLC,40.69444,-87.57083,IL
+eia-860,57500,Laurel Wind Farm,123.4,published,eia-860,Laurel Wind Farm,41.88333,-92.93333,IA
+eia-860,57501,Rolling Hills Wind Farm,484.2,published,eia-860,Rolling Hills Wind Farm,41.1973,-94.7744,IA
+eia-860,57514,Ocotillo Express LLC,265.4,published,eia-860,Ocotillo Express LLC,32.75278,-116.04472,CA
+eia-860,57520,Trinity Hills,198.0,published,eia-860,Trinity Hills,33.38361,-98.71194,TX
+eia-860,57526,North Hurlburt Wind LLC,265.0,published,eia-860,North Hurlburt Wind LLC,45.73161,-120.08347,OR
+eia-860,57529,Kawailoa Wind,69.0,published,eia-860,Kawailoa Wind,21.61028,-158.04083,HI
+eia-860,57530,Palouse,105.3,published,eia-860,Palouse,47.15583,-117.36444,WA
+eia-860,57531,Bingham Wind,186.0,published,eia-860,Bingham Wind,45.10333,-69.76194,ME
+eia-860,57547,Winona County Wind LLC,1.5,published,eia-860,Winona County Wind LLC,44.1125,-91.92472,MN
+eia-860,57549,South Hurlburt Wind LLC,290.0,published,eia-860,South Hurlburt Wind LLC,45.70626,-120.07999,OR
+eia-860,57550,Horseshoe Bend Wind LLC,290.0,published,eia-860,Horseshoe Bend Wind LLC,45.58555,-120.00825,OR
+eia-860,57553,Shirley Wind,20.0,published,eia-860,Shirley Wind,44.3481,-87.9278,WI
+eia-860,57568,Record Hill Wind,50.6,published,eia-860,Record Hill Wind,44.63361,-70.62778,ME
+eia-860,57570,Cooper Farms VW Project,4.5,published,eia-860,Cooper Farms VW Project,40.90583,-84.57028,OH
+eia-860,57578,PaTu Wind Farm LLC,9.0,published,eia-860,PaTu Wind Farm LLC,45.61306,-120.61691,OR
+eia-860,57586,Shiloh III Wind Project LLC,102.5,published,eia-860,Shiloh III Wind Project LLC,38.16944,-121.84694,CA
+eia-860,57590,"Minco Wind I, LLC",99.2,published,eia-860,"Minco Wind I, LLC",35.28028,-97.97556,OK
+eia-860,57593,Broken Bow Wind LLC,79.9,published,eia-860,Broken Bow Wind LLC,41.45472,-99.56806,NE
+eia-860,57594,Teichert Materials-Teichert Vernalis,1.0,published,eia-860,Teichert Materials-Teichert Vernalis,37.6167,-121.3564,CA
+eia-860,57595,Pinnacle Wind Force LLC,53.7,published,eia-860,Pinnacle Wind Force LLC,39.445,-79.03,WV
+eia-860,57609,New Harvest Wind Project LLC,100.0,published,eia-860,New Harvest Wind Project LLC,42.15972,-95.43972,IA
+eia-860,57613,LE Wind Turbine 1,2.5,published,eia-860,LE Wind Turbine 1,41.58444,-81.52555,OH
+eia-860,57614,Waverly Wind Farm LLC,199.0,published,eia-860,Waverly Wind Farm LLC,38.25694,-95.81417,KS
+eia-860,57616,Blue Canyon Windpower VI LLC,99.8,published,eia-860,Blue Canyon Windpower VI LLC,34.91036,-98.5599,OK
+eia-860,57617,Hidalgo Wind Farm LLC,250.0,published,eia-860,Hidalgo Wind Farm LLC,26.46556,-98.41111,TX
+eia-860,57620,Paulding Wind Farm II,99.0,published,eia-860,Paulding Wind Farm II,41.02528,-84.77917,OH
+eia-860,57621,Rising Tree Wind Farm,79.2,published,eia-860,Rising Tree Wind Farm,35.0775,-118.21833,CA
+eia-860,57623,Bright Stalk Wind Farm I,205.2,published,eia-860,Bright Stalk Wind Farm I,40.70124,-88.70105,IL
+eia-860,57626,Foundation ST,2.0,published,eia-860,Foundation ST,37.71417,-121.52167,CA
+eia-860,57628,Meadow Lake Wind Farm V LLC,100.0,published,eia-860,Meadow Lake Wind Farm V LLC,40.71611,-87.02111,IN
+eia-860,57631,Wolverine,1.5,published,eia-860,Wolverine,41.3931,-94.4447,IA
+eia-860,57632,Bulldog,1.5,published,eia-860,Bulldog,41.2258,-94.4406,IA
+eia-860,57635,Linden Wind Energy Project,50.0,published,eia-860,Linden Wind Energy Project,45.74417,-120.78357,WA
+eia-860,57639,Ironwood Wind,167.9,published,eia-860,Ironwood Wind,37.81828,-99.7754,KS
+eia-860,57643,"Vestas Towers America, Inc.",1.8,published,eia-860,"Vestas Towers America, Inc.",38.1728,-104.62,CO
+eia-860,57644,Prairie Rose Wind Farm,200.0,published,eia-860,Prairie Rose Wind Farm,43.82822,-96.32157,MN
+eia-860,57648,Henkel U.S. Operations Corporation,3.4,published,eia-860,Henkel U.S. Operations Corporation,42.88694,-76.96833,NY
+eia-860,57649,Elm Creek Wind II LLC,148.8,published,eia-860,Elm Creek Wind II LLC,43.6848,-94.8799,MN
+eia-860,57663,Cimarron Windpower II,131.0,published,eia-860,Cimarron Windpower II,37.90133,-100.372,KS
+eia-860,57675,"Pioneer Trail Wind Farm, LLC",150.4,published,eia-860,"Pioneer Trail Wind Farm, LLC",40.46405,-88.02152,IL
+eia-860,57678,"Post Rock Wind Power Project, LLC",201.0,published,eia-860,"Post Rock Wind Power Project, LLC",38.84167,-98.29944,KS
+eia-860,57700,Vasco Winds,78.2,published,eia-860,Vasco Winds,37.79083,-121.71806,CA
+eia-860,57701,Montezuma Wind II,78.2,published,eia-860,Montezuma Wind II,38.11667,-121.82194,CA
+eia-860,57721,Berkshire Wind Power Project,19.6,published,eia-860,Berkshire Wind Power Project,42.58667,-73.275,MA
+eia-860,57725,Shiloh IV Wind Project LLC,102.5,published,eia-860,Shiloh IV Wind Project LLC,38.13749,-121.85534,CA
+eia-860,57732,UMM Wind Turbine,1.7,published,eia-860,UMM Wind Turbine,45.5897,-95.87703,MN
+eia-860,57744,Laurel Hill Wind,69.0,published,eia-860,Laurel Hill Wind,41.5323,-77.0296,PA
+eia-860,57748,Gordon Butte Wind LLC,17.7,published,eia-860,Gordon Butte Wind LLC,46.41194,-110.33778,MT
+eia-860,57749,Sawtooth Wind Project,22.4,published,eia-860,Sawtooth Wind Project,42.98222,-115.39333,ID
+eia-860,57751,Los Vientos Wind 1A,200.0,published,eia-860,Los Vientos Wind 1A,26.33072,-97.5857,TX
+eia-860,57752,Los Vientos Wind 1B,201.6,published,eia-860,Los Vientos Wind 1B,26.34892,-97.6668,TX
+eia-860,57755,TPW Petersburg,40.5,published,eia-860,TPW Petersburg,41.86458,-97.96119,NE
+eia-860,57756,Coastal Energy Project,6.0,published,eia-860,Coastal Energy Project,46.79358,-124.06541,WA
+eia-860,57757,Pacific Wind LLC,151.7,published,eia-860,Pacific Wind LLC,34.89139,-118.4325,CA
+eia-860,57760,Power County Wind Park South,22.5,published,eia-860,Power County Wind Park South,42.70333,-112.75778,ID
+eia-860,57761,Power County Wind Park North,22.5,published,eia-860,Power County Wind Park North,42.73889,-112.74861,ID
+eia-860,57762,Cimarron Wind Energy LLC,165.6,published,eia-860,Cimarron Wind Energy LLC,37.87389,-100.28028,KS
+eia-860,57766,Rockland Wind Farm,79.2,published,eia-860,Rockland Wind Farm,42.67472,-112.90194,ID
+eia-860,57767,Brown County Wind Turbine,1.5,published,eia-860,Brown County Wind Turbine,39.97333,-90.69917,IL
+eia-860,57769,Mehoopany Wind Energy LLC,140.8,published,eia-860,Mehoopany Wind Energy LLC,41.42056,-76.04917,PA
+eia-860,57774,Windstar 1,120.0,published,eia-860,Windstar 1,35.05417,-118.35472,CA
+eia-860,57775,Kingman 1,10.0,published,eia-860,Kingman 1,35.14583,-114.0675,AZ
+eia-860,57787,Flat Ridge 2 Wind Energy LLC,470.4,published,eia-860,Flat Ridge 2 Wind Energy LLC,37.36651,-98.26108,KS
+eia-860,57791,Foundation AB,1.5,published,eia-860,Foundation AB,38.23222,-122.09278,CA
+eia-860,57792,Foundation IE,1.0,published,eia-860,Foundation IE,34.08472,-117.52944,CA
+eia-860,57800,Bison 2 Wind Energy Center,105.0,published,eia-860,Bison 2 Wind Energy Center,46.98,-101.55472,ND
+eia-860,57801,Bison 3 Wind Energy Center,105.0,published,eia-860,Bison 3 Wind Energy Center,46.98,-101.55472,ND
+eia-860,57802,Magic Valley Wind Farm I LLC,203.0,published,eia-860,Magic Valley Wind Farm I LLC,26.47528,-97.69111,TX
+eia-860,57803,Lime Wind,3.0,published,eia-860,Lime Wind,44.39694,-117.27194,OR
+eia-860,57813,GL Wind,5.0,published,eia-860,GL Wind,43.99167,-91.87778,MN
+eia-860,57823,WCROC Wind Farm,1.7,published,eia-860,WCROC Wind Farm,45.58972,-95.87694,MN
+eia-860,57830,Rippey Wind Farm,50.0,published,eia-860,Rippey Wind Farm,42.00611,-94.23778,IA
+eia-860,57832,Hawkeye Wind Farm,35.0,published,eia-860,Hawkeye Wind Farm,42.94889,-92.06222,IA
+eia-860,57833,Mustang Hills LLC,150.0,published,eia-860,Mustang Hills LLC,35.03086,-118.29319,CA
+eia-860,57834,Pinyon Pine I,168.0,published,eia-860,Pinyon Pine I,35.04341,-118.21183,CA
+eia-860,57835,Alta Wind VIII,150.0,published,eia-860,Alta Wind VIII,35.02668,-118.23481,CA
+eia-860,57837,Pinyon Pine II,132.0,published,eia-860,Pinyon Pine II,35.02676,-118.22333,CA
+eia-860,57844,Franklin County Wind Farm,99.0,published,eia-860,Franklin County Wind Farm,42.60674,-93.33645,IA
+eia-860,57851,Sigel Wind Park,64.0,published,eia-860,Sigel Wind Park,43.85083,-82.78361,MI
+eia-860,57852,Minden Wind Park,32.0,published,eia-860,Minden Wind Park,43.67,-82.75861,MI
+eia-860,57853,McKinley Wind Park,14.4,published,eia-860,McKinley Wind Park,43.87194,-83.24139,MI
+eia-860,57855,Ipswich Wind Turbine,1.6,published,eia-860,Ipswich Wind Turbine,42.71639,-70.84194,MA
+eia-860,57858,Caney River Wind Project,200.0,published,eia-860,Caney River Wind Project,37.46,-96.42,KS
+eia-860,57862,"Wildcat Wind Farm I, LLC",200.0,published,eia-860,"Wildcat Wind Farm I, LLC",40.34944,-85.84306,IN
+eia-860,57866,Golden Spread Panhandle Wnd Rch,78.2,published,eia-860,Golden Spread Panhandle Wnd Rch,35.24361,-102.21,TX
+eia-860,57867,Howard Wind Farm,55.4,published,eia-860,Howard Wind Farm,42.31528,-77.53833,NY
+eia-860,57873,Eclipse Wind Farm,207.1,published,eia-860,Eclipse Wind Farm,41.55465,-94.685,IA
+eia-860,57874,Vienna Wind Farm,150.2,published,eia-860,Vienna Wind Farm,42.15944,-92.77611,IA
+eia-860,57875,Morning Light Wind Farm,110.9,published,eia-860,Morning Light Wind Farm,41.45424,-94.57506,IA
+eia-860,57880,Eolos Wind Energy Research Field Station,2.5,published,eia-860,Eolos Wind Energy Research Field Station,44.72833,-93.04806,MN
+eia-860,57887,Wildcat Wind,27.3,published,eia-860,Wildcat Wind,32.95278,-103.28528,NM
+eia-860,57888,Harvest 2,59.4,published,eia-860,Harvest 2,43.8556,-83.1669,MI
+eia-860,57890,"Horse Butte Wind I, LLC",57.6,published,eia-860,"Horse Butte Wind I, LLC",43.38639,-111.72639,ID
+eia-860,57913,Tule Wind LLC,143.0,published,eia-860,Tule Wind LLC,32.66389,-116.28972,CA
+eia-860,57927,Baffin Wind,188.0,published,eia-860,Baffin Wind,27.18465,-97.59818,TX
+eia-860,57935,Eva Creek Wind,24.6,published,eia-860,Eva Creek Wind,64.05833,-148.9,AK
+eia-860,57947,Macho Springs Power I,50.4,published,eia-860,Macho Springs Power I,32.55434,-107.50929,NM
+eia-860,57956,"Minco Wind II, LLC",100.8,published,eia-860,"Minco Wind II, LLC",35.32528,-98.07139,OK
+eia-860,57962,Brookfield Tehachapi 1,102.0,published,eia-860,Brookfield Tehachapi 1,35.00833,-118.24139,CA
+eia-860,57963,Musselshell Wind Project,10.0,published,eia-860,Musselshell Wind Project,46.27528,-109.48278,MT
+eia-860,57964,Shady Oaks Wind Farm,109.5,published,eia-860,Shady Oaks Wind Farm,41.66694,-89.05972,IL
+eia-860,57965,Musselshell Wind Project Two LLC,10.0,published,eia-860,Musselshell Wind Project Two LLC,46.27528,-109.48278,MT
+eia-860,57968,Cashton Greens Wind Farm,5.0,published,eia-860,Cashton Greens Wind Farm,43.73389,-90.805,WI
+eia-860,57973,Spinning Spur Wind LLC,161.0,published,eia-860,Spinning Spur Wind LLC,35.2375,-102.20306,TX
+eia-860,57974,Bobcat Bluff Wind Project LLC,161.0,published,eia-860,Bobcat Bluff Wind Project LLC,33.49306,-98.58194,TX
+eia-860,57975,Spearville 3 LLC,108.0,published,eia-860,Spearville 3 LLC,37.85111,-99.83806,KS
+eia-860,57976,Pocahontas Prairie Wind Farm,80.0,published,eia-860,Pocahontas Prairie Wind Farm,42.56806,-94.65806,IA
+eia-860,57979,Kingdom Community Wind,65.0,published,eia-860,Kingdom Community Wind,44.74833,-72.42528,VT
+eia-860,57980,Busch Ranch Wind Energy,29.0,published,eia-860,Busch Ranch Wind Energy,37.80111,-104.49194,CO
+eia-860,57981,Senate Wind LLC,150.0,published,eia-860,Senate Wind LLC,33.2058,-98.36507,TX
+eia-860,57983,Stephens Ranch Wind Energy LLC,376.0,published,eia-860,Stephens Ranch Wind Energy LLC,32.92639,-101.64778,TX
+eia-860,57984,Lake Winds Energy Park,100.8,published,eia-860,Lake Winds Energy Park,43.87194,-86.33472,MI
+eia-860,57987,Canadian Hills Wind,293.7,published,eia-860,Canadian Hills Wind,35.62972,-98.02472,OK
+eia-860,57991,Highland North Wind Farm,75.0,published,eia-860,Highland North Wind Farm,40.31956,-78.68063,PA
+eia-860,57995,NaturEner Rim Rock Energy,189.0,published,eia-860,NaturEner Rim Rock Energy,48.82028,-112.10333,MT
+eia-860,57996,Auwahi Wind Energy Hybrid,24.0,published,eia-860,Auwahi Wind Energy Hybrid,20.596,-156.318,HI
+eia-860,57998,Twin Ridges Wind Farm,139.4,published,eia-860,Twin Ridges Wind Farm,39.76056,-78.87472,PA
+eia-860,57999,Patton Wind Farm,30.0,published,eia-860,Patton Wind Farm,40.63067,-78.69608,PA
+eia-860,58000,"Anacacho Wind Farm, LLC",99.8,published,eia-860,"Anacacho Wind Farm, LLC",29.23472,-100.20917,TX
+eia-860,58004,Granite Reliable Power,99.0,published,eia-860,Granite Reliable Power,44.70444,-71.2925,NH
+eia-860,58008,California Ridge Wind Energy LLC,217.0,published,eia-860,California Ridge Wind Energy LLC,40.21167,-87.87833,IL
+eia-860,58018,Shooting Star,104.0,published,eia-860,Shooting Star,37.51889,-99.44639,KS
+eia-860,58019,High Mesa,40.0,published,eia-860,High Mesa,42.88,-115.03667,ID
+eia-860,58020,Beebe 1A,81.6,published,eia-860,Beebe 1A,43.25694,-84.49972,MI
+eia-860,58021,Whitetail,92.0,published,eia-860,Whitetail,27.48806,-99.00528,TX
+eia-860,58025,Mt Wachusett Community College,3.4,published,eia-860,Mt Wachusett Community College,42.58858,-71.98419,MA
+eia-860,58026,Spruce Mountain WInd,20.0,published,eia-860,Spruce Mountain WInd,44.41559,-70.55981,ME
+eia-860,58035,Block Island Wind Farm,30.0,published,eia-860,Block Island Wind Farm,41.11472,-71.52111,RI
+eia-860,58038,Buffalo Center Wind LLC,1.5,published,eia-860,Buffalo Center Wind LLC,43.38583,-92.75944,IA
+eia-860,58041,Chisholm View Wind Project,300.0,published,eia-860,Chisholm View Wind Project,36.57472,-97.67361,OK
+eia-860,58045,Community Wind South,30.0,published,eia-860,Community Wind South,43.71361,-95.80278,MN
+eia-860,58048,Mozart Wind Farm,30.0,published,eia-860,Mozart Wind Farm,32.96972,-100.52417,TX
+eia-860,58065,Charlestown Wind Turbine,1.5,published,eia-860,Charlestown Wind Turbine,42.39139,-71.07083,MA
+eia-860,58071,Windwalkers LLC,1.6,published,eia-860,Windwalkers LLC,43.38472,-93.22139,IA
+eia-860,58078,Rocky Ridge Wind Project,148.8,published,eia-860,Rocky Ridge Wind Project,35.13556,-99.00306,OK
+eia-860,58080,Wolf Ridge Wind,112.5,published,eia-860,Wolf Ridge Wind,33.73301,-97.42841,TX
+eia-860,58088,Stony Creek Wind Farm NY,94.4,published,eia-860,Stony Creek Wind Farm NY,42.76761,-78.41584,NY
+eia-860,58089,Roeder Family Wind Farm LLC,1.6,published,eia-860,Roeder Family Wind Farm LLC,43.29722,-93.28333,IA
+eia-860,58098,El Cabo Wind,298.0,published,eia-860,El Cabo Wind,34.65111,-105.46167,NM
+eia-860,58099,Montague Wind Power Facility LLC,200.0,published,eia-860,Montague Wind Power Facility LLC,45.5857,-120.0904,OR
+eia-860,58101,Foundation Cemex River Plant,3.2,published,eia-860,Foundation Cemex River Plant,34.56194,-117.30722,CA
+eia-860,58102,Foundation Cemex BMQ,3.0,published,eia-860,Foundation Cemex BMQ,34.62306,-117.1125,CA
+eia-860,58103,Heritage Garden Wind Farm I LLC,28.0,published,eia-860,Heritage Garden Wind Farm I LLC,45.79556,-86.53389,MI
+eia-860,58104,Foundation Superior Farms,1.0,published,eia-860,Foundation Superior Farms,38.42,-121.81806,CA
+eia-860,58105,Foundation Wal-Mart Red Bluff,1.0,published,eia-860,Foundation Wal-Mart Red Bluff,40.11111,-122.19389,CA
+eia-860,58106,Meadow Creek Project Company,119.7,published,eia-860,Meadow Creek Project Company,43.52443,-111.80392,ID
+eia-860,58111,Bishop Hill II Wind Farm,81.0,published,eia-860,Bishop Hill II Wind Farm,41.2325,-90.17417,IL
+eia-860,58112,Foundation Cemex Madison,1.0,published,eia-860,Foundation Cemex Madison,38.69278,-121.9325,CA
+eia-860,58113,Foundation RRM,2.0,published,eia-860,Foundation RRM,33.91722,-116.815,CA
+eia-860,58114,Foundation NWNA,5.1,published,eia-860,Foundation NWNA,33.91417,-116.74917,CA
+eia-860,58121,Echo Wind Park,162.0,published,eia-860,Echo Wind Park,43.8825,-83.16139,MI
+eia-860,58126,Limon Wind I,200.0,published,eia-860,Limon Wind I,39.38097,-103.57324,CO
+eia-860,58127,Limon Wind II,200.0,published,eia-860,Limon Wind II,39.34139,-103.58111,CO
+eia-860,58137,Ensign Wind LLC,98.9,published,eia-860,Ensign Wind LLC,37.61447,-100.27867,KS
+eia-860,58141,Groton Wind LLC,48.0,published,eia-860,Groton Wind LLC,43.7681,-71.8189,NH
+eia-860,58154,North Sky River Energy LLC,162.0,published,eia-860,North Sky River Energy LLC,35.34778,-118.18639,CA
+eia-860,58155,Perrin Ranch Wind LLC,99.2,published,eia-860,Perrin Ranch Wind LLC,35.41556,-112.27111,AZ
+eia-860,58162,Cirrus Wind 1 LLC,61.2,published,eia-860,Cirrus Wind 1 LLC,33.03306,-101.6875,TX
+eia-860,58203,"Minco Wind III, LLC",100.8,published,eia-860,"Minco Wind III, LLC",35.37236,-98.18273,OK
+eia-860,58209,"NextEra-Blackwell Wind, LLC",59.8,published,eia-860,"NextEra-Blackwell Wind, LLC",36.84667,-97.4175,OK
+eia-860,58218,Spion Kop Wind Farm,40.0,published,eia-860,Spion Kop Wind Farm,47.33333,-110.63917,MT
+eia-860,58220,Haviland Plastic Products,4.5,published,eia-860,Haviland Plastic Products,41.01611,-84.5875,OH
+eia-860,58233,Wagner Wind LLC,6.0,published,eia-860,Wagner Wind LLC,33.90889,-116.55556,CA
+eia-860,58238,Georgia Mountain Community Wind Farm,10.0,published,eia-860,Georgia Mountain Community Wind Farm,44.66167,-73.07,VT
+eia-860,58242,Pattern Panhandle Wind LLC,218.0,published,eia-860,Pattern Panhandle Wind LLC,35.4275,-101.25306,TX
+eia-860,58321,Goldthwaite Wind Energy Facility,150.0,published,eia-860,Goldthwaite Wind Energy Facility,31.38333,-98.46667,TX
+eia-860,58322,Prairie Breeze,206.5,published,eia-860,Prairie Breeze,41.95167,-98.07667,NE
+eia-860,58324,Vansycle II Wind Energy Center,102.3,published,eia-860,Vansycle II Wind Energy Center,45.89917,-118.59139,OR
+eia-860,58351,Tuscola Bay Wind,120.0,published,eia-860,Tuscola Bay Wind,43.52528,-83.65,MI
+eia-860,58363,Majestic II Wind,79.6,published,eia-860,Majestic II Wind,35.38604,-101.57857,TX
+eia-860,58372,Blue Summit Wind LLC,135.4,published,eia-860,Blue Summit Wind LLC,34.29291,-99.36773,TX
+eia-860,58394,Alta Wind X,138.0,published,eia-860,Alta Wind X,35.06,-118.2,CA
+eia-860,58395,Alta Wind XI,90.0,published,eia-860,Alta Wind XI,35.065,-118.39,CA
+eia-860,58404,Pantex,11.5,published,eia-860,Pantex,35.32278,-101.5325,TX
+eia-860,58407,Luther College Wind Project,1.6,published,eia-860,Luther College Wind Project,43.32694,-91.81083,IA
+eia-860,58414,NLMU Wind,1.5,published,eia-860,NLMU Wind,40.955,-91.39444,IA
+eia-860,58416,Headwaters Wind Farm LLC,200.0,published,eia-860,Headwaters Wind Farm LLC,40.06667,-85.01333,IN
+eia-860,58425,Fire Island Wind,18.0,published,eia-860,Fire Island Wind,61.13,-150.24361,AK
+eia-860,58441,Swauk Wind LLC,4.3,published,eia-860,Swauk Wind LLC,47.13917,-120.75306,WA
+eia-860,58444,Junction Hilltop Wind Farm,8.0,published,eia-860,Junction Hilltop Wind Farm,42.09889,-94.26917,IA
+eia-860,58456,Cumberland Rose,1.6,published,eia-860,Cumberland Rose,41.22694,-94.43472,IA
+eia-860,58457,Fontanelle,1.6,published,eia-860,Fontanelle,41.33889,-94.57,IA
+eia-860,58458,Greenfield Wind,1.6,published,eia-860,Greenfield Wind,41.29,-94.485,IA
+eia-860,58459,Meadow Ridge,1.6,published,eia-860,Meadow Ridge,41.39,-94.44583,IA
+eia-860,58460,Sky Volt,1.6,published,eia-860,Sky Volt,41.29,-94.485,IA
+eia-860,58461,Wiota,1.6,published,eia-860,Wiota,41.39194,-94.87639,IA
+eia-860,58464,Broadview Energy Prime,9.9,published,eia-860,Broadview Energy Prime,34.74694,-103.325,NM
+eia-860,58465,Broadview Energy Prime 2,9.9,published,eia-860,Broadview Energy Prime 2,34.72806,-103.305,NM
+eia-860,58474,Buffalo Dunes Wind Project,249.8,published,eia-860,Buffalo Dunes Wind Project,37.62083,-101.07611,KS
+eia-860,58511,Delta Wind Farm,1.9,published,eia-860,Delta Wind Farm,64.01389,-145.59667,AK
+eia-860,58548,Huerfano River Wind,8.0,published,eia-860,Huerfano River Wind,37.77222,-104.83222,CO
+eia-860,58571,Tucannon River Wind Farm,266.8,published,eia-860,Tucannon River Wind Farm,46.42111,-118.02694,WA
+eia-860,58580,Pheasant Run Wind LLC,74.8,published,eia-860,Pheasant Run Wind LLC,43.75778,-83.29778,MI
+eia-860,58587,Tuscola Wind II LLC,100.3,published,eia-860,Tuscola Wind II LLC,43.52694,-83.56694,MI
+eia-860,58594,Steele Flats Wind Project LLC,78.8,published,eia-860,Steele Flats Wind Project LLC,40.04889,-96.95222,NE
+eia-860,58596,"Grandview Wind Farm, LLC",211.2,published,eia-860,"Grandview Wind Farm, LLC",35.23833,-101.31083,TX
+eia-860,58608,Saddleback Ridge Wind Farm,34.2,published,eia-860,Saddleback Ridge Wind Farm,44.59333,-70.38111,ME
+eia-860,58614,Patriot Wind Farm,226.1,published,eia-860,Patriot Wind Farm,27.58049,-97.64008,TX
+eia-860,58620,Canton Mountain Wind,22.8,published,eia-860,Canton Mountain Wind,44.51472,-70.30306,ME
+eia-860,58630,RP Wind,3.4,published,eia-860,RP Wind,40.44944,-83.89333,OH
+eia-860,58657,Odell Wind Farm,200.0,published,eia-860,Odell Wind Farm,43.85333,-94.93194,MN
+eia-860,58658,Courtenay Wind Farm,200.0,published,eia-860,Courtenay Wind Farm,47.17972,-98.59472,ND
+eia-860,58661,Cape Cod Air Force Station - 6 SWS,3.4,published,eia-860,Cape Cod Air Force Station - 6 SWS,41.7525,-70.53889,MA
+eia-860,58666,Alexander Wind Farm LLC,50.7,published,eia-860,Alexander Wind Farm LLC,38.42472,-99.5075,KS
+eia-860,58677,Gratiot County Wind LLC,110.4,published,eia-860,Gratiot County Wind LLC,43.40806,-84.46222,MI
+eia-860,58681,Route 66 Wind Plant,150.0,published,eia-860,Route 66 Wind Plant,35.20528,-101.43417,TX
+eia-860,58683,"Osage Wind, LLC",150.4,published,eia-860,"Osage Wind, LLC",36.70694,-96.70028,OK
+eia-860,58686,Hancock Wind Plant,51.0,published,eia-860,Hancock Wind Plant,44.76083,-68.14694,ME
+eia-860,58690,Apple Blossom Wind Farm,100.0,published,eia-860,Apple Blossom Wind Farm,43.81503,-83.315,MI
+eia-860,58691,South Fork Wind Farm,13.8,published,eia-860,South Fork Wind Farm,43.58728,-95.37512,MN
+eia-860,58692,Black Oak Wind Farm,78.0,published,eia-860,Black Oak Wind Farm,45.66083,-95.01278,MN
+eia-860,58694,Walnut Ridge Wind Farm,212.0,published,eia-860,Walnut Ridge Wind Farm,41.49667,-89.58028,IL
+eia-860,58695,Grande Prairie Wind Farm,400.0,published,eia-860,Grande Prairie Wind Farm,42.60806,-98.42833,NE
+eia-860,58719,Brookfield,74.8,published,eia-860,Brookfield,43.75778,-83.29778,MI
+eia-860,58720,Pattern Panhandle Wind 2 LLC,181.7,published,eia-860,Pattern Panhandle Wind 2 LLC,35.44278,-101.37278,TX
+eia-860,58765,Miami Wind Energy Center,288.6,published,eia-860,Miami Wind Energy Center,35.65389,-100.53861,TX
+eia-860,58766,Wake Wind Energy Center,257.3,published,eia-860,Wake Wind Energy Center,33.825,-101.09972,TX
+eia-860,58767,Buckeye Wind Energy Center,200.5,published,eia-860,Buckeye Wind Energy Center,39.00387,-99.41416,KS
+eia-860,58768,Marsh Hill Wind Farm,16.2,published,eia-860,Marsh Hill Wind Farm,42.16389,-77.52889,NY
+eia-860,58769,Spring Canyon Expansion Wind Energy Ctr,62.6,published,eia-860,Spring Canyon Expansion Wind Energy Ctr,40.96417,-103.07722,CO
+eia-860,58771,Roosevelt County,250.0,published,eia-860,Roosevelt County,33.92611,-103.51111,NM
+eia-860,58772,Longhorn Wind,200.0,published,eia-860,Longhorn Wind,34.31111,-101.25111,TX
+eia-860,58773,TX Hereford Wind,200.0,published,eia-860,TX Hereford Wind,34.74806,-102.17444,TX
+eia-860,58774,Spinning Spur Wind II,161.0,published,eia-860,Spinning Spur Wind II,35.27694,-102.68278,TX
+eia-860,58775,Spinning Spur Wind III,194.0,published,eia-860,Spinning Spur Wind III,35.295,-102.72111,TX
+eia-860,58777,Cassadaga Wind Farm,124.0,published,eia-860,Cassadaga Wind Farm,42.33833,-79.19556,NY
+eia-860,58780,Scioto Ridge Wind Farm,249.8,published,eia-860,Scioto Ridge Wind Farm,40.56139,-83.73639,OH
+eia-860,58830,Cross Winds Energy Park,230.9,published,eia-860,Cross Winds Energy Park,43.61028,-83.48556,MI
+eia-860,58833,Red Horse 2,30.0,published,eia-860,Red Horse 2,32.28611,-110.08806,AZ
+eia-860,58836,Lakeswind Power Partners,51.8,published,eia-860,Lakeswind Power Partners,46.71806,-96.21194,MN
+eia-860,58837,Na Pua Makani Wind Project,27.6,published,eia-860,Na Pua Makani Wind Project,21.66694,-157.97,HI
+eia-860,58838,Keechi Wind,110.0,published,eia-860,Keechi Wind,33.14306,-98.16111,TX
+eia-860,58872,Bison 4 Wind Energy Center,205.0,published,eia-860,Bison 4 Wind Energy Center,46.98,-101.55472,ND
+eia-860,58883,Highland Wind Project (IA),502.0,published,eia-860,Highland Wind Project (IA),43.08028,-95.65611,IA
+eia-860,58884,Lundgren Wind Project,270.9,published,eia-860,Lundgren Wind Project,42.33472,-94.17083,IA
+eia-860,58885,Macksburg Wind Project,119.6,published,eia-860,Macksburg Wind Project,41.20917,-94.10361,IA
+eia-860,58886,Wellsburg Wind Project,140.8,published,eia-860,Wellsburg Wind Project,42.39083,-92.96667,IA
+eia-860,58887,Com Adam 1WF-1,5.0,published,eia-860,Com Adam 1WF-1,41.66028,-89.24972,IL
+eia-860,58891,"Big Turtle Wind Farm, LLC",20.0,published,eia-860,"Big Turtle Wind Farm, LLC",43.85083,-82.7825,MI
+eia-860,58898,Pilot Hill Wind Farm,175.0,published,eia-860,Pilot Hill Wind Farm,40.99917,-88.05625,IL
+eia-860,58900,Balko Wind LLC,299.7,published,eia-860,Balko Wind LLC,36.51806,-100.84722,OK
+eia-860,58902,Kingfisher Wind LLC,298.0,published,eia-860,Kingfisher Wind LLC,35.77028,-97.79972,OK
+eia-860,58904,Fourmile Ridge,40.0,published,eia-860,Fourmile Ridge,39.64111,-79.01111,MD
+eia-860,58908,Beebe 1B,50.4,published,eia-860,Beebe 1B,43.25694,-84.49972,MI
+eia-860,58924,Sugar Creek Wind One LLC,202.0,published,eia-860,Sugar Creek Wind One LLC,40.07417,-89.29194,IL
+eia-860,58925,Lincoln Land Wind,302.0,published,eia-860,Lincoln Land Wind,39.82194,-89.95583,IL
+eia-860,58927,Story City Wind Project,1.5,published,eia-860,Story City Wind Project,42.20806,-93.59944,IA
+eia-860,58932,Traer Wind Project,1.5,published,eia-860,Traer Wind Project,42.16139,-92.4425,IA
+eia-860,58938,Origin Wind,150.0,published,eia-860,Origin Wind,34.44611,-97.26972,OK
+eia-860,58939,Anderson Wind I,5.0,published,eia-860,Anderson Wind I,33.02944,-103.85583,NM
+eia-860,58940,Anderson Wind II,10.0,published,eia-860,Anderson Wind II,33.01389,-103.865,NM
+eia-860,58958,Camelot Wind LLC,1.5,published,eia-860,Camelot Wind LLC,41.92528,-70.64,MA
+eia-860,58965,"Thunder Spirit Wind, LLC",155.5,published,eia-860,"Thunder Spirit Wind, LLC",46.075,-102.56333,ND
+eia-860,58966,Fairfield Wind,10.0,published,eia-860,Fairfield Wind,47.72333,-111.96528,MT
+eia-860,58979,Copenhagen Wind Farm,79.9,published,eia-860,Copenhagen Wind Farm,43.91306,-75.69861,NY
+eia-860,58981,"Broken Bow Wind II, LLC",73.1,published,eia-860,"Broken Bow Wind II, LLC",41.32389,-99.32306,NE
+eia-860,58992,Dept of Corrections NCCI Wind,3.4,published,eia-860,Dept of Corrections NCCI Wind,42.57222,-71.94472,MA
+eia-860,58994,Breckinridge Wind Project LLC,98.8,published,eia-860,Breckinridge Wind Project LLC,36.47694,-97.68556,OK
+eia-860,58995,St. Olaf Wind Turbine,1.6,published,eia-860,St. Olaf Wind Turbine,44.46222,-93.19278,MN
+eia-860,58998,Goodwell Wind Project LLC,200.0,published,eia-860,Goodwell Wind Project LLC,36.54139,-101.56556,OK
+eia-860,58999,Little Elk Wind Project LLC,74.0,published,eia-860,Little Elk Wind Project LLC,35.19472,-98.90722,OK
+eia-860,59003,Two Dot Wind Farm,9.7,published,eia-860,Two Dot Wind Farm,46.44944,-110.08722,MT
+eia-860,59005,Mariah del Norte,230.4,published,eia-860,Mariah del Norte,34.6675,-102.57778,TX
+eia-860,59021,Hoopeston Wind LLC,98.0,published,eia-860,Hoopeston Wind LLC,40.39972,-87.79917,IL
+eia-860,59024,"Euclid Farm, Stamco N-54",1.0,published,eia-860,"Euclid Farm, Stamco N-54",41.60222,-81.49694,OH
+eia-860,59034,1370 Shannon,204.0,published,eia-860,1370 Shannon,33.50972,-98.36083,TX
+eia-860,59053,Michelangelo Wind 3 LLC,3.0,published,eia-860,Michelangelo Wind 3 LLC,42.019,-93.514,IA
+eia-860,59061,Radfords Run Wind Farm,278.0,published,eia-860,Radfords Run Wind Farm,40.01111,-89.04722,IL
+eia-860,59063,Stella Wind Farm,201.0,published,eia-860,Stella Wind Farm,26.94167,-97.6425,TX
+eia-860,59065,Drift Sand Wind Project LLC,108.0,published,eia-860,Drift Sand Wind Project LLC,34.82778,-97.95722,OK
+eia-860,59066,Bruennings Breeze Wind Farm,228.0,published,eia-860,Bruennings Breeze Wind Farm,26.52222,-97.69111,TX
+eia-860,59068,"Colbeck's Corner, LLC",200.0,published,eia-860,"Colbeck's Corner, LLC",35.25418,-101.18662,TX
+eia-860,59070,Jericho Power,14.3,published,eia-860,Jericho Power,44.46694,-71.225,NH
+eia-860,59071,Carroll Area Wind Farm,20.7,published,eia-860,Carroll Area Wind Farm,41.94143,-94.8861,IA
+eia-860,59076,Chopin Wind LLC,10.0,published,eia-860,Chopin Wind LLC,45.88,-118.46333,OR
+eia-860,59083,Limon III Wind LLC,200.6,published,eia-860,Limon III Wind LLC,39.35333,-103.47417,CO
+eia-860,59084,Marshall Wind Farm,73.8,published,eia-860,Marshall Wind Farm,39.70111,-96.36083,KS
+eia-860,59118,Cameron Wind 1 LLC,165.0,published,eia-860,Cameron Wind 1 LLC,26.19528,-97.46611,TX
+eia-860,59147,Fair Wind,30.0,published,eia-860,Fair Wind,39.40456,-79.29114,MD
+eia-860,59187,Beethoven Wind,80.0,published,eia-860,Beethoven Wind,43.16,-98.08,SD
+eia-860,59193,Chapman Ranch Wind I,236.0,published,eia-860,Chapman Ranch Wind I,27.5925,-97.50083,TX
+eia-860,59200,Border Winds Wind Farm,150.0,published,eia-860,Border Winds Wind Farm,48.96472,-99.61389,ND
+eia-860,59201,Pleasant Valley Wind Farm,200.0,published,eia-860,Pleasant Valley Wind Farm,43.805,-92.76972,MN
+eia-860,59222,Passadumkeag Windpark LLC,42.9,published,eia-860,Passadumkeag Windpark LLC,45.07,-68.21,ME
+eia-860,59223,Optimum Wind 5 LLC,3.0,published,eia-860,Optimum Wind 5 LLC,42.014,-93.51806,IA
+eia-860,59224,Optimum Wind 6 LLC,3.0,published,eia-860,Optimum Wind 6 LLC,42.00694,-93.52361,IA
+eia-860,59225,Optimum Wind 7 LLC,3.0,published,eia-860,Optimum Wind 7 LLC,42.02833,-93.43028,IA
+eia-860,59226,Optimum Wind 4 LLC,3.0,published,eia-860,Optimum Wind 4 LLC,42.01639,-93.51583,IA
+eia-860,59227,Optimum Wind 3 LLC,3.0,published,eia-860,Optimum Wind 3 LLC,42.01917,-93.51361,IA
+eia-860,59228,Leonardo Wind 1 LLC,3.0,published,eia-860,Leonardo Wind 1 LLC,42.49806,-93.36778,IA
+eia-860,59230,Venus Wind 3 LLC,3.0,published,eia-860,Venus Wind 3 LLC,41.74194,-92.67222,IA
+eia-860,59231,Michelangelo Wind 1 LLC,3.0,published,eia-860,Michelangelo Wind 1 LLC,41.881,-93.62306,IA
+eia-860,59232,Michelangelo Wind 4 LLC,3.0,published,eia-860,Michelangelo Wind 4 LLC,41.978,-93.70056,IA
+eia-860,59234,Arbuckle Mountain Wind Farm LLC,100.0,published,eia-860,Arbuckle Mountain Wind Farm LLC,34.38694,-97.13694,OK
+eia-860,59235,Rising Tree Wind Farm II,19.8,published,eia-860,Rising Tree Wind Farm II,35.08889,-118.20639,CA
+eia-860,59236,Rising Tree Wind Farm III,99.0,published,eia-860,Rising Tree Wind Farm III,35.06056,-118.24333,CA
+eia-860,59238,Windthorst-2,67.6,published,eia-860,Windthorst-2,33.49528,-98.5,TX
+eia-860,59244,Lorenzo Wind,80.0,published,eia-860,Lorenzo Wind,33.69917,-101.52472,TX
+eia-860,59245,Fluvanna,155.4,published,eia-860,Fluvanna,32.93194,-101.14361,TX
+eia-860,59246,Goodnight,265.5,published,eia-860,Goodnight,35.09389,-101.32611,TX
+eia-860,59247,Hale Community Wind Farm,478.0,published,eia-860,Hale Community Wind Farm,33.92778,-101.74222,TX
+eia-860,59284,Mammoth Plains,226.1,published,eia-860,Mammoth Plains,35.97889,-98.71028,OK
+eia-860,59292,Rattlesnake Creek Wind Project,318.1,published,eia-860,Rattlesnake Creek Wind Project,42.375,-96.829,NE
+eia-860,59295,WED NK Green,1.5,published,eia-860,WED NK Green,41.58167,-71.48667,RI
+eia-860,59296,Northwest Ohio Wind,105.0,published,eia-860,Northwest Ohio Wind,41.01694,-84.59361,OH
+eia-860,59301,WED Coventry 1,1.5,published,eia-860,WED Coventry 1,41.67583,-71.7075,RI
+eia-860,59302,WED Coventry 2,4.5,published,eia-860,WED Coventry 2,41.6725,-71.70583,RI
+eia-860,59305,WED Coventry 3,1.5,published,eia-860,WED Coventry 3,41.69556,-71.72083,RI
+eia-860,59306,WED Coventry 4,1.5,published,eia-860,WED Coventry 4,41.68639,-71.72833,RI
+eia-860,59311,Seiling Wind I,199.0,published,eia-860,Seiling Wind I,36.1225,-98.99222,OK
+eia-860,59312,Seiling Wind II,98.6,published,eia-860,Seiling Wind II,36.1225,-98.99222,OK
+eia-860,59313,WED Coventry 5,1.5,published,eia-860,WED Coventry 5,41.65972,-71.69972,RI
+eia-860,59314,WED Coventry 6,4.5,published,eia-860,WED Coventry 6,41.66972,-71.70833,RI
+eia-860,59320,Los Vientos Windpower III,200.0,published,eia-860,Los Vientos Windpower III,26.38861,-98.80611,TX
+eia-860,59321,Los Vientos Windpower IV,200.0,published,eia-860,Los Vientos Windpower IV,26.38056,-98.81833,TX
+eia-860,59328,Golden Acorn Casino,1.0,published,eia-860,Golden Acorn Casino,32.70211,-116.35459,CA
+eia-860,59329,City of Soledad Water Reclamation,1.0,published,eia-860,City of Soledad Water Reclamation,36.42111,-121.34028,CA
+eia-860,59330,Taylor Farms,1.0,published,eia-860,Taylor Farms,36.505,-121.45167,CA
+eia-860,59331,Anheuser-Busch #2,1.6,published,eia-860,Anheuser-Busch #2,38.23361,-122.0925,CA
+eia-860,59332,Mesquite Creek Wind,211.2,published,eia-860,Mesquite Creek Wind,32.7,-101.74111,TX
+eia-860,59384,South Plains Wind Phase I,200.0,published,eia-860,South Plains Wind Phase I,34.08056,-101.32361,TX
+eia-860,59417,Pleasant Hill Wind Energy Project,20.0,published,eia-860,Pleasant Hill Wind Energy Project,33.73889,-101.485,TX
+eia-860,59435,Oak Tree Energy,19.5,published,eia-860,Oak Tree Energy,44.93333,-97.74139,SD
+eia-860,59442,Logans Gap Wind LLC,200.1,published,eia-860,Logans Gap Wind LLC,31.8225,-98.69056,TX
+eia-860,59448,Waxdale,3.0,published,eia-860,Waxdale,42.70944,-87.88528,WI
+eia-860,59460,"Kay Wind, LLC",299.0,published,eia-860,"Kay Wind, LLC",36.98417,-97.13361,OK
+eia-860,59475,Palo Duro Wind,282.3,published,eia-860,Palo Duro Wind,36.24389,-101.00139,TX
+eia-860,59490,Jett Creek Windfarm (Burnt River),10.0,published,eia-860,Jett Creek Windfarm (Burnt River),44.425,-117.27389,OR
+eia-860,59491,Benson Creek Windfarm (Burnt River),10.0,published,eia-860,Benson Creek Windfarm (Burnt River),44.36694,-117.34389,OR
+eia-860,59492,Durbin Creek Windfarm (Burnt River),10.0,published,eia-860,Durbin Creek Windfarm (Burnt River),44.35306,-117.32306,OR
+eia-860,59493,Prospector Windfarm (Burnt River),10.0,published,eia-860,Prospector Windfarm (Burnt River),44.41806,-117.255,OR
+eia-860,59494,Willow Spring Windfarm (Burnt River),10.0,published,eia-860,Willow Spring Windfarm (Burnt River),44.38194,-117.27306,OR
+eia-860,59547,Fowler Ridge IV Wind Farm LLC,150.0,published,eia-860,Fowler Ridge IV Wind Farm LLC,40.62056,-87.37806,IN
+eia-860,59621,TX Jumbo Road Wind,299.7,published,eia-860,TX Jumbo Road Wind,34.72,-102.25333,TX
+eia-860,59622,Future Generation Wind,8.0,published,eia-860,Future Generation Wind,41.77444,-70.61583,MA
+eia-860,59629,Jericho Rise Wind Farm LLC,77.7,published,eia-860,Jericho Rise Wind Farm LLC,44.88889,-74.10333,NY
+eia-860,59637,Adams Wind,154.3,published,eia-860,Adams Wind,40.92,-94.67167,IA
+eia-860,59639,"631-56 Airport Owner, LLC",2.0,published,eia-860,"631-56 Airport Owner, LLC",41.74556,-71.11722,MA
+eia-860,59654,Sendero,78.0,published,eia-860,Sendero,27.18,-98.91667,TX
+eia-860,59655,Campbell County Wind Farm,94.3,published,eia-860,Campbell County Wind Farm,45.75333,-100.275,SD
+eia-860,59684,"Lindahl Wind Project, LLC",150.0,published,eia-860,"Lindahl Wind Project, LLC",48.533,-102.933,ND
+eia-860,59692,NBC Field's Point Wind Farm,4.5,published,eia-860,NBC Field's Point Wind Farm,41.79413,-71.38919,RI
+eia-860,59693,Coastal Virginia Offshore Wind (CVOW) Pi,12.0,published,eia-860,Coastal Virginia Offshore Wind (CVOW) Pi,36.89155,-75.4916,VA
+eia-860,59712,"San Roman Wind I, LLC",95.3,published,eia-860,"San Roman Wind I, LLC",26.12598,-97.3776,TX
+eia-860,59724,Scituate Wind,1.5,published,eia-860,Scituate Wind,42.17508,-70.72847,MA
+eia-860,59725,Fairhaven Wind,3.0,published,eia-860,Fairhaven Wind,41.63906,-70.87337,MA
+eia-860,59732,Green Pastures Wind I,150.0,published,eia-860,Green Pastures Wind I,33.62822,-99.41117,TX
+eia-860,59733,Green Pastures Wind II,150.0,published,eia-860,Green Pastures Wind II,33.64596,-99.53294,TX
+eia-860,59734,Briscoe Wind Farm,150.0,published,eia-860,Briscoe Wind Farm,34.43227,-101.23723,TX
+eia-860,59736,"Valentine Wind, LLC",1.9,published,eia-860,"Valentine Wind, LLC",42.8591,-100.59244,NE
+eia-860,59757,Pryor Mountain Wind,239.8,published,eia-860,Pryor Mountain Wind,45.16553,-108.69314,MT
+eia-860,59776,Heartland Community College,1.7,published,eia-860,Heartland Community College,40.537,-89.019,IL
+eia-860,59797,Bayonne MUA- Leitner-Poma Wind Turbine,1.5,published,eia-860,Bayonne MUA- Leitner-Poma Wind Turbine,40.65278,-74.11778,NJ
+eia-860,59817,Tooele Army Depot(CSG),3.2,published,eia-860,Tooele Army Depot(CSG),40.50303,-112.37059,UT
+eia-860,59837,Slate Creek Wind Project LLC,150.0,published,eia-860,Slate Creek Wind Project LLC,37.1146,-97.2376,KS
+eia-860,59838,Milo Wind Project LLC,50.0,published,eia-860,Milo Wind Project LLC,33.90178,-103.34675,NM
+eia-860,59888,Bloom Wind,178.2,published,eia-860,Bloom Wind,37.4863,-99.9247,KS
+eia-860,59902,Cardinal Point Wind,150.0,published,eia-860,Cardinal Point Wind,40.58857,-90.75183,IL
+eia-860,59903,New Frontier Wind,100.0,published,eia-860,New Frontier Wind,47.86153,-100.94766,ND
+eia-860,59943,Rattlesnake Den,207.2,published,eia-860,Rattlesnake Den,31.74325,-101.49341,TX
+eia-860,59953,Antrim Wind,28.8,published,eia-860,Antrim Wind,43.06435,-72.00635,NH
+eia-860,59965,Latigo Wind Park,62.1,published,eia-860,Latigo Wind Park,37.88671,-109.36839,UT
+eia-860,59968,"Desert Wind Farm, LLC",208.0,published,eia-860,"Desert Wind Farm, LLC",36.31,-76.42,NC
+eia-860,59972,Bearkat,196.7,published,eia-860,Bearkat,31.72724,-101.582,TX
+eia-860,59974,Golden West Power Partners LLC,250.0,published,eia-860,Golden West Power Partners LLC,38.935,-104.212,CO
+eia-860,59975,Carousel Wind Farm LLC,150.0,published,eia-860,Carousel Wind Farm LLC,39.334,-102.173,CO
+eia-860,60013,"Grant Wind, LLC",151.8,published,eia-860,"Grant Wind, LLC",36.92707,-97.69633,OK
+eia-860,60015,Findlay Wind Farm,3.0,published,eia-860,Findlay Wind Farm,41.10122,-83.64439,OH
+eia-860,60049,Golden Hills Wind,85.9,published,eia-860,Golden Hills Wind,37.71331,-121.64035,CA
+eia-860,60059,Los Vientos V Wind Power,110.0,published,eia-860,Los Vientos V Wind Power,26.41169,-98.57155,TX
+eia-860,60069,"Cedar Bluff Wind, LLC",212.8,published,eia-860,"Cedar Bluff Wind, LLC",38.69761,-99.72929,KS
+eia-860,60087,South Plains II,300.0,published,eia-860,South Plains II,34.19696,-101.38149,TX
+eia-860,60088,Sunflower Wind Project,104.0,published,eia-860,Sunflower Wind Project,46.83757,-102.07455,ND
+eia-860,60104,"Javelina Wind Energy, LLC",249.7,published,eia-860,"Javelina Wind Energy, LLC",27.32,-99.0,TX
+eia-860,60126,Harpster Wind,1.5,published,eia-860,Harpster Wind,40.71829,-83.22865,OH
+eia-860,60128,Zephyr Wind,4.5,published,eia-860,Zephyr Wind,41.09611,-83.64138,OH
+eia-860,60132,New Creek Wind,103.0,published,eia-860,New Creek Wind,39.20064,-79.14064,WV
+eia-860,60143,Peak View Wind Farm,60.8,published,eia-860,Peak View Wind Farm,37.71044,-104.50546,CO
+eia-860,60145,"Broadview Energy JN, LLC",181.7,published,eia-860,"Broadview Energy JN, LLC",34.73418,-103.10805,NM
+eia-860,60152,"Broadview Energy KW, LLC",142.6,published,eia-860,"Broadview Energy KW, LLC",34.72701,-103.16677,NM
+eia-860,60210,Cotton Plains Wind Farm,50.4,published,eia-860,Cotton Plains Wind Farm,34.06033,-101.18763,TX
+eia-860,60217,Rocksprings,149.3,published,eia-860,Rocksprings,29.72753,-100.79431,TX
+eia-860,60218,Frontier Windpower,200.0,published,eia-860,Frontier Windpower,36.83888,-97.18102,OK
+eia-860,60256,Bluestem,198.0,published,eia-860,Bluestem,36.55215,-100.58756,OK
+eia-860,60259,"Pioneer Wind Park, LLC",80.0,published,eia-860,"Pioneer Wind Park, LLC",42.7282,-105.86677,WY
+eia-860,60262,Prairie Breeze II,73.4,published,eia-860,Prairie Breeze II,41.98766,-98.2104,NE
+eia-860,60270,Blue Cloud Wind Energy LLC,148.4,published,eia-860,Blue Cloud Wind Energy LLC,34.03821,-102.66524,TX
+eia-860,60271,"Canyon Wind Project, LLC",308.8,published,eia-860,"Canyon Wind Project, LLC",32.63107,-101.00849,TX
+eia-860,60314,Prairie Breeze III,35.8,published,eia-860,Prairie Breeze III,41.98766,-98.2104,NE
+eia-860,60317,"Grady Wind Energy Center, LLC",220.5,published,eia-860,"Grady Wind Energy Center, LLC",34.73414,-103.09223,NM
+eia-860,60326,O'Brien Wind,250.3,published,eia-860,O'Brien Wind,43.20042,-95.62431,IA
+eia-860,60329,"Ringer Hill Wind Farm, LLC",39.9,published,eia-860,"Ringer Hill Wind Farm, LLC",39.74472,-79.18806,PA
+eia-860,60338,Electra Wind Farm,230.0,published,eia-860,Electra Wind Farm,34.10294,-99.11875,TX
+eia-860,60339,Horse Creek Wind Farm,230.0,published,eia-860,Horse Creek Wind Farm,33.35,-99.54,TX
+eia-860,60342,Ida Grove Wind,301.1,published,eia-860,Ida Grove Wind,42.35572,-95.42038,IA
+eia-860,60354,Brady II Wind Energy Center,150.0,published,eia-860,Brady II Wind Energy Center,46.61151,-102.78821,ND
+eia-860,60355,Brady Wind Energy Center,150.0,published,eia-860,Brady Wind Energy Center,46.64647,-102.76509,ND
+eia-860,60366,Old Settler Wind,151.2,published,eia-860,Old Settler Wind,34.06033,-101.18763,TX
+eia-860,60404,Pisgah Mountain Wind,9.1,published,eia-860,Pisgah Mountain Wind,44.77734,-68.52342,ME
+eia-860,60414,Bethel Wind Farm LLC,276.0,published,eia-860,Bethel Wind Farm LLC,34.57531,-102.4747,TX
+eia-860,60470,Paulding Wind Farm III,100.8,published,eia-860,Paulding Wind Farm III,41.121,-84.751,OH
+eia-860,60471,Green River Wind Farm,194.3,published,eia-860,Green River Wind Farm,41.62026,-89.55703,IL
+eia-860,60486,Greenfield Wind - MT,25.0,published,eia-860,Greenfield Wind - MT,47.723,-111.963,MT
+eia-860,60502,"Tyler Bluff Wind Project, LLC",125.6,published,eia-860,"Tyler Bluff Wind Project, LLC",33.70385,-97.37201,TX
+eia-860,60503,Crowned Ridge Wind Energy Center,200.1,published,eia-860,Crowned Ridge Wind Energy Center,45.15495,-96.83684,SD
+eia-860,60504,Blazing Star Wind Farm 1,200.0,published,eia-860,Blazing Star Wind Farm 1,44.54414,-96.36824,MN
+eia-860,60505,Crocker Wind Farm,200.0,published,eia-860,Crocker Wind Farm,45.05154,-97.82642,SD
+eia-860,60541,Wind GEM,1.9,published,eia-860,Wind GEM,41.46999,-94.33936,IA
+eia-860,60545,"Grant Plains Wind, LLC",147.2,published,eia-860,"Grant Plains Wind, LLC",36.9708,-97.7053,OK
+eia-860,60551,Big Level Wind,90.0,published,eia-860,Big Level Wind,41.86933,-77.66594,PA
+eia-860,60574,"Great Western Wind Energy, LLC",225.0,published,eia-860,"Great Western Wind Energy, LLC",36.1665,-99.59601,OK
+eia-860,60587,Kelly Creek Wind Project,184.0,published,eia-860,Kelly Creek Wind Project,40.9675,-88.1975,IL
+eia-860,60592,Rush Springs Wind,249.9,published,eia-860,Rush Springs Wind,34.68288,-97.82928,OK
+eia-860,60594,Voyager Wind I,131.1,published,eia-860,Voyager Wind I,35.04606,-118.28273,CA
+eia-860,60596,Baron Winds Farm,130.0,published,eia-860,Baron Winds Farm,42.375,-77.593,NY
+eia-860,60619,Rush Creek Wind,600.0,published,eia-860,Rush Creek Wind,39.17211,-103.84536,CO
+eia-860,60620,"Ninnescah Wind Energy, LLC",208.3,published,eia-860,"Ninnescah Wind Energy, LLC",37.58671,-98.57926,KS
+eia-860,60639,Kingman Wind,214.8,published,eia-860,Kingman Wind,37.58671,-98.57926,KS
+eia-860,60645,"Javelina Wind Energy II, LLC",200.0,published,eia-860,"Javelina Wind Energy II, LLC",27.44,-98.91,TX
+eia-860,60655,Rock Creek Wind Project,300.0,published,eia-860,Rock Creek Wind Project,40.4,-95.2,MO
+eia-860,60657,"Salt Fork Wind Project, LLC",174.0,published,eia-860,"Salt Fork Wind Project, LLC",35.18172,-100.93441,TX
+eia-860,60672,Osborn Wind Energy,200.9,published,eia-860,Osborn Wind Energy,39.7477,-94.47348,MO
+eia-860,60687,"Cimarron Bend Wind Project I, LLC",200.0,published,eia-860,"Cimarron Bend Wind Project I, LLC",37.355,-99.991,KS
+eia-860,60688,"Cimarron Bend Wind Project II, LLC",200.0,published,eia-860,"Cimarron Bend Wind Project II, LLC",37.355,-99.991,KS
+eia-860,60689,Western Plains Wind Farm,280.6,published,eia-860,Western Plains Wind Farm,37.8548,-99.67981,KS
+eia-860,60700,Wind Colebrook South,5.0,published,eia-860,Wind Colebrook South,41.96107,-73.14078,CT
+eia-860,60743,"Rattlesnake Power, LLC",160.0,published,eia-860,"Rattlesnake Power, LLC",31.36033,-99.55136,TX
+eia-860,60856,Astra Wind Farm,163.0,published,eia-860,Astra Wind Farm,34.76954,-102.05242,TX
+eia-860,60865,Equity Industrial Turbines,4.0,published,eia-860,Equity Industrial Turbines,42.62565,-70.65649,MA
+eia-860,60873,Prairie Wind Farm,168.0,published,eia-860,Prairie Wind Farm,41.4369,-92.70382,IA
+eia-860,60883,"Deerfield Wind Energy, LLC",149.0,published,eia-860,"Deerfield Wind Energy, LLC",43.94185,-82.89867,MI
+eia-860,60901,Willow Springs Wind Farm,250.0,published,eia-860,Willow Springs Wind Farm,33.34537,-99.62426,TX
+eia-860,60902,Dermott Wind,253.0,published,eia-860,Dermott Wind,32.86377,-100.97513,TX
+eia-860,60905,"Oliver Wind III, LLC",99.3,published,eia-860,"Oliver Wind III, LLC",46.9571,-101.1681,ND
+eia-860,60911,Green Energy Machine,1.7,published,eia-860,Green Energy Machine,41.373,-94.754,IA
+eia-860,60931,CCC Hastings Wind Turbine,1.7,published,eia-860,CCC Hastings Wind Turbine,40.57,-98.334,NE
+eia-860,60932,Creston Ridge Wind Farm,6.8,published,eia-860,Creston Ridge Wind Farm,41.678,-97.386,NE
+eia-860,60983,Buckthorn Wind,100.5,published,eia-860,Buckthorn Wind,32.37131,-98.37739,TX
+eia-860,60987,Santa Rita Wind Energy,300.0,published,eia-860,Santa Rita Wind Energy,31.18138,-101.31879,TX
+eia-860,60991,Sterling I Wind Farm,29.9,published,eia-860,Sterling I Wind Farm,33.3596,-103.25058,NM
+eia-860,60999,Reading Wind Project,200.1,published,eia-860,Reading Wind Project,38.475,-95.9655,KS
+eia-860,61001,Cactus Flats Wind Energy Project,148.4,published,eia-860,Cactus Flats Wind Energy Project,31.11247,-100.02814,TX
+eia-860,61002,"WED Portsmouth One, LLC",1.5,published,eia-860,"WED Portsmouth One, LLC",41.61203,-71.24926,RI
+eia-860,61004,Whirlpool Corporation - Ottawa Wind Farm,1.5,published,eia-860,Whirlpool Corporation - Ottawa Wind Farm,41.00276,-84.03374,OH
+eia-860,61005,Whirlpool Corporation - Marion Wind Farm,4.5,published,eia-860,Whirlpool Corporation - Marion Wind Farm,40.59115,-83.17849,OH
+eia-860,61032,Heart of Texas Wind Project,180.0,published,eia-860,Heart of Texas Wind Project,31.24218,-99.42127,TX
+eia-860,61039,Deerfield Wind LLC,30.0,published,eia-860,Deerfield Wind LLC,42.87721,-72.99372,VT
+eia-860,61040,Twin Buttes II Wind,75.0,published,eia-860,Twin Buttes II Wind,37.773,-102.546,CO
+eia-860,61041,"Roaring Brook, LLC",79.7,published,eia-860,"Roaring Brook, LLC",43.7096,-75.61622,NY
+eia-860,61044,La Joya NM,306.2,published,eia-860,La Joya NM,34.81,-105.74,NM
+eia-860,61046,Tatanka Ridge,154.0,published,eia-860,Tatanka Ridge,44.592,-96.576,SD
+eia-860,61047,Coyote Ridge,97.4,published,eia-860,Coyote Ridge,44.45,-96.55,SD
+eia-860,61056,Seward Wind Farm,1.7,published,eia-860,Seward Wind Farm,40.895,-97.1951,NE
+eia-860,61066,Foundation CDCR LAC,1.9,published,eia-860,Foundation CDCR LAC,34.691,-118.221,CA
+eia-860,61067,Foundation Scheid Vineyards,1.9,published,eia-860,Foundation Scheid Vineyards,36.27451,-121.19159,CA
+eia-860,61070,Saratoga Wind Farm,66.0,published,eia-860,Saratoga Wind Farm,43.44886,-92.28073,IA
+eia-860,61077,Orient Wind Farm,500.8,published,eia-860,Orient Wind Farm,41.20245,-94.4172,IA
+eia-860,61079,Beaver Creek Wind,340.0,published,eia-860,Beaver Creek Wind,42.10696,-94.16464,IA
+eia-860,61100,"Burke Wind, LLC",199.4,published,eia-860,"Burke Wind, LLC",48.75449,-102.63777,ND
+eia-860,61106,Pine River Wind Park,161.3,published,eia-860,Pine River Wind Park,43.52432,-84.69678,MI
+eia-860,61155,Big Timber Wind Farm,25.0,published,eia-860,Big Timber Wind Farm,45.85543,-109.64917,MT
+eia-860,61161,Harvest Ridge Wind Farm,202.0,published,eia-860,Harvest Ridge Wind Farm,39.83188,-88.0723,IL
+eia-860,61212,Flat Top Wind I,200.0,published,eia-860,Flat Top Wind I,31.68451,-98.60336,TX
+eia-860,61221,Redbed Plains Wind Farm,99.1,published,eia-860,Redbed Plains Wind Farm,35.29076,-97.854,OK
+eia-860,61222,Golden Hills North Wind Energy Center,46.0,published,eia-860,Golden Hills North Wind Energy Center,37.76919,-121.63016,CA
+eia-860,61261,Rock Falls Wind Farm LLC,154.5,published,eia-860,Rock Falls Wind Farm LLC,36.92717,-97.4271,OK
+eia-860,61269,Thunder Ranch Wind Project,297.8,published,eia-860,Thunder Ranch Wind Project,36.522,-97.145,OK
+eia-860,61270,Red Dirt Wind Project,299.3,published,eia-860,Red Dirt Wind Project,36.051,-97.784,OK
+eia-860,61303,Bluff Point Wind Facility,119.7,published,eia-860,Bluff Point Wind Facility,40.319,-84.9769,IN
+eia-860,61330,Hog Creek Wind Project,66.0,published,eia-860,Hog Creek Wind Project,40.79307,-83.72871,OH
+eia-860,61343,Karankawa Wind LLC,307.1,published,eia-860,Karankawa Wind LLC,28.17018,-97.81751,TX
+eia-860,61344,Otter Creek Wind Farm LLC,150.0,published,eia-860,Otter Creek Wind Farm LLC,41.05539,-88.99386,IL
+eia-860,61356,Valfilm Wind Project,3.0,published,eia-860,Valfilm Wind Project,41.08433,-83.64413,OH
+eia-860,61357,Red Pine Wind Project,200.0,published,eia-860,Red Pine Wind Project,44.478,-96.1538,MN
+eia-860,61402,Foard City Wind,352.8,published,eia-860,Foard City Wind,33.91531,-99.74028,TX
+eia-860,61407,Cottonwood Wind Energy Center,89.7,published,eia-860,Cottonwood Wind Energy Center,40.24017,-98.40596,NE
+eia-860,61417,Gopher Creek Wind Farm,158.0,published,eia-860,Gopher Creek Wind Farm,32.87507,-101.20896,TX
+eia-860,61442,Foundation California Training Facility,1.8,published,eia-860,Foundation California Training Facility,36.464,-121.382,CA
+eia-860,61443,Foundation Mann Packing,1.8,published,eia-860,Foundation Mann Packing,36.504,-121.454,CA
+eia-860,61444,Foundation SaIinas Valley State Prison,1.8,published,eia-860,Foundation SaIinas Valley State Prison,36.474,-121.371,CA
+eia-860,61540,Fort Hays State University Wind Farm,4.0,published,eia-860,Fort Hays State University Wind Farm,38.87432,-99.40521,KS
+eia-860,61564,Upland Prairie,299.3,published,eia-860,Upland Prairie,43.20741,-95.3494,IA
+eia-860,61565,English Farms,171.5,published,eia-860,English Farms,41.57,-92.40718,IA
+eia-860,61582,Voyager Wind II,128.7,published,eia-860,Voyager Wind II,35.07338,-118.26862,CA
+eia-860,61583,Voyager Wind III,43.2,published,eia-860,Voyager Wind III,35.06077,-118.26473,CA
+eia-860,61584,Voyager Wind IV,21.6,published,eia-860,Voyager Wind IV,35.07787,-118.2497,CA
+eia-860,61589,UL Advanced Wind Turbine Test Facility,3.5,published,eia-860,UL Advanced Wind Turbine Test Facility,34.96601,-101.78412,TX
+eia-860,61609,"Heartland Divide Wind Project, LLC",103.5,published,eia-860,"Heartland Divide Wind Project, LLC",41.71138,-94.80199,IA
+eia-860,61638,Turtle Creek Wind Farm LLC,199.2,published,eia-860,Turtle Creek Wind Farm LLC,43.4296,-92.83951,IA
+eia-860,61644,August Wind Farm,1.8,published,eia-860,August Wind Farm,40.76491,-94.47563,IA
+eia-860,61650,Blazing Star 2 Wind Farm,200.0,published,eia-860,Blazing Star 2 Wind Farm,44.44529,-96.35276,MN
+eia-860,61660,Whirlpool Corp-Greenville Wind Farm,4.5,published,eia-860,Whirlpool Corp-Greenville Wind Farm,40.13129,-84.60986,OH
+eia-860,61668,"Creston Ridge II, LLC",6.9,published,eia-860,"Creston Ridge II, LLC",41.677,-97.391,NE
+eia-860,61673,Arkwright Summit Wind Farm LLC,78.4,published,eia-860,Arkwright Summit Wind Farm LLC,42.41491,-79.24268,NY
+eia-860,61674,Wildcat Ranch Wind Project,150.0,published,eia-860,Wildcat Ranch Wind Project,33.5296,-102.9619,TX
+eia-860,61677,Perennial Windfarm,6.9,published,eia-860,Perennial Windfarm,40.63187,-97.64271,NE
+eia-860,61734,Seneca Nation Cattaraugus Wind Turbine,1.5,published,eia-860,Seneca Nation Cattaraugus Wind Turbine,42.5809,-79.1027,NY
+eia-860,61735,Hilltopper Wind Project,185.0,published,eia-860,Hilltopper Wind Project,40.03,-89.381,IL
+eia-860,61745,Aurora County Wind,20.0,published,eia-860,Aurora County Wind,43.73083,-98.76417,SD
+eia-860,61746,Brule County Wind,20.0,published,eia-860,Brule County Wind,43.717,-98.922,SD
+eia-860,61747,"Foxtail Wind, LLC",150.0,published,eia-860,"Foxtail Wind, LLC",46.09821,-98.88007,ND
+eia-860,61756,Meadow Lake Wind Farm VI LLC,200.4,published,eia-860,Meadow Lake Wind Farm VI LLC,40.69255,-87.12701,IN
+eia-860,61773,"Palmas Wind, LLC",144.9,published,eia-860,"Palmas Wind, LLC",26.28889,-97.49639,TX
+eia-860,61775,Town of Otis Wind Energy Project,1.5,published,eia-860,Town of Otis Wind Energy Project,42.22577,-73.02576,MA
+eia-860,61776,"Midway Wind, LLC",162.9,published,eia-860,"Midway Wind, LLC",27.95498,-97.3002,TX
+eia-860,61782,Live Oak Wind Project,199.5,published,eia-860,Live Oak Wind Project,31.04856,-100.62311,TX
+eia-860,61784,Upstream Wind Energy LLC,202.5,published,eia-860,Upstream Wind Energy LLC,42.18434,-97.96498,NE
+eia-860,61787,Bishop Hill III,119.0,published,eia-860,Bishop Hill III,41.21106,-90.27602,IL
+eia-860,61788,Hilltop Power,2.0,published,eia-860,Hilltop Power,43.91288,-96.19322,MN
+eia-860,61789,"Diamond Vista Wind Project, LLC",299.3,published,eia-860,"Diamond Vista Wind Project, LLC",38.551,-97.193,KS
+eia-860,61836,"Minco Wind IV, LLC",130.0,published,eia-860,"Minco Wind IV, LLC",35.38105,-98.26956,OK
+eia-860,61858,"Stillwater Wind, LLC",79.7,published,eia-860,"Stillwater Wind, LLC",45.86584,-109.47665,MT
+eia-860,61865,"Rio Bravo Windpower, LLC",237.6,published,eia-860,"Rio Bravo Windpower, LLC",26.649,-99.0387,TX
+eia-860,61866,Wildhorse Mountain Wind Facility,100.0,published,eia-860,Wildhorse Mountain Wind Facility,34.59103,-95.19181,OK
+eia-860,61876,"Persimmon Creek Wind Farm 1, LLC",198.6,published,eia-860,"Persimmon Creek Wind Farm 1, LLC",36.17428,-99.34916,OK
+eia-860,61889,Sholes Wind Energy Center,160.0,published,eia-860,Sholes Wind Energy Center,42.3119,-97.3647,NE
+eia-860,61911,Ivester Wind Farm,90.8,published,eia-860,Ivester Wind Farm,42.33327,-92.94644,IA
+eia-860,61916,Pegasus Wind,178.0,published,eia-860,Pegasus Wind,43.452,-83.50721,MI
+eia-860,61921,Tahoka Wind,300.0,published,eia-860,Tahoka Wind,33.1509,-101.67919,TX
+eia-860,61925,Casa Mesa Wind Energy Center Hybrid,50.9,published,eia-860,Casa Mesa Wind Energy Center Hybrid,34.60499,-103.96609,NM
+eia-860,61926,"Armadillo Flats Wind Project, LLC",247.3,published,eia-860,"Armadillo Flats Wind Project, LLC",36.30096,-97.56704,OK
+eia-860,61957,"Pratt Wind, LLC",243.5,published,eia-860,"Pratt Wind, LLC",37.55,-98.8,KS
+eia-860,61969,"Torrecillas Wind Energy, LLC",300.0,published,eia-860,"Torrecillas Wind Energy, LLC",27.61441,-98.7945,TX
+eia-860,61970,Blue Summit II Wind,99.4,published,eia-860,Blue Summit II Wind,34.22588,-99.47799,TX
+eia-860,61984,"Solomon Forks Wind Project, LLC",275.6,published,eia-860,"Solomon Forks Wind Project, LLC",39.306,-101.0744,KS
+eia-860,61990,TAC-Distributed Energy Resource Hybrid,0.1,published,eia-860,TAC-Distributed Energy Resource Hybrid,40.0898,-88.24357,IL
+eia-860,62035,Glaciers Edge Wind Project,211.7,published,eia-860,Glaciers Edge Wind Project,42.862,-95.772,IA
+eia-860,62038,Santa Rita East,302.4,published,eia-860,Santa Rita East,31.20799,-101.11079,TX
+eia-860,62079,Whispering Willow North,201.3,published,eia-860,Whispering Willow North,42.77495,-93.41807,IA
+eia-860,62080,Richland (IA),130.9,published,eia-860,Richland (IA),42.36315,-95.2263,IA
+eia-860,62081,Golden Plains,199.8,published,eia-860,Golden Plains,43.43064,-94.01641,IA
+eia-860,62103,Kossuth,152.2,published,eia-860,Kossuth,42.99468,-94.12873,IA
+eia-860,62106,"WED Green Hill, LLC",3.0,published,eia-860,"WED Green Hill, LLC",41.79785,-71.52974,RI
+eia-860,62107,"WED Plainfield II, LLC",3.0,published,eia-860,"WED Plainfield II, LLC",41.79458,-71.53997,RI
+eia-860,62108,"WED Plainfield III, LLC",3.0,published,eia-860,"WED Plainfield III, LLC",41.79352,-71.53062,RI
+eia-860,62109,"WED Plainfield, LLC",3.0,published,eia-860,"WED Plainfield, LLC",41.79608,-71.53583,RI
+eia-860,62110,"WED Shun I, LLC",3.0,published,eia-860,"WED Shun I, LLC",41.79846,-71.54066,RI
+eia-860,62111,"WED Shun II, LLC",3.0,published,eia-860,"WED Shun II, LLC",41.80011,-71.53619,RI
+eia-860,62112,"WED Shun III, LLC",3.0,published,eia-860,"WED Shun III, LLC",41.79908,-71.54933,RI
+eia-860,62113,Strauss Wind Farm,95.3,published,eia-860,Strauss Wind Farm,34.57984,-120.56428,CA
+eia-860,62130,Roseman,1.8,published,eia-860,Roseman,41.371,-94.75393,IA
+eia-860,62132,Arbor Hill Wind Farm,310.0,published,eia-860,Arbor Hill Wind Farm,41.40423,-94.26136,IA
+eia-860,62133,North English,340.0,published,eia-860,North English,41.64278,-92.49906,IA
+eia-860,62142,Amadeus Wind Farm,250.0,published,eia-860,Amadeus Wind Farm,32.96736,-100.56428,TX
+eia-860,62161,Galactic Wind,9.9,published,eia-860,Galactic Wind,43.1016,-89.33186,WI
+eia-860,62172,Birch,1.8,published,eia-860,Birch,40.76764,-94.47437,IA
+eia-860,62207,Reloj del Sol Wind Farm,209.4,published,eia-860,Reloj del Sol Wind Farm,27.03028,-99.38839,TX
+eia-860,62220,"East Fork Wind Project, LLC",195.8,published,eia-860,"East Fork Wind Project, LLC",39.306,-101.0744,KS
+eia-860,62227,"Seymour Hills Wind Project, LLC",30.2,published,eia-860,"Seymour Hills Wind Project, LLC",33.57824,-99.1921,TX
+eia-860,62247,Prevailing Wind Park,220.0,published,eia-860,Prevailing Wind Park,43.039,-97.526,SD
+eia-860,62258,Mesteno,201.6,published,eia-860,Mesteno,26.52369,-98.74552,TX
+eia-860,62259,Ranchero Wind Farm LLC,300.0,published,eia-860,Ranchero Wind Farm LLC,30.59491,-101.45302,TX
+eia-860,62269,"Stoneray Power Partners, LLC",100.0,published,eia-860,"Stoneray Power Partners, LLC",44.10438,-96.12673,MN
+eia-860,62290,Polaris Wind Park,168.6,published,eia-860,Polaris Wind Park,43.26261,-84.49984,MI
+eia-860,62291,"Palmer's Creek Wind Farm, LLC",44.6,published,eia-860,"Palmer's Creek Wind Farm, LLC",44.85769,-95.56889,MN
+eia-860,62333,"Polk County Renewables, LLC",2.5,published,eia-860,"Polk County Renewables, LLC",41.16528,-97.57019,NE
+eia-860,62356,Lockett Windfarm,183.8,published,eia-860,Lockett Windfarm,34.07225,-99.26468,TX
+eia-860,62364,Nobles 2 Wind Project,250.0,published,eia-860,Nobles 2 Wind Project,43.78964,-95.85277,MN
+eia-860,62380,"Emmons-Logan Wind, LLC",200.0,published,eia-860,"Emmons-Logan Wind, LLC",46.37301,-100.05111,ND
+eia-860,62411,Griffin Trail Wind,225.6,published,eia-860,Griffin Trail Wind,33.60931,-99.58229,TX
+eia-860,62416,Cranell Wind Farm LLC,220.0,published,eia-860,Cranell Wind Farm LLC,28.19778,-97.44495,TX
+eia-860,62417,Peyton Creek Wind Farm LLC,151.2,published,eia-860,Peyton Creek Wind Farm LLC,28.8433,-95.8631,TX
+eia-860,62431,Willow Creek Wind Power LLC,105.0,published,eia-860,Willow Creek Wind Power LLC,44.82588,-103.20741,SD
+eia-860,62442,"Lake Region Community Hybrid, LLC",2.0,published,eia-860,"Lake Region Community Hybrid, LLC",46.50505,-96.15728,MN
+eia-860,62445,Busch Ranch II Wind Farm,59.4,published,eia-860,Busch Ranch II Wind Farm,37.76642,-104.42945,CO
+eia-860,62475,Kings Point Wind Energy Center,149.4,published,eia-860,Kings Point Wind Energy Center,37.26986,-94.05271,MO
+eia-860,62478,North Fork Ridge Wind Energy Center,149.4,published,eia-860,North Fork Ridge Wind Energy Center,37.38999,-94.51027,MO
+eia-860,62481,Neosho Ridge Wind Energy Center,301.0,published,eia-860,Neosho Ridge Wind Energy Center,37.48536,-95.37673,KS
+eia-860,62482,Beech Ridge II Wind Energy Center,56.2,published,eia-860,Beech Ridge II Wind Energy Center,38.11222,-80.61306,WV
+eia-860,62488,Prairie Queen Wind Farm,199.3,published,eia-860,Prairie Queen Wind Farm,37.9788,-95.2244,KS
+eia-860,62489,Crossing Trails Wind Power Project LLC.,104.0,published,eia-860,Crossing Trails Wind Power Project LLC.,39.04662,-102.82238,CO
+eia-860,62494,Skeleton Creek Energy Center Hybrid,250.0,published,eia-860,Skeleton Creek Energy Center Hybrid,36.52143,-98.03436,OK
+eia-860,62516,TB Flats,503.2,published,eia-860,TB Flats,42.17724,-106.23414,WY
+eia-860,62562,"High Lonesome Wind Power, LLC Hybrid",499.5,published,eia-860,"High Lonesome Wind Power, LLC Hybrid",31.17165,-101.88115,TX
+eia-860,62563,High Prairie Wind Farm,400.0,published,eia-860,High Prairie Wind Farm,40.39824,-92.51861,MO
+eia-860,62566,Blue Summit III Wind,200.2,published,eia-860,Blue Summit III Wind,34.17049,-99.56344,TX
+eia-860,62570,Jiminy Peak Wind QF,1.5,published,eia-860,Jiminy Peak Wind QF,42.54375,-73.29263,MA
+eia-860,62587,Mesquite Star,418.9,published,eia-860,Mesquite Star,32.25598,-100.32031,TX
+eia-860,62591,Ekola Flats,250.9,published,eia-860,Ekola Flats,41.93241,-106.35843,WY
+eia-860,62592,Headwaters Wind Farm II LLC,200.0,published,eia-860,Headwaters Wind Farm II LLC,40.05169,-85.20669,IN
+eia-860,62606,Whitney Hill Wind Power LLC,65.0,published,eia-860,Whitney Hill Wind Power LLC,39.929,-89.19,IL
+eia-860,62618,Hidalgo Wind Farm II,50.4,published,eia-860,Hidalgo Wind Farm II,26.49286,-98.44827,TX
+eia-860,62620,Sage Draw Wind,338.4,published,eia-860,Sage Draw Wind,33.3035,-101.65722,TX
+eia-860,62624,"White Cloud Wind Project, LLC",236.5,published,eia-860,"White Cloud Wind Project, LLC",40.25499,-94.97218,MO
+eia-860,62630,Jumbo Hill Wind Project,160.7,published,eia-860,Jumbo Hill Wind Project,32.386,-102.949,TX
+eia-860,62642,GE-Lubbock,8.7,published,eia-860,GE-Lubbock,33.59145,-102.05688,TX
+eia-860,62653,Zephyr Wind Project - 2.0,4.5,published,eia-860,Zephyr Wind Project - 2.0,41.09308,-83.63778,OH
+eia-860,62654,Foundation Dole Fresh Vegetables,5.6,published,eia-860,Foundation Dole Fresh Vegetables,36.45929,-121.35008,CA
+eia-860,62711,Plum Creek Wind Project (NE),230.0,published,eia-860,Plum Creek Wind Project (NE),42.16159,-97.20379,NE
+eia-860,62715,Wildcat Creek Wind Farm LLC,175.3,published,eia-860,Wildcat Creek Wind Farm LLC,33.54915,-97.32958,TX
+eia-860,62745,Wheatridge Hybrid,200.0,published,eia-860,Wheatridge Hybrid,45.55975,-119.6338,OR
+eia-860,62752,LafargeHolcim - Paulding Wind Project,4.5,published,eia-860,LafargeHolcim - Paulding Wind Project,41.19238,-84.61256,OH
+eia-860,62765,El Campo Wind,242.8,published,eia-860,El Campo Wind,33.73218,-99.72639,TX
+eia-860,62783,Blackjack Creek Wind Farm,239.6,published,eia-860,Blackjack Creek Wind Farm,28.2078,-97.52267,TX
+eia-860,62795,Ida Grove II,201.0,published,eia-860,Ida Grove II,42.32685,-95.45882,IA
+eia-860,62809,BMP Wind (TX),340.0,published,eia-860,BMP Wind (TX),32.28938,-99.2916,TX
+eia-860,62815,Fairbanks Wind Park,72.8,published,eia-860,Fairbanks Wind Park,45.68362,-86.64574,MI
+eia-860,62836,Maryneal Windpower,182.4,published,eia-860,Maryneal Windpower,32.19937,-100.49191,TX
+eia-860,62837,Frontier Windpower II,351.8,published,eia-860,Frontier Windpower II,36.82478,-97.02978,OK
+eia-860,62840,"Mountain Breeze Wind, LLC",171.7,published,eia-860,"Mountain Breeze Wind, LLC",40.96062,-104.00317,CO
+eia-860,62853,Maverick Creek Wind,491.6,published,eia-860,Maverick Creek Wind,31.26255,-99.84396,TX
+eia-860,62855,West Raymond Wind Farm LLC,239.8,published,eia-860,West Raymond Wind Farm LLC,26.37665,-97.99304,TX
+eia-860,62857,RoxWind,15.3,published,eia-860,RoxWind,44.6148,-70.6176,ME
+eia-860,62871,Boiling Springs Wind Farm,148.4,published,eia-860,Boiling Springs Wind Farm,36.54655,-99.3576,OK
+eia-860,62891,Rosewater Wind Farm,102.0,published,eia-860,Rosewater Wind Farm,40.7709,-86.87501,IN
+eia-860,62897,Holiday Hill Community Wind,5.0,published,eia-860,Holiday Hill Community Wind,42.21254,-72.87126,MA
+eia-860,62909,"Raymond Wind Farm, LLC",200.2,published,eia-860,"Raymond Wind Farm, LLC",26.36415,-97.78044,TX
+eia-860,62935,"Orchard Windfarm 1, LLC",10.0,published,eia-860,"Orchard Windfarm 1, LLC",45.38,-119.3332,OR
+eia-860,62936,Rattlesnake Flat,144.0,published,eia-860,Rattlesnake Flat,46.94102,-118.56714,WA
+eia-860,62938,Glen Ullin Energy Center,106.7,published,eia-860,Glen Ullin Energy Center,46.96408,-101.8165,ND
+eia-860,62939,South Peak Wind,80.0,published,eia-860,South Peak Wind,47.32991,-110.61459,MT
+eia-860,62943,Deuel Harvest Wind Energy LLC,300.0,published,eia-860,Deuel Harvest Wind Energy LLC,44.86358,-96.53463,SD
+eia-860,62944,Timber Road IV,125.1,published,eia-860,Timber Road IV,41.121,-84.751,OH
+eia-860,62952,Cheyenne Ridge Wind Farm,498.4,published,eia-860,Cheyenne Ridge Wind Farm,39.01694,-102.2113,CO
+eia-860,62956,Thunderhead Wind Energy LLC,300.0,published,eia-860,Thunderhead Wind Energy LLC,42.062,-98.23896,NE
+eia-860,63003,Midland Wind,105.5,published,eia-860,Midland Wind,41.2692,-89.99502,IL
+eia-860,63025,Clear Creek Wind,242.0,published,eia-860,Clear Creek Wind,40.3698,-94.89201,MO
+eia-860,63030,"Canadian Breaks, LLC",210.1,published,eia-860,"Canadian Breaks, LLC",35.20016,-102.31552,TX
+eia-860,6304,Kotzebue Hybrid,3.3,published,eia-860,Kotzebue Hybrid,66.83778,-162.55694,AK
+eia-860,63053,Palo Alto Wind Farm,340.0,published,eia-860,Palo Alto Wind Farm,43.20669,-94.54809,IA
+eia-860,63100,Prairie Hill Wind Project,300.0,published,eia-860,Prairie Hill Wind Project,31.54987,-96.90407,TX
+eia-860,63101,Las Lomas Wind Project,201.6,published,eia-860,Las Lomas Wind Project,26.69842,-99.05745,TX
+eia-860,63102,Dakota Range III Wind Project,153.6,published,eia-860,Dakota Range III Wind Project,45.26762,-97.10398,SD
+eia-860,63103,Triple H Wind Project,250.2,published,eia-860,Triple H Wind Project,44.40104,-99.60384,SD
+eia-860,63104,King Plains Wind Project,248.2,published,eia-860,King Plains Wind Project,36.40015,-97.47746,OK
+eia-860,63114,Mohave County Wind Farm,350.0,published,eia-860,Mohave County Wind Farm,35.79114,-114.5045,AZ
+eia-860,63132,Weaver Wind,72.6,published,eia-860,Weaver Wind,44.72252,-68.16361,ME
+eia-860,63133,Roundhouse Wind Energy Project,226.0,published,eia-860,Roundhouse Wind Energy Project,41.09513,-105.10742,WY
+eia-860,63205,Skookumchuck Wind Facility,136.0,published,eia-860,Skookumchuck Wind Facility,46.85074,-122.66445,WA
+eia-860,63209,Aviator Wind,525.0,published,eia-860,Aviator Wind,31.79261,-100.69729,TX
+eia-860,63251,"Lone Tree Wind, LLC",79.0,published,eia-860,"Lone Tree Wind, LLC",41.20321,-89.60187,IL
+eia-860,63258,Aurora Wind Project,298.8,published,eia-860,Aurora Wind Project,48.5,-103.1,ND
+eia-860,63269,Crowned Ridge Wind II Energy Center,200.6,published,eia-860,Crowned Ridge Wind II Energy Center,45.0054,-96.92995,SD
+eia-860,63287,Cerro Gordo Wind Farm,42.0,published,eia-860,Cerro Gordo Wind Farm,43.0612,-93.45364,IA
+eia-860,63327,"Diamond Spring, LLC",303.5,published,eia-860,"Diamond Spring, LLC",34.48737,-96.78046,OK
+eia-860,63384,Bennington Wind,93.0,published,eia-860,Bennington Wind,40.96038,-89.08536,IL
+eia-860,63389,"Jordan Creek Wind Farm, LLC",398.6,published,eia-860,"Jordan Creek Wind Farm, LLC",40.38161,-87.39982,IN
+eia-860,63393,"Cuming County Renewables, LLC",2.5,published,eia-860,"Cuming County Renewables, LLC",42.01997,-96.86183,NE
+eia-860,63431,Cisco,8.4,published,eia-860,Cisco,43.6256,-95.3725,MN
+eia-860,63432,Lincoln Heights I,5.2,published,eia-860,Lincoln Heights I,44.28778,-96.43333,MN
+eia-860,63433,Lincoln Heights II,3.9,published,eia-860,Lincoln Heights II,44.31554,-96.33168,MN
+eia-860,63436,Corriedale Wind Energy,52.5,published,eia-860,Corriedale Wind Energy,41.1133,-104.98401,WY
+eia-860,63460,"Rock County Wind Fuel, LLC",5.0,published,eia-860,"Rock County Wind Fuel, LLC",43.64193,-96.26248,MN
+eia-860,63479,"Traverse Wind Project, LLC",999.0,published,eia-860,"Traverse Wind Project, LLC",35.71095,-98.83471,OK
+eia-860,63482,Point Wind,64.5,published,eia-860,Point Wind,35.08083,-118.36139,CA
+eia-860,63489,"Sundance Wind Project, LLC",199.0,published,eia-860,"Sundance Wind Project, LLC",36.5597,-98.7492,OK
+eia-860,63494,"Maverick Wind Project, LLC",288.0,published,eia-860,"Maverick Wind Project, LLC",36.29392,-98.16467,OK
+eia-860,63502,Oso Grande Wind Farm,249.8,published,eia-860,Oso Grande Wind Farm,32.9323,-103.6664,NM
+eia-860,63521,CED Mason City Wind,7.5,published,eia-860,CED Mason City Wind,43.1407,-93.09848,IA
+eia-860,63574,Atchison County Wind,299.0,published,eia-860,Atchison County Wind,40.53128,-95.35488,MO
+eia-860,63578,Sagamore Wind,522.0,published,eia-860,Sagamore Wind,33.93842,-103.18461,NM
+eia-860,63590,Ponderosa Wind Energy Center,200.0,published,eia-860,Ponderosa Wind Energy Center,36.55553,-100.66895,OK
+eia-860,63601,Isabella Wind Park,383.5,published,eia-860,Isabella Wind Park,43.68409,-84.78845,MI
+eia-860,63624,"La Chalupa, LLC",198.5,published,eia-860,"La Chalupa, LLC",26.24989,-97.51184,TX
+eia-860,63639,Contrail Wind Farm,112.4,published,eia-860,Contrail Wind Farm,40.66741,-94.83163,IA
+eia-860,63640,Southern Hills Wind Farm,254.1,published,eia-860,Southern Hills Wind Farm,41.1113,-94.4667,IA
+eia-860,63641,Diamond Trail Wind Farm,252.5,published,eia-860,Diamond Trail Wind Farm,41.6744,-92.1642,IA
+eia-860,63655,Coyote Wind LLC,242.5,published,eia-860,Coyote Wind LLC,32.84879,-100.86646,TX
+eia-860,63666,"Bitter Ridge Wind Farm, LLC",146.6,published,eia-860,"Bitter Ridge Wind Farm, LLC",40.36053,-85.11315,IN
+eia-860,63686,Crescent Wind Park,150.0,published,eia-860,Crescent Wind Park,41.935,-84.477,MI
+eia-860,63687,Gratiot Farms Wind Project,150.0,published,eia-860,Gratiot Farms Wind Project,43.1695,-84.8653,MI
+eia-860,63689,Red Lake Falls Community Hybrid,4.6,published,eia-860,Red Lake Falls Community Hybrid,47.86926,-96.31896,MN
+eia-860,63710,Golden Hill Wind,201.3,published,eia-860,Golden Hill Wind,45.56271,-120.70846,OR
+eia-860,63738,Helena Wind,268.2,published,eia-860,Helena Wind,28.62196,-97.93762,TX
+eia-860,63739,Las Majadas Wind Farm,272.6,published,eia-860,Las Majadas Wind Farm,26.36484,-97.54534,TX
+eia-860,63803,"Bronco Plains Wind, LLC",300.0,published,eia-860,"Bronco Plains Wind, LLC",39.08884,-103.02507,CO
+eia-860,63907,Panther Creek Wind Project,54.4,published,eia-860,Panther Creek Wind Project,39.62055,-90.87612,IL
+eia-860,63914,Cedar Springs I,200.0,published,eia-860,Cedar Springs I,43.01971,-105.47214,WY
+eia-860,63915,Cedar Springs II,200.0,published,eia-860,Cedar Springs II,42.96901,-105.36562,WY
+eia-860,63916,Cedar Springs III,133.0,published,eia-860,Cedar Springs III,43.07669,-105.58435,WY
+eia-860,63941,Oasis Alta,14.4,published,eia-860,Oasis Alta,35.05917,-118.29194,CA
+eia-860,63981,Red Cloud Wind LLC,350.0,published,eia-860,Red Cloud Wind LLC,34.27406,-105.42291,NM
+eia-860,63988,Blooming Grove Wind Energy Center,250.0,published,eia-860,Blooming Grove Wind Energy Center,40.66108,-88.39508,IL
+eia-860,64003,Iron Star Wind Project,297.6,published,eia-860,Iron Star Wind Project,37.64875,-99.98094,KS
+eia-860,64047,Caddo Wind,303.2,published,eia-860,Caddo Wind,34.98507,-98.38382,OK
+eia-860,64051,"Orchard Windfarm 2, LLC",10.0,published,eia-860,"Orchard Windfarm 2, LLC",45.38,-119.3332,OR
+eia-860,64052,"Orchard Windfarm 3, LLC",10.0,published,eia-860,"Orchard Windfarm 3, LLC",45.38,-119.3332,OR
+eia-860,64053,"Orchard Windfarm 4, LLC",10.0,published,eia-860,"Orchard Windfarm 4, LLC",45.38,-119.33322,OR
+eia-860,64054,Clines Corners Wind Farm LLC,325.0,published,eia-860,Clines Corners Wind Farm LLC,34.35655,-105.43676,NM
+eia-860,64057,Wheatridge 1,100.0,published,eia-860,Wheatridge 1,45.55975,-119.6338,OR
+eia-860,64065,Duran Mesa LLC,105.0,published,eia-860,Duran Mesa LLC,34.39068,-105.49213,NM
+eia-860,64066,Tecolote Wind LLC,272.0,published,eia-860,Tecolote Wind LLC,34.36,-105.44,NM
+eia-860,64074,Cimarron Bend III,198.8,published,eia-860,Cimarron Bend III,37.371,-99.994,KS
+eia-860,64088,"Alta Farms II Wind Project, LLC",200.5,published,eia-860,"Alta Farms II Wind Project, LLC",40.1972,-89.06766,IL
+eia-860,64130,"REG Juhl Glenville Wind, LLC",2.5,published,eia-860,"REG Juhl Glenville Wind, LLC",43.582,-93.305,MN
+eia-860,64138,Irish Creek Wind,300.6,published,eia-860,Irish Creek Wind,39.69946,-96.42514,KS
+eia-860,64139,"Haystack Wind Project, LLC",298.0,published,eia-860,"Haystack Wind Project, LLC",42.26303,-97.19566,NE
+eia-860,64149,"Western Trail Wind, LLC",366.6,published,eia-860,"Western Trail Wind, LLC",33.85245,-99.06509,TX
+eia-860,64164,"Azure Sky Wind Project, LLC Hybrid",350.2,published,eia-860,"Azure Sky Wind Project, LLC Hybrid",33.16914,-99.26601,TX
+eia-860,64165,Priddy Wind Project,302.4,published,eia-860,Priddy Wind Project,31.5481,-98.49491,TX
+eia-860,64172,"Rockhaven Wind Project, LLC",140.0,published,eia-860,"Rockhaven Wind Project, LLC",34.41955,-97.28545,OK
+eia-860,64177,CED Manchester Wind,7.9,published,eia-860,CED Manchester Wind,42.46929,-91.47393,IA
+eia-860,64178,CED Centerville Wind,7.9,published,eia-860,CED Centerville Wind,40.70991,-92.84835,IA
+eia-860,64183,Independence Wind Farm,55.4,published,eia-860,Independence Wind Farm,42.4316,-91.56864,IA
+eia-860,64230,Indiana Crossroads Wind Farm LLC,302.4,published,eia-860,Indiana Crossroads Wind Farm LLC,40.6631,-86.8695,IN
+eia-860,64309,Soldier Creek Wind,300.0,published,eia-860,Soldier Creek Wind,39.6572,-96.0294,KS
+eia-860,64323,Coachella Hills Wind,61.2,published,eia-860,Coachella Hills Wind,33.9077,-116.5797,CA
+eia-860,64326,Summit Winds,57.5,published,eia-860,Summit Winds,37.76115,-121.69067,CA
+eia-860,64332,Two Dot Wind Broadview East LLC,1.8,published,eia-860,Two Dot Wind Broadview East LLC,46.10265,-108.80661,MT
+eia-860,64336,"Little Blue Wind Project, LLC",250.7,published,eia-860,"Little Blue Wind Project, LLC",40.28442,-98.40759,NE
+eia-860,64339,Horizon Hill Wind Project,201.5,published,eia-860,Horizon Hill Wind Project,35.98938,-97.58951,OK
+eia-860,64340,White Rock West Wind Project,99.5,published,eia-860,White Rock West Wind Project,34.96684,-98.25689,OK
+eia-860,64341,White Rock East Wind Project,201.5,published,eia-860,White Rock East Wind Project,34.97427,-98.18516,OK
+eia-860,64377,Milligan 1 Wind Farm,300.0,published,eia-860,Milligan 1 Wind Farm,40.47862,-97.22057,NE
+eia-860,64381,"Glacier Sands Wind Power, LLC",185.0,published,eia-860,"Glacier Sands Wind Power, LLC",40.26138,-89.70088,IL
+eia-860,64407,Flat Ridge 3,128.0,published,eia-860,Flat Ridge 3,37.44697,-98.40023,KS
+eia-860,64433,Black Rock Wind,115.0,published,eia-860,Black Rock Wind,39.3668,-79.10826,WV
+eia-860,64544,Ranchland Wind Project II,148.0,published,eia-860,Ranchland Wind Project II,32.30852,-99.1642,TX
+eia-860,64551,Ranchland Wind Project I,114.9,published,eia-860,Ranchland Wind Project I,32.30852,-99.1645,TX
+eia-860,64591,"El Algodon Alto Wind Farm, LLC",200.2,published,eia-860,"El Algodon Alto Wind Farm, LLC",27.99271,-97.74398,TX
+eia-860,64623,Freeborn Wind Farm,218.0,published,eia-860,Freeborn Wind Farm,43.51306,-93.18862,MN
+eia-860,64638,"Borderlands Wind, LLC",100.0,published,eia-860,"Borderlands Wind, LLC",34.15984,-108.89446,NM
+eia-860,64639,TG East,336.0,published,eia-860,TG East,33.74632,-99.66552,TX
+eia-860,64661,Heartland Divide II,200.0,published,eia-860,Heartland Divide II,41.72032,-94.92842,IA
+eia-860,64662,"Sac County Wind, LLC",80.0,published,eia-860,"Sac County Wind, LLC",42.42115,-94.99508,IA
+eia-860,64665,Great Prairie Wind,1027.0,published,eia-860,Great Prairie Wind,36.3075,-101.53222,TX
+eia-860,64688,Plymouth Wind,202.7,published,eia-860,Plymouth Wind,42.84297,-95.94126,IA
+eia-860,64710,White Mesa Wind,500.6,published,eia-860,White Mesa Wind,30.91,-101.263,TX
+eia-860,64750,Glass Sands Wind Facility,117.0,published,eia-860,Glass Sands Wind Facility,34.51416,-96.91591,OK
+eia-860,64872,"Panorama Wind, LLC",145.0,published,eia-860,"Panorama Wind, LLC",40.95206,-103.90756,CO
+eia-860,65019,Beaver Creek Wind Facility,248.0,published,eia-860,Beaver Creek Wind Facility,45.956,-109.497,MT
+eia-860,65048,Hubbard Wind,300.0,published,eia-860,Hubbard Wind,31.77471,-96.8282,TX
+eia-860,65059,"Niyol Wind, LLC",205.6,published,eia-860,"Niyol Wind, LLC",40.61336,-102.9526,CO
+eia-860,65129,Jayhawk Wind Energy Center,197.4,published,eia-860,Jayhawk Wind Energy Center,37.70446,-95.02982,KS
+eia-860,65143,Big Turtle Wind Farm 2,29.4,published,eia-860,Big Turtle Wind Farm 2,43.91956,-82.79443,MI
+eia-860,65162,Lacy Creek Wind Energy Center,301.3,published,eia-860,Lacy Creek Wind Energy Center,31.72991,-101.29894,TX
+eia-860,65282,Red Barn Energy,91.6,published,eia-860,Red Barn Energy,42.95145,-90.4407,WI
+eia-860,65306,Limestone Wind Project,299.2,published,eia-860,Limestone Wind Project,31.85346,-96.62446,TX
+eia-860,65311,"Cedar Creek Wind, LLC",160.0,published,eia-860,"Cedar Creek Wind, LLC",43.32761,-112.05772,ID
+eia-860,65316,Sapphire Sky Wind Energy LLC,259.8,published,eia-860,Sapphire Sky Wind Energy LLC,40.2945,-88.58455,IL
+eia-860,65328,Meridian Wind Park,225.0,published,eia-860,Meridian Wind Park,43.46197,-84.33982,MI
+eia-860,65335,Appaloosa Run Wind,171.8,published,eia-860,Appaloosa Run Wind,31.15727,-101.8316,TX
+eia-860,65350,Ford County Wind Farm LLC,121.3,published,eia-860,Ford County Wind Farm LLC,40.55629,-88.34949,IL
+eia-860,65390,"Ledyard Windpower, LLC",207.0,published,eia-860,"Ledyard Windpower, LLC",43.43008,-94.10695,IA
+eia-860,65403,Boswell Wind,329.8,published,eia-860,Boswell Wind,41.919,-105.869,WY
+eia-860,65478,"Green Providence Wind I, LLC",1.5,published,eia-860,"Green Providence Wind I, LLC",41.78949,-71.38477,RI
+eia-860,65479,"Green Providence Wind II, LLC",3.0,published,eia-860,"Green Providence Wind II, LLC",41.78605,-71.38554,RI
+eia-860,65484,Western Plains Wind,2.7,published,eia-860,Western Plains Wind,39.122,-100.733,KS
+eia-860,65495,"Ball Hill Wind Energy, LLC",107.5,published,eia-860,"Ball Hill Wind Energy, LLC",42.26526,-79.07252,NY
+eia-860,65496,"Bluestone Wind, LLC",111.8,published,eia-860,"Bluestone Wind, LLC",42.11176,-75.45778,NY
+eia-860,65511,25 Mile Creek,250.0,published,eia-860,25 Mile Creek,36.487,-99.739,OK
+eia-860,65522,Number Three Wind Project,106.0,published,eia-860,Number Three Wind Project,43.8396,-75.56988,NY
+eia-860,65546,Inertia Wind Project,301.0,published,eia-860,Inertia Wind Project,33.18688,-99.59533,TX
+eia-860,65561,South Fork Wind,130.0,published,eia-860,South Fork Wind,41.09,-71.13,NY
+eia-860,65577,Clearwater Wind I,365.5,published,eia-860,Clearwater Wind I,46.81771,-106.37885,MT
+eia-860,65713,Rock Aetna Power Partners,20.0,published,eia-860,Rock Aetna Power Partners,44.02272,-96.05232,MN
+eia-860,65714,Northern Wind,100.0,published,eia-860,Northern Wind,44.011,-96.0446,MN
+eia-860,65715,Great Pathfinder Wind,224.4,published,eia-860,Great Pathfinder Wind,42.21413,-93.87668,IA
+eia-860,65725,Kossuth County Wind,70.0,published,eia-860,Kossuth County Wind,42.98667,-94.13361,IA
+eia-860,65737,Schumann Wind Farm,8.0,published,eia-860,Schumann Wind Farm,45.90676,-118.4973,OR
+eia-860,65738,"Sunflower Energy Center, LLC",200.6,published,eia-860,"Sunflower Energy Center, LLC",38.23161,-97.04718,KS
+eia-860,65741,"Sandy Ridge Wind 2, LLC",87.6,published,eia-860,"Sandy Ridge Wind 2, LLC",40.74533,-78.22231,PA
+eia-860,65742,Deerfield Wind Energy 2,112.1,published,eia-860,Deerfield Wind Energy 2,43.92867,-82.87351,MI
+eia-860,65760,"El Sauz Ranch Wind, LLC",301.0,published,eia-860,"El Sauz Ranch Wind, LLC",26.50088,-97.59906,TX
+eia-860,65761,Buffalo Ridge Wind,106.0,published,eia-860,Buffalo Ridge Wind,44.42306,-96.29722,MN
+eia-860,65763,Young Wind,500.0,published,eia-860,Young Wind,33.11921,-98.85258,TX
+eia-860,65764,Walleye Wind,110.0,published,eia-860,Walleye Wind,43.63806,-96.39056,MN
+eia-860,65790,Castle Gap Wind,196.8,published,eia-860,Castle Gap Wind,31.39376,-98.35936,TX
+eia-860,65971,"Seven Cowboy Wind Project, LLC",301.7,published,eia-860,"Seven Cowboy Wind Project, LLC",35.21833,-99.10399,OK
+eia-860,66000,Delta Wind Farm (MS),184.5,published,eia-860,Delta Wind Farm (MS),34.46923,-90.3927,MS
+eia-860,66001,Chevelon Butte Wind Farm,238.2,published,eia-860,Chevelon Butte Wind Farm,34.6815,-110.80173,AZ
+eia-860,66014,"Bronco Plains Wind II, LLC",200.0,published,eia-860,"Bronco Plains Wind II, LLC",39.184,-102.97,CO
+eia-860,66052,Eight Point Wind,101.2,published,eia-860,Eight Point Wind,42.10164,-77.70111,NY
+eia-860,66093,Moraine Sands Wind Power,171.0,published,eia-860,Moraine Sands Wind Power,40.17089,-89.89511,IL
+eia-860,66110,Babbitt Ranch Energy Center,163.0,published,eia-860,Babbitt Ranch Energy Center,35.62773,-111.86794,AZ
+eia-860,66123,Prairie Switch Wind LLC,163.2,published,eia-860,Prairie Switch Wind LLC,29.0919,-96.09,TX
+eia-860,66155,Ponderosa Wind II,100.0,published,eia-860,Ponderosa Wind II,36.58945,-100.80374,OK
+eia-860,66156,High Banks Wind,643.4,published,eia-860,High Banks Wind,39.81598,-97.43104,KS
+eia-860,66167,AM Wind Repower,27.0,published,eia-860,AM Wind Repower,33.94374,-116.66151,CA
+eia-860,66183,Clearwater Wind East,207.9,published,eia-860,Clearwater Wind East,46.78961,-106.00209,MT
+eia-860,66184,Clearwater Wind II,102.8,published,eia-860,Clearwater Wind II,46.81883,-106.19458,MT
+eia-860,66192,Heartland Farms,200.0,published,eia-860,Heartland Farms,43.21389,-84.63306,MI
+eia-860,66195,"SPPW1, LLC",5.6,published,eia-860,"SPPW1, LLC",40.31377,-98.96028,NE
+eia-860,66261,Martin Marietta Wind Project,4.5,published,eia-860,Martin Marietta Wind Project,41.466,-83.367,OH
+eia-860,66283,Silver Maple,20.0,published,eia-860,Silver Maple,44.7821,-68.5201,ME
+eia-860,66321,"King Creek Wind Farm 1, LLC",184.0,published,eia-860,"King Creek Wind Farm 1, LLC",33.268,-99.468,TX
+eia-860,66323,"King Creek Wind Farm 2, LLC",209.0,published,eia-860,"King Creek Wind Farm 2, LLC",33.18241,-99.38989,TX
+eia-860,66496,"Sweetland Wind Farm, LLC",200.0,published,eia-860,"Sweetland Wind Farm, LLC",44.38681,-98.80107,SD
+eia-860,66531,Pioneer Hutt Wind Energy,140.0,published,eia-860,Pioneer Hutt Wind Energy,31.7983,-101.9043,TX
+eia-860,66540,Shamrock Wind,223.9,published,eia-860,Shamrock Wind,30.936,-101.607,TX
+eia-860,66560,Wheatridge East Wind,200.0,published,eia-860,Wheatridge East Wind,45.54265,-119.38217,OR
+eia-860,66568,Shady Oaks Wind 2,108.3,published,eia-860,Shady Oaks Wind 2,41.66652,-89.0598,IL
+eia-860,66668,Chickasaw Wind Farm,202.4,published,eia-860,Chickasaw Wind Farm,43.14014,-92.32443,IA
+eia-860,66811,Clearwater Wind III,100.0,published,eia-860,Clearwater Wind III,46.81883,-106.19458,MT
+eia-860,66861,Indiana Crossroads Wind Farm II,201.6,published,eia-860,Indiana Crossroads Wind Farm II,40.77936,-87.04211,IN
+eia-860,66902,Roadrunner Wind Farm,256.0,published,eia-860,Roadrunner Wind Farm,32.43742,-99.10891,TX
+eia-860,66919,La Casa Wind,150.0,published,eia-860,La Casa Wind,32.63511,-98.6772,TX
+eia-860,66952,Prescott Wind Farm,38.7,published,eia-860,Prescott Wind Farm,41.12103,-94.60513,IA
+eia-860,67002,"North Bend Wind Project, LLC",200.0,published,eia-860,"North Bend Wind Project, LLC",44.37733,-99.6601,SD
+eia-860,67026,Roundhouse Renewable Energy II,105.7,published,eia-860,Roundhouse Renewable Energy II,41.05469,-104.99538,WY
+eia-860,67095,"Montgomery Ranch Wind Farm, LLC",202.5,published,eia-860,"Montgomery Ranch Wind Farm, LLC",33.84127,-99.6578,TX
+eia-860,67160,Springfield Wind,1.5,published,eia-860,Springfield Wind,37.21444,-102.3933,CO
+eia-860,67176,Chevelon Butte Phase 2,216.0,published,eia-860,Chevelon Butte Phase 2,34.6821,-110.803,AZ
+eia-860,67193,Anticline Wind,124.3,published,eia-860,Anticline Wind,43.14608,-106.34725,WY
+eia-860,67289,Cedar Springs Wind IV,390.4,published,eia-860,Cedar Springs Wind IV,43.1008,-105.71153,WY
+eia-860,67425,"Century Oak Wind Project, LLC",151.5,published,eia-860,"Century Oak Wind Project, LLC",32.42869,-99.15911,TX
+eia-860,67443,Lane City Wind,202.5,published,eia-860,Lane City Wind,29.20973,-96.0296,TX
+eia-860,67502,Oliver Wind IV,198.8,published,eia-860,Oliver Wind IV,47.12427,-101.61236,ND
+eia-860,67601,Diversion Wind Energy LLC,200.6,published,eia-860,Diversion Wind Energy LLC,33.71926,-99.02301,TX
+eia-860,67700,Peyton Creek Wind Farm II,243.0,published,eia-860,Peyton Creek Wind Farm II,28.89678,-95.86518,TX
+eia-860,67722,WPWP,307.2,published,eia-860,WPWP,37.28392,-97.21513,KS
+eia-860,67763,Hart Wind,166.4,published,eia-860,Hart Wind,34.37855,-102.05372,TX
+eia-860,67769,Rock Creek Wind,590.0,published,eia-860,Rock Creek Wind,41.58263,-106.07735,WY
+eia-860,67847,Moscow,58.8,published,eia-860,Moscow,45.14659,-69.86814,ME
+eia-860,67875,Monte Cristo 1,238.5,published,eia-860,Monte Cristo 1,26.46146,-98.28588,TX
+eia-860,67910,"Timbermill Wind, LLC",189.0,published,eia-860,"Timbermill Wind, LLC",36.15186,-76.60104,NC
+eia-860,67916,Foote Creek Rim,134.8,published,eia-860,Foote Creek Rim,41.6283,-106.2013,WY
+eia-860,67959,Crossover Wind,144.0,published,eia-860,Crossover Wind,35.24601,-90.74649,AR
+eia-860,67960,Willow Creek Wind (OK),220.0,published,eia-860,Willow Creek Wind (OK),36.24452,-97.10122,OK
+eia-860,67962,Dans Mountain,54.9,published,eia-860,Dans Mountain,39.59999,-78.89067,MD
+eia-860,68182,Bowman Wind,200.0,published,eia-860,Bowman Wind,46.13763,-103.59954,ND
+eia-860,68185,Downeast Wind,126.0,published,eia-860,Downeast Wind,44.75748,-67.91748,ME
+eia-860,68193,Prosperity Wind,300.0,published,eia-860,Prosperity Wind,40.18788,-88.58944,IL
+eia-860,68222,Flat Ridge 4,134.0,published,eia-860,Flat Ridge 4,37.34112,-98.01313,KS
+eia-860,68318,Dakota Range Wind,304.0,published,eia-860,Dakota Range Wind,45.22365,-97.02314,SD
+eia-860,68590,Flat Ridge 5,153.0,published,eia-860,Flat Ridge 5,37.20262,-98.04575,KS
+eia-860,68844,CalPortland Company Mojave Wind,23.5,published,eia-860,CalPortland Company Mojave Wind,35.03599,-118.34001,CA
+eia-860,68872,Shenandoah Hills Wind Farm,214.3,published,eia-860,Shenandoah Hills Wind Farm,40.63411,-95.3707,IA
+eia-860,69003,Windshare LLC,5.4,published,eia-860,Windshare LLC,43.96077,-95.97919,MN
+eia-860,69079,Carpenter Wind Farm LLC,200.1,published,eia-860,Carpenter Wind Farm LLC,40.76585,-87.15371,IN
+eia-860,69224,Wagon Wheel Wind,598.4,published,eia-860,Wagon Wheel Wind,36.15333,-97.575,OK
+eia-860,69225,Top Hat Wind,204.0,published,eia-860,Top Hat Wind,40.15362,-89.2225,IL
+eia-860,69327,Salt Creek Wind,169.4,published,eia-860,Salt Creek Wind,42.1647,-92.51132,IA
+eia-860,7381,Searsburg Wind Turbine,6.0,published,eia-860,Searsburg Wind Turbine,42.8625,-72.9628,VT
+eia-860,7501,Princeton Wind Farm,3.0,published,eia-860,Princeton Wind Farm,42.4789,-71.9,MA
+eia-860,7526,Solano Wind,300.5,published,eia-860,Solano Wind,38.11642,-121.76903,CA
+eia-860,7771,Springview,3.0,published,eia-860,Springview,42.82579,-99.77747,NE
+eia-860,7855,Moorhead Wind Turbine,1.4,published,eia-860,Moorhead Wind Turbine,46.895,-96.7347,MN
+eia-860,7886,Wind Turbine,11.0,published,eia-860,Wind Turbine,44.6694,-87.6333,WI
+eia-860,7936,Nine Canyon,95.9,published,eia-860,Nine Canyon,46.0958,-119.0964,WA
+eia-860,7966,Iowa Distributed Wind Generation Project,2.3,published,eia-860,Iowa Distributed Wind Generation Project,43.03472,-94.14056,IA
+eia-860,90,Snake River,1.8,published,eia-860,Snake River,64.50533,-165.42981,AK
+eia-860,944,Geneseo,3.0,published,eia-860,Geneseo,41.45149,-90.14855,IL

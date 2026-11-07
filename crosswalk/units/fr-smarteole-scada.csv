@@ -1,0 +1,2 @@
+entry,unit_id,unit_name,alt_names,capacity_mw,area,lat,lon,location_source,source_url,notes
+fr-smarteole-scada,Sole du Moulin Vieux,Sole du Moulin Vieux,Parc éolien de la Sole du Moulin Vieux;SMV;SMARTEOLE,14.35,FR,49.840583,2.800754,publisher,https://zenodo.org/records/7342466,Lat/lon is the mean of turbines SMV1 to SMV7 in SMARTEOLE_WakeSteering_Coordinates_staticData.csv (WGS84; the WindCube lidar row excluded). Capacity is 7 x 2.05 MW Senvion MM82 as stated in the Zenodo description.

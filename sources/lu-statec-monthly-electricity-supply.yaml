@@ -1,0 +1,70 @@
+id: lu-statec-monthly-electricity-supply
+name: Monthly electricity supply (Approvisionnement mensuel en électricité, LUSTAT DSD_NRG@DF_A4102)
+publisher: National Institute of Statistics and Economic Studies of Luxembourg (STATEC)
+publisher_role: statistics-office
+countries: [LU]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2008
+  update: monthly, about three to four months behind (June 2026 was the latest month on 2026-11-06)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: kWh
+  value: period-total
+  evidence: https://lustat.statec.lu/rest/data/LU1,DSD_NRG@DF_A4102,1.0/all?format=csvfilewithlabels
+  note: >-
+    The SDMX data give UNIT_MEASURE 'KWH' (Kilowatt-hour) with unit multiplier 0 for 'Wind
+    production' (PROD_EOL), with monthly periods such as 2026-06. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
+access:
+  method: api
+  url: https://lustat.statec.lu/
+  docs: https://lustat.statec.lu/rest/data/LU1,DSD_NRG@DF_A4102,1.0/all?format=csvfilewithlabels
+  key_required: false
+  registration: false
+  formats: [csv, sdmx-xml]
+  languages: [fr, en, de]
+licence:
+  name: Creative Commons CC0 1.0 (STATEC portal legal notice)
+  spdx: CC0-1.0
+  url: https://statistiques.public.lu/fr/support/notice.html
+  redistribution: allowed
+  attribution: Not required; STATEC asks, as a non-binding guideline, that STATEC be named as the source.
+  verified: true
+  note: >-
+    Read 2026-11-06. The legal notice of statistiques.public.lu publishes the portal's
+    information under CC0 1.0 unless stated otherwise, with good-will guidelines asking users to
+    credit STATEC. LUSTAT is STATEC's statistical database linked from that portal; no separate
+    terms were found on lustat.statec.lu itself.
+traps:
+  - summary: The monthly wind values do not add up to STATEC's own annual wind generation.
+    detail: >-
+      The twelve months summed to 454.9 GWh for 2024 and 85.3 GWh for 2016, while STATEC's annual
+      table "Electricity generation" (DF_A4203) gives 466.8 GWh and 101.5 GWh. The gap varies from
+      year to year (about 3% to 16%), so the monthly series is not a drop-in substitute for the
+      annual figure; scale or check against the annual table before using it as a total.
+    evidence: https://lustat.statec.lu/rest/data/LU1,DF_A4203,1.0/all?format=csvfilewithlabels
+    found: 2026-11-06
+  - summary: Values are in kilowatt-hours, not megawatt-hours.
+    detail: For example June 2026 wind production is given as 31,813,626 kWh (31.8 GWh).
+    evidence: https://lustat.statec.lu/rest/data/LU1,DSD_NRG@DF_A4102,1.0/all?format=csvfilewithlabels
+    found: 2026-11-06
+notes: >-
+  Monthly "Wind production" in kWh for Luxembourg from January 2008 to June 2026 when checked,
+  alongside hydro, thermal and combined heat and power production, imports and exports. The
+  dataflow description gives STATEC as author but does not say how wind production is collected.
+  The annual tables DF_A4203 (Electricity generation, from 1997 for wind) and DF_A4401
+  (Renewable electricity generation by process) give annual wind in GWh, TJ and ktoe. No finer
+  Luxembourg series was found from the grid operator Creos or the regulator ILR: Creos links only
+  to the ENTSO-E Transparency Platform, whose Luxembourg wind series is also shown on SMARD.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

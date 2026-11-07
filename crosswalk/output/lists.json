@@ -1,0 +1,214 @@
+{
+  "ar-cammesa-renewables-database": {
+    "units": 75,
+    "proposed": 35,
+    "review": 29,
+    "unmatched": 11
+  },
+  "au-aemo-wem-facility-scada": {
+    "units": 17,
+    "proposed": 9,
+    "review": 2,
+    "unmatched": 6
+  },
+  "au-open-electricity-api": {
+    "units": 106,
+    "proposed": 2,
+    "published": 104
+  },
+  "bo-cndc-realised-dispatch-by-plant": {
+    "units": 6,
+    "proposed": 6
+  },
+  "br-ons-capacity-factor": {
+    "units": 205,
+    "published": 205
+  },
+  "br-ons-generation-by-plant-hourly": {
+    "units": 322,
+    "proposed": 6,
+    "published": 205,
+    "review": 8,
+    "unmatched": 103
+  },
+  "br-ufsc-pedra-do-sal-beberibe-scada": {
+    "units": 2,
+    "proposed": 1,
+    "review": 1
+  },
+  "ca-ab-aeso-metered-volumes": {
+    "units": 52,
+    "proposed": 36,
+    "review": 12,
+    "unmatched": 4
+  },
+  "ch-bfe-wind-energy-plants": {
+    "units": 15,
+    "published": 15
+  },
+  "cl-cen-generacion-real": {
+    "units": 68,
+    "proposed": 1,
+    "published": 67
+  },
+  "co-xm-simem-generation": {
+    "units": 4,
+    "proposed": 1,
+    "unmatched": 3
+  },
+  "de-netztransparenz-eeg-movement-data": {
+    "units": 30083,
+    "proposed": 2,
+    "published": 29565,
+    "review": 55,
+    "unmatched": 461
+  },
+  "dk-dtu-norrekaer-enge-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "dk-orsted-offshore-operational-data": {
+    "units": 2,
+    "proposed": 2
+  },
+  "do-oc-daily-operation-report-by-plant": {
+    "units": 12,
+    "proposed": 8,
+    "review": 3,
+    "unmatched": 1
+  },
+  "eg-eehc-annual-report-plant-generation": {
+    "units": 7,
+    "proposed": 4,
+    "review": 2,
+    "unmatched": 1
+  },
+  "fr-engie-la-haute-borne-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "fr-smarteole-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "gb-ace-lawrence-weston-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "gb-altahullion-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "gb-dtu-delabole-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "gb-hill-of-towie-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "gb-kelmarsh-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "gb-ofgem-rer-roc-issuance": {
+    "units": 1882,
+    "proposed": 406,
+    "review": 203,
+    "unmatched": 1273
+  },
+  "gb-penmanshiel-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "ge-gse-electricity-balance": {
+    "units": 3,
+    "review": 2,
+    "unmatched": 1
+  },
+  "gr-ipto-scada-unit-production": {
+    "units": 90,
+    "proposed": 1,
+    "review": 4,
+    "unmatched": 85
+  },
+  "gt-amm-posdespacho-diario": {
+    "units": 3,
+    "proposed": 3
+  },
+  "ie-dkit-vestas-v52-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "ie-semo-daily-meter-data": {
+    "units": 206,
+    "proposed": 104,
+    "review": 42,
+    "unmatched": 60
+  },
+  "kr-kospo-hankyung-wind-hourly": {
+    "units": 2,
+    "review": 2
+  },
+  "kr-kowepo-hwasun-turbine-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "kr-kowepo-jangheung-turbine-scada": {
+    "units": 1,
+    "published": 1
+  },
+  "ma-mtedd-chiffres-cles-energie": {
+    "units": 6,
+    "proposed": 5,
+    "review": 1
+  },
+  "ni-cndc-posdespacho-energia": {
+    "units": 5,
+    "published": 5
+  },
+  "no-nve-wind-production-per-plant": {
+    "units": 69,
+    "proposed": 4,
+    "published": 61,
+    "review": 2,
+    "unmatched": 2
+  },
+  "nz-ea-emi-generation-md": {
+    "units": 14,
+    "proposed": 10,
+    "review": 3,
+    "unmatched": 1
+  },
+  "pa-asep-monthly-market-statistics": {
+    "units": 5,
+    "review": 3,
+    "unmatched": 2
+  },
+  "pe-coes-generation-by-plant": {
+    "units": 13,
+    "proposed": 10,
+    "unmatched": 3
+  },
+  "pk-cppa-fca-wind-per-plant": {
+    "units": 30,
+    "proposed": 15,
+    "review": 15
+  },
+  "sn-senelec-annual-report": {
+    "units": 1,
+    "review": 1
+  },
+  "tw-taipower-unit-generation": {
+    "units": 39,
+    "proposed": 3,
+    "review": 7,
+    "unmatched": 29
+  },
+  "uy-adme-hourly-by-plant": {
+    "units": 41,
+    "proposed": 31,
+    "review": 4,
+    "unmatched": 6
+  }
+}

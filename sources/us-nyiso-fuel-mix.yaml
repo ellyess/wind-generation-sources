@@ -14,6 +14,22 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: America/New_York
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://mis.nyiso.com/public/csv/rtfuelmix/20261105rtfuelmix.csv
+  note: >-
+    Columns are "Time Stamp", "Time Zone" (EST or EDT) and "Gen MW" (headed "Gen MWh" in the
+    December 2015 files). Neither the file nor the NYISO pages checked say whether a stamp marks the
+    start or end of a five-minute interval, or whether a value is an average or a snapshot; the
+    first stamp of a day is 00:05. The entry's trap calls the values instantaneous, which was not
+    confirmed on a NYISO page. Read 2026-11-06 by an automated research pass; not yet reviewed.
+    Rechecked 2026-11-07: the Market Participants User's Guide (version 18.0, effective
+    18 September 2026) does not mention the fuel mix, so the trap no longer calls the values
+    instantaneous. Stamps are not always on the five-minute grid: 5 November 2026 has 294 wind
+    rows, with extra stamps such as 08:09:45, 08:50:21 and 08:50:27 between the regular ones.
 access:
   method: bulk-download
   url: https://www.nyiso.com/energy-market-operational-data
@@ -31,11 +47,16 @@ licence:
     reserves all rights; the only explicit ban is on reusing images and video. No reuse terms are
     given for data.
 traps:
-  - summary: The value column header changed from "Gen MWh" to "Gen MW", but both hold five-minute megawatt readings.
+  - summary: The value column header changed from "Gen MWh" to "Gen MW", but both hold five-minute values in megawatts of power.
     detail: >-
-      The December 2015 files label the column "Gen MWh"; current files say "Gen MW". The values
-      are instantaneous five-minute power in both. Do not sum them as energy without dividing by
-      12.
+      The December 2015 files label the column "Gen MWh"; current files say "Gen MW". The
+      magnitudes are power in both: "12/09/2015 00:05,EST,Wind,257.0" would be about 3 GW if it
+      were energy over five minutes, more than New York's wind fleet. Do not sum them as energy
+      without dividing by 12. NYISO does not say whether a value is a snapshot at the stamp or an
+      average over the five minutes: the files, the Real-Time Fuel Mix index on the MIS and the
+      Market Participants User's Guide (version 18.0) do not define it, and the data cannot
+      settle it. Corrected on 2026-11-07: this trap previously called the values instantaneous,
+      which no NYISO page states.
     evidence: http://mis.nyiso.com/public/csv/rtfuelmix/20151201rtfuelmix_csv.zip
     found: 2026-11-06
   - summary: Timestamps are local time with a separate EST or EDT label, so the autumn changeover repeats an hour.
@@ -56,3 +77,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

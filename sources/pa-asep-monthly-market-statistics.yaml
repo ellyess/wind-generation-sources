@@ -1,0 +1,85 @@
+id: pa-asep-monthly-market-statistics
+name: Estadística del Mercado Eléctrico Panameño (monthly electricity market statistics, generation by company and plant)
+publisher: Autoridad Nacional de los Servicios Públicos (ASEP)
+publisher_role: regulator
+countries: [PA]
+level: complex
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2013
+  update: monthly (September 2026 was the latest file found at the check)
+capacity: included
+coordinates: none
+curtailment: unknown
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www.asep.gob.pa/wp-content/uploads/electricidad/estadisticas_mensuales/2026/SEPTIEMBRE_2026.pdf
+  note: >-
+    Generation per company and plant is given in MWh for the month (for example 'Eólica, AES Panamá,
+    UEP I, 9,417.31' in the generation-by-technology table of September 2026). Read 2026-11-06 by an
+    automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.asep.gob.pa/wp-content/uploads/electricidad/estadisticas_mensuales/2026/SEPTIEMBRE_2026.pdf
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [es]
+licence:
+  name: ASEP Aviso Legal (no named licence)
+  url: "https://asep.gob.pa/wp-content/uploads/2022/01/Aviso-Legal-ASEP-2022.pdf"
+  redistribution: allowed-with-attribution
+  attribution: Cite ASEP (Autoridad Nacional de los Servicios Públicos) as the source; ASEP also asks to be told by email (webmaster@asep.gob.pa).
+  verified: true
+  note: >-
+    The legal notice linked from the ASEP home page footer says the information on the site is
+    public and free, and that in case of reproduction the user is asked to cite the source and send
+    notice by email to webmaster@asep.gob.pa. It also says the rights to the website belong to ASEP
+    or its licensors. No named licence or SPDX identifier fits. The notice is a scanned PDF dated
+    January 2022.
+traps:
+  - summary: Before about 2021 all of the UEP wind complex at Penonomé is a single row; later files split it into UEP I and UEP II.
+    detail: >-
+      January 2020 lists one "UEP" line (270 MW, 109,306.30 MWh). December 2021 splits it into UEP
+      I and UEP II; by September 2022 Toabré appears as a third wind row. UEP II is a single 215 MW row in the capacity table, and UEP I (listed
+      under AES Panamá) appears to be AES Panamá's Nuevo Chagres (55 MW). Whether UEP II is one farm
+      or several phases is not stated. The unit of the series therefore changes over time.
+    evidence: https://www.asep.gob.pa/wp-content/uploads/electricidad/estadisticas_mensuales/2020/ENERO_2020.pdf
+    found: 2026-11-06
+  - summary: Wind plants are not in the main generation-by-plant table; they sit in the "OTROS" breakdown on a later page.
+    detail: >-
+      In September 2024 the main table on page 8 lists the large plants and an "OTROS" total of
+      208,771.24 MWh; the wind rows (UEP I 1,144.38 MWh, UEP II 4,542.54 MWh, Toabré 4,478.63 MWh)
+      are in the "OTROS" breakdown on pages 12 and 13 of the PDF. The national open-data CSV built from these reports
+      (datosabiertos.gob.pa, "ASEP Generación de Electricidad año 2026") keeps only the main table,
+      so wind is hidden inside "Otros" there.
+    evidence: https://asep.gob.pa/wp-content/uploads/electricidad/estadisticas_mensuales/2024/SEPTIEMBRE_2024.pdf
+    found: 2026-11-06
+  - summary: Files are PDFs with one month each, found by a fixed URL pattern; there is no index page and no machine-readable table.
+    detail: >-
+      The pattern is /wp-content/uploads/electricidad/estadisticas_mensuales/YYYY/MONTHNAME_YYYY.pdf
+      with the Spanish month in capitals. January 2013 and January 2012 return 404; December 2013
+      exists. Older files are titled "Datos relevantes del mercado eléctrico panameño" and have a
+      different layout, so table extraction has to be adapted by year.
+    evidence: https://www.asep.gob.pa/wp-content/uploads/electricidad/estadisticas_mensuales/2013/ENERO_2013.pdf
+    evidence_is_error: true
+    found: 2026-11-06
+notes: >-
+  Panama's regulator publishes a monthly PDF with installed and firm capacity per plant,
+  generation per company and per plant in MWh, imports and exports, marginal cost and distributor
+  sales. Checked on 2026-11-06: September 2026 lists four wind rows with different values (UEP I
+  9,417.31 MWh, UEP II 45,667.27 MWh, Toabré 23,407.43 MWh, Caimitillo 0.28 MWh) and wind installed
+  capacity of 336 MW; files for 2014, 2015, 2018, 2020 to 2026 were downloaded. The December 2013
+  file already lists UEP (Penonomé). Capacity per plant is in section I of each file. No index page
+  for the series was found on asep.gob.pa; files were located by URL pattern and by web search.
+  The system operator (Centro Nacional de Despacho, CND) is likely to hold finer, daily or hourly,
+  per-plant data in its operation reports, but those were not checked in this pass.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

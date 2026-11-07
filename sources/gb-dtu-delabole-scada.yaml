@@ -1,0 +1,97 @@
+id: gb-dtu-delabole-scada
+name: Scada data from Delabole wind farm
+publisher: DTU Wind Energy, Technical University of Denmark (via DTU Data)
+publisher_role: research
+countries: [GB]
+area: Delabole wind farm, North Cornwall, England (10 Windane 34 turbines, 400 kW each)
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 1993
+  end: 1994
+  update: fixed historical release (August 2021); covers May 1993 to April 1994
+capacity: separate-dataset
+coordinates: separate-dataset
+curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: kW
+  value: unknown
+  evidence: "https://gitlab.windenergy.dtu.dk/fair-data/winddata-revamp/winddata-documentation/-/blob/master/wind_farm/delabole/report.pdf"
+  note: >-
+    In delabole_concurent.nc the time variable has units "minutes since 1993-05-01 04:40:00"
+    with no zone (CF conventions read a missing zone as UTC, but the file does not say so).
+    poa01 to poa10 have long_name Active Power and units kW. The summary says the data are
+    10-minute statistics but the power variables do not say which statistic, or whether the
+    stamp opens or closes the period. Read 2026-11-06 by an automated research pass; not yet
+    reviewed. Updated 2026-11-07: timezone set from unknown to UTC. The site documentation
+    links the 1994 technical performance report, whose Appendix B (page 171, a scanned table)
+    gives the database's "TIME, Time of record, hh/mm/ss GMT". DTU does not restate it for the
+    NetCDF files, but the data agree: delabole_all.nc has records at 01:00 to 01:50 on 27 March
+    1994, the hour UK clocks skipped, so the stamps are not UK local time. The same appendix
+    (page 173) lists four power statistics per turbine (mean, 3-second maximum, 3-second
+    minimum, standard deviation); which one poa holds is not stated, so value stays unknown
+    (see the trap).
+access:
+  method: bulk-download
+  url: https://doi.org/10.11583/DTU.14077004
+  docs: https://gitlab.windenergy.dtu.dk/fair-data/winddata-revamp/winddata-documentation/-/blob/master/delabole.md
+  key_required: false
+  registration: false
+  formats: [netcdf]
+  languages: [en]
+licence:
+  name: "CC BY 4.0 on the DTU Data record; CC BY NC 4.0 inside the NetCDF files"
+  url: https://doi.org/10.11583/DTU.14077004
+  redistribution: non-commercial-only
+  attribution: Cite Hansen, K.S. (2021), Scada data from Delabole wind farm, DTU, doi:10.11583/DTU.14077004.
+  verified: true
+  note: >-
+    The repository record states CC BY 4.0, but the files' global attributes say 'CC BY NC 4.0'
+    and that users must contact DTU Wind Energy before any commercial use. The stricter reading is
+    recorded here until DTU resolves the conflict.
+traps:
+  - summary: The licence on the repository record and the licence inside the files disagree.
+    detail: >-
+      DTU Data lists CC BY 4.0. The NetCDF attributes give license 'CC BY NC 4.0' and a
+      distribution statement requiring contact with DTU Wind Energy before commercial use.
+    evidence: https://doi.org/10.11583/DTU.14077004
+    found: 2026-11-06
+  - summary: The record and file summary say 8 turbines, but the files hold 10 power series.
+    detail: >-
+      delabole_concurent.nc has active power variables poa01 to poa10, matching the ten turbines
+      listed in the site documentation. Trust the variables and the site page, not the summary.
+    evidence: https://gitlab.windenergy.dtu.dk/fair-data/winddata-revamp/winddata-documentation/-/blob/master/delabole.md
+    found: 2026-11-06
+  - summary: The power values exceed the 400 kW turbine rating, and DTU does not say which 10-minute statistic they are.
+    detail: >-
+      Observed in the data, not documented. In delabole_all.nc, poa01 to poa10 (long_name
+      "Active Power", units kW, no statistic given) exceed 400 kW in 12,147 turbine-records (2.5%
+      of those with a value) and 450 kW in 89; the highest is 495 kW (poa06, 1993-12-24 03:40),
+      and each turbine peaks between 459 and 495 kW. The quality flags do not help: every poa
+      flag is 0, "data not checked". The site documentation lists the turbines as "winddane wD34
+      400 [kw]", and the 1994 performance report it links stores turbine power as a 10-minute
+      "Power Generated - Mean", a "Maximum 3 second", a "Minimum 3 second" and a standard
+      deviation (Appendix B, page 173), while the file carries one series. The share above 400 kW
+      is small beside the 9.6% of records with 44 m wind above the 13 m/s rated speed, which
+      fits a mean more than a 3-second maximum, but that is an inference. Treat poa as a
+      probable 10-minute mean, and say so if energy is computed from it. Found by an automated
+      research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://gitlab.windenergy.dtu.dk/fair-data/winddata-revamp/winddata-documentation/-/blob/master/wind_farm/delabole/report.pdf
+    found: 2026-11-07
+notes: >-
+  The first UK wind farm (commissioned December 1991), monitored for a UK Department of Trade and
+  Industry study: 10-minute turbine power with two met masts (44 m and 33 m). Two files:
+  delabole_all.nc (16 MB) and delabole_concurent.nc (5 MB, times when all signals are present).
+  Checked by downloading the concurrent file: 22,084 records from 1993-05-01 to 1994-04-30, ten
+  per-turbine power series in kW that differ between turbines. About 6,800 hours were recorded in
+  the year, per the summary. Turbine rating, hub height and local x-y positions are in the site
+  documentation, not the data files. The time zone is not stated in the files; the 1994
+  performance report linked from the site documentation gives GMT (added 2026-11-07).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

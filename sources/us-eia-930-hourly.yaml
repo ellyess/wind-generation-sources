@@ -14,6 +14,17 @@ coverage:
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: period-end
+  unit: MW
+  value: period-mean
+  evidence: https://www.eia.gov/survey/form/eia_930/instructions.pdf
+  note: >-
+    The form instructions say "Report all data as hourly integrated values in megawatts by hour
+    ending time". The bulk CSV has "Local Time at End of Hour" and "UTC Time at End of Hour"; the
+    UTC column is recorded here. An hourly integrated MW value equals the MWh in that hour. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.eia.gov/electricity/gridmonitor/
@@ -79,3 +90,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

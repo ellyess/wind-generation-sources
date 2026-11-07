@@ -1,0 +1,96 @@
+id: lt-litgrid-open-data-wind
+name: Litgrid open data, actual national wind power production (dataset 106)
+publisher: Litgrid AB
+publisher_role: tso
+countries: [LT]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2023
+  update: stated as hourly, but the series had stopped at 20 July 2026 when checked
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: unknown
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://www.litgrid.eu/wp-content/uploads/2026/03/Faktine-nacionaline-vejo-elektriniu-gamyba-MW_Metaduomenys.docx
+  note: >-
+    The dataset metadata (docx, in Lithuanian) defines 'ltu' as date and time in EET or Lithuanian
+    time, 'utc' as date and time in UTC, and 'value' as the value at a given moment (MW); it also
+    says the hourly figures are accumulated from data published every two minutes, with the previous
+    hour published each hour. It does not say whether the hourly value is an average of the
+    two-minute readings or which end of the hour the stamp marks. The utc column is wrong on spring
+    clock-change days (see trap). Read 2026-11-06 by an automated research pass; not yet reviewed.
+    Rechecked 2026-11-07 against the metadata docx ("Skelbiami valandiniai akumuliuoti duomenys
+    ... susidedantys iš kas 2 minutes skelbiamų duomenų"; value "tam tikru laiko momentu (MW)"):
+    the two statements conflict and neither says mean or snapshot, so the value stays unknown.
+access:
+  method: api
+  url: https://www.litgrid.eu/en/open-data-sets/actual-national-wind-power-production
+  docs: https://www.litgrid.eu/open-data-api-instrukcijos
+  key_required: false
+  registration: false
+  formats: [json, csv, xml]
+  languages: [lt, en]
+licence:
+  name: Creative Commons Attribution 4.0 (CC BY 4.0), Litgrid open data usage conditions
+  spdx: CC-BY-4.0
+  url: https://www.litgrid.eu/en/open-data
+  redistribution: allowed-with-attribution
+  attribution: Name Litgrid as the author (source) of the open data, and reuse under the same CC BY 4.0 terms.
+  verified: true
+  note: >-
+    The open data page sets CC BY 4.0 for the open data sets, asks that Litgrid be named as the
+    source, and says reuse must follow "the same CC BY 4.0 license type conditions". The
+    dataset's own metadata file also gives CC BY 4.0.
+traps:
+  - summary: The series stopped updating on 20 July 2026, although it is described as hourly.
+    detail: >-
+      On 6 November 2026 the full download ended at 2026-07-20 06:00 UTC, and a request from
+      1 October 2026 returned an empty list. The national total (dataset 107) stopped at the same
+      hour, while the solar series ran on to 12 October 2026.
+    evidence: https://openapi.litgrid.eu/v1/kategorijos/gamyba/106?fromUtc=2026-07-01T00:00:00Z&order=desc
+    found: 2026-11-06
+  - summary: The UTC column is wrong on each spring daylight-saving day, with one hour repeated and one missing.
+    detail: >-
+      On 30 March 2025 the local times 06:00 and 07:00 both carry utc 04:00, and utc 03:00 is
+      absent; the same happens on 26 March 2023, 31 March 2024 and 29 March 2026. The autumn change
+      is handled correctly (local 03:00 appears twice). Build UTC yourself from the local time
+      column, or drop the duplicated stamp.
+    evidence: https://openapi.litgrid.eu/v1/kategorijos/gamyba/106?fromUtc=2025-03-29T22:00:00Z&toUtc=2025-03-30T08:00:00Z
+    found: 2026-11-06
+  - summary: Summed hourly values come out 6 to 12 per cent below Litgrid's quarterly national balance for wind.
+    detail: >-
+      For example 2025 Q3 sums to 0.668 TWh against 0.761 TWh in the balance, and 2026 Q1 to
+      1.377 TWh against 1.459 TWh. The hourly values are built from data published every two
+      minutes, while the balance is the settled figure, so use the balance for energy
+      totals. Litgrid does not say how the hourly value is formed: the dataset metadata calls it
+      hourly "akumuliuoti" (accumulated) data made up of the two-minute data, and defines
+      "value" as the value "tam tikru laiko momentu" (at a given moment), in MW. Corrected on
+      2026-11-07: this trap previously called the hourly values averages of the two-minute
+      readings, which the metadata does not state. The API could not be re-read that day (its
+      TLS certificate had expired), so the data were not re-examined.
+    evidence: https://www.litgrid.eu/en/power-system/electric-power-system/electricity-generation-and-consumption-balance-data
+    found: 2026-11-06
+notes: >-
+  National wind output in MW per hour, including wind farms connected to the distribution grid.
+  The dataset metadata (a docx linked from the dataset page) says each hourly value is
+  accumulated from readings published every two minutes, and that the sample starts on
+  1 January 2023; the first record seen was 2023-01-01 00:00 UTC. Rows carry both local time
+  (ltu) and UTC. The API takes fromUtc, toUtc and order parameters and is limited to 600
+  requests per 5 minutes shared by all users. Installed capacity per production type comes from
+  the separate gamybos-pajegumai/1501 dataset in the same API. For longer history Litgrid
+  publishes a quarterly national balance workbook from 2012 (and historical data back to 1985)
+  on the balance data page, splitting wind into transmission-connected and
+  distribution-connected farms in TWh; it is quarterly, which this catalogue's resolution field
+  cannot express, so it is noted here rather than listed. The Lithuanian Energy Agency's monthly
+  "national generation" PDFs restate Litgrid data and are not a separate source.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

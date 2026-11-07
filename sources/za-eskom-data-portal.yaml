@@ -13,6 +13,18 @@ coverage:
 capacity: separate-dataset
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: period-start
+  unit: unknown
+  value: unknown
+  evidence: https://www.eskom.co.za/dataportal/wp-content/uploads/2026/11/Hourly_Generation.csv
+  note: >-
+    The CSV's first column is "Date Time Hour Beginning", so each stamp starts its hour; no zone is
+    given. Neither the CSV, the page nor the glossary states the unit of the Wind column (the
+    glossary defines it only as total contracted wind generation), so unit is recorded as unknown
+    (corrected 2026-11-07: this note said other, against the field). The entry's reading of the values as MW averages is inferred from their size against
+    installed capacity. Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.eskom.co.za/dataportal/renewables-performance/hourly-renewable-generation/
@@ -36,8 +48,13 @@ traps:
     detail: >-
       The CSV behind each page holds only the current and previous month. Longer history is
       sent by email through the data request form, up to five years per request, after giving
-      name, email and institution. Earlier monthly snapshots stay in the site's upload folders
-      (the oldest found, uploaded April 2022, starts on 1 March 2022), but nothing indexes them.
+      name, email and institution. Corrected 2026-11-07: this trap said earlier monthly snapshots
+      stay in the site's upload folders. They do not, apart from one. On 2026-11-07 a request for
+      wp-content/uploads/<year>/<month>/Hourly_Generation.csv for every month from January 2022
+      to December 2026 returned 404 except 2026/11 (the current file) and 2022/04, a frozen
+      snapshot (Last-Modified 30 April 2022) running from "2022-03-01 00:00:00" to "2022-04-30
+      23:00:00". So the public route gives the current window and that one 2022 snapshot, and
+      anything else needs the form.
     evidence: https://www.eskom.co.za/dataportal/data-request-form/
     found: 2026-11-06
   - summary: The download link on the page can point at a stale upload path and return 404.
@@ -45,7 +62,12 @@ traps:
       On 2026-11-06 the "Download data file" link pointed at
       wp-content/uploads/2026/07/Hourly_Generation.csv, which returned 404; the current file
       was at wp-content/uploads/2026/11/Hourly_Generation.csv. The folder changes with the
-      month of upload, so build the path from the current year and month.
+      month of upload, so build the path from the current year and month. Added 2026-11-07:
+      there is no stable URL. Only the current month's folder answers (on 2026-11-07, 2026/11;
+      2026/10 and 2026/07 both returned 404), so the address used here will stop working when
+      the file moves to the next month's folder, and a link saved today will not reproduce a
+      download later. Record the date fetched alongside any copy. Found by an automated
+      research pass on 2026-11-07; not yet reviewed by a person.
     evidence: https://www.eskom.co.za/dataportal/wp-content/uploads/2026/11/Hourly_Generation.csv
     found: 2026-11-06
   - summary: Hours not yet reached are filled with zeros, not left blank.
@@ -72,3 +94,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

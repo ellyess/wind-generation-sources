@@ -13,6 +13,19 @@ coverage:
 capacity: included
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: instant
+  unit: MW
+  value: instantaneous
+  evidence: https://data.gov.tw/dataset/37331
+  note: >-
+    The past dataset is described as net generation instantaneous values every 10 minutes
+    (每10分鐘淨發電量(瞬間值)), and its file header gives UNIT_OF_MEASUREMENT "MW" and INTERVAL "10MIN"; the
+    real-time file heads its column 淨發電量(MW). Stamps carry no offset ("2026-04-01T00:00:00") and
+    neither dataset states a zone. The real-time stamp read 07:40 when fetched at about 23:50 UTC,
+    which matches Taiwan time (UTC+08:00, no daylight saving), but that is an inference. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://data.gov.tw/dataset/8931
@@ -82,3 +95,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

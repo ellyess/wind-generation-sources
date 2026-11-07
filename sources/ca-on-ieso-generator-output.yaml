@@ -14,6 +14,20 @@ coverage:
 capacity: included
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: period-end
+  unit: MW
+  value: period-mean
+  evidence: https://reports-public.ieso.ca/docrefs/schema/GenOutputCapability_r3.xsd
+  note: >-
+    The report schema documents Hour (1 to 24) as "Hour ending" and the value element EnergyMW as
+    "MW output"; the report description says "The hourly output is the facility's five-minute
+    outputs averaged over an hour". No time zone is stated in the schema, the report description or
+    the data directory. The monthly CSVs have exactly Hour 1 to Hour 24 on every day, including
+    daylight-saving change days, which suggests Eastern Standard Time all year, but that is inferred.
+    Monthly CSVs are reissued as versions (_v3, _v4 ...). Read 2026-11-06 by an automated research
+    pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.ieso.ca/power-data/data-directory
@@ -55,6 +69,33 @@ traps:
     found: 2026-11-06
   - summary: Only generators of 20 MW or more are listed, so smaller wind farms are missing.
     evidence: https://reports-public.ieso.ca/docrefs/helpfile/GenOutputCapability_h4.pdf
+  - summary: The monthly folder holds several copies of each month, so downloading every file double-counts days.
+    detail: >-
+      Each month has an unversioned file and one or more versioned ones, and each version is a
+      month-to-date snapshot rather than a correction. On 2026-11-07 the folder held
+      PUB_GenOutputCapabilityMonth_202611.csv with _v3, _v4 and _v5: _v3 ("Created at 2026-11-04
+      06:00:08") covers 1 to 3 November, _v5 covers 1 to 5 November, its rows for 1 to 3
+      November are identical to _v3's, and the unversioned file is byte-identical to _v5. Past
+      months keep the unversioned file and a final version (_v31 for October 2026), also
+      byte-identical. Download only the unversioned file per month. No revised values were seen
+      between versions, but only one month was compared. Found by an automated research pass on
+      2026-11-07; not yet reviewed by a person.
+    evidence: https://reports-public.ieso.ca/public/GenOutputCapabilityMonth/
+    found: 2026-11-07
+  - summary: >-
+      Every data row of the monthly CSVs ends with an extra comma, so pandas shifts the columns
+      one place unless told not to use the first column as the index.
+    detail: >-
+      After three lines of preamble ("\\Generator Output Capability Month Report", "\\Created
+      at 2026-11-01 06:00:08", "\\For October 2026"), the header "Delivery Date,Generator,Fuel
+      Type,Measurement,Hour 1,...,Hour 24" has 28 fields, but each data row has 29, for example
+      "2026-10-01,ABKENORA,HYDRO,Output,7,7,...,7,". pandas read_csv then takes the first column
+      as the index, so "Delivery Date" holds the generator name, "Generator" the fuel type, and
+      every hour column holds the next hour's value, with no error raised. The May 2019 file has
+      the same layout. Read with skiprows=3 and index_col=False. Found by an automated research
+      pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://reports-public.ieso.ca/public/GenOutputCapabilityMonth/PUB_GenOutputCapabilityMonth_202610.csv
+    found: 2026-11-07
 tools:
   - name: gridstatus (IESO class, generator report)
     url: https://github.com/gridstatus/gridstatus
@@ -70,3 +111,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

@@ -15,6 +15,19 @@ coverage:
 capacity: none
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: period-start
+  unit: unknown
+  value: unknown
+  evidence: https://www.aeso.ca/assets/Uploads/data-requests/Hourly_Metered_Volumes_and_Pool_Price_and_AIL_2001-2009.csv
+  note: >-
+    Each CSV has two time columns, "Date_Begin_GMT" and "Date_Begin_Local", so stamps mark the start of
+    the hour; the local column follows daylight saving (GMT minus 7 hours in January, minus 6 in
+    April). The 2010-2019 file writes dates as "1/1/2010 7:00" while the other two use "2001-01-01
+    7:00". Neither the files nor the data-request page state the unit of the metered volumes or
+    whether they are hourly energy or mean power; unit is set to unknown only because the schema has
+    no unknown unit. Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://aeso.ca/market/market-and-system-reporting/data-requests/hourly-generation-metered-volumes-and-pool-price-and-ail-data-2001-to-july-2025/
@@ -56,3 +69,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

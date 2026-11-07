@@ -1,0 +1,2 @@
+entry,market,unit_id,unit_name,unit_capacity_mw,unit_capacity_kind,status,method,score,location_source,farm_name,farm_state,farm_capacity_mw,farm_capacity_ratio,lat,lon,osm_url,repd_id,wikidata,runner_up,notes
+gb-penmanshiel-scada,gb-penmanshiel-scada,Penmanshiel,Penmanshiel,28.7,registered,published,publisher,,publisher,Penmanshiel,,,,55.90368,-2.29196,,,,,"Lat/lon is the mean of the 14 turbines (T01, T02, T04 to T15; no T03) in Penmanshiel_WT_static.csv; capacity is 14 x 2,050 kW Senvion MM82 from the same file. Scottish Borders."

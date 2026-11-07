@@ -1,0 +1,32 @@
+name: Checks
+
+# Weekly: request every link again and redo the annual cross-check, then commit the results so
+# the site shows when each source was last checked by machine.
+on:
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync
+      - name: Links
+        run: uv run wgs check links || echo "::warning::broken links found; see checks/links.json"
+      - name: Annual cross-check
+        run: uv run wgs check totals --year 2024 || echo "::warning::a time step disagrees; see checks/agreement-2024.json"
+      - name: Snippets
+        run: uv run wgs check snippets || echo "::warning::a snippet failed; see checks/snippets.json"
+      - name: Commit the results
+        run: |
+          git config user.name "wgs checks"
+          git config user.email "actions@users.noreply.github.com"
+          git add checks/
+          git diff --cached --quiet || git commit -m "Checks: weekly link, cross-check and snippet run"
+          git push

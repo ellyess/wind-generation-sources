@@ -1,0 +1,89 @@
+id: gr-dapeep-res-special-account-bulletin
+name: Monthly bulletin of the special account for renewables, CHP and storage (Μηνιαίο Απολογιστικό Δελτίο Ειδικού Λογαριασμού ΑΠΕ, ΣΗΘΥΑ & Αποθήκευσης)
+publisher: DAPEEP (Διαχειριστής ΑΠΕ & Εγγυήσεων Προέλευσης, Greek renewables and guarantees of origin operator)
+publisher_role: government
+countries: [GR]
+area: Interconnected system, and separately the whole territory including non-interconnected islands
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2013
+  update: monthly, about three to four months after the month (June 2026 published 8 October 2026)
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: "https://www.dapeep.gr/wp-content/uploads/2026/10/39_JUNE_2026_min_DELTIO_ELAPE_v_1.0_8.10.2026.pdf"
+  note: >-
+    The June 2026 bulletin's monthly table gives MW and GWh per technology for each month (Ιαν
+    to Δεκ) and a year total. Numbers use the Greek format, a point for thousands and a comma
+    for decimals, so "1.478" GWh for January wind is 1,478 GWh. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.dapeep.gr/dimosieuseis/miniaio-deltio-eidikou-logariasmoy/
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [el]
+licence:
+  name: No data licence found (site footer reads "Copyright © 2020-2026 ΔΑΠΕΕΠ")
+  redistribution: unclear
+  verified: false
+  note: No terms of use or reuse licence were found on dapeep.gr on 2026-11-06.
+traps:
+  - summary: The production table covers only wind farms with an active DAPEEP support contract, not the whole fleet.
+    detail: >-
+      In the June 2026 bulletin the installed-capacity table gives 5,926.85 MW of wind on the
+      interconnected system, but the production table uses 4,851 MW. The difference matches the
+      columns for farms selling directly after their contract ended (632.45 MW), on a two-year
+      contract suspension (220.13 MW) and two smaller columns (139.23 and 83.50 MW). The gap
+      grows as contracts end, so these GWh fall increasingly short of national wind output.
+    evidence: https://www.dapeep.gr/wp-content/uploads/2026/10/39_JUNE_2026_min_DELTIO_ELAPE_v_1.0_8.10.2026.pdf
+    found: 2026-11-06
+  - summary: Bulletins are reissued with new version numbers, so an older download may be superseded.
+    detail: >-
+      File names carry a version and date, for example 35_FEB_2026_min_DELTIO_ELAPE_v_2.0_23.06.2026.pdf
+      for February 2026. Check the listing for a later version before using a month.
+    evidence: https://www.dapeep.gr/wp-content/uploads/2026/06/35_FEB_2026_min_DELTIO_ELAPE_v_2.0_23.06.2026.pdf
+    found: 2026-11-06
+  - summary: Text extracted from older bulletins can come out as garbled Greek.
+    detail: >-
+      In the December 2013 bulletin, extracted labels such as "ΜΗΤ΢" and "΢φνολο" stand for ΜΥΗΣ
+      and Σύνολο because of the embedded font's encoding; the numbers extract correctly. Locate
+      the wind row by position or by the word "Αιολικά", which survives.
+    evidence: https://www.dapeep.gr/wp-content/uploads/ELAPE/2013/2013_12_Miniaio_Deltio_EL_APESITHYA.pdf
+    found: 2026-11-06
+  - summary: Numbers are in the Greek format, so a parser set for English reads "1.478" GWh as 1.478 instead of 1,478.
+    detail: >-
+      The bulletins use a point for thousands and a comma for decimals. In the June 2026 bulletin
+      (page 8) the interconnected-system row for January reads "Ιαν 4.858 1.478" (4,858 MW, 1,478
+      GWh of wind), the year-to-date total reads "Σύνολο Έτους 4.851 5.964", and the
+      installed-capacity table gives wind as "5.926,85" MW. The six monthly GWh values (1.478,
+      1.049, 1.043, 737, 805, 852) sum to 5,964 only when the point is a thousands separator.
+      Parse with a Greek locale, or strip points and then turn commas into points, before using
+      the figures. Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://www.dapeep.gr/wp-content/uploads/2026/10/39_JUNE_2026_min_DELTIO_ELAPE_v_1.0_8.10.2026.pdf
+    found: 2026-11-07
+notes: >-
+  Each bulletin has a table of installed MW and production GWh by month for wind (Αιολικά), solar,
+  rooftop solar, small hydro, biogas and biomass, and combined heat and power: one for the
+  interconnected system (ΔΣ) and one for the whole territory including the non-interconnected
+  islands (Επικράτεια, ΔΣ και ΜΔΝ). For January-June 2026 interconnected wind was 1,478, 1,049,
+  1,043, 737, 805 and 852 GWh; the whole territory adds about 20 GWh a month. Checked in the
+  December 2013, December 2016 and June 2026 bulletins. The figures come from DAPEEP's accounts for
+  supported producers, and the bulletin pairs them with the value paid per technology; the
+  bulletin does not say whether they are metered at the connection point. A separate summary bulletin
+  (https://www.dapeep.gr/dimosieusis/sinoptiko-pliroforiako-deltio-ape/) is listed only for
+  2016 to May 2022. Greece's transmission operator (IPTO) publishes hourly system data; that is
+  a separate source.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

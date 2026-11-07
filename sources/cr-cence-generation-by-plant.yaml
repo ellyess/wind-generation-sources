@@ -1,0 +1,92 @@
+id: cr-cence-generation-by-plant
+name: Servicios Web DOCSE, potencia y energía horaria por fuente y planta (15-minute power and hourly energy by plant)
+publisher: Instituto Costarricense de Electricidad (ICE), División Operación y Control del Sistema Eléctrico (DOCSE), through the CENCE website
+publisher_role: tso
+countries: [CR]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2010
+  update: daily (the previous day is available; the current and previous month are marked as under review)
+capacity: separate-dataset
+coordinates: none
+curtailment: unknown
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://apps.grupoice.com/CenceWeb/data/servicios/json/WebServices/
+  note: >-
+    The service catalogue describes PotenciaFuentePlanta (the 15-minute series) as power in
+    MW from the operator's real-time SCADA, and EnergiaHorariaFuentePlanta as hourly energy by
+    source and plant without a stated unit (the entry reads it as MWh). It says nothing about time
+    zone, whether a stamp marks the start or end of an interval, or whether MW values are averages
+    or snapshots. The entry notes the response's query time carries a -0600 offset. Direct requests
+    to apps.grupoice.com returned HTTP 403 on the check date; the catalogue was read through a
+    fetch tool instead.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://apps.grupoice.com/CenceWeb/paginas/ServiciosWeb.html
+  docs: https://apps.grupoice.com/CenceWeb/paginas/GuiaServiciosWeb.html
+  key_required: false
+  registration: false
+  formats: [json, csv, xml]
+  languages: [es]
+licence:
+  name: No licence; site footer reads "© ICE Todos los Derechos Reservados"
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use or licence page was found on the CENCE site. Every page and every JSON
+    response carries a disclaimer (DOCSE is not responsible for errors or losses from use of the
+    information) and "Declaración de Privacidad © ICE Todos los Derechos Reservados", which is a
+    copyright notice, not reuse terms. Redistribution stays unclear until ICE states terms.
+traps:
+  - summary: The data come from the system operator's real-time SCADA and are not commercial metering; the latest two months are provisional.
+    detail: >-
+      Every generation service in the catalogue says "Datos adquiridos en tiempo real por medio del
+      SCADA del DOCSE. No son obtenidos de medición comercial" and "Los datos del mes actual y del
+      mes anterior están en proceso de revisión". Re-download recent months before using them, and
+      use cr-cence-monthly-energy-by-plant (officialised monthly energy) for totals.
+    evidence: https://apps.grupoice.com/CenceWeb/data/servicios/json/WebServices/
+    found: 2026-11-06
+  - summary: The CSV downloads are Latin-1 (ISO-8859-1) encoded, so "Eólico" is garbled if read as UTF-8.
+    detail: >-
+      The byte for "ó" in the CSV is 0xF3. Read with encoding="latin-1", or use the JSON endpoint,
+      which is UTF-8.
+    evidence: https://apps.grupoice.com/CenceWeb/data/sen/csv/PotenciaFuentePlanta?fecha=20260215&intervalo=15&planta=Chiripa
+    found: 2026-11-06
+  - summary: The hourly per-plant energy service has only ICE's own wind plant (Tejona) before 2014, while the 15-minute power service has the private plants from 2010.
+    detail: >-
+      EnergiaHorariaFuentePlanta for 15 June 2013 lists only Tejona under "Eólica"; for 1 January
+      2014 it lists eight wind plants. PotenciaFuentePlanta for 15 June 2010 already lists
+      Aeroenergía, MOVASA, PEG, Plantas Eólicas and Tejona. For 2010-2013 use the 15-minute
+      service.
+    evidence: https://apps.grupoice.com/CenceWeb/data/sen/json/EnergiaHorariaFuentePlanta?anno=2013&mes=6&dia=15
+    found: 2026-11-06
+notes: >-
+  Costa Rica's system operator publishes free, keyless web services behind its CENCE pages. Two
+  give wind output per plant. PotenciaFuentePlanta (parameters fecha=YYYYMMDD, intervalo=15, 30 or
+  60) returns MW per plant and per unit for one day; for 15 February 2026 it returned 96
+  fifteen-minute values for each of 19 wind plants (Tejona as two units). EnergiaHorariaFuentePlanta
+  (parameters anno, mes, dia, optional planta) returns hourly MWh per plant for one day; the plant
+  filter was checked (Chiripa 763.3 MWh and Orosí 831.6 MWh on 15 February 2026, an unknown plant
+  name returns nothing). The JSON, CSV and XML forms differ only in the path
+  (/CenceWeb/data/sen/json/..., /csv/..., /xml/...). History checked by request: 15-minute power
+  starts between 15 May and 15 June 2010 (earlier dates return only 48 half-hourly rows for one
+  hydro plant); hourly energy starts in September 2012. Rows carry a "grupo" field (ICE, BOT,
+  private, other) and the plant name, but no plant code or coordinates. "Plantas Eólicas" is the
+  name of one private plant, not a total. Installed capacity per plant, in kW with unit counts, is
+  in the CapacidadInstalada service, which only covers dates from 1 January 2023; at 1 November
+  2026 it listed 17 wind plants and did not list Tejona or PE Tilarán, although both still appear
+  in the generation series. Timestamps have no zone; the response's own query time is given with a
+  -0600 offset, so local time at UTC-6 is likely. Whether hourly values are labelled by the start or
+  end of the hour is not documented.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

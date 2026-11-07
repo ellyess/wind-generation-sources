@@ -1,0 +1,67 @@
+id: cz-eru-electricity-operation-reports
+name: Quarterly and annual reports on the operation of the Czech electricity system (Zprávy o provozu ES ČR)
+publisher: Energy Regulatory Office (Energetický regulační úřad, ERÚ)
+publisher_role: regulator
+countries: [CZ]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2014
+  update: quarterly; annual report by the end of May of the following year
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://eru.gov.cz/sites/default/files/obsah/prilohy/eruelektroq22026.pdf
+  note: >-
+    Monthly totals labelled by month. In the Q2 2026 report, section 4.4 (photovoltaic and wind
+    plants) gives wind (VTE) gross production, own consumption (TVSe), net production and
+    delivery in [MWh] per month, with installed capacity in [MW e]; the balance table 3.1 gives
+    the same gross wind production in [GWh]. Read 2026-11-06 by an automated research pass; not
+    yet reviewed.
+access:
+  method: bulk-download
+  url: https://eru.gov.cz/zpravy-o-provozu
+  key_required: false
+  registration: false
+  formats: [pdf, xlsx]
+  languages: [cs]
+licence:
+  name: No data licence found
+  redistribution: unclear
+  verified: false
+  note: No terms of use or reuse licence were found on eru.gov.cz or in the Q2 2026 report on 2026-11-06.
+traps:
+  - summary: Output of small unlicensed plants is calculated from installed capacity, not measured.
+    detail: >-
+      The report says data for unlicensed plants connected to distribution grids are the
+      installed capacity, with production computed from it using data reported to the market
+      operator.
+    evidence: https://eru.gov.cz/sites/default/files/obsah/prilohy/eruelektroq22026.pdf
+    found: 2026-11-06
+  - summary: Renewable plants above 100 kW not yet registered with the market operator are left out, and figures are revised in later reports.
+    detail: >-
+      At 30 June 2026 this excluded 7.1 MW of wind. The report says corrections and late data are
+      carried into the next published reports, so a quarter's figures change when the annual
+      report comes out.
+    evidence: https://eru.gov.cz/sites/default/files/obsah/prilohy/eruelektroq22026.pdf
+    found: 2026-11-06
+notes: >-
+  Monthly gross and net wind (VTE) production in MWh and GWh, with installed capacity in MW
+  split by plant size (up to 0.5 MW, 0.5 to 1 MW, 1 to 2 MW, above 2 MW), plus a regional (kraj)
+  breakdown of wind capacity and production. Checked in the Q2 2026 report (wind 58.3, 41.8 and
+  34.7 GWh gross in April, May and June 2026, on 374.9 to 379.1 MW) and the February 2014 monthly
+  report. Until about 2015 ERÚ published monthly reports (file names meszprMMYYYY.pdf); now
+  quarterly reports in PDF and XLSX cover each month of the quarter, and an annual report
+  closes the year. All data come from licence holders: generators, distribution and
+  transmission operators and the market operator (OTE).
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

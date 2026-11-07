@@ -9,10 +9,28 @@ measure: metered-energy
 resolution: monthly
 coverage:
   start: 2002
-  update: register refreshed monthly; production workbook published as a fixed history
+  update: >-
+    Vinddata and Parkproduktion every two months by the publisher's table (monthly where possible,
+    its text says); Historiske vinddata yearly; the 2002-2020 monthly workbook is a fixed history
 capacity: included
 coordinates: included
 curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: kWh
+  value: period-total
+  evidence: "https://ens.dk/analyser-og-statistik/data-oversigt-over-energisektoren"
+  note: >-
+    The data-structure table on the Danish page defines "Leveret produktion" as electricity
+    produced in the period, in kWh. The current "Vinddata 2026-09.xlsx" has one column per month
+    (2023-01 to 2026-09) and "Historiske vinddata.xlsx" one column per year from 1977; the page
+    says monthly values cover the latest three years and the historic file is annual. In the
+    current workbook the production and coordinate cells are text with a comma decimal separator
+    (for example "176804,75"), so convert before summing. The page now lists three files
+    (Vinddata, Parkproduktion, Historiske vinddata), not the maanedsdata_2002_2017.xlsx workbook;
+    the traps were updated to match on 2026-11-07. Read 2026-11-06 by an automated research pass;
+    not yet reviewed.
 access:
   method: bulk-download
   url: https://ens.dk/en/analyses-and-statistics/overview-energy-sector
@@ -28,21 +46,110 @@ licence:
   verified: true
   note: The policy forbids altering or distorting the content, so re-hosting the files unchanged is fine, but cleaned or derived copies are open to question.
 traps:
-  - summary: Coordinates are ETRS89 / UTM zone 32N metres, not longitude and latitude.
-    detail: Reproject before any spatial join. Rows missing coordinates or capacity need dropping.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/dk.md
-  - summary: The monthly production workbook is served under a stale file name.
+  - summary: >-
+      Coordinates are ETRS89 / UTM metres, zone 32N except on Bornholm, not longitude and
+      latitude.
     detail: >-
-      The download is named maanedsdata_2002_2017.xlsx but holds every year from 2002 to 2020,
-      one sheet per year (Månedsprod_<year>), header on row 7. The register workbook has its
-      header on row 9 and separate sheets for existing and decommissioned turbines.
+      Reproject before any spatial join. Rows missing coordinates or capacity need dropping.
+      Updated 2026-11-07: the data-structure table on the publisher's page
+      (https://ens.dk/analyser-og-statistik/data-oversigt-over-energisektoren) gives the X and Y
+      coordinates "ift projektion UTM32, datum EUREF89, Bornholm dog projektion UTM33, datum
+      EUREF89", so Bornholm is meant to be zone 33N. In "Vinddata 2026-09.xlsx" the Bornholm rows
+      do not all follow that: of 36 with coordinates, 27 have x between 481,982 and 503,409 (zone
+      33N) and 9 have x between 864,411 and 886,062 (zone 32N), for example GSRN
+      570715000001465054 at x 866800, y 6127996,86. Reproject Bornholm rows by the size of x, not
+      by the label. The turbine register used for the map (https://ens.dk/media/4945/download,
+      fetched by crosswalk/registers.py) gives all 100 Bornholm rows with coordinates in zone 32N
+      (x above 700,000), so the map points are unaffected. Found by an automated research pass on 2026-11-07; not yet reviewed by a
+      person.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/dk.md
-  - summary: The register's download link changes with every monthly refresh.
+  - summary: >-
+      The files on the page have changed: monthly output now covers only the last three years,
+      and the older monthly workbook is no longer linked, though it still downloads.
+    detail: >-
+      Updated 2026-11-07; this trap described only the old workbook. The page now links three
+      files. "Vinddata 2026-09.xlsx" has one row per turbine and one column per month from
+      2023-01 to 2026-09, header on spreadsheet row 3. "Parkproduktion 2026-09.xlsx" has one row
+      per park number and monthly columns from 2023-01. "Historiske vinddata.xlsx" has annual
+      columns from 1977 to 2022 for turbines decommissioned up to 2022 only (3,600 rows,
+      decommissioning dates 1987-04-01 to 2022-12-22). The page says "Produktionsdata opdeles på
+      månedsniveau for de seneste tre år, samt på årsniveau for de historiske data". In Vinddata
+      the production and coordinate cells are text with a comma decimal separator (for example
+      "176804,75"), so convert before summing. For turbines still operating, older output is only
+      in two unlinked downloads that still worked on 2026-11-07: the monthly workbook
+      https://ens.dk/media/4948/download, served as maanedsdata_2002_2017.xlsx but holding
+      2002 to 2020, one sheet per year (Månedsprod_<year>), column names on spreadsheet row 8; and
+      the register snapshot of 2022-03-15, https://ens.dk/media/4945/download (anlaeg.xlsx),
+      with annual output to 2021, column names on row 10 and separate sheets for existing and
+      decommissioned turbines. Nothing linked covers 2021 and 2022 month by month for operating
+      turbines. Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://ens.dk/analyser-og-statistik/data-oversigt-over-energisektoren
+    found: 2026-11-07
+  - summary: >-
+      Before 2023, a wind park's output was split equally across its turbines, so per-turbine
+      values inside parks are not measurements of those turbines.
+    detail: >-
+      The publisher says so on the data page: "produktionsdata tidligere er blevet opdelt i
+      vindmølleparker, hvor produktionen er ligeligt fordelt mellem de tilhørende vindmøller i
+      hver park. Produktionsdata i vindmølleparker vil fortsat fremgå således i de historiske
+      data indtil 1. januar 2023." It also says it cannot identify how much one turbine in a park
+      produced. From 2023, turbines of type "Vindmølle i park" carry no production; the park total
+      is in Parkproduktion, joined by the park number column. The old 2002-2020 workbook shows
+      the split: in its 2020 sheet 1,414 of 6,225 turbines with output share an identical
+      12-month series with at least one other turbine (239 groups, the largest of 111 turbines).
+      Validate park turbines at park level, or drop them from per-turbine work. Found by an
+      automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://ens.dk/analyser-og-statistik/data-oversigt-over-energisektoren
+    found: 2026-11-07
+  - summary: Production is published only for company-owned turbines, so many rows have none.
+    detail: >-
+      The page's data-structure note says "Produktionsdata fremgår kun på vindkraftanlæg ejet af
+      virksomheder og hvor produktion ikke kan udgøre en personoplysning": output is shown only
+      where it cannot be personal data. In "Vinddata 2026-09.xlsx", 3,863 of 7,179 turbines have
+      no production value in any month, park turbines included. A national sum of the turbine
+      rows is therefore short. Found by an automated research pass on 2026-11-07; not yet
+      reviewed by a person.
+    evidence: https://ens.dk/analyser-og-statistik/data-oversigt-over-energisektoren
+    found: 2026-11-07
+  - summary: The register's download link changes with every refresh.
     detail: >-
       Each refresh gets a new media id, so a pinned link returns an old snapshot. Record the
-      snapshot date with any result. Newer snapshots add turbines but do not change the
-      2002-2020 production history.
+      snapshot date with any result. Newer snapshots add turbines and may correct production
+      within the last three years, which the publisher says it does.
+      Updated 2026-11-07: the old note that newer snapshots do not change the 2002-2020 history
+      referred to the old workbook, which is no longer refreshed; the current files start in 2023.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/dk.md
+  - summary: >-
+      In the current turbine file the "Kommune" and "Type af placering" headers are swapped, so
+      reading by header gives land or sea as the municipality and the municipality as the
+      location type.
+    detail: >-
+      The data-structure table on the publisher's page defines "Kommune" as "Navnet på den
+      kommune, hvor vindmøllen er placeret" and "Type af placering" as "Typen af placering på hav
+      eller land". In "Vinddata 2026-09.xlsx" (header on spreadsheet row 3) the column headed
+      "Kommune" holds LAND (4,216 rows) or HAV (736 rows), and the column headed "Type af
+      placering" holds the municipality, for example the first data row, GSRN
+      570715000000060588: Kommune "LAND", Type af placering "479 - Svendborg". Read the
+      onshore/offshore flag from "Kommune" and the municipality from "Type af placering" in this
+      snapshot, and check again in each new one. Found by an automated research pass on
+      2026-11-07; not yet reviewed by a person.
+    evidence: https://ens.dk/media/8748/download
+    found: 2026-11-07
+  - summary: >-
+      Some turbines appear on two rows, and one turbine's output is split across them, so keying
+      on the turbine number without combining rows loses or double-counts output.
+    detail: >-
+      "Vinddata 2026-09.xlsx" has 7,179 rows but 7,170 distinct "Møllenummer (GSRN)" values: 9
+      numbers appear twice. Five pairs are identical rows. GSRN 570715000000024153 (600 kW, 575 -
+      Vejen) has output on one row from 2023-01 to 2024-04 and on the other from 2024-04 to
+      2026-09, with April 2024 split between them (54572,4 and 20157,4 kWh). GSRN
+      570715000000152740 (3,075 kW) has one row with output and one empty copy. GSRNs
+      570715000001437204 and 570715000001521989 each appear once decommissioned and once
+      re-registered with a new grid-connection date and municipality. Sum output by GSRN and
+      month, and count turbines by distinct GSRN, not by row. Found by an automated research pass
+      on 2026-11-07; not yet reviewed by a person.
+    evidence: https://ens.dk/media/8748/download
+    found: 2026-11-07
 tools:
   - name: PyVWF (fetch/dk.py, process/dk.py)
     url: https://github.com/ellyess/PyVWF
@@ -51,6 +158,8 @@ notes: >-
   Every grid-connected Danish turbine above 6 kW, with location, capacity, rotor, hub height,
   model and monthly output: about 6,300 turbines. The most complete open per-turbine wind dataset
   found, and the basis of Staffell and Pfenninger's 2016 validation of reanalysis wind.
+  Changed 2026-11-07: coverage.update rewritten for the three files now on the page; the 2002
+  coverage start depends on the unlinked 2002-2020 workbook (see traps).
 status: active
 last_checked: 2026-09-25
 checked_by: Ellyess Benmoufok, from the PyVWF runbook as last updated; licence read on the publisher's page 2026-11-06

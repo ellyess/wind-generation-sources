@@ -1,0 +1,86 @@
+id: br-ufsc-pedra-do-sal-beberibe-scada
+name: "Coastal operating wind farms: two datasets with concurrent SCADA, LiDAR and turbulent fluxes"
+publisher: Federal University of Santa Catarina (UFSC) research group (via Zenodo)
+publisher_role: research
+countries: [BR]
+area: Pedra do Sal wind farm (UEPS, 20 turbines, 18 MW) and Beberibe wind farm (UEBB, 32 turbines), northeast coast of Brazil
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2013
+  end: 2014
+  update: fixed release (July 2017); covers 1 August 2013 to 31 July 2014
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: unknown
+  value: period-mean
+  evidence: https://zenodo.org/records/1475197/files/UEBB_v1.nc
+  note: >-
+    The Time variable's units are "seconds since 1970-01-01 00:00:00.00 UTC", GPS-synchronised, and
+    active_power_total is described as the "10min mean active power". Neither file nor the Zenodo
+    record says whether a stamp marks the start or end of the 10 minutes (the first is 00:00 and the
+    last 23:50). The power unit is set to unknown because the files label it "rpm", which is wrong;
+    values run 0 to 840 (Beberibe, E-48) and 0 to 930 (Pedra do Sal, E-44), consistent with kW, but
+    no documentation states kW. In UEPS_v1.nc the global title and the power variables' attributes are
+    copied from Beberibe ("UEBB Dataset", "Enercon E-48", "75m"). Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://doi.org/10.5281/zenodo.1475196
+  docs: https://zenodo.org/records/1475197
+  key_required: false
+  registration: false
+  formats: [netcdf, png]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution Share Alike 4.0 International
+  spdx: CC-BY-SA-4.0
+  url: https://zenodo.org/records/1475197
+  redistribution: allowed-with-attribution
+  attribution: Cite the Zenodo record (Passos, J., Sakagami, Y., Santos, P., Haas, R., Taves, F., doi:10.5281/zenodo.1475197).
+  verified: true
+  note: >-
+    The licence is the one shown on the Zenodo record. Share Alike means any redistributed or
+    derived copy must carry the same licence.
+traps:
+  - summary: The active power variables are labelled with units of rpm.
+    detail: >-
+      In UEBB_v1.nc, active_power_total and its min and max carry the units attribute 'rpm'
+      (copied from the rotor speed variables), although the values run from 0 to 840 and are
+      plainly kW for the Enercon E-48 turbines. Code that trusts the units attribute will
+      mislabel or reject the power series. Checked again on 2026-11-07 in both files: UEPS_v1.nc
+      has the same 'rpm' label on all three power variables, with active_power_total running 0
+      to 930 for its 900 kW Enercon E-44 turbines (18 MW over 20), also consistent with kW. The
+      units are not documented anywhere as kW. The minimum-power variable also holds 65535, an
+      undeclared missing-value marker with no _FillValue attribute (2 values in UEBB_v1.nc, 45 in
+      UEPS_v1.nc); mask it before use.
+    evidence: https://zenodo.org/records/1475197/files/UEBB_v1.nc
+    found: 2026-11-06
+  - summary: Turbine locations are not in the files.
+    detail: >-
+      The Turbine dimension is a plain number from 1 to 32, and its comment says to refer to the
+      reference material for each turbine's latitude and longitude. Matching turbines to a layout
+      needs the authors' papers or a request to the authors.
+    evidence: https://zenodo.org/records/1475197/files/UEBB_v1.nc
+    found: 2026-11-06
+notes: >-
+  A one-year micrometeorological campaign at two coastal wind farms in northeast Brazil, each with
+  a 100 m IEC-compliant met mast (five cup anemometer levels and a 3D sonic), turbulent fluxes, and
+  at Pedra do Sal a Windcube lidar. Both NetCDF files include 10-minute SCADA (supervisory control
+  and data acquisition) records for every turbine: nacelle wind speed, rotor speed and mean, min
+  and max active power. Pedra do Sal has 20 Enercon E-44 turbines (55 m hub); Beberibe has 32
+  Enercon E-48 turbines (75 m hub). Checked by downloading UEBB_v1.nc (163 MB): 52,560 ten-minute
+  steps from 2013-08-01 00:00 to 2014-07-31 23:50, timestamps in UTC (GPS-synchronised, per the
+  time variable's attributes), 32 turbines whose power series differ, about 0.25% missing. The
+  Pedra do Sal file (UEPS_v1.nc, 205 MB) was not downloaded. Installed capacity per turbine is not
+  in the file; rated power is in the record description only for Pedra do Sal.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

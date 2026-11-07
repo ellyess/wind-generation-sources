@@ -1,0 +1,92 @@
+id: ro-transelectrica-sen-production
+name: SEN production, consumption and exchange chart (Grafic productia, consumul si soldul SEN)
+publisher: Transelectrica (Compania Națională de Transport al Energiei Electrice)
+publisher_role: tso
+countries: [RO]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2010
+  update: near real time
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: instant
+  unit: MW
+  value: instantaneous
+  evidence: https://www.transelectrica.ro/widget/web/tel/sen-grafic/-/SENGrafic_WAR_SENGraficportlet
+  note: >-
+    The page says the chart and table values are instantaneous quantities at the time shown ("marimi
+    instantanee la ora afisata"), with columns headed in MW (Eolian [MW]). It does not state the
+    time zone; the entry's trap infers Romanian local time from the missing spring hour. Read
+    2026-11-06 by an automated research pass; not yet reviewed. Rechecked 2026-11-07: the raw rows
+    for 29 March and 25 October 2026 show the skipped spring hour and a single autumn 03:00 hour,
+    and the page still states no zone, so the time zone stays unknown here.
+access:
+  method: portal
+  url: https://www.transelectrica.ro/widget/web/tel/sen-grafic/-/SENGrafic_WAR_SENGraficportlet
+  key_required: false
+  registration: false
+  formats: [xlsx, txt]
+  languages: [ro]
+licence:
+  name: No data licence found (site footer reads "Copyright © Transelectrica 2013 - 2026")
+  redistribution: unclear
+  verified: false
+  note: No terms of use or reuse licence were found on transelectrica.ro on 2026-11-06; the only statement found was the copyright line in the page footer.
+traps:
+  - summary: Values are instantaneous snapshots at irregular times, not interval averages or energy.
+    detail: >-
+      The page says the values in the chart and table are instantaneous quantities at the time
+      shown ("marimi instantanee la ora afisata"). Timestamps fall roughly every 10 minutes but
+      drift (00:01:55, 00:11:36, 00:21:07 on 1 November 2026), so a day has about 140 to 150
+      rows. Resample to a regular grid before comparing with hourly sources.
+    evidence: https://www.transelectrica.ro/widget/web/tel/sen-grafic/-/SENGrafic_WAR_SENGraficportlet
+    found: 2026-11-06
+  - summary: Timestamps behave as Romanian local time in the data, though the page does not say so; the repeated autumn hour is not shown twice, and some timestamps repeat.
+    detail: >-
+      On 29 March 2026 the series jumps from "29-03-2026 02:54:53" to "29-03-2026 04:00:24" (the
+      skipped hour). On 25 October 2026 the 03:00 hour has six rows, "03:03:02" to "03:51:53",
+      like any other hour, so the second 03:00-04:00 is missing. On 29 March 2026 the row
+      "29-03-2026 02:24:43;5035;5035;4889;146;..." appears twice. The local-time reading comes
+      from these rows: the page says only that values are instantaneous at the time shown and
+      states no time zone. Deduplicate and convert to UTC with care. Reworded on 2026-11-07,
+      after re-fetching both days, to say the time zone is observed in the data, not documented.
+    evidence: https://www.transelectrica.ro/widget/web/tel/sen-grafic/-/SENGrafic_WAR_SENGraficportlet
+    found: 2026-11-06
+  - summary: Some values are estimates, flagged only by a ".00" decimal in the raw data and an asterisk on screen.
+    detail: >-
+      The page's script marks any value containing ".00" with "*", and the Excel export ends with
+      the note "* - estimare" (estimate). Keep the flag when parsing; a plain numeric read loses it.
+    evidence: https://www.transelectrica.ro/SENGrafic-portlet/js/main.js
+    found: 2026-11-06
+  - summary: The wind column ("Eolian") is zero before mid-2010, although Romanian wind farms already existed.
+    detail: >-
+      Days checked in 2008, 2009 and June 2010 return 0 MW wind on every row; 15 July 2010 is the
+      first day checked with non-zero wind (up to 40 MW). Treat earlier zeros as missing, not as
+      calm.
+    evidence: https://www.transelectrica.ro/widget/web/tel/sen-grafic/-/SENGrafic_WAR_SENGraficportlet
+    found: 2026-11-06
+notes: >-
+  The national power system (Sistemul Electroenergetic Național, SEN) chart gives consumption,
+  production and MW by source (coal, hydrocarbons, hydro, nuclear, wind "Eolian", solar "Foto",
+  biomass) and the exchange balance, back to 2007 for the other columns. Checked by requesting
+  1 November 2026, 25 October 2026, 29 March 2026, 1 January 2015 and several days in 2008-2012
+  and seeing different wind values. The "Genereaza Excel" button returns Grafic_SEN.xlsx with
+  named columns, including Eolian[MW]; the same query without the excel flag returns
+  semicolon-separated rows split by "|", in the order consumption, hourly mean consumption,
+  production, balance, then the sources (the balance comes fourth in the raw rows but last in the
+  Excel file). Ranges longer than two months are slow and the page offers to return only the
+  first two months. A separate file on the Producție page
+  (https://www.transelectrica.ro/web/tel/productie, item 17, 7productie17.xls) gives hourly mean
+  MW by fuel type, including "Eoliana", for each day of the current month only; it is overwritten
+  each month and its archive was marked as not accessible on 2026-11-06. Whether the wind figure
+  covers distribution-connected farms was not stated.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

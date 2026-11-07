@@ -1,0 +1,2 @@
+entry,unit_id,unit_name,alt_names,capacity_mw,area,lat,lon,location_source,source_url,notes
+sn-senelec-annual-report,Eolien,Parc Eolien Taïba Ndiaye,Taïba Ndiaye Wind Farm;Taiba Ndiaye;PETN;Parc Eolien Taiba Ndiaye,158.7,SN,,,,https://www.senelec.sn/media/rapports/pdf/rapport-annuel-senelec-20241760024319_1.pdf,"the 2024 report's production tables label the row 'Eolien' (Senegal's only grid wind farm, so the row is the farm); the text names it Parc Eolien Taïba Ndiaye (PETN), 158.7 MW; the 2020 purchases table labels it Parc Eolien Taiba Ndiaye"

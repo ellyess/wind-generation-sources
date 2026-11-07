@@ -1,0 +1,4 @@
+entry,market,unit_id,unit_name,unit_capacity_mw,unit_capacity_kind,status,method,score,location_source,farm_name,farm_state,farm_capacity_mw,farm_capacity_ratio,lat,lon,osm_url,repd_id,wikidata,runner_up,notes
+gt-amm-posdespacho-diario,gt-amm-posdespacho-diario,SNT-E,San Antonio El Sitio; SNT-E1; Eólico San Antonio El Sitio,,registered,proposed,name,1.0,osm,Parque Eólico San Antonio El Sitio,operating,52.8,,14.35689,-90.55453,https://www.openstreetmap.org/relation/10601089,,,,
+gt-amm-posdespacho-diario,gt-amm-posdespacho-diario,VBL-E,Viento Blanco,,registered,proposed,name,1.0,osm,Parque Eólico Viento Blanco,operating,23.1,,14.39091,-90.66119,https://www.openstreetmap.org/way/851676040,,,,
+gt-amm-posdespacho-diario,gt-amm-posdespacho-diario,LCU-E,Las Cumbres,,registered,proposed,name,1.0,osm,Parque Eólico Las Cumbres,operating,31.5,,14.43912,-89.56778,https://www.openstreetmap.org/relation/18272561,,,,

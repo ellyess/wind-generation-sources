@@ -1,0 +1,74 @@
+id: bq-cbs-electricity-production-by-island
+name: "Caribisch Nederland; aansluitingen en productie van elektriciteit en water (Caribbean Netherlands: connections and production of electricity and water), StatLine table 81154"
+publisher: Centraal Bureau voor de Statistiek (CBS, Statistics Netherlands)
+publisher_role: statistics-office
+countries: [BQ]
+area: Bonaire, Sint Eustatius and Saba, per island
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2007
+  update: annual (table last modified 2026-09-03; 2023 onward provisional)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://opendata.cbs.nl/ODataApi/odata/81154eng/DataProperties
+  note: >-
+    Annual production per island labelled by year. The table's data properties give the unit of
+    Total, Fossil and Renewable production as "million kwh", which is GWh; Renewable is defined as
+    "Electricity produced with wind turbines". Read 2026-11-06 by an automated research pass; not
+    yet reviewed.
+access:
+  method: api
+  url: https://opendata.cbs.nl/ODataApi/odata/81154eng/TypedDataSet
+  docs: https://www.cbs.nl/en-gb/figures/detail/81154eng
+  key_required: false
+  registration: false
+  formats: [json, csv]
+  languages: [en, nl]
+licence:
+  name: Creative Commons Attribution 4.0
+  spdx: CC-BY-4.0
+  redistribution: allowed-with-attribution
+  verified: true
+  url: https://www.cbs.nl/en-gb/about-us/website/copyright
+  attribution: Source, Statistics Netherlands (CBS)
+  note: >-
+    The CBS copyright page read on 2026-11-06 places the website's statistics under CC BY 4.0, and
+    the table text says reproduction is permitted provided Statistics Netherlands is quoted as the
+    source.
+traps:
+  - summary: The "renewable" column is defined as wind, but for Sint Eustatius and Saba it is solar.
+    detail: >-
+      The table defines renewable electricity as electricity produced with wind turbines. CBS's own
+      2023 publication on the Caribbean Netherlands says Bonaire's renewable electricity was 99%
+      wind in 2022, while Sint Eustatius has generated mainly solar since 2016 and Saba's solar
+      farms came in 2018 and 2019. Use only the Bonaire row (GM9001) as a wind series, and treat
+      the Caribbean Netherlands total (CN01) as wind plus solar.
+    evidence: https://longreads.cbs.nl/the-caribbean-netherlands-in-numbers-2023/has-electricity-production-from-renewable-sources-increased
+    found: 2026-11-06
+  - summary: The figures are in million kWh to one decimal, and recent years are provisional.
+    detail: >-
+      Bonaire's renewable production is 38.2 million kWh for 2025, so rounding is about 0.1% of the annual value. Values from 2023 onward are marked provisional and may be revised.
+    evidence: https://www.cbs.nl/en-gb/figures/detail/81154eng
+    found: 2026-11-06
+notes: >-
+  Annual figures per island (GM9001 Bonaire, GM9002 Sint Eustatius, GM9003 Saba) and for the
+  Caribbean Netherlands as a whole (CN01), from 1993, collected by an annual survey of the energy
+  companies. Electricity production is split into total, fossil and renewable columns in million
+  kWh. Bonaire renewable production read on 2026-11-06, million kWh: 0.7 (2007), 1.4 (2008), 1.5
+  (2009), 4.9 (2010), 26.3 (2011), 32.5 (2012), 36.7 (2013), 41.2 (2014), 40.1 (2015), 35.1
+  (2016), 31.5 (2017), 37.1 (2018), 32.5 (2019), 28.1 (2020), 32.2 (2021), 33.5 (2022), 35.0
+  (2023), 40.5 (2024) and 38.2 (2025). The Dutch version of the table is 81154ned. The data are
+  island totals; no per-plant figures are given.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

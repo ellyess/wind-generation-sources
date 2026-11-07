@@ -14,6 +14,21 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MW
+  value: period-mean
+  evidence: https://www.kyuden.co.jp/td_area_jukyu/jukyu.html
+  note: >-
+    Files from fiscal 2024 (Kyushu from March 2024) carry the line '単位[MW平均]' (unit: average MW),
+    and Kyushu's page says the 30-minute values are published from kW values averaged over 30
+    minutes; it also says wind is after curtailment and that the current month includes estimates,
+    overwritten with actuals around the end of the following month. Earlier files were hourly MWh
+    (see trap). Time labels differ by operator: Kyushu's run 0:30 to 24:00 (interval end),
+    Hokkaido's 00:00 to 23:30 (interval start), so the stamp is unknown for the entry as a whole. No
+    time zone is stated in the files or on Kyushu's page. Read 2026-11-06 by an automated research
+    pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.kyuden.co.jp/td_area_jukyu/jukyu.html
@@ -43,17 +58,21 @@ traps:
   - summary: Even the shared post-2024 format is not identical between operators.
     detail: >-
       In October 2026 Kyushu's file uses dates like "20261001", quoted fields and time labels
-      0:30 to 24:00 (end of interval). Hokkaido's uses "2026/10/01", unquoted fields and labels
-      00:00 to 23:30 (start of interval), and adds thermal and biomass curtailment columns that
-      Kyushu does not have. Map columns by header name and check each operator's time
-      convention before stacking areas.
+      "0:30" to "24:00", which can only mark the end of each half hour. Hokkaido's uses
+      "2026/10/01", unquoted fields and labels "00:00" to "23:30", which read as the start, and
+      adds thermal and biomass curtailment columns that Kyushu does not have. Neither operator
+      states which end of the half hour its label marks: this is observed in the files, not
+      documented (Kyushu's page, rechecked 2026-11-07, says only that the values are 30-minute
+      averages of kW readings). Shift one series by 30 minutes before stacking the two areas,
+      and map columns by header name. Reworded 2026-11-07 to say the time convention is
+      observed in the data rather than documented.
     evidence: https://www.hepco.co.jp/network/con_service/public_document/supply_demand_results/csv/eria_jukyu_202610_01.csv
     found: 2026-11-06
   - summary: Files are Shift-JIS (CP932) encoded, with a units line above the header.
     detail: >-
       Read with encoding cp932 and skip the first line(s); the pre-2024 Kyushu files have a
       two-row header (technology on one row, actual and curtailed on the next).
-    evidence: https://www.kyuden.co.jp/td_area_jukyu/csv/area_jyukyu_jisseki_H28_1Q.csv
+    evidence: https://www.kyuden.co.jp/td_area_jukyu/csv_area_jyukyu_jisseki/area_jyukyu_jisseki_H28_1Q.csv
     found: 2026-11-06
 tools:
   - name: denki-carbon (scrapers for all ten operators)
@@ -78,3 +97,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

@@ -1,0 +1,77 @@
+id: kr-kowepo-hwasun-turbine-scada
+name: Hwasun wind farm SCADA generation information, AI-ready (한국서부발전(주)_(AI친화)화순풍력발전소 스카다 발전 정보)
+publisher: Korea Western Power Co. (KOWEPO, 한국서부발전), via the Public Data Portal (data.go.kr)
+publisher_role: owner-operator
+countries: [KR]
+area: Hwasun wind farm, Dong-myeon, Hwasun-gun, South Jeolla
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2015
+  end: 2025
+  update: one-off release (수시, 1회성 데이터); file last modified 2026-09-29
+capacity: included
+coordinates: included
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: kW
+  value: unknown
+  evidence: https://www.data.go.kr/data/15159036/fileData.do
+  note: >-
+    The page describes hourly (1시간 단위) SCADA data and defines the output column as grid active power
+    in kilowatts (계통 유효 전력(킬로와트)). It does not say whether an hourly value is a mean or a sample,
+    whether the stamp column (일자(1시간단위), hours 00 to 23) marks the start or end of the hour, or the
+    time zone. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.data.go.kr/data/15159036/fileData.do
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [ko]
+licence:
+  name: Public Data Portal terms for this dataset, scope of permitted use "no restriction" (이용허락범위 제한 없음), free of charge
+  url: https://www.data.go.kr/data/15159036/fileData.do
+  redistribution: allowed
+  verified: true
+  note: The dataset page states free use with no restriction on the scope of use. The CSV downloaded without login on the check date.
+traps:
+  - summary: Turbine 1's longitude is about one degree west of the other seven.
+    detail: >-
+      Turbine 1 is given at 35.092972, 126.054111, while turbines 2 to 8 sit between 127.050 and
+      127.065 east, all on the same mountain address in Dong-myeon. 126.054 is far outside
+      Hwasun county, so it looks like a typing error for 127.054; check before any spatial join.
+    evidence: https://www.data.go.kr/data/15159036/fileData.do
+    found: 2026-11-06
+  - summary: The CSV is CP949 (EUC-KR) encoded, not UTF-8.
+    detail: >-
+      Read it with encoding cp949. Timestamps are "YYYY-MM-DD HH" with hours 00 to 23; the time
+      zone and whether a value is an hourly mean or a sample are not stated.
+    evidence: https://www.data.go.kr/data/15159036/fileData.do
+    found: 2026-11-06
+  - summary: Power is grid active power in kW, including small negative values when the turbine idles.
+    detail: >-
+      The output column (계통 유효 전력, kW) runs from about -26 kW to just over 2,040 kW per 2 MW
+      turbine. Treat it as power, not hourly energy, and decide how to handle the negative
+      standby draw before summing.
+    evidence: https://www.data.go.kr/data/15159036/fileData.do
+    found: 2026-11-06
+notes: >-
+  Hourly SCADA data for each of the eight turbines at Hwasun (발전호기 1 to 8): nacelle wind speed
+  in m/s and grid active power in kW, with the address, decimal latitude and longitude,
+  manufacturer (Unison), rated capacity (2 MW), hub height (80 m), rotor diameter (93 m) and
+  model (U93) on every row. Checked 2026-11-06: the file (화순풍력_스카다 발전정보(2015-2025).csv,
+  79 MB, 704,754 rows) runs from 2015-12-01 00 to 2025-12-31 23, about 88,094 hours per turbine,
+  with a few hours missing in most years; turbines 3 and 4 give 817.955 kW and 386.182 kW at
+  2016-01-11 17, so the series are distinct. Nacelle wind speed makes this useful for power-curve
+  work as well as validation. KOWEPO also published an earlier farm-level hourly file for Hwasun
+  and Jangheung, 2017 to June 2023 (https://www.data.go.kr/data/15106292/fileData.do), and the
+  Jangheung turbines separately (kr-kowepo-jangheung-turbine-scada).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

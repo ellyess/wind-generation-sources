@@ -13,6 +13,18 @@ coverage:
 capacity: separate-dataset
 coordinates: none
 curtailment: unknown
+conventions:
+  timezone: UTC
+  timestamp: period-start
+  unit: MW
+  value: unknown
+  evidence: "https://data.fingrid.fi/en/datasets/75"
+  note: >-
+    The dataset page gives the unit as MW, and its example records carry startTime and endTime
+    in UTC (Z suffix), 15 minutes apart (hourly before 13 June 2023); this records startTime.
+    The page does not say whether a value is a mean over the interval or an instantaneous
+    reading. Dataset 181 (3-minute real-time) was not checked. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
 access:
   method: api
   url: https://data.fingrid.fi/en/datasets/75
@@ -56,3 +68,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

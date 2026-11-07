@@ -1,0 +1,7 @@
+entry,unit_id,unit_name,alt_names,capacity_mw,area,lat,lon,location_source,source_url,notes
+bo-cndc-realised-dispatch-by-plant,QOLLPANA I,Qollpana I,Qollpana,,BO,,,,https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2026/11/dcdr_051126.xlsx,"ENDE wind farm, Cochabamba; split from the single QOLLPANA row by 2020"
+bo-cndc-realised-dispatch-by-plant,QOLLPANA II,Qollpana II,Qollpana,,BO,,,,https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2026/11/dcdr_051126.xlsx,split from the single QOLLPANA row by 2020
+bo-cndc-realised-dispatch-by-plant,WARNES,Warnes,Parque Eólico Warnes,,BO,,,,https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2026/11/dcdr_051126.xlsx,wind row in the 2026 files (under SUBTOTAL EOLICO); not to be confused with the WAR thermal units
+bo-cndc-realised-dispatch-by-plant,SAN JULIAN,San Julián,Parque Eólico San Julián,,BO,,,,https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2026/11/dcdr_051126.xlsx,
+bo-cndc-realised-dispatch-by-plant,EL DORADO,El Dorado,Parque Eólico El Dorado,,BO,,,,https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2026/11/dcdr_051126.xlsx,
+bo-cndc-realised-dispatch-by-plant,QOLLPANA,Qollpana,Qollpana I,,BO,,,,https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2016/dcdr_010116.zip,"historical label: single Qollpana row in 2016 files, before the I/II split"

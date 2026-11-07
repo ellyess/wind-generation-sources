@@ -1,0 +1,81 @@
+id: jm-mset-energy-statistics
+name: Jamaica Energy Statistics (annual publication, electricity generation by source)
+publisher: Ministry of Science, Energy, Telecommunications and Transport, Jamaica
+publisher_role: government
+countries: [JM]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2016
+  update: annual (the 2025 edition was published in July 2026, with 2025 marked provisional)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www.mset.gov.jm/wp-content/uploads/2020/06/JAMAICA-ENERGY-STATISTICS-2020.pdf
+  note: >-
+    'TABLE 8 ELECTRICITY STATISTICS, ELECTRICITY GENERATION (MWh)' gives annual wind in MWh; another
+    table also numbered 8 ('Jamaica's total alternative energy consumption') gives wind in thousand
+    MWh and thousand barrels of oil equivalent. In the file at this URL both tables have columns
+    2016 to 2020 (2019 revised, 2020 preliminary). Read 2026-11-06 by an automated research pass;
+    not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.mset.gov.jm/document-category/statistics-data/
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en]
+licence:
+  name: Ministry website terms of service, content is the ministry's exclusive property, no reuse grant
+  redistribution: link-only
+  verified: true
+  url: https://www.mset.gov.jm/tos/
+  note: >-
+    The terms of service read on 2026-11-06 say the site materials are protected by copyright and
+    that all content is the sole and exclusive property of the ministry. They give no permission to
+    redistribute. Link to the publications and cite the figures rather than republishing them.
+traps:
+  - summary: The same edition gives two different wind figures for one year.
+    detail: >-
+      In the 2020 edition the electricity statistics table gives 255,222 MWh of wind for 2017, while
+      the total energy table gives 289 thousand MWh. Use the electricity table (Table 8, "JPS
+      Electricity Statistics") and say which table a figure comes from. Corrected 2026-11-07: the
+      year was given as 2015; both tables in this edition have columns 2016 to 2020, with 2017 the
+      second column.
+    evidence: https://www.mset.gov.jm/wp-content/uploads/2020/06/JAMAICA-ENERGY-STATISTICS-2020.pdf
+    found: 2026-11-06
+  - summary: >-
+      The electricity statistics tables give no wind line before 2016; earlier wind sits inside
+      purchases from independent power producers.
+    detail: >-
+      The older electricity statistics (2005 to 2009, checked on 2026-11-06; 2010 to 2014, 2011 to
+      2015, 2012 to 2016, 2013 to 2017 and 2014 to 2018, and Table 8 of the 2019 edition, 2015 to
+      2019, checked on 2026-11-07) report generation by Jamaica Public Service and purchases from
+      independent producers without a wind line, so a wind series in MWh from these publications
+      starts with the 2016 value (207,176 MWh) in the 2020 edition. Corrected 2026-11-07: this trap said 2014, and the 2010
+      to 2014 edition was the latest it named. For earlier years only the alternative energy
+      consumption tables give wind, rounded to thousand MWh (32 for 2004 in the 2004 to 2008 table)
+      and revised between editions: 2016 is 190 in the 2019 edition and 207 in the 2020 edition.
+    evidence: https://www.mset.gov.jm/document-category/statistics-data/
+    found: 2026-11-06
+notes: >-
+  Each edition covers five years. Wind generation in MWh, from Jamaica Public Service and the
+  independent power producers, read from the 2025 edition: 263,808 (2021), 271,820 (2022), 231,724
+  (2023), 216,815 (2024) and 219,696 (2025, provisional); from the 2020 edition: 207,176 (2016),
+  255,222 (2017), 301,950 (2018), 272,010 (2019, revised) and 280,321 (2020, preliminary).
+  Corrected 2026-11-07: the 2020 edition's figures were assigned to 2014 to 2018, two years early;
+  its columns are 2016 to 2020, so coverage.start moved from 2014 to 2016. The figure is national;
+  no per-plant split is given. The Office of Utilities Regulation and Jamaica Public Service sites did
+  not resolve on 2026-11-06, and Wigton Energy's annual report gives only a rounded fiscal-year
+  total for its own plants.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

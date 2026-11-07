@@ -1,0 +1,100 @@
+id: world-eia-international
+name: International Energy Data (wind electricity net generation)
+publisher: U.S. Energy Information Administration (EIA)
+publisher_role: government
+countries: [AE, AF, AM, AQ, AR, AT, AU, AW, AZ, BA, BD, BE, BG, BH, BO, BR, BS, BT, BY, CA, CH, CL, CN, CO, CR, CU, CV, CY, CZ, DE, DJ, DK, DM, DO, DZ, EC, EE, EG, ER, ES, ET, FI, FJ, FK, FO, FR, GB, GD, GE, GM, GP, GR, GT, GU, GY, HK, HN, HR, HU, ID, IE, IL, IN, IR, IS, IT, JM, JO, JP, KE, KH, KN, KP, KR, KW, KY, KZ, LB, LK, LT, LU, LV, MA, MD, ME, MG, MK, MN, MQ, MR, MT, MU, MV, MX, NA, NC, NI, NL, NO, NP, NZ, OM, PA, PE, PF, PH, PK, PL, PM, PR, PT, RE, RO, RS, RU, SA, SC, SE, SG, SI, SK, SN, SO, SV, SY, TD, TH, TN, TO, TR, TW, TZ, UA, US, UY, UZ, VE, VG, VN, VU, WS, ZA]
+area: >-
+  The bulk file has 229 country and territory series for wind net generation (225 under
+  three-letter codes, plus West Germany, Netherlands Antilles, the Hawaiian Trade Zone and U.S.
+  Pacific Islands under four-letter EIA codes); the 142 listed in countries had a non-zero value
+  in at least one year. Kosovo (EIA code XKS) also has wind data but no ISO
+  3166-1 code. Regional and historical aggregates (World, OECD, former USSR, former Yugoslavia,
+  East and West Germany) are separate series.
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 1980
+  update: irregular; the bulk file was last updated 16 October 2026 and the wind series run to 2024
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: TWh
+  value: period-total
+  evidence: https://www.eia.gov/opendata/bulk/INTL.zip
+  note: >-
+    Series INTL.37-12-<ISO3>-BKWH.A carry units "billion kilowatthours" (equal to TWh), one value
+    per year. The same file holds the wind series in terajoules, quadrillion Btu and million tonnes
+    of oil equivalent under other series ids. Read 2026-11-06 by an automated research pass; not yet
+    reviewed.
+access:
+  method: bulk-download
+  url: https://www.eia.gov/international/data/world
+  docs: https://www.eia.gov/opendata/bulkfiles.php
+  key_required: false
+  registration: false
+  formats: [json, zip]
+  languages: [en]
+licence:
+  name: U.S. government work, public domain
+  url: https://www.eia.gov/about/copyrights_reuse.php
+  redistribution: allowed-with-attribution
+  attribution: "Source: U.S. Energy Information Administration (month and year of the data)"
+  verified: true
+  note: >-
+    EIA's copyright page says U.S. government publications are in the public domain and asks for
+    a credit naming EIA with the publication date. Third-party material, photographs and the EIA
+    logo are excepted. Each series in the bulk file carries copyright "None".
+traps:
+  - summary: Successor states start in 1992 and Germany in 1991; earlier years sit in separate historical series.
+    detail: >-
+      The former Soviet republics, Croatia, Slovenia, Bosnia and Herzegovina and North
+      Macedonia hold "--" (not applicable) until 1991, Czechia and Slovakia until 1992, Serbia and
+      Montenegro until 2005, and Kosovo until 2007. Germany is "--" until 1990; the earlier years
+      are under the former East and West Germany series. The former USSR, Yugoslavia and
+      Czechoslovakia have series of their own.
+    evidence: https://www.eia.gov/opendata/bulk/INTL.zip
+    found: 2026-11-06
+  - summary: Guadeloupe, Martinique, Reunion and French Guiana switch to the code "ie" instead of a number from 2011.
+    detail: >-
+      Their wind series hold numbers to 2010 and the string "ie" from 2011 to 2024. The bulk
+      file does not explain the code. Code that casts values to numbers will fail or drop these
+      years.
+    evidence: https://www.eia.gov/opendata/bulk/INTL.zip
+    found: 2026-11-06
+  - summary: >-
+      Nine countries appear twice under different series ids, so adding up every wind series
+      counts Brazil, China, the US and six others more than once.
+    detail: >-
+      Besides the country series (INTL.37-12-<ISO3>-BKWH.A) and the named regional aggregates,
+      the file has sixteen INTL.37-12-WP<nn>-BKWH.A series for the regions of EIA's
+      International Energy Outlook. Nine of them are single countries with the same name and
+      geography as the country series: WP13 is "Wind electricity net generation, Brazil, Annual"
+      with geography "BRA", exactly as INTL.37-12-BRA-BKWH.A, and both read 105.612 for 2024;
+      likewise Canada (WP14), China (WP15, 997.04), India (WP16), Japan (WP17), Mexico (WP18),
+      Russia (WP25), South Korea (WP26) and the United States (WP27, 451.90435659). For 2024 the
+      sum of all 264 wind BKWH series is 16,732 billion kWh against 2,512 for World; the 229
+      series whose id code matches their geography sum to 2,512. Filter on the series id, not
+      the name or geography field, and keep only ids whose code equals the geography.
+      Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://www.eia.gov/opendata/bulk/INTL.zip
+    found: 2026-11-07
+notes: >-
+  Annual wind electricity net generation in billion kWh (also given in
+  terajoules, quadrillion Btu and million tonnes of oil equivalent), 1980 to 2024, for every country EIA tracks. Series ids follow
+  INTL.37-12-<ISO3>-BKWH.A. The bulk file (INTL.zip, about 24 MB, one JSON object per line) needs
+  no key; the API v2 international route serves the same data but needs a free key. EIA compiles
+  the series from national and international sources; whether a value is reported or estimated
+  is not flagged in the bulk file. Checked by downloading INTL.zip on the check date and reading
+  every wind generation series; Kosovo's code XKS and Antarctica (AQ) appear as EIA gives them.
+  Note that Ember's methodology describes EIA data as gross generation, but EIA labels these
+  series net. Corrected 2026-11-07: the area field said 225 country series; a recount of
+  INTL.zip found 229, the extra four under four-letter EIA codes (DEUW, NLDA, HITZ, USIQ).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

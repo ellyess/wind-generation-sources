@@ -1,50 +1,20 @@
 """Make the simplified country outlines the map draws. Run once; the output is committed.
 
-Source: Natural Earth admin-0 countries v5.1.2 (public domain), 1:110m for the world view and
-1:50m, cut to a window, for the Europe detail.
+Source: Natural Earth admin-0 countries v5.1.2 (public domain), 1:50m, simplified. The page's
+map library projects the lon/lat outlines itself.
 
-    uv run --with shapely python scripts/make_geo.py <ne_110m.geojson> <ne_50m.geojson>
+    uv run --with shapely python scripts/make_geo.py <ne_50m.geojson>
 """
 
 from __future__ import annotations
 
 import json
-import math
 import sys
 from pathlib import Path
 
-from shapely.geometry import Polygon, mapping, shape
-
-from wgs.mapdata import EU_LAT0, EU_LON0, europe_frame
+from shapely.geometry import mapping, shape
 
 OUT = Path(__file__).resolve().parents[1] / "geo"
-
-
-def laea_inverse(x: float, y: float) -> tuple[float, float]:
-    """Unit-sphere Lambert azimuthal equal-area back to lon/lat, about the detail's centre."""
-    p0 = math.radians(EU_LAT0)
-    rho = math.hypot(x, y)
-    if rho == 0:
-        return EU_LON0, EU_LAT0
-    c = 2 * math.asin(min(rho / 2, 1))
-    lat = math.asin(math.cos(c) * math.sin(p0) + y * math.sin(c) * math.cos(p0) / rho)
-    den = rho * math.cos(p0) * math.cos(c) - y * math.sin(p0) * math.sin(c)
-    lon = math.atan2(x * math.sin(c), den)
-    return EU_LON0 + math.degrees(lon), math.degrees(lat)
-
-
-def europe_window(margin: float = 0.04) -> Polygon:
-    """The drawn detail rectangle, with a margin, as a lon/lat polygon to cut outlines to."""
-    f = europe_frame()
-    w, h = f.width / f.scale, f.height / f.scale
-    x0, x1 = f.x0 - margin * w, f.x0 + (1 + margin) * w
-    y0, y1 = f.y1 - (1 + margin) * h, f.y1 + margin * h
-    n = 80
-    ring = ([(x0 + (x1 - x0) * i / n, y0) for i in range(n)]
-            + [(x1, y0 + (y1 - y0) * i / n) for i in range(n)]
-            + [(x1 - (x1 - x0) * i / n, y1) for i in range(n)]
-            + [(x0, y1 - (y1 - y0) * i / n) for i in range(n)])
-    return Polygon([laea_inverse(x, y) for x, y in ring])
 
 
 def iso(props: dict) -> str | None:
@@ -62,35 +32,92 @@ def rounded(geom: dict, nd: int) -> dict:
             "coordinates": [[[r(c) for c in ring] for ring in poly] for poly in coords]}
 
 
-def build(path: str, tolerance: float, window=None, nd: int = 2) -> dict:
+def build(path: str, tolerance: float, nd: int = 2) -> dict:
     feats = []
     for f in json.loads(Path(path).read_text())["features"]:
         p = f["properties"]
         if p.get("NAME") == "Antarctica":
             continue
-        g = shape(f["geometry"])
-        if window is not None:
-            if not g.intersects(window):
-                continue
-            g = g.intersection(window)
-        g = g.simplify(tolerance, preserve_topology=True)
+        g = shape(f["geometry"]).simplify(tolerance, preserve_topology=True)
         if g.is_empty or g.geom_type not in ("Polygon", "MultiPolygon"):
             continue
         feats.append({"type": "Feature",
-                      "properties": {"iso": iso(p), "name": p.get("NAME_EN") or p.get("NAME")},
+                      "properties": {"iso": iso(p), "name": name(p)},
                       "geometry": rounded(mapping(g), nd)})
     return {"type": "FeatureCollection", "features": feats}
 
 
+# Grouped with Europe because ENTSO-E and Eurostat report them; Natural Earth puts them in Asia.
+EUROPE_OVERRIDE = {"TR", "CY", "GE", "AM", "AZ"}
+
+
+def continent(props: dict) -> str:
+    code, name = iso(props), props.get("CONTINENT", "")
+    if code in EUROPE_OVERRIDE:
+        return "Europe"
+    if name in ("North America", "South America"):
+        return "Americas"
+    if name.startswith("Seven seas"):
+        name = props.get("REGION_UN", "")
+        return "Americas" if name == "Americas" else name
+    return name
+
+
+# ISO codes that global datasets use but Natural Earth folds into another country.
+EXTRA_PLACES = {
+    "AQ": {"name": "Antarctica", "continent": "Antarctica"},
+    "BQ": {"name": "Bonaire, Sint Eustatius and Saba", "continent": "Americas"},
+    "GP": {"name": "Guadeloupe", "continent": "Americas"},
+    "MQ": {"name": "Martinique", "continent": "Americas"},
+    "RE": {"name": "Réunion", "continent": "Africa"},
+    "GF": {"name": "French Guiana", "continent": "Americas"},
+    "YT": {"name": "Mayotte", "continent": "Africa"},
+    "TK": {"name": "Tokelau", "continent": "Oceania"},
+}
+
+
+# Short names people search for, where Natural Earth's long form is formal.
+NAME_OVERRIDE = {"KR": "South Korea", "KP": "North Korea", "RU": "Russia", "CZ": "Czechia",
+                 "LA": "Laos", "SY": "Syria", "MD": "Moldova", "BN": "Brunei"}
+
+
+def name(props: dict) -> str:
+    return NAME_OVERRIDE.get(iso(props) or "") or props.get("NAME_LONG") or props.get("NAME") or ""
+
+
+def places(path: str) -> dict:
+    """Name and continent for every country Natural Earth codes, for the index and the search.
+
+    Several features can share a code (Australia and the Ashmore and Cartier Islands are both
+    AU), so the largest one names it.
+    """
+    out, size = {}, {}
+    for f in json.loads(Path(path).read_text())["features"]:
+        p = f["properties"]
+        code = iso(p)
+        if not code or p.get("NAME") == "Antarctica":
+            continue
+        area = shape(f["geometry"]).area
+        if area > size.get(code, -1):
+            size[code] = area
+            out[code] = {"name": name(p), "continent": continent(p)}
+    for code, place in EXTRA_PLACES.items():
+        out.setdefault(code, place)
+    return dict(sorted(out.items()))
+
+
 def main() -> None:
-    small, medium = sys.argv[1], sys.argv[2]
+    medium = sys.argv[1]
     OUT.mkdir(exist_ok=True)
     note = "Natural Earth admin-0 countries v5.1.2, public domain. Simplified for display."
-    for name, data in (("world", build(small, 0.12)),
-                       ("europe", build(medium, 0.025, europe_window(), 3))):
-        data["source"] = note
-        (OUT / f"{name}.geojson").write_text(json.dumps(data, separators=(",", ":")) + "\n")
-        print(name, len(data["features"]), (OUT / f"{name}.geojson").stat().st_size)
+    data = build(medium, 0.02, 3)
+    data["source"] = note
+    path = OUT / "countries.geojson"
+    path.write_text(json.dumps(data, separators=(",", ":")) + "\n")
+    print("countries", len(data["features"]), path.stat().st_size)
+    table = {"source": note, "places": places(medium)}
+    (OUT / "places.json").write_text(json.dumps(table, ensure_ascii=False, indent=0) + "\n")
+    print("places", len(table["places"]))
 
 
 if __name__ == "__main__":

@@ -14,6 +14,18 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: period-start
+  unit: MW
+  value: period-mean
+  evidence: "https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/FUELHH"
+  note: >-
+    Elexon describes FUELHH as "average MW values over 30 minutes". Rows carry startTime in UTC
+    (2024-01-15T23:30:00Z for settlement period 48, published at 2024-01-16T00:00:00Z) alongside
+    a settlement date and period that follow UK local time. AGPT rows also carry startTime in
+    UTC, but the AGPT endpoint description does not state the unit of its quantity field. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: api
   url: https://bmrs.elexon.co.uk/
@@ -72,3 +84,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

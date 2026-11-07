@@ -1,0 +1,87 @@
+id: es-ree-esios-real-time-wind
+name: ESIOS real-time wind generation (Generación T.Real eólica, indicator 551)
+publisher: Red Eléctrica (REE), system operator information system ESIOS
+publisher_role: tso
+countries: [ES]
+area: Peninsular Spain (mainland system); the islands and Ceuta and Melilla are in indicator 1745
+level: zone
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: 5min
+coverage:
+  start: 2015
+  update: every 5 minutes, near real time
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: Europe/Madrid
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: "https://api.esios.ree.es/doc/indicator/getting_a_specific_indicator_filtering_values_by_a_date_range.html"
+  note: >-
+    The public analysis page for indicator 551 shows values in MW at five-minute grouping
+    (5,482.0 MW for 26/10/2025 23:55), and REE's indicator list calls it generation "medida en
+    tiempo real". The ESIOS API documentation's example response gives each value a local
+    "datetime" with its offset and a separate "datetime_utc". Whether a value is a snapshot or a
+    five-minute mean, and whether the stamp opens or closes the interval, are not stated. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: portal
+  url: https://www.esios.ree.es/es/analisis/551
+  docs: https://api.esios.ree.es/
+  key_required: true
+  registration: false
+  formats: [csv, json, xlsx]
+  languages: [es, en]
+licence:
+  name: Red Eléctrica website legal notice (Aviso legal), no named open licence
+  url: https://www.ree.es/es/aviso-legal
+  redistribution: non-commercial-only
+  attribution: >-
+    Name Red Eléctrica clearly as the source, give the date of the latest update of the data,
+    and do not alter its meaning.
+  verified: true
+  note: >-
+    Read 2026-11-06; the ESIOS footer links to this notice. Section 5.1 allows reuse for
+    information, company or academic purposes only when not commercial; other reproduction or
+    distribution needs written permission.
+traps:
+  - summary: Older periods are at 10 minutes, not 5, so the time step changes within the series.
+    detail: >-
+      The analysis page for 15 January 2015 switched itself to 10-minute grouping (last value
+      10,171.0 MW at 23:50), while 15 January 2025 is offered at 5 minutes (13,188.0 MW at
+      23:55). Resample before joining years.
+    evidence: https://www.esios.ree.es/es/analisis/551?vis=1&start_date=15-01-2015T00%3A00&end_date=15-01-2015T23%3A55&compare_start_date=14-01-2015T00%3A00&groupby=minutes10&geoids=
+    found: 2026-11-06
+  - summary: This is real-time telemetry in MW, not metered energy, and it covers the mainland only.
+    detail: >-
+      REE describes 551 as generation measured in real time for the peninsular system. Values
+      are instantaneous power (MW), whereas the metered indicators 1159 and 1160 are hourly
+      energy (MWh) for all of Spain by province. Replace with the metered series once it is
+      published (see es-ree-esios-measured-generation).
+    evidence: https://api.esios.ree.es/indicators
+    found: 2026-11-06
+notes: >-
+  Five-minute wind output for mainland Spain from REE's control-centre telemetry, published
+  every five minutes. Checked 2026-11-06 on the public ESIOS analysis page (no token needed in a
+  browser) for 15 January 2015 and 15 January 2025; the 2015 values were close to the metered
+  onshore indicator 1159 for the same hour (10,171 MW at 23:50 against 10,402.5 MWh for 23:00).
+  The start year is the earliest year looked at, not a confirmed first year. Indicator 2038 is a
+  national real-time total and 1745 covers the non-peninsular systems; neither was checked. Bulk
+  access goes through the ESIOS REST API, which needs a personal token requested from REE,
+  so the API itself was not tested. REE's REData API (es-ree-redata) serves only daily
+  wind energy.
+  Corrected 2026-11-07: key_required was false and is now true. Without a token the REST API
+  answered {"Status": 403, "message": "Forbidden"} for /indicators/551 with a date range
+  (15 January 2025); the same call with no dates answered 200 with the current day's
+  five-minute values only. The API documentation (https://api.esios.ree.es/) opens with a
+  "Personal token request" link to https://www.esios.ree.es/es/token, a form asking for name,
+  surname, email and reason for use (the form names no fee), and its example requests send the
+  token in an x-api-key header. The analysis pages can still be browsed without a token, but
+  history through the API needs one.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

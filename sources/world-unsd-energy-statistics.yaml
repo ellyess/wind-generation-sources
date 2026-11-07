@@ -1,0 +1,71 @@
+id: world-unsd-energy-statistics
+name: Energy Statistics Database, Electricity - total wind production
+publisher: United Nations Statistics Division (UNSD), via UNdata
+publisher_role: statistics-office
+countries: [AM, AR, AT, AU, AW, AZ, BA, BD, BE, BG, BH, BO, BQ, BR, BS, BT, BY, CA, CH, CL, CN, CO, CR, CU, CV, CW, CY, CZ, DE, DJ, DK, DM, DO, DZ, EC, EE, EG, ER, ES, ET, FI, FJ, FK, FM, FO, FR, GB, GE, GM, GP, GR, GT, GU, HN, HR, HU, ID, IE, IL, IN, IR, IS, IT, JM, JO, JP, KE, KN, KR, KW, KZ, LK, LT, LU, LV, MA, MD, ME, MG, MK, MN, MP, MQ, MR, MU, MV, MX, NA, NC, NG, NI, NL, NO, NP, NZ, OM, PA, PE, PG, PH, PK, PL, PM, PR, PT, RE, RO, RS, RU, SA, SC, SE, SH, SI, SK, SN, SO, SV, SY, TD, TH, TN, TO, TR, TZ, UA, US, UY, UZ, VE, VG, VN, VU, ZA]
+area: >-
+  147 country or area names appear for this commodity; the 134 listed in countries had a non-zero
+  value in at least one year. Kosovo, "Other Asia" and the former Federal Republic of Germany also
+  have rows but no ISO 3166-1 code.
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 1990
+  update: annual (last update in UNdata 15 December 2025; next 15 January 2027, per the page)
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://data.un.org/Data.aspx?d=EDATA&f=cmID%3aEW
+  note: >-
+    The Unit column reads "Kilowatt-hours, million" (equal to GWh), one value per year. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: portal
+  url: https://data.un.org/Data.aspx?d=EDATA&f=cmID%3aEW
+  docs: https://unstats.un.org/unsd/energystats/questionnaire/documents/Energy-Questionnaire-Guidelines.pdf
+  key_required: false
+  registration: false
+  formats: [html, csv, xml]
+  languages: [en]
+licence:
+  name: UNdata terms of use
+  url: https://data.un.org/Host.aspx?Content=UNdataUse
+  redistribution: allowed-with-attribution
+  attribution: Cite UNdata as the reference (the source here is the UNSD Energy Statistics Database).
+  verified: true
+  note: >-
+    The terms say all data and metadata on UNdata are free of charge and may be copied freely,
+    duplicated and further distributed provided UNdata is cited as the reference. Quality and
+    limitations are for the source organisation to explain.
+traps:
+  - summary: Some values are UNSD estimates, marked only by footnote 1.
+    detail: >-
+      The Note column carries footnote 1, "Estimate", on 125 of the roughly 2,700 wind rows read on
+      the check date. Drop the footnote column and estimates become indistinguishable from
+      reported figures.
+    evidence: https://data.un.org/Data.aspx?d=EDATA&f=cmID%3aEW
+    found: 2026-11-06
+  - summary: Latest years differ by country; about a third of countries stop a year earlier than the rest.
+    detail: >-
+      On the check date 51 countries had 2024 and 87 stopped at 2023, with a handful ending much
+      earlier. Check each country's last year before forming a cross-country total.
+    evidence: https://data.un.org/Data.aspx?d=EDATA&f=cmID%3aEW
+    found: 2026-11-06
+notes: >-
+  Annual wind electricity production in million kWh by country, from the national energy
+  questionnaires UNSD runs, 1990 onward (the page points to UNSD's older Energy Statistics
+  Database for earlier years, not checked). Commodity code EW. Checked by reading every page of the
+  UNdata table for this commodity on the check date. The web table pages 50 rows at a time; the
+  page offers CSV and XML downloads, which were not tested. Whether the figures are gross or net is
+  set by the questionnaire guidelines linked as docs, which were not read for this entry.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

@@ -32,6 +32,11 @@ exist and what they cost to use.
    optional and only filled when you know it.
 6. Write for someone who has never seen the source: plain English, no unexplained acronyms in
    summaries.
+7. **Record how to read the data.** `conventions` says what time zone the stamps are in, whether
+   a stamp marks the start or end of its period, the unit, and whether a value is a mean, a
+   total or a snapshot, with a link to where the publisher says so. Use `unknown` for anything
+   the publisher does not state, even if the data suggest an answer; put the suggestion in
+   `conventions.note`.
 
 ## Licence of this catalogue
 

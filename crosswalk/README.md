@@ -1,5 +1,19 @@
 # Unit-to-farm crosswalk (prototype)
 
+Three scripts feed the map's farm points:
+- `build.py` matches unit codes to farms by name, for markets that publish no locations (below).
+- `registers.py` reads locations the publisher gives itself, so nothing is guessed: the Danish
+  Energy Agency's turbine register (turbines in its 2002 to 2020 production workbook, reprojected
+  from UTM 32N) and EIA-860 plant locations for operable US wind plants, whose output EIA-923
+  publishes under the same plant code. Run it with
+  `uv run --with openpyxl --with pandas --with pyproj python crosswalk/registers.py`.
+  On 6 November 2026 it wrote 8,974 Danish turbines and 1,371 US plants.
+- `lists.py` places the unit lists in `units/` (one per catalogue entry, format in
+  `units/README.md`). Rows with the publisher's own coordinates keep them; the rest are matched
+  by name and capacity to OpenStreetMap wind farms in the row's country, by the rules below.
+  Run it with `uv run python crosswalk/lists.py`; `output/lists.json` counts each entry's results.
+
+
 Some markets publish wind output per unit with no location:
 - AEMO dispatch units (DUIDs) in Australia's National Electricity Market;
 - Elexon balancing mechanism units (BMUs) in Great Britain;

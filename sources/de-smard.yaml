@@ -13,6 +13,22 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: unknown
+conventions:
+  timezone: Europe/Berlin
+  timestamp: period-start
+  unit: MWh
+  value: period-total
+  evidence: https://www.smard.de/resource/blob/205652/63fcff2c9813096fa2229d769da164ef/smard-user-guide-09-2021-data.pdf
+  note: >-
+    The SMARD user guide (September 2021) says all times are CET (UTC+1) or CEST (UTC+2) as in
+    effect, that the March change skips 02:00 to 03:00 and the October change repeats it, and
+    that "The times in the charts and tables each indicate a starting point". It says actual
+    generation is ENTSO-E's quarter-hour MW divided by four to give MWh, and that coarser
+    resolutions add up the quarter-hour MWh. The CSV export has "Start date" and "End date"
+    columns with no offset, so the repeated October hour appears twice with the same clock times
+    (checked for 26 October 2025) and must be told apart by row order. The guide also says
+    coarser resolutions are interpolated when a limited number of quarter hours is missing. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.smard.de/en/downloadcenter/download-market-data
@@ -55,6 +71,20 @@ traps:
       clock changes explicitly.
     evidence: https://www.smard.de/en/downloadcenter/download-market-data
     found: 2026-11-06
+  - summary: In the CSV export the repeated October hour has the same clock times as the first, so the rows look like duplicates but are not.
+    detail: >-
+      The quarter-hour export for 26 October 2025 has 100 rows. "Oct 26, 2025 2:00 AM;Oct 26,
+      2025 2:15 AM;1,529.48;7,730.59" (start, end, offshore MWh, onshore MWh) is followed an hour
+      later by "Oct 26, 2025 2:00 AM;Oct 26, 2025 2:15 AM;1,594.38;7,821.39": same labels,
+      different values, and no offset to tell summer from winter time. Dropping duplicate time
+      stamps loses a real hour, and a parser that refuses ambiguous local times will fail. Take
+      the rows in order (the first 02:00 to 02:45 is UTC+2, the second UTC+1), or use the JSON
+      chart API, whose epoch stamps are unique (1761436800000 and 1761440400000 for the two
+      02:00 quarter-hours). The spring day (30 March 2025) correctly has 92 rows, jumping from
+      1:45 AM to 3:00 AM. Found by an automated research pass on 2026-11-07; not yet reviewed by
+      a person.
+    evidence: https://www.smard.de/resource/blob/205652/63fcff2c9813096fa2229d769da164ef/smard-user-guide-09-2021-data.pdf
+    found: 2026-11-07
 tools:
   - name: bundesAPI smard-api (OpenAPI documentation)
     url: https://github.com/bundesAPI/smard-api
@@ -69,3 +99,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

@@ -1,0 +1,71 @@
+id: rs-ems-annual-technical-report
+name: Annual technical report of EMS (Годишњи технички извештај ЕМС АД), electricity production section
+publisher: Elektromreža Srbije (EMS AD, Serbian transmission system operator)
+publisher_role: tso
+countries: [RS]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2019
+  update: annual, about six months after the year ends
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://ems.rs/wp-content/uploads/2026/07/GTI-2025.pdf
+  note: >-
+    The 2025 report gives wind production in GWh ("Ветроелектране су произвеле 1.384 GWh" for 2025),
+    monthly and annual. The 2023 report's monthly table is in MWh, so read the unit in each report.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://ems.rs/tehnicki-izvestaji/
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [sr]
+licence:
+  name: No data licence found
+  redistribution: unclear
+  verified: false
+  note: No terms of use or reuse licence were found on ems.rs on 2026-11-06.
+traps:
+  - summary: Before the 2025 report the same series is labelled renewable production, not wind.
+    detail: >-
+      The 2023 report gives "Производња из обновљивих извора ел.енергије" (production from
+      renewable sources) of 830, 905, 1,004, 876 and 985 GWh for 2019-2023. The 2025 report
+      gives 1,004, 876 and 985 GWh for 2021-2023 under "ВЕ" (wind farms). The numbers are the
+      same series under a new name; read older reports with that in mind.
+    evidence: https://ems.rs/wp-content/uploads/2024/05/GTI-EMS-AD-za-2023.pdf
+    found: 2026-11-06
+  - summary: Monthly values are in MWh in the 2023 report but in GWh in the 2025 report.
+    detail: >-
+      The 2023 monthly table is labelled MWh (106,574 for January); the 2025 table is in GWh
+      (109 for January). The 2019 report shows its monthly figures only as a chart with no
+      readable numbers.
+    evidence: https://ems.rs/wp-content/uploads/2026/07/GTI-2025.pdf
+    found: 2026-11-06
+  - summary: The figure is energy delivered into the transmission system, excluding Kosovo.
+    detail: >-
+      The report counts production "предата у преносни систем" (handed over to the transmission
+      system) for Serbia without Kosovo and Metohija, with energy pushed up from the distribution
+      system as a separate row. Distribution-connected wind may therefore be outside the wind row.
+    evidence: https://ems.rs/wp-content/uploads/2026/07/GTI-2025.pdf
+    found: 2026-11-06
+notes: >-
+  Section 1.4 of each annual technical report gives monthly production by thermal, hydro and wind
+  plants and a five-year annual table. The 2025 report gives wind of 1,384 GWh for 2025 (109 to
+  152 GWh a month) and annual totals back to 2021. Checked in the 2019, 2023 and 2025 reports;
+  the 2020-2022 and 2024 reports are listed but their monthly tables were not opened. EMS points
+  readers to the ENTSO-E Transparency Platform for hourly generation by type; this report is
+  useful as an annual and monthly cross-check on it.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

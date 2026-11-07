@@ -1,0 +1,81 @@
+id: bo-cndc-realised-dispatch-by-plant
+name: Despacho de Carga Realizado (realised daily load dispatch, hourly MW by plant)
+publisher: Comité Nacional de Despacho de Carga (CNDC), the Bolivian national load dispatch committee
+publisher_role: iso-rto
+countries: [BO]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2016
+  update: daily
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: instant
+  unit: MW
+  value: instantaneous
+  evidence: https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2026/11/dcdr_051126.xlsx
+  note: >-
+    The sheet title is "DESPACHO DE CARGA REALIZADO (MW)" and its footnote reads "Los valores de
+    potencia aquí informados son registros instantáneos de cada hora en punto obtenidos del sistema
+    SCADA", so each value is a MW reading at the full hour, with hour columns labelled 01:00 to
+    24:00. The file does not state a time zone; the hour labels look like Bolivian local clock time
+    (Bolivia keeps no daylight saving), but that is not stated. The TOTAL column has no stated unit.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.cndc.bo/estadisticas/
+  docs: https://www.cndc.bo/wp-json/cndc/v1/estadisticas/documentos?categoria_id=270&agrupado=true&anio=2026
+  key_required: false
+  registration: false
+  formats: [xlsx, xls, zip]
+  languages: [es]
+licence:
+  name: No licence; site footer reads "© 2026 CNDC ... Todos los derechos reservados"
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use or licence page was found among the site's published pages. The footer
+    carries a copyright notice only, which is not reuse terms. Redistribution stays unclear until
+    CNDC states terms.
+traps:
+  - summary: The hourly values are instantaneous MW read from SCADA on the hour, not hourly energy.
+    detail: >-
+      The sheet footnote says the power values are instantaneous records at each full hour taken
+      from the SCADA system. Summing the 24 values only approximates daily energy, and short wind
+      fluctuations within the hour are not captured.
+    evidence: https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2026/11/dcdr_051126.xlsx
+    found: 2026-11-06
+  - summary: The TOTAL column is not the sum of the 24 hourly values and has no stated unit.
+    detail: >-
+      For 5 November 2026 the 24 values sum to 38.39 (Qollpana I), 162.08 (Qollpana II), 77.78
+      (Warnes), 84.57 (San Julián) and 186.60 (El Dorado), while the TOTAL column shows 37.5, 152,
+      74.2, 90.4 and 174.4. It is probably daily energy from another source, but the sheet does not
+      say so. Do not treat the two as interchangeable.
+    evidence: https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2026/11/dcdr_051126.xlsx
+    found: 2026-11-06
+  - summary: File format and plant split change over time; 2016 has one Qollpana row and older years come as zipped .xls.
+    detail: >-
+      The 1 January 2016 file has a single "QOLLPANA" row; the 15 March 2020 file has Qollpana I and
+      Qollpana II only; Warnes, San Julián and El Dorado appear in 2026. Files up to 2025 are zips
+      holding .xls workbooks, while 2026 files are plain .xlsx under a year and month folder. Use
+      the listing service rather than guessing file paths.
+    evidence: https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2016/dcdr_010116.zip
+    found: 2026-11-06
+notes: >-
+  The CNDC statistics page lists daily files under "Diaria", category "Despacho de Carga DC
+  Realizado". A public WordPress JSON service returns the file list for a year
+  (/wp-json/cndc/v1/estadisticas/documentos?categoria_id=270&agrupado=true&anio=YYYY); it returned
+  366 daily files for 2016 and none for 2015. Each workbook has a "POST" sheet titled "DESPACHO DE
+  CARGA REALIZADO (MW)" with one row per generating plant, hours 01:00 to 24:00, a TOTAL column and
+  a "SUBTOTAL EOLICO" row. The 5 November 2026 file has five wind rows with distinct hourly
+  profiles, so the values are per plant. No per-plant capacity or location is published with these
+  files; national effective wind capacity appears only on the CNDC dashboard.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

@@ -14,6 +14,22 @@ coverage:
 capacity: included
 coordinates: included
 curtailment: reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: kW
+  value: unknown
+  evidence: "https://zenodo.org/records/16807551"
+  note: >-
+    Each Greenbyte file header states "Time zone: UTC" (checked in the 2016 turbine file and the
+    grid meter file). The turbine column "Power (kW)" sits beside "Power, Standard deviation",
+    minimum and maximum columns, which implies a 10-minute mean but is not stated, and the
+    header does not say whether "Date and time" opens or closes the interval. "Energy Export
+    (kWh)" is also given. Kelmarsh_WT_dataSignalMapping.csv lists "Power" with unit kWh, which
+    contradicts the kW column header. Read 2026-11-06 by an automated research pass; not yet
+    reviewed. Checked 2026-11-07 against the 2016 file for turbine 1: the values are kW, not
+    kWh (see the trap), and Power/6 summed over the year (4,211 MWh) matches the summed Energy
+    Export (4,240 MWh), as a 10-minute mean would; the mean is still not stated by the publisher.
 access:
   method: bulk-download
   url: https://doi.org/10.5281/zenodo.5841833
@@ -42,6 +58,14 @@ traps:
       which version you used.
     evidence: https://zenodo.org/records/5841834
     found: 2026-11-06
+  - summary: A published audit reports that the 2023 and 2024 turbine files of version 4 repeat each year as 81 cumulative blocks.
+    detail: >-
+      Only the first occurrence of each timestamp holds measured values, so de-duplicating with
+      keep-last throws away nearly all the data; keep the first. The audit's deposit has
+      reconstructed files with one row per 10-minute interval and a per-interval flag table.
+      Not yet confirmed here against the v4 files themselves.
+    evidence: https://doi.org/10.5281/zenodo.23171808
+    found: 2026-11-06
   - summary: The column header row starts with a '#', like the comment lines above it.
     detail: >-
       Each turbine CSV opens with nine '#' comment lines, then a header line that also begins
@@ -62,6 +86,17 @@ traps:
       against turbine output for those years.
     evidence: https://zenodo.org/records/16807551
     found: 2026-11-06
+  - summary: The signal-mapping file gives turbine "Power" in kWh, but the values are kW.
+    detail: >-
+      Kelmarsh_WT_dataSignalMapping.csv has the row "5,Power,Actual value of active power,kWh",
+      while the turbine files head the column "Power (kW)". The kW header is right: in the 2016
+      file for turbine 1 (Turbine_Data_Kelmarsh_1_2016-01-03_-_2017-01-01_228.csv) Power peaks at
+      2,072 kW against the 2.05 MW rating, and at 2016-06-01 12:00 it reads 1858.8 beside an Energy
+      Export (kWh) of 356, about a sixth of it, as a 10-minute energy should be. Read Power as kW;
+      a row's energy in kWh is Power times 10/60. Found by an automated research pass on
+      2026-11-07; not yet reviewed by a person.
+    evidence: https://zenodo.org/records/16807551/files/Kelmarsh_WT_dataSignalMapping.csv
+    found: 2026-11-07
 tools:
   - name: OpenOA (examples/project_Cubico.py)
     url: https://github.com/NatLabRockies/OpenOA
@@ -85,3 +120,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

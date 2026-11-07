@@ -1,0 +1,97 @@
+id: eg-eehc-annual-report-plant-generation
+name: Egyptian Electricity Holding Company annual report, generated energy by power plant
+publisher: Egyptian Electricity Holding Company (EEHC), via the Ministry of Electricity and Renewable Energy
+publisher_role: utility
+countries: [EG]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2001
+  update: annual, one report per fiscal year (July to June)
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: "http://www.moee.gov.eg/english_new/EEHC_Rep/report2025en.pdf"
+  note: >-
+    Page 24 of the 2024/2025 report heads the per-plant columns "Generated Energy (GWh)" and
+    "Transmitted Energy (GWh)", per Egyptian fiscal year (July to June). The same table mixes
+    decimal separators: plant rows use a point (Zafarana-Wind 1135.941) while the Total
+    Connected Grid row prints 239888,77. The 2008/2009 report also gives wind in GWh. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: http://www.moee.gov.eg/english_new/report.aspx
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en, ar]
+licence:
+  name: Ministry of Electricity and Renewable Energy website terms and conditions (no reuse terms)
+  url: http://www.moee.gov.eg/english_new/terms.aspx
+  redistribution: unclear
+  verified: true
+  note: >-
+    The terms page covers acceptable use of the website only and says nothing about reusing or
+    redistributing published data. The site footer reads "Copyright©2013 Ministry of Electricity
+    & Energy". The reports themselves were not found to carry reuse terms.
+traps:
+  - summary: Recent reports are scanned images with no text layer, so tables cannot be copied or parsed as text.
+    detail: >-
+      The 2024/2025 English report (104 pages) and the 2022/2023 report return almost no text
+      when extracted; the per-plant table (page 24 of the 2024/2025 report) has to be read by eye
+      or by optical character recognition. The 2008/2009 report still has a text layer.
+    evidence: http://www.moee.gov.eg/english_new/EEHC_Rep/report2025en.pdf
+    found: 2026-11-06
+  - summary: Years are Egyptian fiscal years (1 July to 30 June), not calendar years.
+    evidence: http://www.moee.gov.eg/english_new/EEHC_Rep/report2025en.pdf
+    found: 2026-11-06
+  - summary: Generated energy for a newly commissioned farm includes its commissioning or operating tests.
+    detail: >-
+      The 2024/2025 per-plant table footnotes its total as "Including operating tests"; the
+      2008/2009 report says "The generated energy includes commissioning tests". In 2024/2025
+      the new Red Sea wind farm shows 1,190.848 GWh generated against 1,016.31 GWh transmitted
+      (a 14.65% self-consumption rate, against 0.03-0.24% for the other wind farms), so for a
+      farm's first year compare generated and transmitted energy before using either.
+    evidence: http://www.moee.gov.eg/english_new/EEHC_Rep/report2025en.pdf
+    found: 2026-11-06
+  - summary: The report links are hidden behind JavaScript; the page itself contains no PDF links.
+    detail: >-
+      report.aspx calls downloadreport() in JScript/JSreport_1.js, which opens files under
+      english_new/EEHC_Rep/ (for example report2025en.pdf, AnnualReport2024En.pdf,
+      REP2022-2023en.pdf, 2008-2009en.pdf). File names follow no single pattern.
+    evidence: http://www.moee.gov.eg/english_new/JScript/JSreport_1.js
+    found: 2026-11-06
+  - summary: The per-plant table mixes decimal points and decimal commas, so one parsing rule misreads some rows.
+    detail: >-
+      On page 24 of the 2024/2025 report the plant rows and the Total Renewable row use a decimal
+      point (Zafarana-Wind 1135.941, Total Renewable 15248.868), but the Total Connected Grid row
+      prints "239888,77" and "232904,573" and the Total Unified Grid row "240091,4" and
+      "232921,573". These commas are decimals: 239888.77 plus 190 (isolated plants) plus 12.6
+      (purchased) gives 240091.4. Read every comma in this table as a decimal point; a parser that
+      treats commas as thousands separators turns the national total into 23,988,877 GWh. The wind
+      rows themselves use points. Found by an automated research pass on 2026-11-07; not yet
+      reviewed by a person.
+    evidence: http://www.moee.gov.eg/english_new/EEHC_Rep/report2025en.pdf
+    found: 2026-11-07
+notes: >-
+  The per-plant production table gives generated and transmitted energy (GWh) and self-consumption
+  for each wind farm. In the 2024/2025 report it lists Zafarana, Gabal El-Zeit, Ras Gharib
+  (Shuqeir), Fostas (KfW-funded), Lakela (private sector), Red Sea and Amunet, with different
+  values per farm (for example Zafarana 1,135.941 GWh and Gabal El-Zeit 2,506.019 GWh); a separate
+  table in the same report gives installed capacity, unit configuration and commissioning years per
+  plant. The 2008/2009 report gives Zafarana (then the only grid wind farm) for every fiscal year
+  from 2001/2002 to 2008/2009, which is the coverage start used here. Reports exist on the page
+  for every year from 2008/2009 to 2024/2025; the years between were not opened, so continuity of
+  the per-plant wind rows is assumed, not checked. Egypt's New and Renewable Energy Authority also
+  publishes an annual report, but its site failed certificate checks on 2026-11-06 and was not read.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

@@ -1,0 +1,86 @@
+id: fr-rte-eco2mix-regional
+name: éCO2mix regional consolidated and definitive data (Données éCO2mix régionales consolidées et définitives)
+publisher: RTE (Réseau de Transport d'Électricité), via the ODRE open data portal
+publisher_role: tso
+countries: [FR]
+area: the 12 regions of mainland France excluding Corsica
+level: zone
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: 30min
+coverage:
+  start: 2013
+  update: daily refresh; consolidated in the middle of the following month, definitive in the second quarter of the following year
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: "https://odre.opendatasoft.com/explore/dataset/eco2mix-regional-cons-def/"
+  note: >-
+    The API's date_heure field comes back with +00:00, while the date and heure fields give
+    French local time. The combined wind field is labelled "Eolien (MW)"; eolien_terrestre and
+    eolien_offshore carry no unit in their labels. On 27 October 2024 Bretagne has 48 half-hour
+    rows, with local 01:30 at 23:30 UTC followed by local 02:00 at 01:00 UTC, so one UTC hour is
+    missing. Whether a value is a mean or a snapshot, and whether the stamp opens or closes the
+    half-hour, are not stated. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://odre.opendatasoft.com/explore/dataset/eco2mix-regional-cons-def/
+  key_required: false
+  registration: false
+  formats: [csv, json, parquet, xlsx]
+  languages: [fr]
+licence:
+  name: Licence Ouverte v2.0 (Etalab)
+  spdx: etalab-2.0
+  url: "https://odre.opendatasoft.com/explore/dataset/eco2mix-regional-cons-def/"
+  redistribution: allowed-with-attribution
+  attribution: RTE, via ODRE (Open Data Réseaux Énergies)
+  verified: true
+  note: Licence named in the dataset metadata read through the Opendatasoft API on 6 November 2026.
+traps:
+  - summary: The onshore and offshore columns are empty before 2021; only the combined wind column exists earlier.
+    detail: >-
+      eolien_terrestre and eolien_offshore are first filled at 2020-12-31 23:30 UTC; the load
+      factor column tch_eolien starts at 2019-12-31 23:00 UTC.
+    evidence: https://odre.opendatasoft.com/explore/dataset/eco2mix-regional-cons-def/
+    found: 2026-11-06
+  - summary: The combined wind column (eolien) is a text field and holds "ND" (not available) in some rows.
+    detail: The first half-hour of the series, 2012-12-31 23:00 UTC, is ND in Grand Est, Hauts-de-France and other regions. Cast to number with ND as missing.
+    evidence: https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/eco2mix-regional-cons-def/records?where=eolien%3D%27ND%27&limit=20
+    found: 2026-11-06
+  - summary: Values are built from metering completed with flat-rate estimates ("complétées par des forfaits"), not pure metering.
+    evidence: https://odre.opendatasoft.com/explore/dataset/eco2mix-regional-cons-def/
+    found: 2026-11-06
+  - summary: The UTC date_heure field is wrong on both clock-change days, with a missing hour in October and a copied one in March.
+    detail: >-
+      Bretagne has 48 half-hour rows on both days. On 31 March 2024 local 02:00 and 02:30, which
+      did not exist, are present and copy the 03:00 and 03:30 rows, UTC stamp included:
+      "2024-03-31T01:00:00+00:00 02:00 546" and "2024-03-31T01:00:00+00:00 03:00 546"
+      (date_heure, heure, eolien). On 27 October 2024 local 02:00 appears once, so
+      "2024-10-26T23:30:00+00:00 01:30 71" is followed by "2024-10-27T01:00:00+00:00 02:00 91"
+      and 00:00 to 00:30 UTC have no rows. Drop the duplicated March hour, and treat the October
+      UTC hour as missing rather than interpolating across it. Found by an automated research
+      pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/eco2mix-regional-cons-def/records?select=date_heure,date,heure,eolien,libelle_region&where=date%3D%272024-03-31%27%20and%20libelle_region%3D%27Bretagne%27&order_by=heure&limit=100
+    found: 2026-11-07
+  - summary: The API is capped at 50,000 calls per user per month; download the export instead of paging.
+    evidence: https://odre.opendatasoft.com/explore/dataset/eco2mix-regional-cons-def/
+    found: 2026-11-06
+notes: >-
+  Half-hourly regional production by source in MW, with wind as eolien and, from 2021,
+  eolien_terrestre (onshore) and eolien_offshore, plus coverage (tco) and load factor (tch)
+  columns. Regions differ as expected: at 2024-01-15 12:00 UTC Hauts-de-France had 2,508 MW of
+  wind and Bretagne 123 MW (90 onshore, 34 offshore). First record 2012-12-31 23:00 UTC,
+  which is midnight on 1 January 2013 in Paris; last consolidated record 31 August 2026 when
+  checked. Real-time regional data after the last consolidation are in eco2mix-regional-tr.
+  Regional installed capacity per year is in parc-regional-annuel-prod-eolien-solaire on the
+  same portal. The national series is fr-rte-eco2mix-national.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

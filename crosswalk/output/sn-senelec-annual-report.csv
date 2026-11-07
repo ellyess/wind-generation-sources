@@ -1,0 +1,2 @@
+entry,market,unit_id,unit_name,unit_capacity_mw,unit_capacity_kind,status,method,score,location_source,farm_name,farm_state,farm_capacity_mw,farm_capacity_ratio,lat,lon,osm_url,repd_id,wikidata,runner_up,notes
+sn-senelec-annual-report,sn-senelec-annual-report,Eolien,Parc Eolien Taïba Ndiaye; Taïba Ndiaye Wind Farm; Taiba Ndiaye; PETN; Parc Eolien Taiba Ndiaye,158.7,registered,review,name,1.0,osm,Parc éolien de Taïba Ndiaye,operating,1587.0,0.1,15.03334,-16.91893,https://www.openstreetmap.org/relation/11873131,,Q96407595,,capacity disagrees

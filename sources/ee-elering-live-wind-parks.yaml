@@ -1,0 +1,70 @@
+id: ee-elering-live-wind-parks
+name: Elering Live, system data (wind parks production, API field production_renewable)
+publisher: Elering AS, the Estonian transmission system operator
+publisher_role: tso
+countries: [EE]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: 5min
+coverage:
+  start: 2010
+  update: near real time
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: "https://dashboard.elering.ee/8.dd45bee7bd3086737a1e.js"
+  note: >-
+    /api/system returns timestamp as Unix seconds, which are UTC by definition, and accepts ISO
+    8601 start and end parameters. The OpenAPI description
+    (https://dashboard.elering.ee/v3/api-docs) gives no units or field definitions; the unit
+    comes from the dashboard script, whose wind parks chart labels its axis MW. Whether a value
+    is an average over the step or a snapshot, and whether the stamp opens or closes the step,
+    are not documented. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://dashboard.elering.ee/
+  docs: https://dashboard.elering.ee/assets/api-doc.html
+  key_required: false
+  registration: false
+  formats: [json, csv]
+  languages: [et, en]
+licence:
+  name: No licence or terms of use found
+  redistribution: unclear
+  verified: false
+  note: No terms covering the dashboard or its API were found on dashboard.elering.ee on 6 November 2026; the elering.ee pages tried returned 404.
+traps:
+  - summary: The wind series is the API field production_renewable, which the dashboard plots as wind parks production.
+    detail: >-
+      /api/system returns production_renewable and a separate solar_energy_production, with no
+      field named wind. The dashboard's wind parks chart ("Tuulepargid") draws
+      production_renewable as "Tuuleparkide toodang" (wind parks production), and its CSV export
+      is named electricity-production-wind parks. Summed for January 2024 it gives 121.8 GWh,
+      close to the 115.1 GWh of wind (renewable_wind) in the monthly balance (/api/balance/total)
+      and far from the 146.9 GWh of biomass, so it is wind, not all renewables.
+    evidence: https://dashboard.elering.ee/8.dd45bee7bd3086737a1e.js
+    found: 2026-11-06
+  - summary: The time step has changed; the 5-minute grid is kept but most recent slots are empty.
+    detail: >-
+      Values are filled every 5 minutes in 2010 to 2018, only on the hour in 2020 to 2025, and
+      every 15 minutes in 2026, with null in the other slots. Drop nulls before resampling.
+    evidence: https://dashboard.elering.ee/api/system?start=2025-06-10T00:00:00.000Z&end=2025-06-10T02:00:00.000Z
+    found: 2026-11-06
+notes: >-
+  National wind parks output in MW from GET /api/system?start=...&end=... (ISO 8601 UTC
+  timestamps; responses give Unix seconds). /api/system/with-plan adds balance-provider and
+  system-operator forecasts, which are not observations. The first value seen was 31 December
+  2009 at 23:30 UTC, which is 1 January 2010 in Tallinn. The monthly electricity balance at
+  /api/balance/total gives wind energy (renewable_wind) in GWh per month alongside hydro,
+  biomass and solar, and is the better source for monthly energy totals. No installed-capacity
+  series was found in the API.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

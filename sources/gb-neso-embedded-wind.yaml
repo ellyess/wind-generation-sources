@@ -14,6 +14,18 @@ coverage:
 capacity: included
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: Europe/London
+  timestamp: period-label
+  unit: MW
+  value: unknown
+  evidence: "https://api.neso.energy/api/3/action/datastore_search?resource_id=8a4a771c-3929-4e56-93ad-cdf13219dea5&limit=1"
+  note: >-
+    Rows are labelled by SETTLEMENT_DATE and SETTLEMENT_PERIOD, with no clock stamp; the field
+    notes say "Settlement period 1 runs from 00:00-00:30" and the date "follows clock change",
+    so periods are in UK local time. EMBEDDED_WIND_GENERATION and EMBEDDED_WIND_CAPACITY are in
+    MW. It is not stated whether the generation figure is a half-hour mean. Read 2026-11-06 by
+    an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.neso.energy/data-portal/historic-demand-data
@@ -70,3 +82,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

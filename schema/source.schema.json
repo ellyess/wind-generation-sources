@@ -17,6 +17,7 @@
     "coverage",
     "capacity",
     "coordinates",
+    "conventions",
     "access",
     "licence",
     "status",
@@ -101,6 +102,7 @@
     "resolution": {
       "description": "Finest time step published.",
       "enum": [
+        "1s",
         "1min",
         "5min",
         "10min",
@@ -162,6 +164,75 @@
         "not-reported",
         "unknown"
       ]
+    },
+    "conventions": {
+      "description": "How to read the time stamps and the numbers. The commonest silent errors when joining generation to weather data are a wrong time zone, an end-of-period stamp read as a start, and power read as energy.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "timezone",
+        "timestamp",
+        "unit",
+        "value",
+        "evidence"
+      ],
+      "properties": {
+        "timezone": {
+          "description": "Zone of the published time stamps: 'UTC', an IANA zone that follows daylight saving ('Europe/Madrid'), a fixed offset all year ('UTC+01:00'), 'not-applicable' for monthly or annual data labelled by period, or 'unknown'.",
+          "type": "string",
+          "pattern": "^(UTC|UTC[+-][0-9]{2}:[0-9]{2}|[A-Z][A-Za-z_]+(/[A-Za-z_+-]+)+|not-applicable|unknown)$"
+        },
+        "timestamp": {
+          "description": "What a time stamp marks: the start of its period, the end of it, an instant (a snapshot reading), a label for a whole day, month or year, or unknown.",
+          "enum": [
+            "period-start",
+            "period-end",
+            "instant",
+            "period-label",
+            "unknown"
+          ]
+        },
+        "unit": {
+          "description": "Unit of the wind values as published, or unknown when the publisher does not state it.",
+          "enum": [
+            "W",
+            "kW",
+            "MW",
+            "GW",
+            "Wh",
+            "kWh",
+            "MWh",
+            "GWh",
+            "TWh",
+            "toe",
+            "ktoe",
+            "TJ",
+            "fraction",
+            "percent",
+            "certificates",
+            "other",
+            "unknown"
+          ]
+        },
+        "value": {
+          "description": "What each value is over its period: a mean power, a total energy, an instantaneous reading, or unknown.",
+          "enum": [
+            "period-mean",
+            "period-total",
+            "instantaneous",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "description": "The publisher's page, file header or documentation that states the conventions.",
+          "type": "string",
+          "format": "uri"
+        },
+        "note": {
+          "description": "Anything else, such as a daylight-saving quirk or a unit change between years.",
+          "type": "string"
+        }
+      }
     },
     "access": {
       "type": "object",
@@ -292,6 +363,10 @@
             "description": "Date the trap was found or confirmed.",
             "type": "string",
             "format": "date"
+          },
+          "evidence_is_error": {
+            "description": "The evidence link is meant to fail: the error it returns (a 404 for a missing year, a validation message) is what shows the trap. The link checker then expects an error.",
+            "type": "boolean"
           }
         }
       }
@@ -339,6 +414,10 @@
     "checked_by": {
       "description": "Who checked it.",
       "type": "string"
+    },
+    "reviewed": {
+      "description": "false when the entry was compiled by an automated research pass and no person has yet checked it against the source. Omit once a person has.",
+      "type": "boolean"
     }
   }
 }

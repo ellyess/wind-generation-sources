@@ -1,0 +1,2 @@
+entry,unit_id,unit_name,alt_names,capacity_mw,area,lat,lon,location_source,source_url,notes
+ie-dkit-vestas-v52-scada,DkIT Vestas V52,Dundalk Institute of Technology wind turbine,DkIT wind turbine;Dundalk IT wind turbine;DkIT Vestas V52,,IE,53.98352,-6.39139,publisher,https://data.mendeley.com/datasets/tm988rs48k/2,"Single Vestas V52 turbine on the DkIT campus, Dundalk; the data file has no unit id column, so unit_id is a label for the dataset. Lat/lon is the 'GPS Co-ords' given in the Mendeley description. Rated power is not stated by the publisher. Behind the meter."

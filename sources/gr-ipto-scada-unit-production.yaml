@@ -1,0 +1,86 @@
+id: gr-ipto-scada-unit-production
+name: IPTO daily Unit Production and System Facts (SystemRealizationSCADA), renewable stations
+publisher: Independent Power Transmission Operator (IPTO, ADMIE)
+publisher_role: tso
+countries: [GR]
+area: Greek interconnected system (Crete appears only as an interconnection flow)
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2011
+  update: daily, published the following morning
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: "https://www.admie.gr/sites/default/files/attached-files/type-file/2025/10/20251026_SystemRealizationSCADA_01.xls"
+  note: >-
+    The System_Production sheet is headed "(ΣΤΟΙΧΕΙΑ SCADA ΜΗ-ΠΙΣΤΟΠΟΙΗΜΕΝΑ)" and the production
+    section "ΜΟΝΑΔΕΣ ΠΑΡΑΓΩΓΗΣ (MWh)", with hour columns 01 to 24 and SUM. The file states
+    neither the time zone nor which clock hour column 01 covers, and the 26 October 2025 file
+    still has 24 hour columns (see traps). IPTO's file-type listing gives no description for
+    this file. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.admie.gr/en/market/market-statistics/detail-data
+  docs: https://www.admie.gr/getFiletypeInfoEN
+  key_required: false
+  registration: false
+  formats: [xls]
+  languages: [el, en]
+licence:
+  name: IPTO website terms of use (no reuse clause)
+  url: https://www.admie.gr/en/terms-and-services
+  redistribution: unclear
+  verified: true
+  note: >-
+    The terms page was read on 6 November 2026. It says content is provided "as is" and that
+    IPTO pages may not be framed, but has no clause on copying or reuse of data; the footer
+    reads "Copyright © 2026 IPTO". Ask info@admie.gr before re-hosting.
+traps:
+  - summary: The figures are labelled non-certified SCADA data, not settlement metering.
+    detail: >-
+      The sheet heading reads "(ΣΤΟΙΧΕΙΑ SCADA ΜΗ-ΠΙΣΤΟΠΟΙΗΜΕΝΑ)", non-certified SCADA data, in
+      whole MWh per hour.
+    evidence: https://www.admie.gr/sites/default/files/attached-files/type-file/2025/01/20250110_SystemRealizationSCADA_01.xls
+    found: 2026-11-06
+  - summary: Station technology is not given; solar rows are only marked by "(PV)" in the name, and the section mixes wind and solar.
+    detail: >-
+      In 2025 files the section is headed "ΑΝΑΝΕΩΣΙΜΑ" (renewables), ending in TOTAL RES, with
+      solar stations suffixed "(PV)" or "ΦΒ". In 2011 files the same section was "ΑΙΟΛΙΚΑ ΠΑΡΚΑ"
+      (wind parks), ending in "ΣΥΝΟΛΟ ΑΙΟΛΙΚΩΝ" (wind total), so a parser written for one
+      period misreads the other. Some rows are named after substations (prefix ΚΥΤ) rather than
+      single farms. Classify each station against a register before using it as wind.
+    evidence: https://www.admie.gr/sites/default/files/attached-files/type-file/2020/03/20110310_SystemRealizationSCADA_01.xls
+    found: 2026-11-06
+  - summary: The autumn clock-change day still has only 24 hourly columns.
+    detail: >-
+      26 October 2025, a 25-hour day in Athens local time, has columns 01 to 24 and a SUM, the
+      same layout as any other day, so one hour is missing or merged. The separate RES injections
+      file (RealTimeSCADARES) does carry a 25th column.
+    evidence: https://www.admie.gr/sites/default/files/attached-files/type-file/2025/10/20251026_SystemRealizationSCADA_01.xls
+    found: 2026-11-06
+  - summary: The list of stations, and so the row positions, changes from file to file.
+    detail: The 10 January 2025 sheet has 242 rows and the 26 October 2025 sheet 241; match stations by name, not by row.
+    evidence: https://www.admie.gr/sites/default/files/attached-files/type-file/2025/10/20251026_SystemRealizationSCADA_01.xls
+    found: 2026-11-06
+notes: >-
+  One xls per day with hourly MWh for every dispatchable unit and, in the renewables section,
+  for each named renewable station; 86 stations without a "(PV)" tag on 10 January 2025 (wind farms and any other non-solar renewables, see traps) (for example
+  ΑΓΙΩΡΓΙΤΙΚΟ 903 MWh and ΓΡΑΤΣΙΑΝΗ 1,495 MWh on 10 January 2025), plus system load and
+  interconnection flows. Files are listed by a JSON endpoint,
+  https://www.admie.gr/getOperationMarketFilewRange?dateStart=YYYY-MM-DD&dateEnd=YYYY-MM-DD&FileCategory=SystemRealizationSCADA,
+  which returned files from 1 January 2011 and nothing for 2010 dates. Distribution-connected
+  renewable injections are published separately (file types RESMV, non-certified daily, and
+  RESMVLVPROD, certified monthly), and total renewable injections per hour as RealTimeSCADARES;
+  neither splits out wind. Installed capacity and locations are not in the file.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

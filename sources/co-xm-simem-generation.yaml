@@ -13,6 +13,19 @@ coverage:
 capacity: separate-dataset
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: kWh
+  value: period-total
+  evidence: https://www.simem.co/backend-files/api/PublicData?startDate=2026-10-01&endDate=2026-10-01&datasetId=055A4D
+  note: >-
+    The response metadata describe dataset 055A4D as "Generación real de cada una de las
+    plantas, en kWh", hourly granularity, with UnidadMedida "kWh" and CodigoDuracion "PT1H" on
+    every record. FechaHora is "Fecha y hora de representación del dato", with no zone and no
+    statement of whether it marks the start or end of the hour; a day's stamps run 00:00 to 23:00,
+    which looks like hour-start, but that is inferred from the data only.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: api
   url: https://www.simem.co/
@@ -38,17 +51,28 @@ traps:
     found: 2026-11-06
   - summary: Plants are identified by short codes, and the wind farms are missing from the plant master list.
     detail: >-
-      The three wind plants in the dataset (codes 3EE4, 3EXH and 4UK6) are tagged "Eolica" in
+      The three wind plants in the current data (codes 3EE4, 3EXH and 4UK6) are tagged "Eolica" in
       dataset E17D25, but do not appear in the plant list (dataset 0BFC9D) checked on 5 November
       2026, so names and capacity need another source.
     evidence: "https://www.simem.co/backend-files/api/PublicData?startDate=2026-10-01&endDate=2026-10-01&datasetId=E17D25"
     found: 2026-11-06
-  - summary: The current wind plants only appear in the hourly data from 2023, and the fleet is small.
+  - summary: >-
+      The fleet is small and changes: before 2023 the only wind plant is Jepírachi (code JPR1),
+      which stops reporting after 2023, and the current plants start in 2023.
     detail: >-
-      3EE4 and 3EXH are present on 1 January 2023 and absent on 1 January 2022 and earlier days
-      checked. Any older wind plant would sit under a code not identified here.
-    evidence: "https://www.simem.co/backend-files/api/PublicData?startDate=2023-01-01&endDate=2023-01-01&datasetId=055A4D"
-    found: 2026-11-06
+      Corrected 2026-11-07: this trap said any wind plant before 2023 sat under a code not
+      identified. It is JPR1. The plant list for 1 January 2022 (dataset 0BFC9D) gives
+      CodigoPlanta "JPR1", NombrePlanta "JEPIRACHI 1 - 15", CapEfectivaNeta 18420.0, FPO
+      "2004-04-27", TipoGeneracion "Eolica", agent EPMG; dataset E17D25 tags it "Eolica" and it is
+      the only wind plant there that day. The hourly data carry JPR1 on every day checked from
+      1 January 2013 to 1 June 2023 (for example on 1 June 2018 "CodigoPlanta": "JPR1", "Version":
+      "TX5", "Valor": 4195.39 kWh at 00:00). It shows 0.0 in E17D25 on 1 December 2023, is absent
+      on 1 June 2024 and 1 October 2026, and is not in the current plant list. 3EE4 and 3EXH are
+      present from 1 January 2023 and absent on 1 January 2022; 4UK6 is absent on 1 June 2023
+      and present on 1 October 2026. Found by an automated research pass on 2026-11-07; not yet
+      reviewed by a person.
+    evidence: "https://www.simem.co/backend-files/api/PublicData?startDate=2018-06-01&endDate=2018-06-01&datasetId=055A4D"
+    found: 2026-11-07
 tools:
   - name: pydataxm (XM's own Python client for the XM API and SiMEM)
     url: https://github.com/EquipoAnaliticaXM/API_XM
@@ -57,10 +81,13 @@ notes: >-
   Dataset 055A4D, "Generación real de cada una de las plantas, en kWh", hourly, per plant and
   generating agent. Query it at https://www.simem.co/backend-files/api/PublicData with startDate,
   endDate and datasetId; one day is about 9 MB of JSON. Checked per plant: on 1 October 2026 the
-  wind plants 3EE4 and 3EXH gave different hourly series. The first day with records found was
+  wind plants 3EE4 and 3EXH gave different hourly series. The older wind plant Jepírachi (JPR1)
+  is in the hourly data from 2013 to 2023 (added 2026-11-07; see traps). The first day with records
+  found was
   1 January 2013 (31 December 2012 returns none). Dataset E17D25 gives a daily SCADA-based estimate
   and the scheduled generation for the same plants. XM's older API at servapibi.xm.com.co did not
   resolve from the checking network, so it was not tested.
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

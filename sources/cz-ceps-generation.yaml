@@ -1,0 +1,85 @@
+id: cz-ceps-generation
+name: ČEPS data, Generation (Výroba) by type of power plant
+publisher: ČEPS, a.s. (Czech transmission system operator)
+publisher_role: tso
+countries: [CZ]
+level: country
+technology: onshore
+measure: estimated-generation
+resolution: 15min
+coverage:
+  start: 2009
+  update: near real time
+capacity: none
+coordinates: not-applicable
+curtailment: unknown
+conventions:
+  timezone: Europe/Prague
+  timestamp: unknown
+  unit: MW
+  value: period-mean
+  evidence: https://www.ceps.cz/en/web-services
+  note: >-
+    The web service description ("ČEPSVIP_Description of WS interface for structured data
+    delivery 3.2.docx", downloaded from the evidence page) says "The interface operates using
+    local time (CET/CEST)" and that request times are read as local time whatever offset is
+    given. Responses carry an explicit offset (+01:00 or +02:00), and the October change day
+    repeats 02:00 with each offset. For Generation it says data "are represented as average
+    minute power output", the AVG function gives "average output [MW]", and in the hour
+    aggregation average output equals energy in MWh. It does not say whether a quarter-hour
+    stamp marks the start or end of its interval; a request from 00:00 returns a first item
+    stamped 00:00, which suggests start but is not documented. The same description calls the
+    data set "Total gross electricity generation". Read 2026-11-06 by an automated research pass;
+    not yet reviewed.
+access:
+  method: api
+  url: https://www.ceps.cz/en/all-data#Generation
+  docs: https://www.ceps.cz/en/web-services
+  key_required: false
+  registration: false
+  formats: [xml, csv, txt]
+  languages: [cs, en]
+licence:
+  name: No data licence found
+  redistribution: unclear
+  verified: false
+  note: No terms of use or reuse licence were found on ceps.cz (data pages, web services page or footer) on 2026-11-06.
+traps:
+  - summary: The wind column is ČEPS's estimate, identical to its "Generation RES" series, which the web service describes as an estimate of renewable output.
+    detail: >-
+      WPP [MW] from the Generation operation matched value1 of GenerationRES to within 0.1 MW for
+      every quarter hour tried in June 2025 and November 2026. The web service lists that
+      operation as "Generation RES (Odhad výroby obnovitelných zdrojů)", Czech for "estimate of
+      renewable generation". Treat it as an estimate, not metered output.
+    evidence: https://www.ceps.cz/_layouts/CepsData.asmx
+    found: 2026-11-06
+  - summary: The first year, 2009, is incomplete and implausibly low in places.
+    detail: >-
+      Monthly averages for 2009 have no value for January or March and fall to 0.5 MW and 0.2 MW
+      in July and August, against about 10 MW in May and June. Start any analysis in 2010 or
+      check 2009 against the regulator's monthly reports.
+    evidence: https://www.ceps.cz/en/all-data#Generation
+    found: 2026-11-06
+  - summary: Timestamps are local time with an explicit offset, and the autumn change day has 100 quarter hours.
+    detail: >-
+      On 26 October 2025 the hour 02:00 appears twice, first with +02:00 and then with +01:00.
+      Parse the offset rather than the clock time.
+    evidence: https://www.ceps.cz/en/all-data#Generation
+    found: 2026-11-06
+notes: >-
+  Generation by type in MW (TPP, CCGT, NPP, HPP, PsPP, AltPP, ApPP, WPP for wind, PVPP for
+  solar), for all of Czechia. Available on the All data page (TXT, CSV, XML download) and
+  through the CepsData SOAP web service (operation Generation with dateFrom, dateTo, agregation
+  such as QH, HR, DY or MO, function AVG, version RT, para1 all). Checked by requesting days in
+  2010, 2012, 2015, 2025 and 2026 and seeing different values. The web service description
+  (version 3.2, on the web services page) defines the Generation data set as "Total gross
+  electricity generation within the Czech power system according to individual power plant
+  type", so WPP is gross output, before the plants' own consumption; compare it with gross, not
+  net, figures. Nothing on the site says how distribution-connected wind is covered. For energy
+  totals use the Energy Regulatory Office's monthly figures (cz-eru-electricity-operation-reports).
+  Corrected 2026-11-07: these notes said nothing on the site stated gross or net; the web
+  service description does.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

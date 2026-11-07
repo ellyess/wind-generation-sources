@@ -14,6 +14,17 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www.iso-ne.com/static-assets/documents/2022/01/2022_daygenbyfuel.xlsx
+  note: >-
+    The README tab says "The data represent, in megawatt-hours (MWh), the amount of electricity
+    assigned to each fuel type" (it says "during the week", but the DAYGENBYFUEL tab has one row per
+    DATE). The workbook does not state which clock defines the day. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.iso-ne.com/isoexpress/web/reports/operations/-/tree/daily-gen-fuel-type
@@ -51,6 +62,16 @@ traps:
       in the path varies, so find each link on the page.
     evidence: https://www.iso-ne.com/isoexpress/web/reports/operations/-/tree/daily-gen-fuel-type
     found: 2026-11-06
+  - summary: The README tab says the values are MWh "during the week", but each row is one day's total.
+    detail: >-
+      The README in the 2022 workbook reads "The data represent, in megawatt-hours (MWh), the
+      amount of electricity assigned to each fuel type during the week", a sentence carried
+      over from the Weekly Market Performance Report it mentions. The DAYGENBYFUEL tab has 365
+      rows, one per DATE from 1 January to 31 December 2022, and the values change daily (WIND
+      4,240.307 MWh on 1 January). Read each row as that day's total; do not divide by seven.
+      Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://www.iso-ne.com/static-assets/documents/2022/01/2022_daygenbyfuel.xlsx
+    found: 2026-11-07
 notes: >-
   Daily metered MWh by fuel, including a WIND column, for the whole New England system. The page
   says the report runs from 1 January 2008; workbooks for 2020, 2022 and 2023 were opened at the
@@ -60,3 +81,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

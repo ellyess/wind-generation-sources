@@ -93,6 +93,13 @@ def check_entry(path: Path, entry: dict, validator: Draft202012Validator,
         problems.append(Problem(
             path, "redistribution is only stated as allowed once the licence is verified"))
 
+    by = entry.get("checked_by", "").lower()
+    says_unreviewed = "not yet reviewed" in by or by.startswith("automated research")
+    if says_unreviewed and entry.get("reviewed") is not False:
+        problems.append(Problem(path, "checked_by says not yet reviewed, so set reviewed: false"))
+    if entry.get("reviewed") is True:
+        problems.append(Problem(path, "omit reviewed once a person has checked the entry"))
+
     checked = dt.date.fromisoformat(entry["last_checked"])
     if checked > today:
         problems.append(Problem(path, "last_checked is in the future"))

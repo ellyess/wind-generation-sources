@@ -1,0 +1,62 @@
+id: lv-csb-monthly-electricity-production
+name: Electricity production, imports, exports and consumption, monthly (table ENB010m)
+publisher: Central Statistical Bureau of Latvia (Centrālā statistikas pārvalde)
+publisher_role: statistics-office
+countries: [LV]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2006
+  update: monthly, about four weeks after the month
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://data.stat.gov.lv/pxweb/en/OSP_PUB/START__NOZ__EN__ENB/ENB010m/
+  note: >-
+    The table's unit is 'million. kWh' (GWh), with monthly periods such as 2006M01; the wind
+    indicator is gross production. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://data.stat.gov.lv/pxweb/en/OSP_PUB/START__NOZ__EN__ENB/ENB010m/
+  docs: https://stat.gov.lv/en/api-un-kodu-vardnicas/api-v2
+  key_required: false
+  registration: false
+  formats: [json, csv, xlsx, px]
+  languages: [lv, en]
+licence:
+  name: Official Statistics Portal licence and copyright notice (corresponds to CC BY 4.0)
+  spdx: CC-BY-4.0
+  url: https://stat.gov.lv/en/about-osp
+  redistribution: allowed-with-attribution
+  attribution: Reference the responsible authority (Central Statistical Bureau of Latvia) and the Official Statistics Portal.
+  verified: true
+  note: >-
+    The notice allows commercial and non-commercial use, sharing and redistribution in any
+    format, and modification provided changes are marked and not presented as endorsed by the
+    statistics authority, and says these conditions correspond to CC BY 4.0.
+traps:
+  - summary: Monthly wind output is published in whole million kWh (GWh), so small months carry large rounding error.
+    detail: >-
+      Values are integers, for example 3 GWh in February 2006 and 15 GWh in September 2025;
+      before about 2015 a month's rounding error can exceed 10 per cent.
+    evidence: https://data.stat.gov.lv/pxweb/en/OSP_PUB/START__NOZ__EN__ENB/ENB010m/
+    found: 2026-11-06
+notes: >-
+  Indicator WT ("..wind turbines") is gross electricity production from wind in million kWh per
+  month, January 2006 to September 2026 when checked. September 2026 (51) matches the 51 GWh in
+  AST's monthly market overview. Installed wind capacity in MW, with annual gross production
+  from 1990, is in table ENA040 (Electrical capacity and produced electricity from renewables).
+  Queried through the PxWeb API (POST with a JSON query to
+  https://data.stat.gov.lv/api/v1/en/OSP_PUB/START/NOZ/EN/ENB/ENB010m). Latvia has no
+  offshore wind, so the series is onshore.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

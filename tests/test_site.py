@@ -5,11 +5,12 @@ from wgs.catalogue import load_catalogue
 from wgs.site import build_site
 
 
-def test_build_writes_page_and_exports(tmp_path):
+def test_build_writes_the_data_files_and_exports(tmp_path):
     entries, _ = load_catalogue()
-    build_site(entries, tmp_path / "dist")
-    out = tmp_path / "dist"
-    assert (out / "index.html").exists()
+    out = tmp_path / "data"
+    build_site(entries, out)
+    for name in ("checks.json", "countries.geojson", "farms.json"):
+        assert (out / name).exists(), name
     data = json.loads((out / "catalogue.json").read_text())
     assert data["count"] == len(entries) == len(data["sources"])
     with (out / "catalogue.csv").open() as fh:

@@ -1,0 +1,65 @@
+id: nl-cbs-onshore-wind-by-province
+name: Onshore wind energy, production and capacity per province (Windenergie op land; productie en capaciteit per provincie, table 70960ned)
+publisher: Statistics Netherlands (Centraal Bureau voor de Statistiek, CBS)
+publisher_role: statistics-office
+countries: [NL]
+area: the 12 provinces of the Netherlands
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2002
+  update: annual; revised provisional figures in June, definitive in December of the second year after
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://opendata.cbs.nl/ODataApi/odata/70960ned/DataProperties
+  note: >-
+    The table's properties give 'mln kWh' (GWh) for both NietGenormaliseerdeProductie_11 (actual
+    production) and GenormaliseerdeProductie_10 (normalised); periods are years. The production
+    factor is in per cent. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://opendata.cbs.nl/statline/#/CBS/nl/dataset/70960ned/table
+  docs: https://opendata.cbs.nl/ODataApi/odata/70960ned/TableInfos
+  key_required: false
+  registration: false
+  formats: [json, csv]
+  languages: [nl]
+licence:
+  name: Creative Commons Attribution 4.0 (CC BY 4.0)
+  spdx: CC-BY-4.0
+  url: https://www.cbs.nl/en-gb/about-us/website/copyright
+  redistribution: allowed-with-attribution
+  attribution: Cite Statistics Netherlands (CBS) as the source.
+  verified: true
+traps:
+  - summary: The table holds two production columns, and only one is the observed output.
+    detail: >-
+      GenormaliseerdeProductie_10 is production normalised for an average wind year (a
+      calculated figure for renewable energy target accounting); NietGenormaliseerdeProductie_11
+      is the actual production. For 2023 the national figures are 15,717 GWh normalised against
+      17,842 GWh actual. Use the non-normalised column for validation.
+    evidence: https://opendata.cbs.nl/ODataApi/odata/70960ned/DataProperties
+    found: 2026-11-06
+  - summary: Production is empty before 2002, although capacity and turbine counts go back to 1990.
+    evidence: https://opendata.cbs.nl/ODataApi/odata/70960ned/TypedDataSet?$select=RegioS,Perioden,NietGenormaliseerdeProductie_11,OpgesteldVermogenEindeJaar_9
+    found: 2026-11-06
+notes: >-
+  Per province and year: turbines commissioned, decommissioned and standing at year end, rotor
+  area, capacity (MW), normalised and actual production (million kWh), a production factor (%),
+  production per rotor area and full-load hours. Offshore wind is excluded. Checked via the
+  OData API on 6 November 2026: for 2023 the provinces differ (PV24 4,572 GWh from 1,933 MW;
+  PV26 94 GWh from 34 MW), and the latest year was 2024 (revised provisional); the 2025 figures
+  were announced as delayed to November 2026. A companion table, 71227ned, gives the same
+  measures by hub height.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

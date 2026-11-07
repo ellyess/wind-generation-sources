@@ -1,0 +1,99 @@
+id: br-ons-generation-by-plant-hourly
+name: Hourly generation by plant (Geração por Usina em Base Horária)
+publisher: Operador Nacional do Sistema Elétrico (ONS)
+publisher_role: tso
+countries: [BR]
+area: National Interconnected System (SIN), by subsystem and state
+level: complex
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2006
+  update: monthly files from 2022 (a file for the current month was already posted at the check); yearly files for 2000-2021
+capacity: separate-dataset
+coordinates: none
+curtailment: separate-dataset
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MW
+  value: period-mean
+  evidence: https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/geracao_usina_2_ho/DicionarioDados_GeracaoPorUsina.pdf
+  note: >-
+    The data dictionary gives val_geracao as "Geração de Energia na unidade de medida MWmed" (average
+    MW over the hour, numerically MWh per hour) and din_instante only as "Data de referência"; it
+    does not state a time zone or whether the stamp marks the start or end of the hour. Inferred from
+    the data only: the 2010 file lacks 2010-10-17 00:00, the hour skipped when Brazilian daylight
+    saving began, and has no repeated hour for the February 2010 fall-back, which suggests local
+    Brasília time with daylight saving (Brazil dropped it in 2019) and one hour lost or merged each
+    February. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://dados.ons.org.br/dataset/geracao-usina-2
+  docs: https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/geracao_usina_2_ho/DicionarioDados_GeracaoPorUsina.pdf
+  key_required: false
+  registration: false
+  formats: [csv, parquet, xlsx]
+  languages: [pt]
+licence:
+  name: Creative Commons Atribuição (CC BY, version not stated)
+  url: "https://dados.ons.org.br/dataset/geracao-usina-2"
+  redistribution: allowed-with-attribution
+  attribution: Credit ONS (Operador Nacional do Sistema Elétrico) and say what changes were made.
+  verified: true
+  note: The dataset page says use implies accepting the CC-BY licence, which allows redistribution and adaptation with credit to ONS and a note of changes. No version is given, so no exact SPDX identifier. Data are provided as is and may be withdrawn at any time.
+traps:
+  - summary: Rows for groups of small plants ("Pequenas Usinas (Tipo III)", names starting "PQU ... EOL") are forecasts, not measured output.
+    detail: >-
+      ONS's own description says the small-plant groups have no operational relationship with ONS
+      and their values are generation forecasts. In September 2026 there were 14 such wind groups,
+      one per state or state pair. Drop them before validating anything. Older files code some
+      single plants as "TIPO III" (RN 15 - Rio do Fogo in 2010); whether those values are also
+      forecasts is not stated, so treat them with the same suspicion.
+    evidence: https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/geracao_usina_2_ho/DicionarioDados_GeracaoPorUsina.pdf
+    found: 2026-11-06
+  - summary: Most wind rows are complexes of several farms ("CONJUNTO EOLICO ..."), not single farms.
+    detail: >-
+      In September 2026, of 170 wind names, 144 were complexes, 7 single Tipo I plants and 5 Tipo
+      II-B plants. In 2010, by contrast, the 11 wind names were individual farms. The unit of the
+      series therefore changes over time, as Tipo II-C plants were grouped into complexes.
+    evidence: https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/geracao_usina_2_ho/GERACAO_USINA-2_2026_09.parquet
+    found: 2026-11-06
+  - summary: Values are in average MW over the hour (MWmed), and a few are negative although the data dictionary says negatives are not allowed.
+    detail: >-
+      CONJUNTO EOLICO SAO CLEMENTE reads -0.66 and -0.27 on 24 September 2026. Small-plant rows also
+      have an empty ONS identifier, which the dictionary says cannot be null.
+    evidence: https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/geracao_usina_2_ho/GERACAO_USINA-2_2026_09.parquet
+    found: 2026-11-06
+  - summary: Column types differ between years; in the 2010 parquet the generation value is a text/decimal column, not a float.
+    evidence: https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/geracao_usina_2_ho/GERACAO_USINA-2_2010.parquet
+    found: 2026-11-06
+  - summary: Time stamps before 2019 follow Brasília clock time with daylight saving, so one hour is missing each spring and one is lost each February.
+    detail: >-
+      Not documented: the data dictionary calls din_instante only "Data de referência". In the
+      2010 file Praia Formosa (Ceará) goes from "2010-10-16 23:00:00" (15.26) to "2010-10-17
+      01:00:00" (8.51), skipping the hour lost when daylight saving began, and on 20-21 February
+      2010, when clocks went back and 23:00 came twice, it has a single 23:00 row (30.10). The
+      file has 8,759 distinct hours. Read pre-2019 stamps as America/Sao_Paulo, treat the
+      February 23:00 as unreliable, and convert to UTC before joining to weather data. Found by
+      an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/geracao_usina_2_ho/GERACAO_USINA-2_2010.csv
+    found: 2026-11-07
+notes: >-
+  Hourly verified generation ("geração verificada") for every plant, complex and small-plant group
+  dispatched in Brazil's interconnected system, all technologies, with ANEEL's plant code (CEG)
+  where one exists. Checked on 2026-11-06: the 2005 file has no wind; wind first appears on 28 March
+  2006 (four farms, including Osório and Rio do Fogo); the 2010 file has 11 wind plants with
+  different hourly series (Praia Formosa 265,052 MWh, Icaraizinho 220,931 MWh); the September 2026
+  file has 170 wind names. The 2010 file has 8,759 distinct hours, one short of a full year. ONS
+  says the data are revised in a recurring consistency process, so files can change after
+  publication. Compared with br-ons-capacity-factor, this goes back three years further and
+  includes plants outside complexes, but carries no capacity or coordinates; for those use ONS's
+  installed-capacity dataset (https://dados.ons.org.br/dataset/capacidade-geracao) and the
+  complex-to-plant table (https://dados.ons.org.br/dataset/usina_conjunto). Constrained-off output
+  is in https://dados.ons.org.br/dataset/restricao_coff_eolica_usi.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

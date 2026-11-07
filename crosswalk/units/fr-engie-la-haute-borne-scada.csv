@@ -1,0 +1,2 @@
+entry,unit_id,unit_name,alt_names,capacity_mw,area,lat,lon,location_source,source_url,notes
+fr-engie-la-haute-borne-scada,La Haute Borne,La Haute Borne,Parc éolien de la Haute Borne;FRHBO;ENGIE La Haute Borne,8.2,FR,48.451575,5.5879,publisher,https://data.mendeley.com/datasets/vmyg4yp3s8/2,"Lat/lon is the mean of the four turbines' GPS positions in static-information.csv (R80711, R80721, R80736, R80790; long names FRHBO_E01 to E04), department Meuse, region Grand Est. Capacity is 4 x 2,050 kW from the same file. Ignore the Mendeley title's 'Villeneuve-d'Ascq'."

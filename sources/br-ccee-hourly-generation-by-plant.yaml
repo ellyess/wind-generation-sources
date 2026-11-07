@@ -1,0 +1,78 @@
+id: br-ccee-hourly-generation-by-plant
+name: Hourly generation by plant (GERACAO_HORARIA_USINA)
+publisher: Câmara de Comercialização de Energia Elétrica (CCEE)
+publisher_role: market-operator
+countries: [BR]
+area: Brazilian electricity market, four submarkets (North, Northeast, South, Southeast/Centre-West)
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2024
+  update: monthly (the listing ran from March 2024 to September 2026 at the check)
+capacity: none
+coordinates: none
+curtailment: unknown
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MW
+  value: period-mean
+  evidence: https://dadosabertos.ccee.org.br/api/3/action/package_show?id=geracao_horaria_usina
+  note: >-
+    Rows carry MES_REFERENCIA, DATA (the day containing settlement period "j") and
+    PERIODO_COMERCIALIZACAO, a one-hour settlement period numbered within the reference month. The
+    metadata do not say which clock hour period j covers or in which time zone. GERACAO_CENTRO_GRAVIDADE
+    is documented in MWmed (average MW over the hour, numerically MWh per hour); the other generation
+    column, GERACAO_VERIFICADA_ONS, is documented in MWh. Metadata read through a fetch service; direct
+    requests from this connection were refused with an "access blocked" page, and no file was opened.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://dadosabertos.ccee.org.br/dataset/geracao_horaria_usina
+  docs: https://dadosabertos.ccee.org.br/api/3/action/package_show?id=geracao_horaria_usina
+  key_required: false
+  registration: false
+  formats: [gzip]
+  languages: [pt]
+licence:
+  name: Creative Commons Attribution 4.0 International (CC BY 4.0)
+  spdx: CC-BY-4.0
+  url: "https://dadosabertos.ccee.org.br/dataset/geracao_horaria_usina"
+  redistribution: allowed-with-attribution
+  attribution: Credit CCEE as the source and say what changes were made.
+  verified: true
+  note: The dataset page states CC BY 4.0, reuse allowed with credit to CCEE and changes noted.
+traps:
+  - summary: The main generation figure is a market-accounting value at the submarket's centre of gravity, in average MW, not a raw meter reading.
+    detail: >-
+      GERACAO_CENTRO_GRAVIDADE is the plant portion's final generation after internal loss and
+      loss-allocation factors (both are separate columns). The file also carries
+      GERACAO_VERIFICADA_ONS, the operator's verified generation, which is the closer match to
+      ONS's own series. Pick one deliberately and convert MWmed to MWh per hour.
+    evidence: https://dadosabertos.ccee.org.br/api/3/action/package_show?id=geracao_horaria_usina
+    found: 2026-11-06
+  - summary: Plants are identified only by a CCEE acronym and a numeric plant-portion code, with no ANEEL plant code (CEG), state or location.
+    detail: >-
+      Joining to ONS or ANEEL registers needs a mapping from SIGLA_USINA / CODIGO_PARCELA_USINA,
+      which this dataset does not provide. A plant can also be split into several portions.
+    evidence: https://dadosabertos.ccee.org.br/api/3/action/package_show?id=geracao_horaria_usina
+    found: 2026-11-06
+  - summary: The June 2026 resource is described as consumption data rather than generation.
+    detail: Check the columns of each monthly file before appending it to a series.
+    evidence: https://dadosabertos.ccee.org.br/dataset/geracao_horaria_usina
+    found: 2026-11-06
+notes: >-
+  Hourly settlement-period generation for each plant portion in the Brazilian market, with primary
+  source (FONTE_PRIMARIA) and plant type, so wind plants can be selected. About 36 columns per row,
+  including verified ONS generation, constrained-on and out-of-merit generation. Per-plant columns
+  documented; data not downloaded: the portal pages were read through a fetch service, but direct
+  downloads (pda-download.ccee.org.br) and the CKAN API returned an "access blocked" page to this
+  connection on 2026-11-06, so the content of the files, the per-plant split for wind and the
+  delimiter were not checked. Coverage start is the first file listed (March 2024). For a longer
+  hourly per-plant record use br-ons-generation-by-plant-hourly (from 2006).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

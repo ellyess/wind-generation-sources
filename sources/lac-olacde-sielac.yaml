@@ -1,0 +1,67 @@
+id: lac-olacde-sielac
+name: sieLAC Energy Information System of Latin America and the Caribbean (Sistema de Información Energética de Latinoamérica y el Caribe)
+publisher: OLACDE (formerly OLADE, the Latin American Energy Organization)
+publisher_role: statistics-office
+countries: [AR, BB, BO, BR, BZ, CL, CO, CR, CU, DO, EC, GD, GT, GY, HN, HT, JM, MX, NI, PA, PE, PY, SR, SV, TT, UY, VE]
+area: >-
+  The 27 member countries named on OLACDE's member page. Which of them have a wind generation
+  series was not checked, because the database needs a login.
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 1970
+  update: annual (the 2024 data were added on 8 December 2025, per the "About the data" note)
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: unknown
+  value: unknown
+  evidence: https://sielac.olacde.org/
+  note: >-
+    The home page says only that the database covers 1970 to 2024 and needs registration and login;
+    the database and API were not accessed, so the unit and the meaning of each value were not seen.
+    Recorded as period-labelled statistics because the entry describes annual data. Read 2026-11-06
+    by an automated research pass; not yet reviewed.
+access:
+  method: portal
+  url: https://sielac.olacde.org/
+  docs: https://sielacapi.olacde.org/
+  key_required: true
+  registration: true
+  languages: [es, en]
+licence:
+  name: Terms and conditions of access to OLADE's platforms and tools (Términos y condiciones de acceso)
+  url: https://sielac.olacde.org/WebForms/Utilidades/contenido.aspx?archivo=contenido5.1.html
+  redistribution: prohibited
+  attribution: Cite OLADE as the official source, with the date the data were obtained.
+  verified: true
+  note: >-
+    The terms forbid distribution, retransmission or transfer by any means, paid or free, without
+    OLADE's prior formal authorisation, and forbid storing or transforming the contents in another
+    system without authorisation. Publication or citation is allowed with OLADE cited as the
+    source and the date of access. Registration implies acceptance of these terms.
+traps:
+  - summary: The organisation and its domains were renamed from OLADE to OLACDE, so older links redirect.
+    detail: >-
+      sielac.olade.org now redirects to sielac.olacde.org and www.olade.org to www.olacde.org.
+      The terms of use still name OLADE.
+    evidence: https://sielac.olade.org/
+    found: 2026-11-06
+notes: >-
+  The regional energy statistics system run by OLACDE, with energy balances, installed capacity
+  and electricity generation by source for the 27 member countries; the home page says the
+  database covers 1970 to 2024 and needs registration and login. An API exists, with credentials
+  issued by email request (name, organisation and intended use) and a 24-hour bearer token.
+  Neither the database nor the API was accessed for this entry, so the wind breakdown, units and
+  per-country coverage are unverified; this entry records that the source exists and what its
+  terms allow. National sources (for example CAMMESA, ONS, CEN, ADME, XM) are better for any one
+  country.
+status: restricted
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

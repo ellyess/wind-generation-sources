@@ -12,6 +12,26 @@ coverage:
 capacity: included
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MWh
+  value: period-total
+  evidence: https://portal.api.coordinador.cl/swagger/spec/sip.json
+  note: >-
+    The public SIP API specification gives /generacion-real/v3/findByDate records with a date
+    (fecha), an hour number (hora), "unidad": "mwh" and a value, described as the hourly production
+    detail of each plant. The example response runs to hora 24, which suggests hours numbered 1 to
+    24 (hour-ending), but the specification does not define hora or state a time zone. The entry's
+    trap gives fixed UTC-4 from the PyVWF runbook; that is not stated in the publisher's
+    specification. No key was used, so no live records were read.
+    Read 2026-11-06 by an automated research pass; not yet reviewed. Rechecked 2026-11-07 against
+    the API responses PyVWF saved in July 2026 (2021 to 2024): each record also carries
+    "fecha_hora", with hora N stamped (N-1):00 ("hora": 24 at "2024-09-01 23:00:00"), and the
+    clock-change days follow Chilean clock time with daylight saving, not fixed UTC-4 (see the
+    corrected trap). The time zone and stamp end stay unknown because CEN does not state them.
+    The saved records name the value "gen_real_mw", not the "mwh" the specification shows; for
+    hourly values the two read the same.
 access:
   method: api
   url: https://portal.api.coordinador.cl/
@@ -35,8 +55,26 @@ traps:
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
   - summary: The technology filter must be "Eólica" with the accent; without it the API returns an empty list, not an error.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
-  - summary: Times are fixed UTC-4 with no daylight saving.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
+  - summary: Times follow Chilean clock time with daylight saving, not a fixed UTC-4, and the clock-change days are padded rather than shortened or lengthened.
+    detail: >-
+      This trap previously said fixed UTC-4 with no daylight saving, on the evidence that
+      7 September 2024 has 24 rows. That was the wrong day: Chile's clocks went forward at
+      midnight going into 8 September 2024. The API's own responses, saved by PyVWF in July 2026
+      with a public information key, show local clock time. On each spring change day (5 September
+      2021, 11 September 2022, 3 September 2023, 8 September 2024) the day still has hora 1 to
+      24, but hora 1 ("fecha_hora": "2024-09-08 00:00:00") is 0.0 for all 63 wind plants against
+      59 of 63 non-zero at hora 2, so the missing hour is filled with zeros. On each autumn change
+      the Sunday (4 April 2021, 3 April 2022, 2 April 2023, 7 April 2024) carries an extra hora 25,
+      stamped "2024-04-07 00:00:00" like hora 1 but with different values (PE PUNTA SIERRA 64.0 at
+      hora 1, 73.1 at hora 25), so per plant that date has 25 rows. The time zone database puts
+      the repeated hour at the end of the Saturday (clocks go back from Sunday 00:00 to Saturday
+      23:00), so CEN's hora 25 on the Sunday does not line up with it, and CEN does not say which
+      hour hora 25 repeats. Convert with the America/Santiago zone, drop the zero-filled spring
+      hour, and do not trust fecha_hora for hora 25. CEN's specification states no time zone.
+      Corrected on 2026-11-07. Found by an automated research pass on 2026-11-07; not yet
+      reviewed by a person.
+    evidence: https://sipub.api.coordinador.cl/generacion-real/v3/findByDate?startDate=2024-04-07&endDate=2024-04-07&tipoTecnologia=E%C3%B3lica
+    found: 2026-11-07
   - summary: The data are delivered energy after curtailment, and no curtailment series is reachable with a public key.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
 notes: >-

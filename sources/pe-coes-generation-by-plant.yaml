@@ -14,6 +14,18 @@ coverage:
 capacity: none
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www.coes.org.pe/Portal/Content/Scripts/PortalInformacion/generacion.js?v=1.5
+  note: >-
+    Daily totals per plant, labelled by date (FECHA, dd/mm/yyyy) in the Excel export, which has no
+    unit header; the page's chart tooltip gives MWh. COES does not say which clock defines the day.
+    indicador=0 is built from half-hourly SCADA readings ("Datos instantáneos de potencia cada 30
+    minutos"), indicador=1 from 15-minute electronic meter data. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
 access:
   method: portal
   url: https://www.coes.org.pe/Portal/portalinformacion/generacion
@@ -63,3 +75,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

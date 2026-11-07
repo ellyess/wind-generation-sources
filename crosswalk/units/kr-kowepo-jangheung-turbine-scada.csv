@@ -1,0 +1,2 @@
+entry,unit_id,unit_name,alt_names,capacity_mw,area,lat,lon,location_source,source_url,notes
+kr-kowepo-jangheung-turbine-scada,장흥풍력,Jangheung,장흥풍력발전소;Jangheung Wind Farm;Jangheung wind power plant,18,KR,34.771218,126.905353,publisher,https://www.data.go.kr/data/15159034/fileData.do,"unit_id is the 발전단지명 value in the CSV. Lat/lon is the mean of the six turbines' 위도/경도 values in the CSV; capacity is 6 x 3 MW Doosan Enerbility WinDS3000/134 from the CSV. Yuchi-myeon, Jangheung-gun, South Jeolla (전남 장흥군 유치면)."

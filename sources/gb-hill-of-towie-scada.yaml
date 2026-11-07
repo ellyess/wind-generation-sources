@@ -14,6 +14,18 @@ coverage:
 capacity: included
 coordinates: included
 curtailment: unknown
+conventions:
+  timezone: UTC
+  timestamp: period-end
+  unit: kW
+  value: period-mean
+  evidence: "https://zenodo.org/records/22662930/files/Hill_of_Towie_data_dictionary.md"
+  note: >-
+    The data dictionary says "All timestamps are UTC" and that 10-minute data are aggregated
+    with TimeStamp "giving the end of the period; subtract 10 minutes for the start of the
+    period". Hill_of_Towie_turbine_fields_description.csv lists active power as
+    wtc_ActPower_mean in kW. Fastlog (about 1 Hz) timestamps are instantaneous samples. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://doi.org/10.5281/zenodo.14870021
@@ -77,3 +89,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

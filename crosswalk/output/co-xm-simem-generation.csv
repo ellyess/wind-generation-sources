@@ -1,0 +1,5 @@
+entry,market,unit_id,unit_name,unit_capacity_mw,unit_capacity_kind,status,method,score,location_source,farm_name,farm_state,farm_capacity_mw,farm_capacity_ratio,lat,lon,osm_url,repd_id,wikidata,runner_up,notes
+co-xm-simem-generation,co-xm-simem-generation,3EE4,Guajira I; PARQUE EOLICO GUAJIRA I 1; Parque Eólico Guajira I,19.9,registered,unmatched,,,,,,,,,,,,,,
+co-xm-simem-generation,co-xm-simem-generation,3EXH,WESP01; PARQUE EOLICO WESP01 1; Parque Eólico WESP01,12.0,registered,unmatched,,,,,,,,,,,,,,
+co-xm-simem-generation,co-xm-simem-generation,4UK6,Carreto; PARQUE EOLICO CARRETO 1; Parque Eólico Carreto,9.1,registered,unmatched,,,,,,,,,,,,,,
+co-xm-simem-generation,co-xm-simem-generation,JPR1,Jepírachi; JEPIRACHI 1 - 15; Jepirachi,18.42,registered,proposed,name,1.0,osm,Parque Eólico Jepírachi,operating,19.5,0.94,12.23358,-72.03287,https://www.openstreetmap.org/relation/10960890,,Q18776171,,

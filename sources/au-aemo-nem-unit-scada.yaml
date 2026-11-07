@@ -6,7 +6,7 @@ countries: [AU]
 area: "National Electricity Market: Queensland, New South Wales, Victoria, South Australia, Tasmania"
 level: farm
 technology: onshore
-measure: metered-energy
+measure: reported-generation
 resolution: 5min
 coverage:
   start: 2009
@@ -14,6 +14,21 @@ coverage:
 capacity: separate-dataset
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: UTC+10:00
+  timestamp: period-end
+  unit: MW
+  value: instantaneous
+  evidence: "https://nemweb.com.au/Reports/CURRENT/MMSDataModelReport/Electricity/ElectricityDataModelReport_files/Elec20.htm"
+  note: >-
+    AEMO's MMS Data Model Report defines SCADAVALUE as "Instantaneous MW reading from SCADA at the
+    start of the Dispatch interval", and SETTLEMENTDATE in the dispatch tables as the time of the
+    dispatch interval, with the example "five minute dispatch interval ending 28/09/2000 16:35".
+    So a row stamped 16:35 holds the MW reading taken at 16:30: the stamp is the interval end, the
+    value is a snapshot at its start. The same report states NEM times are "fixed to the UTC+10
+    time zone (NEM time)", with no daylight saving. The value is power, not energy. Read
+    2026-11-06 by an automated research pass; measure corrected 2026-11-07 (see notes); not yet
+    reviewed.
 access:
   method: bulk-download
   url: https://nemweb.com.au/Data_Archive/Wholesale_Electricity/MMSDM/
@@ -36,6 +51,22 @@ traps:
   - summary: Units are AEMO dispatch unit identifiers (DUIDs) with no coordinates; locations need a join to another register.
     detail: PyVWF maps DUIDs to the Global Wind Power Tracker by hand, with the evidence for each match.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/au_nem.md
+  - summary: >-
+      Each value is a single MW reading taken at the start of the five-minute interval but
+      stamped with the interval's end, not an energy total or an average.
+    detail: >-
+      AEMO's MMS Data Model Report describes DISPATCH_UNIT_SCADA as "Dispatchable unit MW from
+      SCADA at the start of the dispatch interval" and SCADAVALUE as "Instantaneous MW reading
+      from SCADA at the start of the Dispatch interval"; other dispatch tables in the same report
+      define SETTLEMENTDATE as the "End date and time of the dispatch interval". The live file
+      shows it: PUBLIC_DISPATCHSCADA_202611071035 was created at 10:30:15 and holds
+      'D,DISPATCH,UNIT_SCADA,1,"2026/11/07 10:35:00",ARWF1,143.30,"2026/11/07 10:30:14"', a
+      reading taken at 10:30 and stamped 10:35. Shift stamps back five minutes to place readings
+      in time. A mean of the readings estimates average power only approximately, and
+      multiplying by 5/60 h gives an estimate of energy, not a metered total. Found by an
+      automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: "https://nemweb.com.au/Reports/CURRENT/MMSDataModelReport/Electricity/ElectricityDataModelReport_files/Elec20.htm"
+    found: 2026-11-07
 tools:
   - name: NEMOSIS
     url: https://github.com/UNSW-CEEM/NEMOSIS
@@ -43,7 +74,10 @@ tools:
 notes: >-
   Five-minute output per wind farm for the eastern Australian market. Archive folders start in
   2009; four years (2020-23) are about 0.9 GB zipped. Western Australia's separate market has its
-  own data.
+  own data. Changed 2026-11-07: measure was metered-energy and is now reported-generation.
+  SCADAVALUE is an instantaneous MW telemetry reading, as AEMO's MMS Data Model Report states, not
+  settlement metering or energy; reported-generation is how the catalogue's other SCADA entries are
+  classed.
 status: active
 last_checked: 2026-11-06
 checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, archive listing read on NEMweb; licence read on the publisher's page 2026-11-06

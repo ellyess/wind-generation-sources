@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this catalogue in research, please cite it as below."
+title: "Wind Generation Sources: an open, licence-annotated catalogue of observed wind power generation data"
+type: dataset
+authors:
+  - family-names: Benmoufok
+    given-names: Ellyess
+license: CC-BY-4.0
+repository-code: "https://github.com/ellyess/wind-generation-sources"
+keywords:
+  - wind power
+  - observed generation
+  - energy system modelling
+  - data catalogue
+  - model validation

@@ -14,6 +14,22 @@ coverage:
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: unknown
+conventions:
+  timezone: Europe/Vienna
+  timestamp: period-start
+  unit: MW
+  value: unknown
+  evidence: "https://transparency.apg.at/api/v1/AGPT/Download/English/PT15M/2024-10-27T000000/2024-10-28T000000"
+  note: >-
+    The CSV download heads its first two columns "Time from [CET/CEST]" and "Time to [CET/CEST]"
+    and the wind column "Wind Onshore [MW] (newest value)", so each row carries both ends of its
+    quarter hour in Austrian local time; this entry records the "Time from" column. The JSON API
+    gives the same pair as DF/TF and DT/TT. On the autumn change day the repeated hour is written
+    "2A" and "2B" (for example "2024-10-27 2A:15:00"), which ordinary date parsers reject; the
+    spring change day has 92 quarter hours, jumping from 01:45 to 03:00. Neither the page nor the
+    file says whether the MW value is the quarter-hour mean or a reading; the page calls them
+    quarter-hourly feed-in values from the meters. Read 2026-11-06 by an automated research pass;
+    not yet reviewed.
 access:
   method: api
   url: https://transparency.apg.at/
@@ -46,6 +62,7 @@ traps:
       values use the download archives". APG states that data up to 31 December 2022 are only in
       the download section (an 18 MB ZIP on the Generation per production type page).
     evidence: https://transparency.apg.at/api/v1/AGPT/Data/English/PT15M/2015-01-15T000000/2015-01-16T000000
+    evidence_is_error: true
     found: 2026-11-06
   - summary: The "Settlement" quality option returned only missing values.
     detail: >-
@@ -61,6 +78,17 @@ traps:
       without adjusting.
     evidence: https://markt.apg.at/en/transparency/generation/generation-per-production-type/
     found: 2026-11-06
+  - summary: On the autumn clock-change day the CSV writes the repeated hour as "2A" and "2B", which date parsers reject.
+    detail: >-
+      The quarter-hour download for 27 October 2024 has 100 rows. After "2024-10-27
+      01:45:00,2024-10-27 2A:00:00,684.000" come four rows from "2024-10-27 2A:00:00" and four
+      from "2024-10-27 2B:00:00,2024-10-27 2B:15:00,488.000" (time from, time to, wind MW), then
+      "2B:45:00" to "03:00:00". 26 October 2025 is the same. A strict parser fails on these rows
+      and a lenient one may drop them. Map 2A to 02 at UTC+02:00 and 2B to 02 at UTC+01:00
+      before parsing. The spring day has 92 rows and needs no special handling. Found by an
+      automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://transparency.apg.at/api/v1/AGPT/Download/English/PT15M/2024-10-27T000000/2024-10-28T000000
+    found: 2026-11-07
 notes: >-
   Net feed-in by production type in the APG control area, in MW per quarter hour (hourly also
   offered), published under EU Regulation 543/2013 article 16.1.b, so it matches the ENTSO-E
@@ -73,3 +101,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

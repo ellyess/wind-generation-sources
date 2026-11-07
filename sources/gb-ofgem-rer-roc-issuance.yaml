@@ -12,6 +12,17 @@ coverage:
 capacity: included
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: unknown
+  unit: certificates
+  value: unknown
+  evidence: "https://rer.ofgem.gov.uk/Reports/Dashboard"
+  note: >-
+    The public reports dashboard lists a "Certificates (RO)" download, refreshed overnight. The
+    download link returned HTTP 403 on the check date, so the column headers and the
+    output-period convention were not read here. Read 2026-11-06 by an automated research pass;
+    not yet reviewed.
 access:
   method: portal
   url: https://rer.ofgem.gov.uk/

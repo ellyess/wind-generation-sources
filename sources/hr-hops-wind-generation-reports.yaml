@@ -1,0 +1,66 @@
+id: hr-hops-wind-generation-reports
+name: Monthly and annual reports on wind power production in Croatia (Izvještaji o proizvodnji VE u RH)
+publisher: Croatian Transmission System Operator (Hrvatski operator prijenosnog sustava, HOPS)
+publisher_role: tso
+countries: [HR]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2016
+  update: monthly, a few months behind (May 2026 was the latest report on 2026-11-06); annual report for the previous year
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www.hops.hr/page-file/zOzMS1Tyv4dK2LQH81KW4L/izvjestaji-o-proizvodnji-ve-u-rh/HOPS%20-%20Mjese%C4%8Dni%20izvje%C5%A1taj%20o%20proizvodnji%20VE%20u%20HR%20za%20Svibanj%202026.pdf
+  note: >-
+    Each monthly report gives national wind production for the month in MWh (273,690.02 MWh in May
+    2026). Hourly output appears only in charts and in the text, also in MWh (maximum hourly output
+    1,018.28 MWh on 15.5.2026 at 21 h); the reports do not state a time zone or which end of the
+    hour '21 h' refers to. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.hops.hr/izvjestaji-o-proizvodnji-ve-u-rh
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [hr]
+licence:
+  name: No data licence found
+  url: https://www.hops.hr/odredbe-i-uvjeti
+  redistribution: unclear
+  verified: false
+  note: >-
+    The site footer carries a copyright line for HOPS, and the "Odredbe i uvjeti" page covers only
+    the handling of personal data sent through enquiry forms. No reuse terms for the reports were
+    found on 2026-11-06.
+traps:
+  - summary: Production is given only as a national total; the per-farm table lists capacity and location but no output.
+    detail: >-
+      The May 2026 report lists 30 wind farms in regular operation (1,237.15 MW in total), each
+      with county and municipality, capacity, connection voltage and year of commissioning, but
+      reports production only for Croatia as a whole (273,690.02 MWh in May 2026, a capacity
+      factor of 27.99%). Hourly output appears only as charts, with no table behind them. The
+      farm list is easy to mistake for per-farm generation data.
+    evidence: https://www.hops.hr/page-file/zOzMS1Tyv4dK2LQH81KW4L/izvjestaji-o-proizvodnji-ve-u-rh/HOPS%20-%20Mjese%C4%8Dni%20izvje%C5%A1taj%20o%20proizvodnji%20VE%20u%20HR%20za%20Svibanj%202026.pdf
+    found: 2026-11-06
+notes: >-
+  One PDF per month from January 2016 to May 2026, plus annual reports for 2015 to 2025 (the 2025
+  report gives 3,095.97 GWh of wind production). Each report gives national wind production in
+  MWh, installed capacity, capacity factor and charts of hourly output, along with a table of the
+  farms in operation (name, county and municipality, MW, connection voltage, year). On the
+  2026-11-06 check the site refused plain command-line requests, so the reports were read through
+  a web browser. (Updated 2026-11-07: on that day the report page and the May 2026 PDF both
+  answered HTTP 200 to a plain Python requests call with its default user agent, and the report
+  page to curl as well, so command-line access worked then; it may not always.) HOPS also publishes yearly "Temeljni podaci" (basic data) PDFs from 2009 at
+  https://www.hops.hr/temeljni-podaci, which summarise the national electricity balance.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

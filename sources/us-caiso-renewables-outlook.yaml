@@ -14,6 +14,20 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: reported
+conventions:
+  timezone: America/Los_Angeles
+  timestamp: unknown
+  unit: MW
+  value: period-mean
+  evidence: https://www.caiso.com/todays-outlook/supply
+  note: >-
+    Today's Outlook describes the renewables trend as "Power separated by renewable resource, on a
+    5-minute average" and labels its times PT. The daily renewables.csv has only a clock "Time"
+    column (00:00, 00:05, ...) with no offset and no statement of whether a time starts or ends its
+    interval. The 2014-2025 workbook read-me says "All data is in megawatt (MW) units"; its Hour
+    column is 1+HOUR(Date) and Interval 1+MINUTE(Date)/5, so a 00:00 row is interval 1 of
+    hour-ending 1, which reads as interval start, though this is not stated in words. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.caiso.com/todays-outlook
@@ -67,3 +81,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

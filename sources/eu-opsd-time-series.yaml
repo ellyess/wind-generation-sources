@@ -1,0 +1,79 @@
+id: eu-opsd-time-series
+name: Open Power System Data, Time series data package
+publisher: Open Power System Data (OPSD)
+publisher_role: research
+countries: [AT, BE, BG, CH, CY, CZ, DE, DK, EE, ES, FI, FR, GB, GR, HR, HU, IE, IT, LT, LV, ME, NL, NO, PL, PT, RO, SE, SI, SK]
+area: >-
+  Countries, plus control areas and bidding zones where published (the four German control areas,
+  DK1 and DK2, NO1 to NO5, SE1 to SE4, the Italian zones, Great Britain and Northern Ireland).
+  Countries listed are those with a wind actual-generation column in the final (2020-10-06)
+  version.
+level: zone
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2015
+  end: 2020
+  update: none; the last version is 2020-10-06
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: period-start
+  unit: MW
+  value: unknown
+  evidence: "https://data.open-power-system-data.org/time_series/2020-10-06/datapackage.json"
+  note: >-
+    The datapackage describes utc_timestamp as "Start of timeperiod in Coordinated Universal
+    Time" and cet_cest_timestamp as the same start in Central European (Summer) Time. Wind
+    columns are described as generation "in MW". It does not say whether hourly values are means
+    of the finer source data. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://data.open-power-system-data.org/time_series/
+  docs: https://github.com/Open-Power-System-Data/datapackage_timeseries/blob/2020-10-06/main.ipynb
+  key_required: false
+  registration: false
+  formats: [csv, xlsx, sqlite]
+  languages: [en]
+licence:
+  name: No data licence; OPSD warns that some data may be subject to copyright
+  url: https://open-power-system-data.org/
+  redistribution: unclear
+  verified: true
+  note: >-
+    The OPSD home page says it would like to publish all data under a Creative Commons
+    Attribution licence but that "several data owners do not allow us to do so", and that some
+    data "might be subject to copyright". Text is CC BY and code is MIT; the data inherit the
+    terms of the original sources (ENTSO-E Transparency Platform for the final version). The
+    package page asks for a citation including the version DOI.
+  attribution: "Open Power System Data. 2020. Data Package Time series. Version 2020-10-06. https://doi.org/10.25832/time_series/2020-10-06. (Primary data from various sources, for a complete list see URL.)"
+traps:
+  - summary: The final version holds only ENTSO-E data from 2015; the longer TSO-sourced history is only in older versions.
+    detail: >-
+      Version 2020-10-06 says it "only contains data provided by TSOs and power exchanges via
+      ENTSO-E Transparency, covering the period 2015-mid 2020". Version 2019-06-05 runs from the end
+      of 2004 to April 2019 and lists TSO websites (50Hertz, Amprion, TenneT, TransnetBW,
+      Energinet, Elia, RTE, Terna, National Grid, Elexon, PSE, APG, CEPS, Svenska kraftnät) as
+      sources. Pick the version deliberately and cite its DOI.
+    evidence: https://data.open-power-system-data.org/time_series/2019-06-05/datapackage.json
+    found: 2026-11-06
+  - summary: The project is no longer updated, so the series stop at 30 September 2020.
+    evidence: https://data.open-power-system-data.org/time_series/latest/datapackage.json
+    found: 2026-11-06
+notes: >-
+  A cleaned, documented repackaging of observed wind and solar generation, load and prices in
+  hourly resolution, with 15-minute and 30-minute files where the source had them (15-minute wind
+  for Austria, Germany, Hungary and the Netherlands). Wind is given as actual generation per
+  country and zone, split into onshore and offshore where the source splits it, with capacity
+  columns for some areas. Its value now is as a citable, versioned snapshot and for the older
+  versions' pre-2015 TSO data; for 2015 onward the ENTSO-E Transparency Platform
+  (eu-entsoe-actual-generation) is the primary source. Checked by reading the datapackage.json
+  metadata of the final and 2019-06-05 versions on the check date; the CSV files themselves were
+  not downloaded.
+status: discontinued
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

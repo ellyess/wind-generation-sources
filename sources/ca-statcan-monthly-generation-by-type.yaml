@@ -1,0 +1,85 @@
+id: ca-statcan-monthly-generation-by-type
+name: Electric power generation, monthly generation by type of electricity (Table 25-10-0015-01)
+publisher: Statistics Canada
+publisher_role: statistics-office
+countries: [CA]
+area: Canada and each of the 13 provinces and territories
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2008
+  update: monthly, about two to three months after the reference month
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510001501
+  note: >-
+    Monthly values labelled by reference month. The Web Data Service cube metadata
+    (getCubeMetadata for product 25100015) gives unit of measure code 210 for every type of
+    generation, which the code sets define as "Megawatt hours".
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510001501
+  docs: https://www.statcan.gc.ca/en/developers/wds/user-guide
+  key_required: false
+  registration: false
+  formats: [csv, json, sdmx]
+  languages: [en, fr]
+licence:
+  name: Statistics Canada Open Licence
+  url: "https://www.statcan.gc.ca/en/terms-conditions/open-licence"
+  redistribution: allowed-with-attribution
+  attribution: "Source: Statistics Canada, Table 25-10-0015-01, <reference date>. Reproduced and distributed on an \"as is\" basis with the permission of Statistics Canada. (Use \"Adapted from Statistics Canada\" for a changed or value-added version.)"
+  verified: true
+  note: The licence allows use, reproduction, distribution and sale, worldwide and royalty-free, provided the source notice is kept.
+traps:
+  - summary: The survey grew from about 400 to about 1,200 companies in January 2016, so wind totals step up for coverage reasons, not only new build.
+    detail: >-
+      Statistics Canada's own footnote warns that wind changed significantly in British
+      Columbia, Alberta, Ontario, Quebec and Prince Edward Island when the population expanded.
+      Do not read the 2015 to 2016 jump as fleet growth or a resource signal.
+    evidence: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510001501
+    found: 2026-11-06
+  - summary: >-
+      Several provinces' early wind cells are empty, either "not available" ('..') or suppressed
+      for confidentiality ('x'), not zero; in the CSV, British Columbia before 2016 has no rows at
+      all.
+    detail: >-
+      In the API, British Columbia wind is missing for every month from January 2008 to December
+      2015 (value null, status code 1, '..'); Yukon, Northwest Territories and Nunavut have gaps
+      too. Recent months also carry revised ('r') flags, so earlier downloads change.
+      Corrected 2026-11-07: this trap said Newfoundland and Labrador, New Brunswick and Manitoba
+      were "not available" for 2008-2009; most of those cells are suppressed instead. In the
+      full-table CSV, New Brunswick and Manitoba wind are STATUS "x" for every month of 2008 and
+      2009, and Newfoundland and Labrador is ".." from January 2008 to September 2009 and "x"
+      from October to December 2009; the table's metadata defines "x" as "suppressed to meet the
+      confidentiality requirements of the Statistics Act" and ".." as "not available for a
+      specific reference period". That is 51 "x" cells in the "Total all classes of electricity
+      producer" rows (102 with the utilities rows). The API marks the same cells with
+      securityLevelCode 1, not status code 1. The CSV also leaves British Columbia out rather
+      than marking it: its wind rows start at 2016-01, so a missing row there means not
+      available, not zero. Found by an automated research pass on 2026-11-07; not yet reviewed
+      by a person.
+    evidence: https://www150.statcan.gc.ca/n1/tbl/csv/25100015-eng.zip
+    found: 2026-11-06
+notes: >-
+  Monthly wind generation in megawatt hours ("Wind power turbine") for Canada and each province and
+  territory, split by class of producer (electric utilities, industries, all). Read through the Web
+  Data Service on 2026-11-06: the series run January 2008 to August 2026 (released 30 October
+  2026), with different values per province (August 2026: Quebec 661,035 MWh, Prince Edward
+  Island 32,417 MWh, Canada 2,653,268 MWh). Before 2008, wind was folded into hydro in the
+  terminated table 25-10-0001-01. No capacity in this table. Full-table CSV: https://www150.statcan.gc.ca/n1/tbl/csv/25100015-eng.zip. DOI
+  https://doi.org/10.25318/2510001501-eng. The finest open source for provinces without their own
+  operator data (Quebec, the Atlantic provinces, Saskatchewan, Manitoba, British Columbia).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

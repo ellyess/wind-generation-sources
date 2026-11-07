@@ -1,0 +1,107 @@
+id: ch-energy-dashboard-swissgrid-production
+name: "energiedashboard.ch: Electricity production Swissgrid (Stromproduktion Swissgrid, ogd104)"
+publisher: Swiss Federal Office of Energy (SFOE / BFE), from Swissgrid data
+publisher_role: government
+countries: [CH]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: daily
+coverage:
+  start: 2015
+  update: daily
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://energiedashboard.ch/api/v1/datasets/stromproduktion-swissgrid
+  note: >-
+    Daily values labelled by date: the API schema gives datum as a date and produktion_gwh as
+    a number, and the CSV header is "Datum,Energietraeger,Produktion_GWh". Neither the API guide
+    (https://www.bfe-ogd.ch/apiguide_edb_de_en.pdf) nor the dataset schema says which time zone
+    defines the day. The opendata.swiss dataset page returned HTTP 403 to the check, so its
+    description was not read.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://www.energiedashboard.admin.ch/strom/produktion
+  docs: https://www.bfe-ogd.ch/apiguide_edb_de_en.pdf
+  key_required: false
+  registration: false
+  formats: [csv, json]
+  languages: [de, fr, it, en]
+licence:
+  name: "opendata.swiss terms of use: Open use. Use for commercial purposes requires permission of the data owner."
+  url: https://opendata.swiss/en/terms-of-use
+  redistribution: non-commercial-only
+  attribution: Name the Swiss Federal Office of Energy (SFOE), the dataset title and a link to the dataset.
+  verified: true
+  note: >-
+    Read 2026-11-06. The CSV resource of dataset BFE-DS-0093 on opendata.swiss carries the
+    "terms_by_ask" symbol: non-commercial use is free, commercial use needs prior permission
+    from BFE, and citing the source is recommended.
+traps:
+  - summary: The file contains rows dated up to 11 days in the future, with no flag separating them from past days.
+    detail: >-
+      The CSV downloaded on 2026-11-06 ran to 2026-11-17. Nuclear output was a flat 71.8 GWh on
+      every day from 2026-11-05 onwards, so the latest days are evidently projections. Drop every
+      row on or after the download date, and treat the last few days before it with care.
+    evidence: https://www.bfe-ogd.ch/ogd104_stromproduktion_swissgrid.csv
+    found: 2026-11-06
+  - summary: Past values are revised without notice, sometimes by half.
+    detail: >-
+      An older copy of the same series (ending 2026-06-14) differed from the November 2026 file
+      on 1,587 day-and-source values in 2025 and 2026, 84 of them wind; for example wind on
+      2026-03-05 was 0.6 GWh in the older copy and 0.3 GWh in the newer. Record the download
+      date.
+    evidence: https://www.uvek-gis.admin.ch/BFE/ogd/104/ogd104_stromproduktion_swissgrid.csv
+    found: 2026-11-06
+  - summary: An older download address still answers but stopped updating in June 2026.
+    detail: >-
+      The uvek-gis.admin.ch copy of ogd104 ends on 2026-06-14, while the bfe-ogd.ch copy linked
+      from opendata.swiss and the energiedashboard.ch API run to November 2026. Use the
+      opendata.swiss resource link or the API.
+    evidence: https://www.uvek-gis.admin.ch/BFE/ogd/104/ogd104_stromproduktion_swissgrid.csv
+    found: 2026-11-06
+  - summary: Values are rounded to 0.1 GWh, which is coarse for a fleet that makes 0.1 to 1.5 GWh a day.
+    detail: >-
+      Swiss wind output is around 150 to 170 GWh a year, so daily values are mostly between 0.1
+      and 1.3 GWh and the rounding alone is up to 50% of a calm day. Annual sums from the file
+      (169.5 GWh in 2023, 154.0 GWh in 2025) differ from BFE's official annual totals (169 and
+      161 GWh) by up to 4%.
+    evidence: https://www.bfe-ogd.ch/ogd104_stromproduktion_swissgrid.csv
+    found: 2026-11-06
+  - summary: >-
+      A misspelt API parameter is ignored without an error, so a request for wind silently returns
+      every energy carrier.
+    detail: >-
+      The API guide documents the parameter as "filters" (for example
+      "filters=bezirk===Sense → exakt: bezirk = 'Sense'"). On 2026-11-07 a request for
+      2025-01-01 to 2025-01-03 with filters=energietraeger===Wind returned 3 rows, all "Wind"
+      (1.2 GWh on 2025-01-01), while the same request with filter=energietraeger===Wind returned
+      HTTP 200 and 18 rows, three each of Speicherkraft, Thermische, Photovoltaik, Flusskraft,
+      Kernkraft and Wind, with meta count 18 and no warning. Use "filters", and check the
+      energietraeger column of what comes back before summing. Found by an automated research
+      pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://www.bfe-ogd.ch/apiguide_edb_de_en.pdf
+    found: 2026-11-07
+notes: >-
+  Daily Swiss production in GWh by energy carrier (run-of-river, storage hydro, nuclear,
+  thermal, photovoltaic, wind) from 2015-01-01, described as "Source: Swissgrid". How Swissgrid
+  derives the per-carrier split, and whether wind is metered or estimated, is not documented on
+  the dataset page or the dashboard, so treat the series as reported rather than metered. The
+  same table is served by the dashboard's public API
+  (https://energiedashboard.ch/api/v1/datasets/stromproduktion-swissgrid/data, query parameter
+  filters=energietraeger===Wind, at most 1,000 rows per call) and as CSV. (Corrected 2026-11-07:
+  this note said "filter"; the API guide names the parameter "filters", and a request with
+  filter= is ignored and returns every carrier; see the traps.) BFE's weekly electricity
+  balance (ogd51) has reported wind separately for one Wednesday a week since 2025 only. For
+  per-farm annual output see ch-bfe-wind-energy-plants.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

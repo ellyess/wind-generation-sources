@@ -1,0 +1,83 @@
+id: bg-eso-generation-per-day
+name: Historical generation data of the power system (Исторически данни за генерация на ЕЕС)
+publisher: Electricity System Operator (Електроенергиен системен оператор, ESO EAD)
+publisher_role: tso
+countries: [BG]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2021
+  update: daily; the current day is shown as it fills
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: "https://www.eso.bg/doc/?generation_per_day&date=25.10.2026"
+  note: >-
+    Time stamps are epoch milliseconds in the page's xValues array, which are UTC by definition;
+    the y axis is titled "Производство по типове (MW)". The page does not say whether a stamp
+    marks the start of an hour or a reading, or whether a value is an hourly mean. On the autumn
+    change day, 25 October 2026, the 25 stamps run 21:00, 22:00, 23:00, 01:00, 01:00, 02:00 UTC:
+    00:00 UTC is missing and 01:00 UTC appears twice, so the two local 03:00 hours share one epoch
+    stamp. 29 March 2026 was correct (23 stamps, local 03:00 skipped). Read 2026-11-06 by an
+    automated research pass; not yet reviewed.
+access:
+  method: portal
+  url: https://www.eso.bg/doc/?generation_per_day
+  key_required: false
+  registration: false
+  formats: [html]
+  languages: [bg]
+licence:
+  name: No data licence found
+  redistribution: unclear
+  verified: false
+  note: No terms of use or reuse licence were found on eso.bg on 2026-11-06 (site search for "условия", "авторски" and "лиценз" returned nothing).
+traps:
+  - summary: Wind is empty before late April 2021, although the page returns other fuels for earlier dates.
+    detail: >-
+      For 1 January 2015, 1 June 2020 and 1 April 2021 the page draws the chart but the wind
+      series (ВяЕЦ) has no values; 1 May 2021 is the first day checked with wind data.
+    evidence: https://www.eso.bg/doc/?generation_per_day&date=01.04.2021
+    found: 2026-11-06
+  - summary: There is no file download; one day at a time is embedded in the page as JavaScript arrays.
+    detail: >-
+      Each day's values sit in the page source as "xValues" (UTC epoch milliseconds) and one
+      array per fuel, with the wind array named 'ВяЕЦ'. Collecting a year means 365 page requests
+      with the date=DD.MM.YYYY parameter. The spring change is handled correctly: 29 March 2026 has
+      23 values. The autumn change is not, although this trap said so until 2026-11-07: 25 October
+      2026 has 25 values but only 24 distinct stamps (see the next trap).
+    evidence: https://www.eso.bg/doc/?generation_per_day&date=25.10.2026
+    found: 2026-11-06
+  - summary: On the autumn clock-change day two hours carry the same time stamp and one UTC hour is missing.
+    detail: >-
+      On 25 October 2026 the page's xValues array starts 1792875600000, 1792879200000,
+      1792882800000, 1792890000000, 1792890000000, that is 21:00, 22:00, 23:00, 01:00 and 01:00
+      UTC. 00:00 UTC is missing, so the first local 03:00 (summer time) is stamped as if it were
+      the second (winter time), and the wind array 'ВяЕЦ' has two values (190.91 and 181.65 MW)
+      for one instant. 27 October 2024 and 26 October 2025 show the same pattern; 29 March 2026
+      is correct (23 distinct stamps). Do not index the day by its epoch stamps: take the values
+      in order and assign them consecutive hours from 21:00 UTC, or drop the two hours.
+      Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://www.eso.bg/doc/?generation_per_day&date=25.10.2026
+    found: 2026-11-07
+notes: >-
+  Hourly generation in MW by type for Bulgaria: nuclear, condensing, district-heating and
+  industrial thermal plants, large and small hydro, wind (ВяЕЦ, вятърни електроцентрали), solar,
+  biomass and battery discharge. Checked by requesting 1 June 2021, 1 April 2022, 1 July 2022,
+  29 March 2026, 25 October 2026 and 6 November 2026 and seeing different wind values. The first
+  timestamp of a day is 22:00 UTC (00:00 Bulgarian winter time). The page does not say whether a
+  value is an hourly average or an instantaneous reading, or whether distribution-connected wind is
+  included. ESO's measurement-data portal (https://webapps.eso.bg/prcl/) needs a login, and its
+  annual statistical book (https://www.eso.bg/doc/?pbook) returned an error page when downloaded
+  on 2026-11-06.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

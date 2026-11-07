@@ -13,6 +13,19 @@ coverage:
 capacity: separate-dataset
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: Pacific/Auckland
+  timestamp: period-start
+  unit: kWh
+  value: period-total
+  evidence: https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/
+  note: >-
+    The dataset page says units are kilowatt hours, data are by trading period TP1 to TP48, trading
+    period 1 starts at midnight and trading period 2 at 12:30 am, and days have 46 trading periods
+    when daylight saving starts and 50 when it ends; the zone is New Zealand local time by that
+    note, though not named. Periods are identified by number, not clock time. The page says values
+    are estimated by mapping metered grid injections to plants. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/
@@ -41,6 +54,21 @@ traps:
       Mahinerangi is metered inside the Waipori hydro scheme. About 28 MW of small farms on the
       distribution network are outside the dataset.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/nz.md
+  - summary: >-
+      Newer plants carry short fuel codes, so a filter on Fuel_Code "Wind" misses some wind
+      farms.
+    detail: >-
+      Older plants have Fuel_Code "Wind" and Tech_Code "Wind"; plants added recently have
+      Fuel_Code "WIN" and Tech_Code "ONW". kaiwera_downs_(stage_2) first appears in the March
+      2026 file that way, for example the row "KIW,KIW2201,MRPL,kaiwera_downs_(stage_2),WIN,ONW,
+      2026-04-01,0,0,..." in 202604_Generation_MD.csv, while the first stage stays "KaiweraDowns,
+      Wind,Wind" at GOR0331. The September 2026 file adds kaiwaikawe_wind_farm (MPE1101) as WIN
+      and ONW too. Other fuels have the same split from 2025 (SOL beside Solar, HYD beside Hydro,
+      GEO beside Geo, and ELE for batteries). Select wind with Fuel_Code in "Wind" and "WIN", and
+      check the codes in each new file. Found by an automated research pass on 2026-11-07; not
+      yet reviewed by a person.
+    evidence: https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/202604_Generation_MD.csv
+    found: 2026-11-07
 notes: >-
   Half-hourly metered injection for every grid-connected generator, monthly files from August
   1997. About 13 dispatched wind farms and 1.5 GW in 2024. The plant register gives capacity and

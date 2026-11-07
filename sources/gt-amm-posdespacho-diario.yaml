@@ -1,0 +1,88 @@
+id: gt-amm-posdespacho-diario
+name: Informe de Posdespacho Diario, hoja "Carga Horaria" (daily post-dispatch report, hourly load by generating unit)
+publisher: Administrador del Mercado Mayorista (AMM)
+publisher_role: market-operator
+countries: [GT]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2015
+  update: daily (the file for 5 November 2026 was posted on 6 November 2026)
+capacity: none
+coordinates: none
+curtailment: unknown
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://www.amm.org.gt/pdfs2/post_despacho/POSDESPACHO_DIARIO/2026/02_FEBRERO/PD20260215.zip
+  note: >-
+    The workbook's index names the sheet 'Lecturas de carga horaria' (hourly load readings) and the
+    sheet itself reads 'Carga Horaria digitada en el CDC' (entered at the dispatch centre); with the
+    extra quarter-hour rows around the peaks (11.3, 18.15 and so on) the pass read this as readings
+    taken at each hour, not hourly averages, though AMM does not say so. Hours are numbered
+    1 to 24. The sheet prints no unit; the 'Curva S.N.I.' sheet takes its 'Demanda Maxima S.N.I.
+    (MW)' from it, so the values are MW. No time zone is stated. Read 2026-11-06 by an automated
+    research pass; not yet reviewed. Changed 2026-11-07: the pass had set timestamp 'instant' and
+    value 'instantaneous' from the label alone, but "lecturas" (readings) does not say whether a
+    reading is a snapshot or an hour's average, and no AMM page found defines it, so both are now
+    unknown. The data do not settle it either: on 15 February 2026 the daily row above hour 1 is
+    within a median 0.55 per cent of the plain sum of the 24 hourly values and 1.2 per cent of a
+    trapezoid through the readings (using 14 February's hour 24 as midnight), the plain sum being
+    closer for 49 of 88 units, so neither reading fits exactly (SNT-E: daily 166, sum 164.99,
+    trapezoid 140.4).
+access:
+  method: bulk-download
+  url: https://www.amm.org.gt/portal/?page_id=145
+  key_required: false
+  registration: false
+  formats: [zip, xlsx, xls]
+  languages: [es]
+licence:
+  name: No terms found
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use, licence or copyright statement was found on the AMM portal home page, the
+    "Resultados de la Operación" page or the report selector. Redistribution stays unclear until
+    AMM states its terms.
+traps:
+  - summary: The hour column mixes whole hours 1 to 24 with extra quarter-hour readings around the peaks, written as decimals such as 11.3, 18.15 and 20.45.
+    detail: >-
+      On 15 February 2026 the sheet has 34 rows: hours 1 to 24 plus rows labelled 11.3, 18.15,
+      18.3, 18.45, 19.15, 19.3, 19.45, 20.15, 20.3 and 20.45 (that is 11:30, 18:15 and so on). Keep
+      only whole-number labels to get an hourly series. The row above hour 1 holds a daily figure
+      per unit that is close to, but not equal to, the sum of the 24 hourly values (LCU-E 60.425
+      against 63.93 on 15 February 2026).
+    evidence: https://www.amm.org.gt/pdfs2/post_despacho/POSDESPACHO_DIARIO/2026/02_FEBRERO/PD20260215.zip
+    found: 2026-11-06
+  - summary: Unit columns move from day to day and the file format changed from .xls to .xlsx, so columns must be found by unit code.
+    detail: >-
+      The wind unit SNT-E is column 44 on 15 September 2015, 46 on 15 February 2016 and 65 on 15
+      February 2020. Files up to at least 2016 are Excel 97 (.xls) inside the zip; 2020 and later
+      are .xlsx. Wind units carry the suffix "-E" (SNT-E, VBL-E, LCU-E).
+    evidence: https://www.amm.org.gt/pdfs2/post_despacho/POSDESPACHO_DIARIO/2016/02_FEBRERO/PD20160215.zip
+    found: 2026-11-06
+notes: >-
+  Guatemala's market operator publishes one zip per day containing the post-dispatch workbook.
+  Its "Carga Horaria" sheet ("Carga Horaria digitada en el CDC", hourly load recorded at the
+  dispatch centre) gives MW for every generating unit, about 150 columns including imports and
+  exports, with a "Total Generado" and "Demanda SNI" column. The sheet does not say whether each
+  hourly value is an average or a reading at the hour; hours are numbered 1 to 24. Daily files
+  are at https://www.amm.org.gt/pdfs2/post_despacho/POSDESPACHO_DIARIO/YYYY/MM_MONTHNAME/PDYYYYMMDD.zip
+  (Spanish month in capitals, for example 02_FEBRERO); the portal's report selector builds the
+  same path for dates from August 2012. Wind units checked: SNT-E only in 2015 (zero on 15 March
+  2015, 93.1 on 15 September 2015); SNT-E and VBL-E in 2016; SNT-E, VBL-E and LCU-E in 2020 and 2026,
+  with different hourly profiles (15 February 2020 daily figures 1,180.65, 540.4 and 624.575). The
+  unit codes are not expanded in the post-dispatch sheet; AMM's daily dispatch programme for the
+  same day (https://www.amm.org.gt/pdfs2/programas_despacho/01_PROGRAMAS_DE_DESPACHO_DIARIO/2026/01_PROGRAMAS_DE_DESPACHO_DIARIO/02_FEBRERO/WEB15022026.xlsx)
+  lists them under "EOLICO" as San Antonio El Sitio (SNT-E1), Las Cumbres (LCU-E) and Viento
+  Blanco (VBL-E). AMM also runs a Knowage statistics
+  portal (https://reportesbi.amm.org.gt/knowage/) and dynamic reports, not checked in this pass.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

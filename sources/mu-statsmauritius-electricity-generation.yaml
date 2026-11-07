@@ -1,0 +1,72 @@
+id: mu-statsmauritius-electricity-generation
+name: Electricity generation (kWh) by source of energy, monthly
+publisher: Statistics Mauritius, with data from the Central Electricity Board
+publisher_role: statistics-office
+countries: [MU]
+area: Republic of Mauritius (Island of Mauritius and Island of Rodrigues)
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2013
+  update: monthly
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: kWh
+  value: period-total
+  evidence: https://statsmauritius.govmu.org/Documents/Statistics/By_Subject/Energy_Water/Electricity/Electricity_Generation_M_Aug26_061126.xlsx
+  note: >-
+    The sheet is titled 'Table showing electricity generation (kWh) by source of energy, January
+    2013 to August 2026', with one column per month. Read 2026-11-06 by an automated research pass;
+    not yet reviewed.
+access:
+  method: bulk-download
+  url: https://statsmauritius.govmu.org/Pages/Statistics/By_Subject/Energy_Water/Energy_Water.aspx
+  key_required: false
+  registration: false
+  formats: [xlsx, xls, pdf]
+  languages: [en]
+licence:
+  name: Statistics Mauritius copyright notice (Government of Mauritius)
+  url: https://statsmauritius.govmu.org/Pages/CopyrightNotice.aspx
+  redistribution: allowed-with-attribution
+  attribution: Acknowledge the source, including the URL, and its copyright status.
+  verified: true
+  note: >-
+    State-owned material may be downloaded and reproduced free of charge if reproduced
+    accurately and not used in a misleading context; when distributed, the source and copyright
+    status must be acknowledged. Other uses need approval, and the permission does not extend to
+    material identified as third-party copyright. The tables credit the Central Electricity Board
+    as source without marking it as third-party copyright.
+traps:
+  - summary: The monthly file name changes with each release, so a pinned link goes stale.
+    detail: >-
+      On 2026-11-06 the file was Electricity_Generation_M_Aug26_061126.xlsx (data to August 2026,
+      released 6 November 2026). Take the current link from the subject page.
+    evidence: https://statsmauritius.govmu.org/Documents/Statistics/By_Subject/Energy_Water/Electricity/Electricity_Generation_M_Aug26_061126.xlsx
+    found: 2026-11-06
+  - summary: The sheet is laid out with months as columns, and percentage changes sit in the same rows.
+    detail: >-
+      One sheet, one row per source, one column per month from January 2013; after the last
+      month the rows carry change figures (for example -0.97 for wind) rather than kWh. Recent
+      months are revised (a note says April to October 2025 were revised), so re-download rather
+      than append.
+    evidence: https://statsmauritius.govmu.org/Documents/Statistics/By_Subject/Energy_Water/Electricity/Electricity_Generation_M_Aug26_061126.xlsx
+    found: 2026-11-06
+notes: >-
+  National monthly wind generation in kWh from January 2013. The annual Digest of Energy and Water
+  Statistics (Digest_Energy_Yr25_011026.xlsx on the same page) splits wind by island from 2010 in
+  table 16: Island of Mauritius wind comes from independent power producers (9.82 GWh in 2025) and
+  Rodrigues wind from the Central Electricity Board (1.40 GWh in 2025); table 15 gives plant
+  capacity, with one wind farm on Mauritius in 2025 (EOLE Plaine des Roches, 9.35 MW) and 1.22 MW
+  on Rodrigues. Wind is a very small fleet (about 0.3% of generation), so useful mainly as a
+  small-island case.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

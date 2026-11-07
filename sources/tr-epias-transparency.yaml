@@ -12,6 +12,22 @@ coverage:
 capacity: none
 coordinates: none
 curtailment: unknown
+conventions:
+  timezone: Europe/Istanbul
+  timestamp: unknown
+  unit: unknown
+  value: period-total
+  evidence: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html
+  note: >-
+    The documentation says dates are ISO 8601 with an offset and that data "are displayed in Turkish
+    time zone (which is +0300, for older data consider older daylight savings rules)"; Turkey has
+    kept +03:00 all year since 2016. The injection-quantity endpoint is described as "the total
+    value of the resource based electricity amount given to the system hourly", with a date and an
+    hour field ("Hour information on which the relevant value is valid"). The documentation does not
+    say whether that hour starts or ends the period, and gives no unit for these fields, so unit is
+    recorded as unknown (this note said "other" until 2026-11-07, against the field's value). The
+    API needs a login, so no response was inspected on this pass. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
 access:
   method: api
   url: https://seffaflik.epias.com.tr/

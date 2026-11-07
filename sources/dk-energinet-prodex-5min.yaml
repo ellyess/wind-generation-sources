@@ -14,6 +14,19 @@ coverage:
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: "https://api.energidataservice.dk/meta/dataset/ElectricityProdex5MinRealtime"
+  note: >-
+    The metadata describes Minutes5UTC as the "UTC timestamp at which the values are valid" and
+    Minutes5DK as the same stamp in Danish local time (276 or 300 intervals on clock-change
+    days). OnshoreWindPower and OffshoreWindPower are in MW. It does not say whether a value is
+    a five-minute mean or a snapshot, or whether the stamp opens or closes the interval. JSON
+    stamps carry no Z suffix and CSV or XLSX exports drop the T as well, so the zone comes only
+    from the column name. Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: api
   url: https://www.energidataservice.dk/tso-electricity/ElectricityProdex5MinRealtime
@@ -53,3 +66,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

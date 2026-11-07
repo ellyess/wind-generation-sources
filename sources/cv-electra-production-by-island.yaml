@@ -1,0 +1,65 @@
+id: cv-electra-production-by-island
+name: Electra Norte and Electra Sul annual reports (Relatório e Contas), production by island
+publisher: Electra (Empresa de Electricidade e Água), Cabo Verde
+publisher_role: utility
+countries: [CV]
+area: Islands in the Electra Norte and Electra Sul reports (Santiago, Santo Antão, São Vicente, Sal and others); Boa Vista does not appear
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2018
+  update: annual; the last full-year island split found is 2023
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: kWh
+  value: period-total
+  evidence: https://www.electra.cv/backend/web/uploads/RELAT%C3%93RIOECONTAS2023ELECTRANORTE.pdf
+  note: >-
+    Annual totals labelled by year. The table is headed "Quadro 3- Produção por Ilha (kWh)", with
+    columns "Éolica 2023" and "Éolica 2022" (current and previous year) per island and power
+    station. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.electra.cv/frontend/web/index.php?r=site%2Frelatorio&type=2&inst=3
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [pt]
+licence:
+  name: No terms found
+  url: https://www.electra.cv/
+  redistribution: unclear
+  verified: false
+  note: No reuse terms were found on the Electra site.
+traps:
+  - summary: The 2024 report covers only the first half of the year, and its production table is an image.
+    detail: >-
+      The Electra SA 2024 report says 2024 data cover six months of activity; its "Produção por
+      Ilha" table is embedded as a picture with no extractable text. No full-year 2024 island
+      split was found.
+    evidence: https://www.electra.cv/backend/web/uploads/RELAT%C3%93RIOECONTAS2024ELECTRA,SA.pdf
+    found: 2026-11-06
+  - summary: Wind is split by island and power station, not by wind farm owner.
+    detail: >-
+      Island rows mix Electra's own small turbines with energy bought from the independent
+      producer Cabeólica: for São Vicente, the wind energy is booked under the Matiota station
+      (22.82 GWh in 2023), where Electra owns 900 kW and Cabeólica 5.95 MW.
+    evidence: https://www.electra.cv/backend/web/uploads/RELAT%C3%93RIOECONTAS2023ELECTRANORTE.pdf
+    found: 2026-11-06
+notes: >-
+  Annual wind production in kWh by island, in table "Quadro 3 - Produção por Ilha" of the
+  Electra Norte and Electra Sul reports, with the previous year alongside. 2023 values differ by
+  island: Santo Antão 1,479,917 kWh, São Vicente 22,822,592 kWh, Sal 17,740,060 kWh (Electra
+  Norte) and Santiago 28,191,458 kWh (Electra Sul). Installed independent wind capacity per
+  island is given in the same report. Reports on the site run from 2019 (with 2018 alongside)
+  to 2023 for Norte and Sul. Boa Vista does not appear in either report's tables.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

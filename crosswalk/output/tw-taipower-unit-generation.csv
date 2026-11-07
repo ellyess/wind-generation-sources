@@ -1,0 +1,40 @@
+entry,market,unit_id,unit_name,unit_capacity_mw,unit_capacity_kind,status,method,score,location_source,farm_name,farm_state,farm_capacity_mw,farm_capacity_ratio,lat,lon,osm_url,repd_id,wikidata,runner_up,notes
+tw-taipower-unit-generation,tw-taipower-unit-generation,觀園,觀園; Guanyuan Wind Farm,30.0,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,台中港,台中港; 中港; Taichung Harbor Wind Farm; Taichung Port,35.0,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,王功,王功; Wanggong Wind Farm,23.0,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,彰工,彰工; Changhua Coastal Industrial Park Wind Farm; Changgong,86.2,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,雲麥,雲麥; Mailiao Wind Farm; Yunlin Mailiao,46.0,registered,review,name,0.95,osm,Yunlin Offshore Wind Farm,operating,640.0,1.07,23.58944,120.02889,https://www.openstreetmap.org/way/882630880,,,,3 units point at this farm; unit capacity far from the farm's
+tw-taipower-unit-generation,tw-taipower-unit-generation,四湖,四湖; Sihu Wind Farm,28.0,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,苗栗大鵬,苗栗大鵬; Miaoli Dapeng; Dapeng Wind Farm,42.0,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,鹿威彰濱,鹿威彰濱; Changbin Wind Farm; Luwei Changbin,55.2,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,觀威觀音&桃威新屋,觀威觀音&桃威新屋; Guanyin Wind Farm; Xinwu Wind Farm,48.3,registered,unmatched,name,0.5,osm,Yunlin Offshore Wind Farm,operating,640.0,,23.58944,120.02889,https://www.openstreetmap.org/way/882630880,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,中威大安,中威大安; Daan Wind Farm; Da'an Wind Farm,75.9,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,創維風,創維風,49.2,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,新源崙背,新源崙背; Lunbei Wind Farm,25.2,registered,unmatched,name,0.5,osm,Yunlin Offshore Wind Farm,operating,640.0,,23.58944,120.02889,https://www.openstreetmap.org/way/882630880,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,彰品風(註10),彰品風,,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,離岸一期,離岸一期; Taipower Offshore Wind Farm Phase 1; Changhua Offshore Wind Phase 1,109.2,registered,review,name,0.63,osm,Greater Changhua 1 Offshore Wind,operating,,,24.15373,119.94937,https://www.openstreetmap.org/way/1333770360,,,Greater Changhua 2a Offshore Wind (0.57),2 units point at this farm
+tw-taipower-unit-generation,tw-taipower-unit-generation,離岸二期(註10),離岸二期; Taipower Offshore Wind Farm Phase 2,,registered,unmatched,name,0.46,osm,Greater Changhua 2a Offshore Wind,operating,,,24.15748,119.82783,https://www.openstreetmap.org/way/1459169021,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,海洋竹南,海洋竹南; Formosa 1; Formosa 1 Offshore Wind Farm,128.0,registered,review,name,1.0,osm,海洋竹南風力發電場,operating,128.0,1.0,24.71072,120.81217,https://www.openstreetmap.org/relation/13131412,,Q27926626,Formosa 2 Offshore Wind Farm (0.74),no distinctive word shared
+tw-taipower-unit-generation,tw-taipower-unit-generation,海能風,海能風; Formosa 2; Formosa 2 Offshore Wind Farm,376.0,registered,proposed,name,1.0,osm,Formosa 2 Offshore Wind Farm,operating,376.0,1.0,24.70326,120.75477,https://www.openstreetmap.org/way/1343875947,,Q111169001,海洋竹南風力發電場 (0.74),
+tw-taipower-unit-generation,tw-taipower-unit-generation,沃一風,沃一風; Greater Changhua 1,605.2,registered,review,name,1.0,osm,Greater Changhua 1 Offshore Wind,operating,,,24.15373,119.94937,https://www.openstreetmap.org/way/1333770360,,,Greater Changhua 2a Offshore Wind (0.92),2 units point at this farm
+tw-taipower-unit-generation,tw-taipower-unit-generation,沃二風,沃二風; Greater Changhua 2a,294.8,registered,review,name,1.0,osm,Greater Changhua 2a Offshore Wind,operating,,,24.15748,119.82783,https://www.openstreetmap.org/way/1459169021,,,Greater Changhua 1 Offshore Wind (0.92),2 units point at this farm
+tw-taipower-unit-generation,tw-taipower-unit-generation,沃四風(註10),沃四風; Greater Changhua 2b and 4,,registered,review,name,0.9,osm,Greater Changhua 2a Offshore Wind,operating,,,24.15748,119.82783,https://www.openstreetmap.org/way/1459169021,,,Greater Changhua 1 Offshore Wind (0.72),2 units point at this farm; stage numbers differ
+tw-taipower-unit-generation,tw-taipower-unit-generation,沃南風,沃南風,337.1,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,芳一風,芳一風; Changfang,96.0,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,芳二風,芳二風; Changfang and Xidao; Xidao,499.2,registered,unmatched,name,0.47,osm,Greater Changhua 2a Offshore Wind,operating,,,24.15748,119.82783,https://www.openstreetmap.org/way/1459169021,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,允湖,允湖; Yunlin Offshore Wind Farm; Yunneng,320.0,registered,proposed,name,1.0,osm,Yunlin Offshore Wind Farm,operating,640.0,1.07,23.58944,120.02889,https://www.openstreetmap.org/way/882630880,,,,3 units point at this farm
+tw-taipower-unit-generation,tw-taipower-unit-generation,允西,允西; Yunlin Offshore Wind Farm; Yunneng,320.0,registered,proposed,name,1.0,osm,Yunlin Offshore Wind Farm,operating,640.0,1.07,23.58944,120.02889,https://www.openstreetmap.org/way/882630880,,,,3 units point at this farm
+tw-taipower-unit-generation,tw-taipower-unit-generation,中能風,中能風; Zhong Neng Offshore Wind Farm; Zhongneng,294.5,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,龍A風(註10),龍A風; Hai Long 2A,,registered,unmatched,name,0.47,osm,Greater Changhua 2a Offshore Wind,operating,,,24.15748,119.82783,https://www.openstreetmap.org/way/1459169021,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,龍B風(註10),龍B風; Hai Long 2B,,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,龍三風(註10),龍三風; Hai Long 3,,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,中火,中火; Taichung Power Plant wind turbines,,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,大潭,大潭; Datan Wind Farm,,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,恆春,恆春; Hengchun Wind Farm,,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,林口,林口; Linkou Wind Farm,,registered,unmatched,name,0.5,osm,Yunlin Offshore Wind Farm,operating,640.0,,23.58944,120.02889,https://www.openstreetmap.org/way/882630880,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,澎湖中屯,澎湖中屯; Penghu Zhongtun Wind Farm; Zhongtun,,registered,unmatched,name,0.46,osm,蘆竹風力發電站,operating,7.2,,25.11801,121.27303,https://www.openstreetmap.org/relation/14543894,,Q41579232,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,澎湖湖西,澎湖湖西; Penghu Huxi Wind Farm; Huxi,,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,石門,石門; Shimen Wind Farm,,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,蘆竹,蘆竹; Luzhu Wind Farm,,registered,review,name,1.0,osm,蘆竹風力發電站,operating,7.2,,25.11801,121.27303,https://www.openstreetmap.org/relation/14543894,,Q41579232,,no distinctive word shared
+tw-taipower-unit-generation,tw-taipower-unit-generation,金門金沙,金門金沙; Kinmen Jinsha Wind Farm; Jinsha,,registered,unmatched,,,,,,,,,,,,,,
+tw-taipower-unit-generation,tw-taipower-unit-generation,香山,香山; Xiangshan Wind Farm; Hsinchu Xiangshan,,registered,unmatched,,,,,,,,,,,,,,

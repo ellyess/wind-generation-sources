@@ -1,0 +1,77 @@
+id: ma-mtedd-chiffres-cles-energie
+name: Chiffres clés du secteur de l'énergie (Key figures of the energy sector), net energy by origin
+publisher: Ministry of Energy Transition and Sustainable Development, Morocco (Ministère de la Transition Énergétique et du Développement Durable), with data from ONEE
+publisher_role: government
+countries: [MA]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2007
+  update: annual edition of key figures, plus monthly key-figures notes with year-to-date national totals
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: "https://www.mem.gov.ma/Lists/Lst_rapports/Attachments/46/Chiffres%20cl%C3%A9s%20annuels%20de%20l'%C3%A9nergie%20(Edition%202025)_vr%20Fr.pdf"
+  note: >-
+    Table 3.3 (net energy called by origin) is headed 'En GWh' with annual columns 2007 to 2024, the
+    last provisional. The monthly key-figures notes give year-to-date GWh, and the energy balance
+    gives wind in thousand tonnes of oil equivalent (ktoe). Read 2026-11-06 by an automated research
+    pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.mem.gov.ma/Pages/rapports.html
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [fr]
+licence:
+  name: "Site footer only: \"© Ministère de l'Energie, des Mines et du Développement Durable 2026. Tous droits réservés\""
+  url: https://www.mem.gov.ma/Pages/rapports.html
+  redistribution: unclear
+  verified: false
+  note: >-
+    No reuse terms were found on the ministry site; the footer claims all rights reserved. The
+    figures are credited to ONEE (National Office of Electricity and Drinking Water), whose site
+    could not be reached on 2026-11-06.
+traps:
+  - summary: Only some wind farms are reported individually; the rest sit inside aggregates that mix technologies.
+    detail: >-
+      Table 3.3 (net energy called, GWh) gives separate rows for the concession farms (CED,
+      Tarfaya, Midelt, Taza 1, Boujdour, Jbel Lahdid) but puts ONEE's own farms into one
+      "Parcs Eoliens" row and privately developed farms under Law 13-09 into a single row that
+      also holds solar and other sources. Wind self-production enters "Apports des tiers
+      nationaux". Summing the named farm rows therefore undercounts national wind.
+    evidence: "https://www.mem.gov.ma/Lists/Lst_rapports/Attachments/46/Chiffres%20cl%C3%A9s%20annuels%20de%20l'%C3%A9nergie%20(Edition%202025)_vr%20Fr.pdf"
+    found: 2026-11-06
+  - summary: The latest year is provisional, and its column is offset from the others in the PDF.
+    detail: >-
+      2024 figures are marked "Chiffres provisoires". In the 2025 edition the 2024 value of each
+      row is set on a separate line above the row, so text extraction pairs it with the wrong
+      row unless checked by eye. Numbers use a comma as the decimal separator.
+    evidence: "https://www.mem.gov.ma/Lists/Lst_rapports/Attachments/46/Chiffres%20cl%C3%A9s%20annuels%20de%20l'%C3%A9nergie%20(Edition%202025)_vr%20Fr.pdf"
+    found: 2026-11-06
+  - summary: Monthly key-figures notes give only year-to-date totals, not single months.
+    detail: >-
+      The July 2026 note reports national wind net energy for January to May (3,600 GWh in 2025,
+      4,075.6 GWh in 2026), marked "Chiffres non définitifs". Monthly values need differencing
+      between successive notes.
+    evidence: https://www.mem.gov.ma/Lists/Lst_rapports/Attachments/53/Chiffres%20cl%C3%A9s%20juillet%202026_VF.pdf
+    found: 2026-11-06
+notes: >-
+  Table 3.3 of the annual key figures (2025 edition) gives net energy called (GWh) by origin for
+  2007 to 2024, with per-farm rows for concession wind farms; values differ by farm (for example
+  2023: Tarfaya 1,099.9 GWh, Midelt 482.9 GWh, Boujdour 816.3 GWh). National installed wind
+  capacity by year is in table 3.2 of the same edition, and the energy balance gives wind in
+  thousand tonnes of oil equivalent. Per-farm capacity and coordinates are not given. Earlier
+  editions are on the same page and may reach further back; not checked.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

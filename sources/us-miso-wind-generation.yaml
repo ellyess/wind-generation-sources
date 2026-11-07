@@ -14,6 +14,17 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: UTC-05:00
+  timestamp: period-end
+  unit: MWh
+  value: period-total
+  evidence: https://docs.misoenergy.org/marketreports/20251231_hwd_HIST.csv
+  note: >-
+    The file header says "All Hours Ending are Eastern Standard Time (EST)", with columns Market
+    Day, Hour Ending (1-24) and MWh, so there is no daylight-saving shift. This is the Historical
+    Hourly Wind Data file; the fuel-mix workbook's conventions were not checked on this pass. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.misoenergy.org/markets-and-operations/real-time--market-data/market-reports/
@@ -39,6 +50,12 @@ traps:
     evidence: https://docs.misoenergy.org/marketreports/historical_gen_fuel_mix_2024.xlsx
     found: 2026-11-06
   - summary: Hours are hour-ending in Eastern Standard Time all year, with no daylight-saving shift.
+    detail: >-
+      The file header reads "All Hours Ending are Eastern Standard Time (EST)", and both 2025
+      clock-change days have exactly 24 rows, Hour Ending 1 to 24 (9 March and 2 November). Read
+      Hour Ending h on a Market Day as the hour ending at h:00 UTC-05:00, never as US Central or
+      Eastern clock time. Detail added 2026-11-07 by an automated research pass; not yet reviewed
+      by a person.
     evidence: https://docs.misoenergy.org/marketreports/20251231_hwd_HIST.csv
     found: 2026-11-06
   - summary: Older years are not at the predictable file names, so history before 2023 could not be found.
@@ -47,6 +64,7 @@ traps:
       the same names for 2008-2022 return "BlobNotFound". The wind report's reader's guide dates
       from 2014, so older data may exist elsewhere on MISO's site.
     evidence: https://docs.misoenergy.org/marketreports/20221231_hwd_HIST.csv
+    evidence_is_error: true
     found: 2026-11-06
 notes: >-
   Two files. The Historical Hourly Wind Data report (<YYYYMMDD>_hwd_HIST.csv) is one MISO-wide
@@ -58,3 +76,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

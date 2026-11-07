@@ -1,0 +1,1075 @@
+{
+ "checked": "2026-11-06",
+ "summary": {
+  "broken": 2,
+  "recheck": 1,
+  "unchecked": 20,
+  "ok": 482
+ },
+ "entries": {
+  "apec-egeda-power-generation": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "ar-cammesa-renewables-database": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "at-apg-transparency": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "au-aemo-nem-unit-scada": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "licence",
+     "url": "https://www.aemo.com.au/privacy-and-legal-notices/copyright-permissions",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
+   "total": 4
+  },
+  "au-aemo-wem-facility-scada": {
+   "ok": 6,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "licence",
+     "url": "https://www.aemo.com.au/privacy-and-legal-notices/copyright-permissions",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
+   "total": 7
+  },
+  "au-open-electricity-api": {
+   "ok": 10,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 10
+  },
+  "ba-fzs-monthly-energy-indicators": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "be-elia-wind-production": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "bg-eso-generation-per-day": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "bo-cndc-realised-dispatch-by-plant": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "bq-cbs-electricity-production-by-island": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "br-ccee-hourly-generation-by-plant": {
+   "ok": 0,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://dadosabertos.ccee.org.br/dataset/geracao_horaria_usina",
+     "state": "unchecked",
+     "code": 403
+    },
+    {
+     "role": "docs",
+     "url": "https://dadosabertos.ccee.org.br/api/3/action/package_show?id=geracao_horaria_usina",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
+   "total": 2
+  },
+  "br-ons-capacity-factor": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "br-ons-generation-by-plant-hourly": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "br-ufsc-pedra-do-sal-beberibe-scada": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "ca-ab-aeso-metered-volumes": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "ca-on-ieso-generator-output": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "ca-qc-hydroquebec-generation-by-source": {
+   "ok": 6,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 6
+  },
+  "ca-statcan-monthly-generation-by-type": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "ch-bfe-wind-energy-plants": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "ch-energy-dashboard-swissgrid-production": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "cl-cen-generacion-real": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://portal.api.coordinador.cl/",
+     "state": "unchecked",
+     "code": null,
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+    }
+   ],
+   "total": 3
+  },
+  "cn-nbs-monthly-wind-generation": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "co-xm-simem-generation": {
+   "ok": 6,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 6
+  },
+  "cr-cence-generation-by-plant": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "cr-cence-monthly-energy-by-plant": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "cv-electra-production-by-island": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "cw-aqualectra-annual-report-wind-intake": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "cz-ceps-generation": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "cz-eru-electricity-operation-reports": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "de-netztransparenz-eeg-movement-data": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "de-smard": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "dk-dtu-norrekaer-enge-scada": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "dk-energinet-prodex-5min": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "dk-energinet-production-settlement": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "dk-ens-turbine-register": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "dk-orsted-offshore-operational-data": {
+   "ok": 0,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://orsted.com/en/offshore-wind/offshore-wind-data",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
+   "total": 1
+  },
+  "do-oc-daily-operation-report-by-plant": {
+   "ok": 6,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 6
+  },
+  "ec-arconel-annual-statistics": {
+   "ok": 3,
+   "broken": [
+    {
+     "role": "access",
+     "url": "https://arconel.gob.ec/publicaciones-estadistica-del-sector-electrico-2/",
+     "state": "broken",
+     "code": null,
+     "error": "host not found"
+    }
+   ],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "ee-elering-live-wind-parks": {
+   "ok": 1,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://dashboard.elering.ee/",
+     "state": "unchecked",
+     "code": 503
+    },
+    {
+     "role": "docs",
+     "url": "https://dashboard.elering.ee/assets/api-doc.html",
+     "state": "unchecked",
+     "code": 503
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://dashboard.elering.ee/api/system?start=2025-06-10T00:00:00.000Z&end=2025-06-10T02:00:00.000Z",
+     "state": "unchecked",
+     "code": 503
+    }
+   ],
+   "total": 4
+  },
+  "eg-eehc-annual-report-plant-generation": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "es-ree-esios-measured-generation": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://api.esios.ree.es/indicators",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
+   "total": 5
+  },
+  "es-ree-esios-real-time-wind": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://api.esios.ree.es/indicators",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
+   "total": 5
+  },
+  "es-ree-redata": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "eu-entsoe-actual-generation": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "eu-eurostat-nrg-bal-peh": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "eu-eurostat-nrg-cb-pem": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "eu-opsd-time-series": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "fi-fingrid-open-data": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "fr-engie-la-haute-borne-scada": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "fr-rte-eco2mix-national": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "fr-rte-eco2mix-regional": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "fr-smarteole-scada": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "gb-ace-lawrence-weston-scada": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "gb-altahullion-scada": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "gb-dtu-delabole-scada": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "gb-elexon-bmrs-fuel-type": {
+   "ok": 7,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 7
+  },
+  "gb-elexon-bmrs-unit-output": {
+   "ok": 7,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 7
+  },
+  "gb-hill-of-towie-scada": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "gb-kelmarsh-scada": {
+   "ok": 7,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 7
+  },
+  "gb-neso-embedded-wind": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "gb-ofgem-rer-roc-issuance": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "gb-penmanshiel-scada": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "ge-gse-electricity-balance": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "gr-dapeep-res-special-account-bulletin": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "gr-ipto-scada-unit-production": {
+   "ok": 6,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 6
+  },
+  "gr-underpin-wind-farm-scada": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "gt-amm-posdespacho-diario": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "hr-hops-wind-generation-reports": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "hu-mavir-wind-estimate-and-actual": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "ie-dkit-vestas-v52-scada": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "ie-eirgrid-smart-grid-dashboard": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://www.smartgriddashboard.com/DashboardService.svc/data?area=windactual&region=ALL&datefrom=26-Oct-2025+00:00&dateto=26-Oct-2025+23:45",
+     "state": "unchecked",
+     "code": 503
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://www.smartgriddashboard.com/DashboardService.svc/data?area=windactual&region=ALL&datefrom=15-Jun-2013+00:00&dateto=15-Jun-2013+00:15",
+     "state": "unchecked",
+     "code": 503
+    }
+   ],
+   "total": 6
+  },
+  "ie-semo-daily-meter-data": {
+   "ok": 7,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 7
+  },
+  "in-cea-daily-re-generation": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "is-hagstofa-public-power-plants": {
+   "ok": 2,
+   "broken": [
+    {
+     "role": "docs",
+     "url": "https://px.hagstofa.is/pxen/api/v1/en/Umhverfi/4_orkumal/2_framleidslaognotkun/IDN02101.px",
+     "state": "broken",
+     "code": null,
+     "error": "host not found"
+    }
+   ],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "it-terna-download-centre": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "jm-mset-energy-statistics": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "jp-tso-area-supply-demand": {
+   "ok": 7,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 7
+  },
+  "ke-epra-energy-statistics-report": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "kr-kospo-hankyung-wind-hourly": {
+   "ok": 1,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 1
+  },
+  "kr-kowepo-hwasun-turbine-scada": {
+   "ok": 1,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 1
+  },
+  "kr-kowepo-jangheung-turbine-scada": {
+   "ok": 1,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 1
+  },
+  "kr-kpx-hourly-solar-wind-by-region": {
+   "ok": 1,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 1
+  },
+  "lac-olacde-sielac": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "lt-litgrid-open-data-wind": {
+   "ok": 6,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 6
+  },
+  "lu-statec-monthly-electricity-supply": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "docs",
+     "url": "https://lustat.statec.lu/rest/data/LU1,DSD_NRG@DF_A4102,1.0/all?format=csvfilewithlabels",
+     "state": "unchecked",
+     "code": 416
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://lustat.statec.lu/rest/data/LU1,DF_A4203,1.0/all?format=csvfilewithlabels",
+     "state": "unchecked",
+     "code": 416
+    }
+   ],
+   "total": 4
+  },
+  "lv-ast-power-system-state": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "lv-csb-monthly-electricity-production": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "lv-csb-renewable-electricity-by-municipality": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "ma-mtedd-chiffres-cles-energie": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "mu-statsmauritius-electricity-generation": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "mx-cenace-generation-by-technology": {
+   "ok": 1,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 1
+  },
+  "ni-cndc-posdespacho-energia": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "nl-cbs-electricity-balance-monthly": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "nl-cbs-onshore-wind-by-province": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "no-nve-wind-production-per-plant": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "nordic-esett-production-volumes": {
+   "ok": 7,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 7
+  },
+  "nz-ea-emi-generation-md": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "pa-asep-monthly-market-statistics": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [
+    {
+     "role": "trap evidence (an error is expected)",
+     "url": "https://www.asep.gob.pa/wp-content/uploads/electricidad/estadisticas_mensuales/2013/ENERO_2013.pdf",
+     "state": "recheck",
+     "code": 200,
+     "final": null
+    }
+   ],
+   "unchecked": [],
+   "total": 5
+  },
+  "pe-coes-generation-by-plant": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "pk-cppa-fca-wind-per-plant": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "pl-pse-wind-generation": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "pt-ren-datahub-production-breakdown": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "ro-transelectrica-sen-production": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "rs-ems-annual-technical-report": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "se-energimyndigheten-wind-statistics": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://pxexternal.energimyndigheten.se/",
+     "state": "unchecked",
+     "code": null,
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+    }
+   ],
+   "total": 3
+  },
+  "se-svk-mimer-production": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "si-surs-monthly-electricity": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "licence",
+     "url": "https://www.stat.si/StatWeb/en/StaticPages/Index/Copyright",
+     "state": "unchecked",
+     "code": null,
+     "error": "[Errno 54] Connection reset by peer"
+    }
+   ],
+   "total": 3
+  },
+  "sn-senelec-annual-report": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "tn-onem-conjoncture-energetique": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 2
+  },
+  "tr-epias-transparency": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "tw-taipower-unit-generation": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://data.gov.tw/dataset/8931",
+     "state": "unchecked",
+     "code": 500
+    },
+    {
+     "role": "docs",
+     "url": "https://data.gov.tw/dataset/37331",
+     "state": "unchecked",
+     "code": 500
+    }
+   ],
+   "total": 5
+  },
+  "us-bpa-wind-generation": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "us-caiso-renewables-outlook": {
+   "ok": 6,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 6
+  },
+  "us-eia-923-plant-generation": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "us-eia-930-hourly": {
+   "ok": 7,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 7
+  },
+  "us-isone-daily-generation-by-fuel": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "us-miso-wind-generation": {
+   "ok": 6,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 6
+  },
+  "us-nyiso-fuel-mix": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "us-pjm-wind-generation": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "uy-adme-hourly-by-plant": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "world-ei-statistical-review": {
+   "ok": 2,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://www.energyinst.org/statistical-review/resources-and-data-downloads",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
+   "total": 3
+  },
+  "world-eia-international": {
+   "ok": 4,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 4
+  },
+  "world-ember-monthly": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "world-ember-yearly": {
+   "ok": 5,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 5
+  },
+  "world-iea-monthly-electricity-statistics": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "world-irena-irenastat": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "world-unsd-energy-statistics": {
+   "ok": 3,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 3
+  },
+  "za-eskom-data-portal": {
+   "ok": 6,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [],
+   "total": 6
+  }
+ }
+}

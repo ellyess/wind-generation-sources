@@ -1,0 +1,55 @@
+id: dk-orsted-offshore-operational-data
+name: Ørsted offshore wind operational data packages (Anholt and Westermost Rough)
+publisher: Ørsted
+publisher_role: owner-operator
+countries: [DK, GB]
+area: Anholt offshore wind farm (Denmark) and Westermost Rough offshore wind farm (England, 35 turbines)
+level: turbine
+technology: offshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2015
+  update: fixed two-year packages; calendar years not stated by the publisher
+capacity: none
+coordinates: included
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: unknown
+  value: unknown
+  evidence: "https://orsted.com/en/offshore-wind/offshore-wind-data"
+  note: >-
+    The page describes "2 years of 10-minute SCADA data" including "electrical power" but gives
+    no unit, time zone, stamp convention or statistic, and the data were not seen. Read 2026-11-06 by an
+    automated research pass; not yet reviewed.
+access:
+  method: request
+  url: https://orsted.com/en/offshore-wind/offshore-wind-data
+  key_required: false
+  registration: true
+  languages: [en]
+licence:
+  name: Standard Ørsted non-disclosure agreement (not published)
+  url: https://orsted.com/en/offshore-wind/offshore-wind-data
+  redistribution: prohibited
+  verified: true
+  note: >-
+    The page limits access to non-commercial projects at universities or research institutes,
+    under a standard non-disclosure agreement that Ørsted will not modify. The agreement text is
+    not on the page, so publication terms for results were not read.
+notes: >-
+  Ørsted offers two operational data packages, each with two years of 10-minute SCADA
+  (supervisory control and data acquisition) data for all turbines: nacelle wind speed,
+  electrical power, rotor speed, yaw position and pitch angle, with on-site wave buoy and
+  ground-based lidar statistics, turbine locations and SCADA documentation. Applications go
+  through a form on the page only; requests for extra variables are rejected. The 2018 Ørsted news
+  release on Westermost Rough (35 Siemens Gamesa 6 MW turbines, running since 2015) also mentions
+  earlier sharing of Horns Rev 1 data. Coverage start is a lower bound for Westermost Rough taken
+  from that release; the publisher gives no calendar years for either package, and Anholt's
+  package may start earlier. Listed so readers know the route exists; data were not seen.
+status: restricted
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

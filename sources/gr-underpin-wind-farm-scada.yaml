@@ -1,0 +1,81 @@
+id: gr-underpin-wind-farm-scada
+name: Six-Month Monitoring Dataset from a 10-Turbine Onshore Wind Farm in Greece
+publisher: UNDERPIN project (Ntafalias, Visvardi and Weißenfeld, via Zenodo)
+publisher_role: research
+countries: [GR]
+area: An unnamed 10-turbine onshore wind farm in Greece
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2020
+  end: 2020
+  update: fixed release (December 2024); covers 1 January to 30 June 2020
+capacity: none
+coordinates: none
+curtailment: reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: unknown
+  value: period-mean
+  evidence: https://zenodo.org/records/14546480
+  note: >-
+    The Zenodo record describes the data only as SCADA records from 1 January to 30 June 2020; it
+    states no time zone and does not say whether a stamp marks the start or end of each 10-minute
+    interval. The power column is headed 'Grid Production Power Avg. [W]', so each value is a
+    10-minute average, but the magnitudes (peaks near 3,001 per turbine of about 3 MW) fit kW, not W
+    (see the trap). Unit is recorded as unknown because the publisher's label and the values disagree.
+    Read 2026-11-06 by an automated research pass; not yet reviewed. Checked again 2026-11-07:
+    the record still states no zone, so timezone stays unknown. The data rule out Greek local
+    time: sheets WT01_data.csv and WT07_data.csv each have 26,208 stamps on an unbroken
+    10-minute grid, including 03:00 to 03:50 on 29 March 2020, the hour Greek clocks skipped,
+    with no repeats. UTC and fixed UTC+02:00 both fit.
+access:
+  method: bulk-download
+  url: https://doi.org/10.5281/zenodo.14546479
+  docs: https://zenodo.org/records/14546480
+  key_required: false
+  registration: false
+  formats: [xlsx]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://zenodo.org/records/14546480
+  redistribution: allowed-with-attribution
+  attribution: Cite the Zenodo record (Ntafalias, A., Visvardi, S., Weißenfeld, A., doi:10.5281/zenodo.14546480).
+  verified: true
+  note: The licence is the one shown on the Zenodo record. The farm's owner is not named.
+traps:
+  - summary: Power columns are labelled in watts but hold kilowatts.
+    detail: >-
+      'Grid Production Power Avg. [W]' peaks at about 3,001 for each turbine, which only makes
+      sense as kW for turbines of about 3 MW. The same unit label is on the possible power and
+      reactive power columns.
+    evidence: https://zenodo.org/records/14546480
+    found: 2026-11-06
+  - summary: The farm, turbine model and time zone are not identified.
+    detail: >-
+      The record says only 'located in Greece'. There are no coordinates, rated power or turbine
+      model, and timestamps carry no time zone, so matching to weather data is approximate.
+      Added 2026-11-07, observed in the data rather than documented: the stamps are not Greek
+      local time, because the WT01 and WT07 data sheets hold rows for 2020-03-29 03:00 to 03:50,
+      an hour Greek clocks skipped. Do not convert them from Europe/Athens; UTC and a fixed
+      UTC+02:00 both fit.
+    evidence: https://zenodo.org/records/14546480
+    found: 2026-11-06
+notes: >-
+  A sample of wind farm SCADA (supervisory control and data acquisition) data from the UNDERPIN
+  industrial data space project: one xlsx workbook (181 MB) with a data sheet and an alarm and
+  event log sheet for each of ten turbines (WT01 to WT10; the sheets are named as .csv files).
+  Each data sheet has 132 ten-minute signals, including active, reactive and possible power,
+  grid voltages and currents, wind speed and direction, and component temperatures. Checked by
+  downloading the workbook: WT01 and WT02 each have 26,208 ten-minute rows from 2020-01-01 00:00
+  to 2020-06-30 23:50, with power values that differ. Possible power is published alongside
+  actual power, so curtailed or lost output can be estimated.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

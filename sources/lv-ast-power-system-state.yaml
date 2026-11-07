@@ -1,0 +1,79 @@
+id: lv-ast-power-system-state
+name: AST Power System State, types of production (Latvia)
+publisher: Augstsprieguma tīkls (AST), Latvian transmission system operator
+publisher_role: tso
+countries: [LV]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2010
+  update: near real time
+capacity: none
+coordinates: not-applicable
+curtailment: unknown
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://www.ast.lv/en/content/power-system-state
+  note: >-
+    The page labels the production chart in MW and warns that its data are 'not completely accurate
+    and instantaneous'. The JSON behind the chart gives epoch milliseconds, which are UTC by
+    definition; for 26 October 2025 the 24 stamps start at 2025-10-25T21:00Z (local midnight, UTC+3)
+    in even hourly steps, so the repeated autumn hour is absent (see trap). AST does not say whether
+    a value is an hourly average or a reading, or which end of the hour the stamp marks. The XLS and
+    CSV exports were not checked. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: portal
+  url: https://www.ast.lv/en/content/power-system-state
+  key_required: false
+  registration: false
+  formats: [json, xls, csv]
+  languages: [lv, en]
+licence:
+  name: No data licence found
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use or reuse licence were found on ast.lv on 2026-11-06; the footer links only to
+    a privacy notice. The page says its data are for informational and educational purposes and
+    must not be a basis for investment or claims against AST.
+traps:
+  - summary: AST says the page's data are "not completely accurate", and the hourly wind sums fall well short of AST's own monthly totals.
+    detail: >-
+      The page recommends the ENTSO-E Transparency Platform for market data. September 2026 sums
+      to 43.9 GWh against 51 GWh in AST's monthly market overview, and September 2025 to 8.1 GWh
+      against about 15 GWh, so the hourly series misses part of the fleet (perhaps distribution-
+      connected farms; AST does not say). Use it for shape, not energy totals.
+    evidence: https://www.ast.lv/en/content/power-system-state
+    found: 2026-11-06
+  - summary: January to October 2017 is almost entirely missing.
+    detail: >-
+      Requests for 2017 returned two hours in January, 21 in September and nothing for February
+      to August or October; full months resume in November 2017.
+    evidence: https://www.ast.lv/en/ajax/charts/generations-daily?generationsDate=2017-02-01&generationsDateTo=2017-02-28
+    found: 2026-11-06
+  - summary: The repeated hour at the autumn clock change is dropped, so October has 744 hourly values instead of 745.
+    detail: >-
+      26 October 2025 returns 24 values and 30 March 2025 returns 23. Timestamps are epoch
+      milliseconds, so align on those rather than on a count of rows.
+    evidence: https://www.ast.lv/en/ajax/charts/generations-daily?generationsDate=2025-10-26&generationsDateTo=2025-10-26
+    found: 2026-11-06
+notes: >-
+  Hourly MW by production type (Wind, Hydro, Thermal, Other, plus solar forecasts but no actual
+  solar), drawn as a chart with client-side XLS and CSV export. The chart reads a JSON endpoint,
+  /en/ajax/charts/generations-daily?generationsDate=YYYY-MM-DD&generationsDateTo=YYYY-MM-DD,
+  which answered requests of a full month. Checked by requesting days and months in 2010, 2014,
+  2019, 2023, 2025 and 2026 and seeing different values; 2009 returned no wind series, and the
+  first months of 2010 carry small values, so 2010 is the first year seen. ast.lv sits behind
+  Cloudflare and refused plain command-line requests (HTTP 403) but loaded in a browser. AST's
+  monthly Latvian electricity market overview (https://www.ast.lv/en/electricity-market-review,
+  from 2015) gives monthly wind GWh in its text and matches the Central Statistical Bureau's
+  monthly table (lv-csb-monthly-electricity-production).
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

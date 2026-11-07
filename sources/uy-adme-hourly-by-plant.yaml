@@ -13,6 +13,17 @@ coverage:
 capacity: none
 coordinates: none
 curtailment: unknown
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MWh
+  value: period-total
+  evidence: https://adme.com.uy/controlpanel.php
+  note: >-
+    The CSV heads its columns "Inyecciones (MWh)" and "Extracciones (MWh)", and the panel says "Los
+    valores se muestran en MWh". Rows are stamped like "01-09-2026 01:00" and a month's first row is
+    01:00, which suggests hour-ending labels, but ADME states neither that nor the time zone. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: portal
   url: https://adme.com.uy/controlpanel.php
@@ -34,18 +45,32 @@ traps:
       requested file name. Check the dates in the file, not the name.
     evidence: https://www.adme.com.uy/panelControl/variables_excel.php?anod=2015&mesd=03&anoh=2015&mesh=03&periodo=1&tipo=1&central%5B%5D=65
     found: 2026-11-06
-  - summary: Some large wind farms read zero all month, which looks like no output rather than missing data.
+  - summary: >-
+      Asking for several plants in one request gives a correct series only for the first plant
+      column; the others read zero or close to it, which looks like a farm with no output.
     detail: >-
-      In March 2025 and September 2026, Pampa and Valentines (wind farms) were
-      0 or close to it in every hour, while Artilleros and Florida I had normal values. Drop
-      plants whose series are near-zero before using the file.
+      Corrected 2026-11-07: this trap first said Pampa and Valentines read zero all month while
+      Artilleros and Florida I were normal, and advised dropping near-zero plants. Rechecking on
+      2026-11-07 showed the zeros come from how the request is made. For March 2025, Pampa (panel
+      id 119) requested alone sums to 29,887 MWh and Valentines (128) alone to 16,335 MWh. In the
+      three-plant request below (ids 65, 128, 119) the columns come back as Florida I 10,490 MWh,
+      Pampa 30 MWh and Valentines 0 MWh. Florida I alone is 10,490 MWh, but beside Artilleros
+      (ids 5 and 65) it reads 14 MWh while Artilleros keeps its 11,027 MWh; first rows of that
+      file: "01-03-2025 01:00;54.173;54.173;0.036;0.036;" then
+      "01-03-2025 02:00;21.367;21.367;0;0;". September 2026 shows the same: Pampa 36,814 MWh
+      alone, Valentines 20,345 MWh alone, but 15 MWh for Valentines beside Pampa. The first column
+      in the file is not always the first plant in the request (ids 128 then 119 came back Pampa
+      first), so check which plant is first. Request one plant at a time.
     evidence: https://www.adme.com.uy/panelControl/variables_excel.php?anod=2025&mesd=03&anoh=2025&mesh=03&periodo=1&tipo=1&central%5B%5D=65&central%5B%5D=128&central%5B%5D=119
     found: 2026-11-06
   - summary: The CSV can start with PHP warning text, and the injection and extraction columns are identical.
     detail: >-
       Several requests returned HTML warning lines before the semicolon-separated table. Skip
       lines until the plant-name header. "Inyecciones" and "Extracciones" matched in every row
-      checked, so use one.
+      checked, so use one. Rechecked 2026-11-07: the warnings ("Undefined array key 2 in
+      .../variables_excel.php on line 314") appeared in the three-plant request below (2,896
+      lines before the header) and in the same request for March 2025, but not in any one-plant
+      or two-plant request tried.
     evidence: https://www.adme.com.uy/panelControl/variables_excel.php?anod=2026&mesd=09&anoh=2026&mesh=09&periodo=1&tipo=1&central%5B%5D=65&central%5B%5D=128&central%5B%5D=119
     found: 2026-11-06
 notes: >-
@@ -60,3 +85,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

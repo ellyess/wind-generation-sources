@@ -1,0 +1,2 @@
+entry,market,unit_id,unit_name,unit_capacity_mw,unit_capacity_kind,status,method,score,location_source,farm_name,farm_state,farm_capacity_mw,farm_capacity_ratio,lat,lon,osm_url,repd_id,wikidata,runner_up,notes
+gb-kelmarsh-scada,gb-kelmarsh-scada,Kelmarsh,Kelmarsh,12.3,registered,published,publisher,,publisher,Kelmarsh,,,,52.40146,-0.9431,,,,,"Lat/lon is the mean of the six turbines (Kelmarsh 1 to 6) in Kelmarsh_WT_static.csv; capacity is 6 x 2,050 kW Senvion MM92 from the same file. Northamptonshire, England."

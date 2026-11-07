@@ -14,6 +14,18 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MWh
+  value: period-total
+  evidence: https://www.cenace.gob.mx/Paginas/SIM/Reportes/EnergiaGeneradaTipoTec.aspx
+  note: >-
+    The CSV returned by the page's form (September 2026, run L0) is titled 'Estadistica de la
+    Energia Generada Liquidada Agregada (MWh) Intermitente y Firme por Tipo de Tecnologia', with
+    columns Sistema, Dia, Hora and one per technology (Eolica for wind); hours run 1 to 24 for each
+    day. Neither the file nor the page states the time zone or whether hour 1 is the hour ending at
+    01:00. Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: portal
   url: https://www.cenace.gob.mx/Paginas/SIM/Reportes/EnergiaGeneradaTipoTec.aspx
@@ -58,3 +70,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

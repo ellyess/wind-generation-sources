@@ -1,0 +1,81 @@
+id: ec-arconel-annual-statistics
+name: Estadística Anual y Multianual del Sector Eléctrico Ecuatoriano (annual and multi-year electricity statistics)
+publisher: Agencia de Regulación y Control de Energía y Recursos Naturales No Renovables (ARCONEL, formerly ARCERNNR), the Ecuadorian energy regulator
+publisher_role: regulator
+countries: [EC]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2005
+  update: annual (the 2025 edition was posted in April 2026)
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: "https://arconel.gob.ec/wp-content/uploads/downloads/2026/04/Estadistica-2025.pdf"
+  note: >-
+    The 2025 edition reports wind generation in GWh per year, written with a comma decimal
+    separator (185,82 GWh). The monthly BNEE workbook is a rolling twelve-month total in GWh,
+    not a single month (see traps). Read 2026-11-06 by an automated research pass; not yet
+    reviewed.
+access:
+  method: bulk-download
+  url: https://arconel.gob.ec/publicaciones-estadistica-del-sector-electrico-2/
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [es]
+licence:
+  name: Reproduction allowed only with the editors' authorisation and correct citation
+  redistribution: link-only
+  verified: true
+  url: https://arconel.gob.ec/wp-content/uploads/downloads/2026/04/Estadistica-2025.pdf
+  note: >-
+    The imprint of the 2025 edition, read on 2026-11-06, says partial or total reproduction is
+    permitted provided it is authorised by the editors and the source is cited correctly. That is
+    a permission-on-request, not an open grant, so link to the publication and ask ARCONEL before
+    republishing figures in bulk.
+traps:
+  - summary: National wind is split between the interconnected system and the isolated Galápagos systems, and the headline totals include both.
+    detail: >-
+      The 2025 edition gives 188.31 GWh of gross wind generation: 185.82 GWh from generating
+      companies in the national interconnected system (SNI) and 2.49 GWh from the distribution
+      company in Galápagos. Choose which total matches the grid being modelled.
+    evidence: https://arconel.gob.ec/wp-content/uploads/downloads/2026/04/Estadistica-2025.pdf
+    found: 2026-11-06
+  - summary: The detail varies between editions; older editions have monthly wind by company type and per-plant figures that the 2025 edition drops.
+    detail: >-
+      The 2016 edition has a monthly production table by company type with a wind column (Table
+      35) and names the Galápagos wind plants with their gross energy (Baltra and San Cristóbal).
+      The 2025 edition gives only annual wind totals by company type and no plant names. Check each
+      edition rather than assuming the same tables.
+    evidence: https://arconel.gob.ec/wp-content/uploads/downloads/2025/01/Estadistica-anual-y-multianual-sector-electrico-2016.pdf
+    found: 2026-11-06
+  - summary: The monthly national balance spreadsheet is a rolling twelve-month total, not a monthly value.
+    detail: >-
+      The monthly BNEE (Balance Nacional de Energía Eléctrica) workbook is labelled "Año móvil con
+      corte a agosto 2026" and gives 205.04 GWh of wind for the twelve months to August 2026.
+      Differencing successive editions would be needed to recover single months, and revisions make
+      that unreliable.
+    evidence: https://arconel.gob.ec/wp-content/uploads/downloads/2026/11/BNEE_agosto_2026.xls
+    found: 2026-11-06
+notes: >-
+  Ecuador's system operator (CENACE) publishes daily operating data, but its public pages group
+  wind with other non-conventional renewables, and its market information system (SIMEM) needs a
+  digital certificate, so this regulator's statistics are the finest public wind series found.
+  The annual publications page lists PDF editions back to 2005; only the 2016 and 2025 editions
+  were opened, so the year wind first appears was not checked. The 2025 edition (99 pages) gives
+  wind generation in GWh by company type and the wind capacity history from 2016 to 2025 (21.15 MW
+  rising to 71.15 MW nominal). ARCONEL's business intelligence service (SisdatBI) needs a login and
+  reportes.arconel.gob.ec returned a server error on 2026-11-06. Figures have to be extracted from
+  PDF tables.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

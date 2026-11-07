@@ -14,6 +14,18 @@ coverage:
 capacity: none
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: period-start
+  unit: MW
+  value: unknown
+  evidence: https://dataminer2.pjm.com/feed/wind_gen/definition
+  note: >-
+    The feed definition lists "Datetime Beginning UTC", "Datetime Beginning EPT" (Eastern prevailing
+    time) and "Wind Generation MW" ("Wind Generation in MW"), described as hourly wind generation
+    amounts from settlements. It does not say whether the MW value is the hourly average; if it is,
+    it equals the MWh in that hour. PJM's instantaneous_wind_gen feed is a different series. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: api
   url: https://dataminer2.pjm.com/feed/wind_gen
@@ -56,3 +68,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

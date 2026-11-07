@@ -1,0 +1,79 @@
+id: dk-dtu-norrekaer-enge-scada
+name: SCADA data from Norre_m2 wind farm (Nørrekær Enge II)
+publisher: DTU Wind Energy, Technical University of Denmark (via DTU Data)
+publisher_role: research
+countries: [DK]
+area: Nørrekær Enge II wind farm, North Jutland (42 Nordtank NTK 300 turbines)
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 1992
+  end: 1993
+  update: fixed historical release (January 2022)
+capacity: separate-dataset
+coordinates: separate-dataset
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: kW
+  value: period-mean
+  evidence: https://gitlab.windenergy.dtu.dk/fair-data/winddata-revamp/winddata-documentation/-/blob/master/norre_m2.md
+  note: >-
+    The site documentation describes the data as "a continous record of mean statistics" and
+    lists the public data as "Run statistics (NetCDF)". In norre_m2_concurent.nc the power
+    variables have units "kW" (DEIF watt converters) and time has units "minutes since
+    1992-03-02 18:01:00" with no time zone, so the zone is not stated anywhere checked; the
+    first stamps fall on minute 1 of the ten (18:01, 18:31, 18:41). The Risø report the file
+    cites (Risø-R-1299, doi:10.5281/zenodo.4580573) names run files by their start time and
+    gives run lengths of 600 to 3600 seconds, but does not say what the NetCDF time marks. Read
+    2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://doi.org/10.11583/DTU.19076756
+  docs: https://gitlab.windenergy.dtu.dk/fair-data/winddata-revamp/winddata-documentation/-/blob/master/norre_m2.md
+  key_required: false
+  registration: false
+  formats: [netcdf]
+  languages: [en]
+licence:
+  name: "CC BY 4.0 on the DTU Data record; CC BY NC 4.0 inside the NetCDF files"
+  url: https://doi.org/10.11583/DTU.19076756
+  redistribution: non-commercial-only
+  attribution: Cite Hansen, K.S., Vasiljević, N. and Sørensen, S.A. (2022), SCADA data from Norre_m2 wind farm, DTU, doi:10.11583/DTU.19076756.
+  verified: true
+  note: >-
+    The repository record states CC BY 4.0, but the files' global attributes say 'CC BY NC 4.0'
+    and that users must contact DTU Wind Energy before any commercial use. The stricter reading is
+    recorded here until DTU resolves the conflict.
+traps:
+  - summary: The licence on the repository record and the licence inside the files disagree.
+    detail: >-
+      DTU Data lists CC BY 4.0. The NetCDF attributes give license 'CC BY NC 4.0' and a
+      distribution statement requiring contact with DTU Wind Energy before commercial use.
+    evidence: https://doi.org/10.11583/DTU.19076756
+    found: 2026-11-06
+  - summary: The files hold power for 40 turbines although the description says 42.
+    detail: >-
+      norre_m2_concurent.nc has 40 active power variables (a2 to f7, with a1 and f6 absent). Many
+      turbine positions in the site documentation are placeholders of (1,1,0), so the layout has
+      to be taken from the drawings or the Risø report rather than the coordinate list.
+    evidence: https://gitlab.windenergy.dtu.dk/fair-data/winddata-revamp/winddata-documentation/-/blob/master/norre_m2.md
+    found: 2026-11-06
+notes: >-
+  Early 1990s research measurements from a Risø (now DTU Wind Energy) wake and loads programme:
+  10-minute active power, nacelle wind speed and yaw position for each turbine, with two 58 m met
+  masts. Two files: norre_m2_all.nc (151 MB, all records) and norre_m2_concurent.nc (12 MB, times
+  when all signals are present). Checked by downloading the concurrent file: 8,703 records from
+  1992-03-02 to 1993-06-24, 40 per-turbine power series in kW measured by DEIF watt converters,
+  whose values differ between turbines; most steps are 10 minutes, with gaps. The full file was
+  not downloaded. Turbine model, rating (330 kW per the site page) and local x-y positions are
+  in the site documentation, not the data files. Useful for long-range checks of old reanalysis
+  periods or for wake studies, not for current fleet output. The time zone is not stated in the
+  files.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

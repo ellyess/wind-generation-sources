@@ -1,0 +1,57 @@
+id: sn-senelec-annual-report
+name: Senelec annual report (Rapport annuel), energy production and purchases
+publisher: Senelec (Société nationale d'électricité du Sénégal)
+publisher_role: utility
+countries: [SN]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2019
+  update: annual
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://www.senelec.sn/media/rapports/pdf/rapport-annuel-senelec-20241760024319_1.pdf
+  note: >-
+    The 2024 report's table "Production par Sources d'énergie (GWh)" gives Eolien as 382.47 GWh for
+    2023 and 373.83 GWh for 2024. Installed capacity is in MW in a separate table. Read 2026-11-06
+    by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.senelec.sn/rapports/
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [fr]
+licence:
+  name: "Site footer only: \"Tous droits réservés par la SENELEC\""
+  url: https://www.senelec.sn/
+  redistribution: unclear
+  verified: false
+  note: No reuse terms were found; the site footer claims all rights reserved.
+traps:
+  - summary: The 2020 report gives two different figures for the wind farm's 2020 energy.
+    detail: >-
+      The energy purchases table lists Parc Eolien Taiba Ndiaye at 217.39 GWh for 2020, while
+      the production-by-source table gives wind as 178.58 GWh for the same year. The later
+      reports agree with themselves (382.47 GWh in 2023, 373.83 GWh in 2024). Which 2020 number
+      is metered injection was not established.
+    evidence: https://www.senelec.sn/media/rapports/pdf/rapport-annuel-senelec-2020-ok1693835980.pdf
+    found: 2026-11-06
+notes: >-
+  Senegal has one grid wind farm, Taïba Ndiaye (158.7 MW), so the report's wind row is both the
+  farm and the national total. The 2024 report gives energy injected into the interconnected grid
+  (373.83 GWh in 2024, 382.48 GWh in 2023) and the farm's annual availability (96.07%), plus
+  installed capacity by source. Coverage starts with the farm's first energy (23.13 GWh in 2019,
+  quoted in the 2020 report). Reports on the page cover 2019 to 2024.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

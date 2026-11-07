@@ -1,0 +1,88 @@
+id: world-irena-irenastat
+name: IRENASTAT electricity statistics by country/area, technology, data type, grid connection and year
+publisher: International Renewable Energy Agency (IRENA)
+publisher_role: statistics-office
+countries: [AE, AF, AM, AR, AT, AU, AW, AZ, BA, BB, BD, BE, BG, BH, BO, BQ, BR, BS, BT, BY, BZ, CA, CH, CK, CL, CN, CO, CR, CU, CV, CW, CY, CZ, DE, DJ, DK, DM, DO, DZ, EC, EE, EG, ER, ES, ET, FI, FJ, FK, FM, FO, FR, GB, GD, GE, GH, GL, GM, GP, GR, GS, GT, GU, GY, HK, HN, HR, HT, HU, ID, IE, IL, IN, IR, IS, IT, JM, JO, JP, KE, KH, KN, KP, KR, KW, KY, KZ, LB, LK, LT, LU, LV, MA, MD, ME, MG, MH, MK, MM, MN, MQ, MR, MT, MU, MV, MX, NA, NC, NI, NL, NO, NP, NZ, OM, PA, PE, PF, PH, PK, PL, PM, PR, PT, PY, RE, RO, RS, RU, SA, SC, SE, SG, SI, SK, SN, SO, SV, SY, TD, TH, TK, TN, TO, TR, TT, TW, TZ, UA, US, UY, UZ, VE, VG, VI, VN, VU, WS, ZA]
+area: >-
+  The table has 224 countries and areas; the 157 listed in countries had a non-zero onshore or
+  offshore wind generation value in at least one year on the check date. Kosovo also has wind
+  generation but no ISO 3166-1 code. Regional totals are in a separate table.
+level: country
+technology: onshore-and-offshore-split
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2000
+  update: twice a year (the 2026 H2 table was updated 28 September 2026)
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://pxweb.irena.org/api/v1/en/IRENASTAT/Power%20Capacity%20and%20Generation/Country_ELECSTAT_2026_H2_PX.px
+  note: >-
+    The table's data type "Electricity Generation (GWh)" is given per year, alongside "Electrical
+    Installed Capacity (MW)". Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://pxweb.irena.org/pxweb/en/IRENASTAT/IRENASTAT__Power%20Capacity%20and%20Generation/Country_ELECSTAT_2026_H2_PX.px/
+  docs: https://pxweb.irena.org/api/v1/en/IRENASTAT/Power%20Capacity%20and%20Generation/
+  key_required: false
+  registration: false
+  formats: [json, px]
+  languages: [en, es, fr]
+licence:
+  name: "No licence found; the query tool footer reads 'All Rights Reserved'"
+  url: https://pxweb.irena.org/pxweb/en/IRENASTAT/
+  redistribution: unclear
+  verified: false
+  note: >-
+    The PxWeb footer says "© IRENA - International Renewable Energy Agency. All Rights Reserved."
+    and the PX file header says COPYRIGHT=NO. IRENA's main site (irena.org), where any terms of
+    use would be, returned 403 to every request on the check date, so no reuse terms were read.
+    The citation the table gives is "IRENA (2026), Renewable Energy Statistics 2026,
+    International Renewable Energy Agency (IRENA), Abu Dhabi."
+traps:
+  - summary: South Africa's onshore wind generation is about 30 times too low in 2022-2024.
+    detail: >-
+      IRENASTAT gives 331 GWh for 2024 (300 GWh for 2023) against 3,442 MW installed, a capacity
+      factor near 1%. Ember's monthly series sums to 11.1 TWh for 2024. Found by the catalogue's
+      annual cross-check on 2026-11-06; compare any single country against a second source
+      before use.
+    evidence: https://pxweb.irena.org/pxweb/en/IRENASTAT/IRENASTAT__Power%20Capacity%20and%20Generation/Country_ELECSTAT_2026_H2_PX.px/
+    found: 2026-11-06
+  - summary: The latest year of generation is preliminary and, per IRENA, "not accurate at aggregate levels".
+    detail: >-
+      The table note says 2024 electricity generation is preliminary. Generation runs to 2024 while
+      capacity runs to 2025, so the 2025 generation cells are empty.
+    evidence: https://pxweb.irena.org/pxweb/en/IRENASTAT/IRENASTAT__Power%20Capacity%20and%20Generation/Country_ELECSTAT_2026_H2_PX.px/
+    found: 2026-11-06
+  - summary: Generation is gross and includes off-grid and self-consumed output, so it runs above transmission-operator series.
+    detail: >-
+      The table note defines generation as gross output measured at the generator terminals,
+      including on-grid and off-grid generation and electricity self-consumed in energy
+      industries. Select Grid connection = All, On-grid or Off-grid explicitly.
+    evidence: https://pxweb.irena.org/pxweb/en/IRENASTAT/IRENASTAT__Power%20Capacity%20and%20Generation/Country_ELECSTAT_2026_H2_PX.px/
+    found: 2026-11-06
+  - summary: The table file name changes with each half-yearly release.
+    detail: >-
+      The current table is Country_ELECSTAT_2026_H2_PX.px; earlier links point at older
+      releases. List the folder through the API to find the current one.
+    evidence: https://pxweb.irena.org/api/v1/en/IRENASTAT/Power%20Capacity%20and%20Generation/
+    found: 2026-11-06
+notes: >-
+  Annual electricity generation (GWh) and installed capacity (MW) by country, technology and grid
+  connection, from 2000, with onshore and offshore wind as separate technologies (19 countries had
+  offshore generation). IRENA compiles it from its annual questionnaire to national focal points
+  and other official sources; whether a given cell is a national figure or an IRENA estimate is not
+  flagged in the table. Some small territories (for example South Georgia, Tokelau) carry small
+  wind values. Checked by querying the PxWeb API (POST, json-stat2, no key) for onshore and
+  offshore wind generation and capacity in every country on the check date. Useful for its breadth
+  and its capacity denominator; for any single country, prefer the national source.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

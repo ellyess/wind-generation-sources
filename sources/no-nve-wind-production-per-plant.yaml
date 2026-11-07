@@ -13,6 +13,21 @@ coverage:
 capacity: separate-dataset
 coordinates: separate-dataset
 curtailment: not-reported
+conventions:
+  timezone: "UTC+01:00"
+  timestamp: unknown
+  unit: unknown
+  value: unknown
+  evidence: https://www.nve.no/media/13399/vindprod2002-2021_kraftverk_utcplus1.xlsx
+  note: >-
+    The file name ending 'utcplus1' is the only statement of the time base; stamps run hourly from
+    2002-01-01 00:00 in a column headed 'timestamp', under rows of plant name (kraftverknavn) and
+    number (kraftverknr). The sheet gives no unit and does not say whether a value is an hourly
+    energy or an average, or which end of the hour the stamp marks, and no NVE page describing the
+    file was found. A Meventus report for NVE
+    (https://www.nve.no/media/13401/mev-ws-2022-001-vind-og-produksjonsindekser-for-vindkraft-i-norge-2021.pdf)
+    describes the underlying data as hourly aggregated production per plant registered by Statnett
+    at the feed-in point. Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.nve.no/media/13399/vindprod2002-2021_kraftverk_utcplus1.xlsx

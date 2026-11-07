@@ -15,6 +15,24 @@ coverage:
 capacity: included
 coordinates: included
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: unknown
+  value: period-mean
+  evidence: "https://zenodo.org/records/7342466"
+  note: >-
+    The archive's ReadMe.xlsx lists active_power for turbines 1 to 7 with average, minimum,
+    maximum, standard deviation and count "over the 1-min period" (columns active_power_1_avg
+    and so on), and describes the time column only as "Timestamp" (for example 2020-02-17
+    16:30:00, no zone). Neither the ReadMe nor the CSV header gives a unit for active power;
+    values near 2,000 for 2.05 MW turbines read as kW, but the unit is recorded as unknown until
+    stated. Read 2026-11-06 by an automated research pass; not yet reviewed. Checked again
+    2026-11-07: the Zenodo description, the ReadMe and the Simley et al. (2021) paper state no
+    time zone, so timezone stays unknown. The data rule out French local time: the SCADA,
+    control log and WindCube files each hold all 60 minutes from 02:00 to 02:59 on 29 March
+    2020, an hour French clocks skipped, with no repeated stamps. UTC and fixed UTC+01:00 both
+    fit (see the trap).
 access:
   method: bulk-download
   url: https://doi.org/10.5281/zenodo.7342466
@@ -48,6 +66,18 @@ traps:
       experiment and not normal operation.
     evidence: https://wes.copernicus.org/articles/6/1427/2021/wes-6-1427-2021.html
     found: 2026-11-06
+  - summary: The time stamps are not French local time, and the dataset does not say which zone they are in.
+    detail: >-
+      Observed in the data, not documented. The ReadMe describes "time" only as "Timestamp", and
+      the values carry no zone. SMARTEOLE_WakeSteering_SCADA_1minData.csv, the control log and the
+      WindCube file all have a row for every minute from 2020-03-29 02:00:00 to 02:59:00, the hour
+      that did not exist on French clocks when summer time began, and none repeats. Reading them
+      as Europe/Paris would fail or shift the series by an hour after 29 March. They fit UTC or a
+      fixed UTC+01:00; the record does not say which, so an alignment with weather data may be
+      an hour out. Found by an automated research pass on 2026-11-07; not yet reviewed by a
+      person.
+    evidence: https://zenodo.org/records/7342466
+    found: 2026-11-07
 tools:
   - name: wind-up
     url: https://github.com/resgroup/wind-up
@@ -63,3 +93,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

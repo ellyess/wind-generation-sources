@@ -16,6 +16,13 @@ jobs:
       - run: uv run wgs validate
       - run: uv run pytest -q
       - run: uv run wgs build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci && npm run check && npm run build
+        working-directory: web
 
   pages:
     if: github.ref == 'refs/heads/main'
@@ -31,8 +38,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - run: uv sync && uv run wgs build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci && npm run build
+        working-directory: web
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site/dist
+          path: web/dist
       - id: deploy
         uses: actions/deploy-pages@v4

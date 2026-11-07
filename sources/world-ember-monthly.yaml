@@ -17,6 +17,15 @@ coverage:
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: TWh
+  value: period-total
+  evidence: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_monthly_global.csv
+  note: >-
+    Values are in the "Generation (TWh)" column; months are labelled by their first day ("Date"
+    2019-01-01 for January 2019). Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://ember-energy.org/data/monthly-electricity-data/
@@ -83,3 +92,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

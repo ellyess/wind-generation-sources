@@ -14,6 +14,20 @@ coverage:
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: reported
+conventions:
+  timezone: Europe/Dublin
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V9.xlsx
+  note: >-
+    The dashboard JSON gives 'EffectiveTime' stamps such as '15-Jan-2024 00:15:00' with no zone, and
+    the wind page gives values in MW 'in 15 minute intervals' as an estimate of all wind farms'
+    output. EirGrid's quarter-hourly system data workbook for the same series has a DateTime column
+    plus a 'GMT Offset' column that switches from 0 to 1 at 01:00 on 29 March 2026, so EirGrid
+    publishes in Irish local time; the dashboard's clock-change behaviour (see trap) agrees. Neither
+    source says whether a value is a quarter-hour average or a snapshot, or which end of the
+    interval the stamp marks. Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: api
   url: https://www.smartgriddashboard.com/all/wind/
@@ -77,3 +91,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

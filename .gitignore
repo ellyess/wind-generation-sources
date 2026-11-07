@@ -1,7 +1,6 @@
 .venv/
 __pycache__/
 *.pyc
-site/dist/
 .impeccable/review/
 .impeccable/mocks/
 .impeccable/config.local.json
@@ -9,3 +8,4 @@ site/dist/
 .pytest_cache/
 .ruff_cache/
 crosswalk/.cache/
+web/public/data/

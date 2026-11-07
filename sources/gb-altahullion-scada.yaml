@@ -1,0 +1,83 @@
+id: gb-altahullion-scada
+name: Altahullion wind farm open dataset
+publisher: RES on behalf of TRIG (via Zenodo)
+publisher_role: owner-operator
+countries: [GB]
+area: Altahullion wind farm, Northern Ireland (29 Siemens SWT-1.3 turbines in two phases; data for 6)
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2025
+  end: 2026
+  update: fixed release (May 2026); covers 4 September 2025 to 1 March 2026
+capacity: included
+coordinates: included
+curtailment: unknown
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: unknown
+  value: period-mean
+  evidence: "https://zenodo.org/records/19948235"
+  note: >-
+    The record describes 10-minute statistics, and scada_df_ALTA2_20250904_20260301.parquet has
+    a TimeStamp index with no time zone and per-station columns ActPower_Value_mean, _min, _max
+    and _stddev. Neither the record nor the files give a unit for active power; values peak near
+    1,330 on 1.3 MW turbines, which reads as kW, but the unit is recorded as unknown until stated.
+    Whether the stamp opens or closes the period is not stated. Read 2026-11-06 by an automated
+    research pass; not yet reviewed. Checked again 2026-11-07: the Zenodo description states no
+    time zone, so timezone stays unknown, and the data cannot settle it. The series ends on
+    1 March 2026, before the spring clock change, so the only change it spans is 26 October
+    2025, when UK clocks repeated an hour. In the 10-minute file 01:00 to 01:50 on that day
+    appear once each, and in the T11 one-minute file every minute appears once (no repeated
+    stamps in either file). That fits UTC, but a local-time logger that overwrote the repeated
+    hour would look the same.
+access:
+  method: bulk-download
+  url: https://doi.org/10.5281/zenodo.19948234
+  docs: https://zenodo.org/records/19948235
+  key_required: false
+  registration: false
+  formats: [parquet, csv, zip, pdf]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://zenodo.org/records/19948235
+  redistribution: allowed-with-attribution
+  attribution: Cite the Zenodo record (Clerc, A., Altahullion wind farm open dataset, doi:10.5281/zenodo.19948234).
+  verified: true
+  note: The Zenodo record states the data were released by RES on behalf of TRIG under CC-BY-4.0, provided as is.
+traps:
+  - summary: The metadata lists 29 turbines but the SCADA file holds only six.
+    detail: >-
+      Altahullion_turbine_metadata.csv lists 20 Altahullion 1 turbines (no station id) and 9
+      Altahullion 2 turbines with station ids 1301252 to 1301260. The 10-minute file
+      scada_df_ALTA2_20250904_20260301.parquet has columns for stations 1301252 to 1301257 only, so
+      T01, T09 and T28 of phase 2, and all of phase 1, have no data. Farm totals cannot be formed.
+    evidence: https://zenodo.org/records/19948235
+    found: 2026-11-06
+  - summary: Columns are keyed by station id, not turbine name, and the time zone is not stated.
+    detail: >-
+      The parquet columns are a two-level index of station id and signal; map station ids to
+      turbine names with the metadata file. The TimeStamp index carries no time zone and the
+      record does not say which is used.
+    evidence: https://zenodo.org/records/19948235
+    found: 2026-11-06
+notes: >-
+  Six months of 10-minute SCADA (supervisory control and data acquisition) statistics from a
+  commercial wind farm in Northern Ireland, released, like Hill of Towie, by RES on behalf of TRIG:
+  mean, min, max and standard deviation of active power (ActPower_Value, kW), the power setpoint
+  (PowerRef) and a power-reduction timer (PowerRed_timeon), wind speed, pitch, yaw and rotor
+  speeds. One-minute controller statistics are included for turbine T11 only, with a ZX300 lidar
+  near T11 (1 GB). Checked by downloading turbine_data.zip (47 MB): 25,595 ten-minute rows from
+  2025-09-04 00:00 to 2026-03-01 00:00, six stations whose power series differ, each peaking near
+  the 1,330 kW rating. Curtailment is not reported as such, though the setpoint and reduction
+  timer can show when output was held down. Turbine metadata give coordinates, rated power, hub
+  height (49 m) and rotor diameter (62 m).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

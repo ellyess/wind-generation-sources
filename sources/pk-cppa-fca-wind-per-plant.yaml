@@ -1,0 +1,75 @@
+id: pk-cppa-fca-wind-per-plant
+name: Fuel Charges Adjustment decisions for ex-WAPDA distribution companies, energy purchased per power producer
+publisher: Central Power Purchasing Agency (Guarantee) Limited (CPPA-G), publishing the monthly decisions of the National Electric Power Regulatory Authority (NEPRA)
+publisher_role: market-operator
+countries: [PK]
+area: Power bought by CPPA-G for the ex-WAPDA distribution companies; the Karachi (K-Electric) system is a separate case
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2016
+  update: monthly; the April 2026 decision was dated 4 June 2026
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: kWh
+  value: period-total
+  evidence: https://www.cppa.gov.pk/storage/uploads/downloads/XXjhOuvrKdHLEOQmDwZOqEnTzr5gaC4OdhQPgkWY.pdf
+  note: >-
+    The annex column is headed "Energy Units [kWh]", one value per producer for the decision month
+    (for example April 2026), next to capacity in MW. Read 2026-11-06 by an automated research pass;
+    not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.cppa.gov.pk/downloads/fuel-adjustment-notifications
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en]
+licence:
+  name: No reuse terms found; site footer reads "© CPPA-G 2023. All rights reserved."
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use were found on the CPPA-G site, only the copyright footer. The documents are
+    NEPRA regulatory decisions; NEPRA's own terms were not read.
+traps:
+  - summary: The PDFs are scanned images with an optical character recognition layer, so extracted numbers and names are often wrong.
+    detail: >-
+      In the April 2026 decision the text layer gives "Zoriu Ererji Pakistan Limited" for Zorlu
+      Enerji and mixes commas and full stops inside the same number ("9.598.340", "12,218.110"),
+      so a thousands separator can read as a decimal point. The January 2019 decision has
+      "Trim.. Boston-B" and "6,288.994". Check every value against the page image, and match
+      plants by company name with care.
+    evidence: https://www.cppa.gov.pk/storage/uploads/downloads/XXjhOuvrKdHLEOQmDwZOqEnTzr5gaC4OdhQPgkWY.pdf
+    found: 2026-11-06
+  - summary: The table layout and the plant list change between years.
+    detail: >-
+      January 2019 lists 20-odd wind companies by short names (Zorlu, FFCEL, TGF, Foundation)
+      with capacity and energy; April 2026 lists 30 wind producers by full company name, with
+      Tricon Boston split into projects A, B and C. Some producers appear with a blank capacity
+      cell. Build a name mapping per year rather than parsing by position.
+    evidence: https://www.cppa.gov.pk/storage/uploads/downloads/LnzXvaasvCzjTcg6oEGNV5SF9rLyjxBAfovvbyN4.pdf
+    found: 2026-11-06
+notes: >-
+  Each monthly decision carries an annex table from CPPA-G of every power producer it bought
+  energy from: company name, fuel type, capacity in MW and energy units in kWh, with fuel and
+  variable operation and maintenance charges. Wind producers are listed one by one (fuel type
+  "Wind"), each company being one wind farm, most listed at 50 to 56 MW. Checked 2026-11-06: in the April 2026 decision (issued 4 June 2026) Zorlu Enerji
+  Pakistan reports 9,598,340 kWh and FFC Energy 7,068,030 kWh, with 409,101,737 kWh for all wind;
+  the January 2019 decision lists Zorlu at 5,530,120 kWh and FFCEL at 4,953,960 kWh. The December
+  2016 file also has per-plant wind rows but its text layer is barely readable. The archive on the
+  page runs from 2015 (national wind total only in the June 2015 file) to the latest month, one
+  page per year. The values are the energy units CPPA-G was billed for; the documents do not say
+  whether they are net or gross of station use. In the April 2026 hearing the system operator said wind curtailment is
+  applied equally across plants, but no curtailed volumes are given per plant. NEPRA publishes
+  the same decisions on its own site (www.nepra.org.pk); that copy was not checked.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

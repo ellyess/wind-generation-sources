@@ -1,0 +1,91 @@
+id: nordic-esett-production-volumes
+name: eSett Open Data, Production volumes per bidding zone (EXP16)
+publisher: eSett Oy (Nordic imbalance settlement responsible)
+publisher_role: market-operator
+countries: [FI, NO, SE]
+area: >-
+  Settlement areas (bidding zones) FI, NO1 to NO5 and SE1 to SE4, each with a wind column. DK1 and
+  DK2 are also published, but their production is reported entirely as "other", with no wind split.
+level: zone
+technology: onshore-and-offshore-combined
+measure: metered-energy
+resolution: 15min
+coverage:
+  start: 2017
+  update: daily, with a lag of days to weeks that differs by country
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: MWh
+  value: period-total
+  evidence: https://opendata.esett.com/production
+  note: >-
+    Each API row has 'timestampUTC' (ISO 8601 with Z) and a local 'timestamp'; the website's table
+    heads these 'Date/Time UTC' and 'Date/Time CET/CEST'. The website's chart legend labels every
+    production type in MWh, so a value is energy in its period (a quarter hour from 23 May 2023, an
+    hour before). Neither the website nor the OpenAPI schema says whether the stamp marks the start
+    or end of the period. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://opendata.esett.com/production
+  docs: https://api.opendata.esett.com/
+  key_required: false
+  registration: false
+  formats: [json, csv]
+  languages: [en]
+licence:
+  name: Creative Commons CC0 1.0 Universal (public domain dedication)
+  spdx: CC0-1.0
+  url: https://opendata.esett.com/
+  redistribution: allowed
+  verified: true
+  note: >-
+    The Open Data home page says "All data is provided in accordance with the Creative Commons CC
+    Zero License". The terms of use (https://opendata.esett.com/terms) add that data are provided
+    as is, may be corrected or modified at eSett's discretion, and that the public API may be
+    rate-limited (5 calls per second per IP address, per the API page).
+traps:
+  - summary: Danish areas have no wind split; all production is in the "other" column.
+    detail: >-
+      For DK1 and DK2 the wind, solar, thermal and hydro columns are null and the whole total sits
+      in "other", in every period sampled from December 2022 to October 2026. Use Energinet's
+      own data for Danish wind.
+    evidence: https://api.opendata.esett.com/EXP16/Volumes?start=2026-10-01T00:00:00.000Z&end=2026-10-01T00:30:00.000Z&mba=10YDK-1--------W
+    found: 2026-11-06
+  - summary: Asking for several zones in one request returns their sum, not one series per zone.
+    detail: >-
+      The API accepts repeated mba parameters, but returns a single series labelled with all the
+      zones (for example "DK1,NO1") holding the summed values. Request one zone at a time to get
+      per-zone output.
+    evidence: https://api.opendata.esett.com/EXP16/Volumes?start=2023-05-23T00:00:00.000Z&end=2023-05-23T00:31:00.000Z&mba=10YDK-1--------W&mba=10YNO_1________2
+    found: 2026-11-06
+  - summary: The time step changes from hourly to 15 minutes in May 2023; requests that do not fit the step are rejected.
+    detail: >-
+      Values are hourly on 21 May 2023 and quarter-hourly from 23 May 2023. In the hourly period a
+      request whose end falls between hours returns HTTP 400 "Incorrect time interval". Resample before joining the
+      two periods.
+    evidence: https://api.opendata.esett.com/EXP16/Volumes?start=2023-01-15T00:00:00.000Z&end=2023-01-15T00:31:00.000Z&mba=10YDK-1--------W
+    evidence_is_error: true
+    found: 2026-11-06
+  - summary: The API does not state units; the website labels the values MWh per period.
+    detail: >-
+      The OpenAPI schema gives the production fields as plain numbers. The website's chart legend
+      labels them MWh, so a 15-minute value is energy in that quarter hour, not average MW.
+      Each row has both a UTC timestamp and a local (CET/CEST) one.
+    evidence: https://api.opendata.esett.com/openapi.json
+    found: 2026-11-06
+notes: >-
+  Aggregated production per settlement area and production type (hydro, nuclear, solar, thermal,
+  wind, offshore wind, energy storage, other), from the metered volumes eSett settles on behalf of
+  the Finnish, Swedish, Norwegian and Danish transmission system operators. The page gives data from
+  1 May 2017. Checked on the check date by requesting single zones through the API: wind values
+  differ between zones (for example SE1 and SE4, FI and NO2), FI and SE4 return data for May 2017,
+  and DK1 returns no wind split. A separate offshore wind column exists but was null or zero in
+  every row sampled. Recent days were present for SE1 but not yet for FI or DK1 on the check date.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

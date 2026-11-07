@@ -1,0 +1,109 @@
+id: do-oc-daily-operation-report-by-plant
+name: Informe Diario de Operación, PostDespacho sheet (daily operation report, hourly post-dispatch power by plant)
+publisher: Organismo Coordinador del Sistema Eléctrico Nacional Interconectado (OC-SENI), the coordinating body of the Dominican national interconnected system
+publisher_role: iso-rto
+countries: [DO]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2014
+  update: daily (one zipped Excel workbook per operating day, sometimes reissued as a later version)
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: period-label
+  unit: MW
+  value: unknown
+  evidence: "https://www.dropbox.com/scl/fo/nhabegwb8jkh28wvxh7h8/ANIK6_G2ZIjRKl99E32bAmI/01.%20Informe%20Diario%20de%20Operacion/2026/10.%20Octubre/Informe%20Diario%20OC-01-10-26-V0.zip?rlkey=w6dtkv2m3ss8ov7922top7256&dl=0"
+  note: >-
+    In the 1 October 2026 workbook the PostDespacho sheet is titled "Potencia Activa Por Periodo
+    del Postdespacho [MW]", with columns headed PERIODO 1 to 24 and a daily total headed (MWH);
+    the daily total equals the sum of the 24 hourly MW values. The workbook does not say which
+    clock hour period 1 covers, which time zone the day follows, or whether a period value is a
+    mean or a snapshot. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.oc.do/Informes/Operaci%C3%B3n-del-SENI/Coordinaci%C3%B3n-y-Supervisi%C3%B3n-Tiempo-Real
+  key_required: false
+  registration: false
+  formats: [xls, zip]
+  languages: [es]
+licence:
+  name: OC website terms of use, "All rights reserved", no reuse grant
+  redistribution: link-only
+  verified: true
+  url: https://www.oc.do/Terms
+  note: >-
+    The terms page read on 2026-11-06 is unedited DotNetNuke template text: it names Washington
+    State and San Mateo County courts, says the example companies are fictitious, and states that
+    all contents are "Copyright 2026 Organismo Coordinador and/or its suppliers. All rights
+    reserved." It gives no permission to copy or redistribute. Link to the files rather than
+    republishing them, and ask OC-SENI for terms if a copy is needed.
+traps:
+  - summary: The files sit in a shared Dropbox folder linked from the OC page, not on the OC site, and the folder listing only renders with JavaScript.
+    detail: >-
+      The "Coordinación y Supervisión Tiempo Real" page links
+      https://www.dropbox.com/sh/bge4ixp5lvh9qc1/AAA1PmFWk9QIEljCOnGx8kk1a?dl=0, which redirects to a
+      folder holding "01. Informe Diario de Operacion" with year folders (2000 to 2026), month
+      folders and one zip per day, named like "Informe Diario OC-01-10-26-V0.zip" (day, month,
+      two-digit year, version). Individual files download by changing dl=0 to dl=1 in the file
+      link. A crawler has to browse each month folder to find the file links, and the link can
+      change if OC-SENI reshares the folder.
+    evidence: https://www.dropbox.com/scl/fo/nhabegwb8jkh28wvxh7h8/AGh7lcxMeFiqTPoVzKNoeNs/01.%20Informe%20Diario%20de%20Operacion/2026/10.%20Octubre?rlkey=w6dtkv2m3ss8ov7922top7256&dl=0
+    found: 2026-11-06
+  - summary: Some days have more than one version (V0, V1); the later version replaces the earlier one.
+    detail: >-
+      The October 2026 folder holds both V0 and V1 files for 3 and 6 October. Keep the highest
+      version number for each day.
+    evidence: https://www.dropbox.com/scl/fo/nhabegwb8jkh28wvxh7h8/AGh7lcxMeFiqTPoVzKNoeNs/01.%20Informe%20Diario%20de%20Operacion/2026/10.%20Octubre?rlkey=w6dtkv2m3ss8ov7922top7256&dl=0
+    found: 2026-11-06
+  - summary: Before about 2014 the PostDespacho sheet is instantaneous hourly power and has no wind rows.
+    detail: >-
+      In the 1 March 2012 report the sheet is titled "Potencia Activa Horaria Instantánea" and the
+      Los Cocos wind plant appears only in other sheets. The 1 March 2014 report has the
+      post-dispatch title and the Los Cocos 1 and 2 rows. Treat 2014 as the start of the usable
+      per-plant wind series.
+    evidence: https://www.dropbox.com/scl/fo/nhabegwb8jkh28wvxh7h8/AKiTIVGXPNK0UI8sBJgpKAU/01.%20Informe%20Diario%20de%20Operacion/2012/03-MARZO%2012/Informe%20Diario%20OC-01-03-12.zip?rlkey=w6dtkv2m3ss8ov7922top7256&dl=0
+    found: 2026-11-06
+  - summary: Unit codes and precision change over the years, and small negative values (auxiliary consumption) appear.
+    detail: >-
+      Los Cocos 1 is G3JCOCOS in March 2014 and G3JCOCO1 in October 2026. The 2 November 2016 report
+      gives whole MW with values of -1.0; the 2014 report gives two decimals with values such as
+      -0.19. Map codes through the UNIDAD name column and decide how to treat negative hours.
+    evidence: https://www.dropbox.com/scl/fo/nhabegwb8jkh28wvxh7h8/ACOl2dqKCIDlmjknYxIIBFU/01.%20Informe%20Diario%20de%20Operacion/2016/11.NOVIEMBRE/Informe%20Diario%20OC-02-11-16.zip?rlkey=w6dtkv2m3ss8ov7922top7256&dl=0
+    found: 2026-11-06
+  - summary: The availability sheet repeats the wind generation values, so it cannot be used to estimate curtailed output.
+    detail: >-
+      In the 1 October 2026 report the "Disponibilidad Generadores" values for the wind units equal
+      their PostDespacho generation. Curtailment instructions appear separately as hourly MW limits
+      in "Limitacion Regimen Especial" and as events in "Secuencia de Limitación ERNC", without the
+      energy lost.
+    evidence: https://www.dropbox.com/scl/fo/nhabegwb8jkh28wvxh7h8/ANIK6_G2ZIjRKl99E32bAmI/01.%20Informe%20Diario%20de%20Operacion/2026/10.%20Octubre/Informe%20Diario%20OC-01-10-26-V0.zip?rlkey=w6dtkv2m3ss8ov7922top7256&dl=0
+    found: 2026-11-06
+notes: >-
+  Each daily zip holds one Excel workbook (.xls) with about 26 sheets. The "PostDespacho" sheet,
+  titled "Potencia Activa Por Periodo del Postdespacho [MW]", gives a unit code, a unit name, MW for
+  periods 1 to 24 and a daily total in MWh. In the report for 1 October 2026 the wind rows were Los
+  Cocos 1 (G3JCOCO1, 273.15 MWh), Los Cocos 2 (G3LCOCO2, 578.98 MWh), Quilvio Cabrera (52.92 MWh),
+  Larimar (686.84 MWh), Larimar 2 (671.12 MWh), Guanillo (635.78 MWh), Matafongo (635.91 MWh), Los
+  Guzmancitos (762.32 MWh), Los Guzmancitos 2 (655.11 MWh), Agua Clara (741.10 MWh) and Parque
+  Eólico Esperanza (G3PEESPE, 792.04 MWh, 76 MW in the "Limitacion Regimen Especial" sheet; added
+  2026-11-07, when a re-read of the same workbook found it missing from this list). Two solar
+  plants share the Esperanza name (G3PSESPE "PARQUE SOLAR ESPERANZA" and G3PFESP2 "PARQUE
+  FOTOVOLTAICO ESPERANZA 2"), so select wind rows by code or by "EÓLICO", not by name; the hourly
+  profiles
+  differ between plants, so the values are per plant and not shared out from a total. Installed
+  MW per plant appears in the "Limitacion Regimen Especial" sheet of the same workbook. The
+  workbook says post-dispatch values, not settlement metering; OC-SENI's commercial metering
+  applications (apps.oc.org.do) appear to need a login and were not tested. Whether a period is
+  labelled by the start or end of its hour is not stated. The 2014 and 2016 files were also opened
+  and carry the same layout with fewer wind plants (Los Cocos 1 and 2 in 2014; Quilvio Cabrera and
+  Larimar added by 2016).
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

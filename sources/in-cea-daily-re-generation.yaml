@@ -14,6 +14,17 @@ coverage:
 capacity: none
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://gen-re.cea.gov.in/renewables/public/uploads/dailyReport/excel/Report-2026-11-05.xlsx
+  note: >-
+    Each workbook is headed 'Figures in MU net' (million units, that is GWh) with one column for the
+    report date (for example '05-November-26') and one for the month to date; the ISGS sheet gives
+    capacity in MW and generation in Mu. The report does not say which time zone defines the day.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://cea.nic.in/reports/external/daily-renewable?lang=en
@@ -53,3 +64,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

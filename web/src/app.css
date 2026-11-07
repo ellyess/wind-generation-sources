@@ -1,0 +1,142 @@
+/* Wind Generation Sources: tokens and base. One neutral sans (Inter), one blue ramp that
+   encodes the finest level of data, status colours reserved for checks and licences. */
+@import "@fontsource-variable/inter/wght.css";
+@import "maplibre-gl/dist/maplibre-gl.css";
+
+:root {
+  color-scheme: light;
+  --font: "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --surface-2: #f7f8fa;
+  --surface-3: #eef0f3;
+  --line: #e3e6ea;
+  --line-strong: #cfd4da;
+  --ink: #101418;
+  --ink-2: #4c5562;
+  --ink-3: #6b7480;
+  --accent: #1c5cab;
+  --accent-ink: #184f95;
+  --accent-wash: #e8f1fc;
+  --focus: #2a78d6;
+
+  /* Finest level, ordinal: turbine darkest. Validated with the dataviz ordinal check. */
+  --l1: #104281;
+  --l2: #256abf;
+  --l3: #5598e7;
+  --l4: #86b6ef;
+  --l0: #e4e7eb;
+  --farm: #e8590c;
+
+  --good: #0b8a0b;
+  --good-dot: #0ca30c;
+  --warn: #a86b00;
+  --warn-dot: #fab219;
+  --serious: #b4501f;
+  --serious-dot: #ec835a;
+  --bad: #c0302f;
+  --bad-dot: #d03b3b;
+  --none-dot: #9aa3ad;
+
+  --shadow-1: 0 1px 2px rgb(16 20 24 / 0.06), 0 1px 1px rgb(16 20 24 / 0.04);
+  --shadow-2: 0 6px 20px -6px rgb(16 20 24 / 0.18), 0 2px 6px rgb(16 20 24 / 0.06);
+  --radius: 6px;
+  --radius-sm: 4px;
+  --top: 56px;
+  --panel-w: 440px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0e1114;
+    --surface: #15191d;
+    --surface-2: #1a1f24;
+    --surface-3: #222830;
+    --line: #262d35;
+    --line-strong: #353e48;
+    --ink: #eef1f4;
+    --ink-2: #aab3bd;
+    --ink-3: #8d97a2;
+    --accent: #86b6ef;
+    --accent-ink: #9ec5f4;
+    --accent-wash: #162638;
+    --focus: #6da7ec;
+    --l1: #cde2fb;
+    --l2: #86b6ef;
+    --l3: #3987e5;
+    --l4: #1c5cab;
+    --l0: #2a3038;
+    --farm: #ff8a4c;
+    --good: #4cc44c;
+    --warn: #f3b83a;
+    --serious: #f09a76;
+    --bad: #f07a7a;
+    --none-dot: #6f7a86;
+    --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-2: 0 8px 24px -6px rgb(0 0 0 / 0.6), 0 2px 6px rgb(0 0 0 / 0.3);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e1114;
+  --surface: #15191d;
+  --surface-2: #1a1f24;
+  --surface-3: #222830;
+  --line: #262d35;
+  --line-strong: #353e48;
+  --ink: #eef1f4;
+  --ink-2: #aab3bd;
+  --ink-3: #8d97a2;
+  --accent: #86b6ef;
+  --accent-ink: #9ec5f4;
+  --accent-wash: #162638;
+  --focus: #6da7ec;
+  --l1: #cde2fb;
+  --l2: #86b6ef;
+  --l3: #3987e5;
+  --l4: #1c5cab;
+  --l0: #2a3038;
+  --farm: #ff8a4c;
+  --good: #4cc44c;
+  --warn: #f3b83a;
+  --serious: #f09a76;
+  --bad: #f07a7a;
+  --none-dot: #6f7a86;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-2: 0 8px 24px -6px rgb(0 0 0 / 0.6), 0 2px 6px rgb(0 0 0 / 0.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--bg);
+  font-feature-settings: "cv11", "ss03";
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { margin: 0; font-weight: 600; letter-spacing: -0.011em; line-height: 1.25; text-wrap: balance; }
+p { margin: 0; }
+a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+::selection { background: color-mix(in srgb, var(--focus) 28%, transparent); }
+.num, td.num, .tabular { font-variant-numeric: tabular-nums; }
+code, .code { font-family: var(--mono); font-size: 0.86em; }
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+* { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

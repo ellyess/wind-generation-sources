@@ -1,0 +1,2 @@
+entry,unit_id,unit_name,alt_names,capacity_mw,area,lat,lon,location_source,source_url,notes
+gb-hill-of-towie-scada,Hill of Towie,Hill of Towie,Hill of Towie Wind Farm,48.3,GB,57.505768,-3.068384,publisher,https://zenodo.org/records/22662930,"Lat/lon is the mean of all 21 turbines (T01 to T21) in Hill_of_Towie_turbine_metadata.csv; capacity is 21 x 2,300 kW Siemens SWT-2.3-VS-82 from the same file. Moray, Scotland."

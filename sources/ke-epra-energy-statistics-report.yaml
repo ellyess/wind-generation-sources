@@ -1,0 +1,77 @@
+id: ke-epra-energy-statistics-report
+name: Energy and Petroleum Statistics Report, wind energy generation
+publisher: Energy and Petroleum Regulatory Authority (EPRA), Kenya
+publisher_role: regulator
+countries: [KE]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2018
+  update: annual report for the year to 30 June, plus a bi-annual report
+capacity: included
+coordinates: none
+curtailment: reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://www.epra.go.ke/sites/default/files/2026-09/Energy%20%26%20Petroleum%20Statistics%20Report%202026.pdf
+  note: >-
+    Figure 3.6 labels monthly wind generation in GWh ('Wind Energy Generated GWh') for July 2025 to
+    June 2026, and the text gives the annual figure for the year ending 30 June (1,931.72 GWh in
+    2025/26). Older reports use calendar years (see trap). Read 2026-11-06 by an automated research
+    pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.epra.go.ke/statistics-0
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en]
+licence:
+  name: EPRA Energy and Petroleum Statistics Report copyright notice
+  url: https://www.epra.go.ke/sites/default/files/2026-09/Energy%20%26%20Petroleum%20Statistics%20Report%202026.pdf
+  redistribution: allowed-with-attribution
+  attribution: Acknowledge EPRA as the source and copyright holder.
+  verified: true
+  note: >-
+    The report's front matter says that, unless otherwise stated, its material "may be freely
+    used, shared, copied, reproduced, printed and/or stored" with EPRA acknowledged as source
+    and copyright holder; material attributed to third parties may carry separate terms. Read
+    in the 2026 report; other editions were not checked for the same wording.
+traps:
+  - summary: Monthly national wind generation is printed only as data labels on a chart, not in a table.
+    detail: >-
+      Figure 3.6 of the 2026 report labels each month of July 2025 to June 2026 (for example
+      216.39 GWh in November 2025, 113.70 GWh in March 2026). Earlier months are not repeated,
+      so a monthly series has to be assembled report by report.
+    evidence: https://www.epra.go.ke/sites/default/files/2026-09/Energy%20%26%20Petroleum%20Statistics%20Report%202026.pdf
+    found: 2026-11-06
+  - summary: The reporting period changed from calendar years to fiscal years ending 30 June.
+    detail: >-
+      The 2020 report covers January 2019 to June 2020 and quotes calendar-year wind (375.6 GWh
+      in 2018, 1,562.7 GWh in 2019); recent reports use years ending 30 June (1,931.72 GWh in
+      2025/26). Do not join the two without aligning periods.
+    evidence: https://www.epra.go.ke/sites/default/files/2025-02/Energy%20Statistics%20Report%202020.pdf
+    found: 2026-11-06
+  - summary: The curtailment chart's axis says MWh, but the text gives the same numbers in GWh.
+    detail: >-
+      Figure 2.9 of the 2026 report is labelled "Curtailed energy (MWh)" with 403.94 for 2025/26,
+      while the text gives 403.94 GWh, of which wind 11.58 GWh. The text's unit fits the scale.
+    evidence: https://www.epra.go.ke/sites/default/files/2026-09/Energy%20%26%20Petroleum%20Statistics%20Report%202026.pdf
+    found: 2026-11-06
+notes: >-
+  National wind generation (monthly in a chart, annual in text and a five-year chart), installed
+  wind capacity (436.05 MW in 2025/26, of which 0.55 MW off-grid), and annual wind
+  curtailment. Table 2.8 (electricity sector market share) also gives annual energy for each
+  generating company, which for single-farm companies is farm-level: Lake Turkana Wind Power
+  1,466 GWh and Kipeto Energy 413.75 GWh in 2025/26, five years back. KenGen's Ngong wind farm is
+  inside KenGen's total. Coverage start is the earliest calendar year quoted in the oldest report
+  on the page (2020 edition); monthly values were seen only for 2025/26.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

@@ -1,0 +1,66 @@
+id: ba-fzs-monthly-energy-indicators
+name: Short-term indicators of energy statistics (Kratkoročni pokazatelji energetske statistike), first release 22.2
+publisher: Institute for Statistics of the Federation of Bosnia and Herzegovina (Federalni zavod za statistiku, FZS)
+publisher_role: statistics-office
+countries: [BA]
+area: Federation of Bosnia and Herzegovina only (excludes Republika Srpska and Brčko District)
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2022
+  update: monthly, about four weeks after the month (April 2025 released 27 May 2025)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: "https://fzs.ba/wp-content/uploads/2025/05/22.2.4.pdf"
+  note: >-
+    The release tables are headed GWh and labelled by month and year to date (wind row
+    "Vjetroelektrane", "Wind energy"). Read 2026-11-06 by an automated research pass; not yet
+    reviewed.
+access:
+  method: bulk-download
+  url: https://fzs.ba/index.php/publikacije/saopcenjapriopcenja/energetika/
+  docs: https://fzs.ba/wp-content/uploads/2018/01/Metodolo%C5%A1ko-uputstvo-kratkoro%C4%8Dna-energetika_BOS.pdf
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [bs, hr, en]
+licence:
+  name: No data licence found; each release asks users to state the source
+  redistribution: unclear
+  attribution: Federalni zavod za statistiku (Institute for Statistics of FBiH)
+  verified: false
+  note: The release PDFs say "Users are kindly requested to state the source". No terms of use or reuse licence page was found on fzs.ba on 2026-11-06.
+traps:
+  - summary: Each release is a first result that becomes final only when the next month's release is published.
+    detail: Re-read the following month's release before using a value; the earlier PDF is not updated.
+    evidence: https://fzs.ba/wp-content/uploads/2025/05/22.2.4.pdf
+    found: 2026-11-06
+  - summary: Covers one entity of Bosnia and Herzegovina, not the country.
+    detail: >-
+      The national statistics agency's monthly release (bhas.gov.ba, ENE_01) covers the whole
+      country but merges wind and solar into one row ("VE i SE"), so this entity release is the
+      only wind-only monthly figure found for Bosnia and Herzegovina.
+    evidence: https://bhas.gov.ba/data/Publikacije/Saopstenja/2024/ENE_01_2024_07_1_HR.pdf
+    found: 2026-11-06
+notes: >-
+  Monthly gross and net electricity production of the Federation of Bosnia and Herzegovina by
+  hydro, thermal and wind plants (Vjetroelektrane), in GWh, from FZS's monthly survey of electricity
+  production (EN-EE-M). Gross production is measured at the generator terminals; wind own
+  consumption is reported as nil, so gross and net wind are equal. Each release gives two months
+  of the current and previous year and the year to date. Checked in the July 2023 release (wind 22
+  and 33 GWh for June and July 2022) and the April 2025 release (40 and 25 GWh for March and April
+  2024, 71 and 65 GWh for March and April 2025). The release index page renders its file list with
+  JavaScript; the PDFs follow the pattern /wp-content/uploads/YYYY/MM/22.2.N.pdf, where N is the
+  release number in the year.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

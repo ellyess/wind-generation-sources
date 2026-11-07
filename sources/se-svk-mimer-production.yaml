@@ -1,0 +1,90 @@
+id: se-svk-mimer-production
+name: Mimer production statistics per bidding zone, wind power (Produktionsstatistik, Vindkraftproduktion)
+publisher: Svenska kraftnät (Swedish transmission system operator)
+publisher_role: tso
+countries: [SE]
+area: Sweden as a whole and bidding zones SE1, SE2, SE3 and SE4
+level: zone
+technology: onshore-and-offshore-combined
+measure: metered-energy
+resolution: hourly
+coverage:
+  start: 2015
+  end: 2025
+  update: none; production statistics moved to eSett Open Data, and the last non-zero hour is in October 2025
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: kWh
+  value: period-total
+  evidence: https://www.svk.se/om-kraftsystemet/kraftsystemdata/elstatistik/beskrivning-av-statistiken/
+  note: >-
+    Mimer heads the value "Avräknad (kWh)" (settled), and Svenska kraftnät says the statistics are
+    built from metered hourly energy values reported to imbalance settlement, so each value is one
+    hour's energy. Neither Mimer nor the description page states the time zone or whether a label
+    starts or ends its hour. The entry's trap derives Swedish standard time (UTC+1 all year) with
+    hour-start labels by matching Mimer to eSett's UTC quarter hours; that is a data comparison, not
+    a publisher statement. Read 2026-11-06 by an automated research pass; not yet reviewed.
+    Rechecked 2026-11-07 against eSett for a summer and a winter hour (both match as UTC+1,
+    hour-start), with 24 rows on each clock-change day; the description page still states no zone,
+    so both fields stay unknown here.
+access:
+  method: bulk-download
+  url: https://mimer.svk.se/ProductionConsumption/ProductionIndex
+  docs: https://www.svk.se/om-kraftsystemet/kraftsystemdata/elstatistik/beskrivning-av-statistiken/
+  key_required: false
+  registration: false
+  formats: [csv, xlsx]
+  languages: [sv, en]
+licence:
+  name: No licence found for Mimer
+  url: https://mimer.svk.se/ProductionConsumption/ProductionIndex
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use were found on Mimer. Svenska kraftnät's separate Data Service
+    (data.svk.se) is CC BY 4.0, but it does not list these production statistics, so that
+    licence was not assumed to cover Mimer.
+traps:
+  - summary: Hours behave as Swedish standard time (UTC+1) all year, labelled at the start of the hour, though Svenska kraftnät does not say so.
+    detail: >-
+      Mimer's SE1 wind for "2025-06-01 01:00;1419913,638" equals the sum of eSett's four SE1
+      quarter-hours from 2025-06-01T00:00Z to 00:45Z (366.047 + 359.282 + 349.325 + 345.260 MWh),
+      and in winter "2025-01-15 01:00;187512,708" equals eSett's 2025-01-15T00:00Z to 00:45Z
+      (187.513 MWh). Each label is therefore the start of the hour in UTC+1, in summer as well as
+      winter. The clock-change days agree: 30 March 2025 and 31 March 2024 each have 24 rows
+      including "02:00", an hour that does not exist on Swedish clocks that day, and 27 October
+      2024 has 24 rows, not 25. This is observed by comparing the two publishers' data; neither
+      Mimer nor the description of the statistics states a time zone or which end of the hour a
+      label marks. Shift by one hour before joining to data in Swedish summer time. Reworded on
+      2026-11-07, after repeating the comparison, to say the convention is observed, not
+      documented.
+    evidence: https://mimer.svk.se/ProductionConsumption/DownloadText?PeriodFrom=06%2F01%2F2025%2000%3A00%3A00&PeriodTo=06%2F01%2F2025%2000%3A00%3A00&ConstraintAreaId=SN1&ProductionSortId=VI
+    found: 2026-11-06
+  - summary: Gaps are filled with zeros, which look like calm hours.
+    detail: >-
+      Every zone shows exactly 0 for the 03:00 hour on 31 March 2024 (the spring clock change),
+      published days earlier than its neighbours, and every hour of 22 October 2025 is 0 after
+      normal values on 21 October. Treat isolated or trailing zeros as missing.
+    evidence: https://mimer.svk.se/ProductionConsumption/DownloadText?PeriodFrom=03%2F30%2F2024%2000%3A00%3A00&PeriodTo=04%2F01%2F2024%2000%3A00%3A00&ConstraintAreaId=SN3&ProductionSortId=VI
+    found: 2026-11-06
+  - summary: Values are kWh with a decimal comma and semicolon separators.
+    detail: Rows read like "2024-03-30 00:00;689407,533;2024-04-06 12:00", ending with a "Summa" row.
+    evidence: https://mimer.svk.se/ProductionConsumption/DownloadText?PeriodFrom=03%2F30%2F2024%2000%3A00%3A00&PeriodTo=04%2F01%2F2024%2000%3A00%3A00&ConstraintAreaId=SN1&ProductionSortId=VI
+    found: 2026-11-06
+notes: >-
+  Settled (avräknad) hourly wind production in kWh per Swedish bidding zone and for Sweden as a
+  whole, from 2015-01-01 (2014 and earlier return no rows) to October 2025, with the publication
+  time of each value. Svenska kraftnät says the statistics are built from metered hourly values
+  that grid owners report to the imbalance settlement (eSett), and that production inside
+  non-concession (industrial) networks is only partly included. Checked 2026-11-06 by downloading
+  SE1 and SE3 for the same days and seeing different values. Mimer itself says production
+  statistics from 2025-03-18 are reported to eSett and published on eSett Open Data
+  (nordic-esett-production-volumes), which carries the same numbers at 15 minutes.
+status: discontinued
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

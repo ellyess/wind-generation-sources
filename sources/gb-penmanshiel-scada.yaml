@@ -14,6 +14,19 @@ coverage:
 capacity: included
 coordinates: included
 curtailment: reported
+conventions:
+  timezone: UTC
+  timestamp: unknown
+  unit: kW
+  value: unknown
+  evidence: "https://zenodo.org/records/16807304"
+  note: >-
+    Each Greenbyte file header states "Time zone: UTC" (checked in the 2016 turbine file for
+    WT11 to WT15 and the grid meter file). The turbine column "Power (kW)" sits beside "Power,
+    Standard deviation", minimum and maximum columns, which implies a 10-minute mean but is not
+    stated, and the header does not say whether "Date and time" opens or closes the interval.
+    "Energy Export (kWh)" is also given. Read 2026-11-06 by an automated research pass; not yet
+    reviewed.
 access:
   method: bulk-download
   url: https://doi.org/10.5281/zenodo.5946807
@@ -53,6 +66,17 @@ traps:
       turbine SCADA and substation (PMU) data only.
     evidence: https://zenodo.org/records/16807304
     found: 2026-11-06
+  - summary: The 2016 turbine files say they start on 1 January 2016, but their data start in June or July.
+    detail: >-
+      All fourteen 2016 turbine files carry the header line "# Time interval: 2016-01-01
+      00:00:00 - 2017-01-01 00:00:00 (366 days)", yet each starts months later, on the date in its
+      file name. WT11's file, Turbine_Data_Penmanshiel_11_2016-07-19_-_2017-01-01_1051.csv, has
+      its first row at "2016-07-19 09:40:00"; the earliest is WT06 and WT07 (2016-06-02) and the
+      latest WT08 (2016-07-27). The months before are absent, not missing values, so take the
+      start from the first row or the file name, never from the header, and do not count them as
+      downtime. Found by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://zenodo.org/records/16807304/files/Penmanshiel_SCADA_2016_WT11-15_3107.zip
+    found: 2026-11-07
 tools:
   - name: OpenOA (examples/project_Cubico.py)
     url: https://github.com/NatLabRockies/OpenOA
@@ -69,3 +93,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

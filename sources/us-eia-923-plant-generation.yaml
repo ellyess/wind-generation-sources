@@ -12,6 +12,18 @@ coverage:
 capacity: separate-dataset
 coordinates: separate-dataset
 curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www.eia.gov/electricity/data/eia923/archive/xls/f923_2024.zip
+  note: >-
+    Monthly columns "Netgen January" to "Netgen December" sit under "Electricity Net Generation
+    (MWh)", with an annual "Net Generation (Megawatthours)" column. For annual respondents coded
+    "A" the monthly values are EIA imputations; "AM" records, which all annual wind respondents
+    carry from 2023, hold reported months (see traps; corrected 2026-11-07). Read 2026-11-06 by
+    an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://www.eia.gov/electricity/data/eia923/
@@ -27,11 +39,24 @@ licence:
   verified: true
   note: Photos, contributed private documents and the EIA logo are excluded.
 traps:
-  - summary: Most wind plants report annually, and EIA fills in their months; only about 40% are measured monthly.
+  - summary: >-
+      Up to 2022 most wind plants were annual respondents whose months EIA fills in; from 2023
+      they are coded "AM" and report real monthly values once a year, so keep "AM" as well as "M".
     detail: >-
       In 2021, 777 of 1,279 wind plants were annual ("A") respondents whose monthly values are
-      imputed by EIA. Filter to monthly respondents for any monthly analysis.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/us.md
+      imputed by EIA; 2022 had 775 "A" and 533 "M". Filter out "A" records for any monthly
+      analysis. Corrected 2026-11-07: from the 2023 file the wind rows carry no "A" at all. The
+      2024 file has 753 wind plants coded "AM" (123.0 TWh) and 594 coded "M" (327.5 TWh); 2023
+      has 767 "AM" and 568 "M". The 2023 and 2024 "Page 7 File Layout" sheets define only "M
+      Monthly respondent" and "A Annual respondent", but the 2021 file's layout defines "AM" as
+      "The respondent provides monthly values for this record, but does so once per year via the
+      EIA-923 annual survey form", and "A" as records where "Any monthly data in this record is
+      estimated". The current form instructions (page 16) say annual respondents with wind
+      "report operational data for all prime movers and energy source types for each month".
+      The values show the difference: Snake River (plant 90) reads 184.495, 140.449, 175.033 MWh
+      for January to March 2021 as "A", and 202, 266, 243 MWh in 2024 as "AM". Keep "M" and
+      "AM"; drop "A". Keeping only "M" loses more than half the wind plants.
+    evidence: https://www.eia.gov/survey/form/eia_923/instructions.pdf
   - summary: Net generation is net of station use, so it runs a little below gross output.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/us.md
   - summary: Coordinates and nameplate are in a separate form (EIA-860), and a few plants use a placeholder code that joins to nothing.
@@ -50,7 +75,10 @@ notes: >-
   Plant-level monthly net generation for the whole US fleet, about 133 GW of wind in 2021. Pair it
   with EIA-860 (nameplate, coordinates) and the US Wind Turbine Database
   (https://energy.usgs.gov/uswtdb/) for hub heights. Files from 2001 to 2007 come from the
-  predecessor forms EIA-906 and EIA-920, on the same page.
+  predecessor forms EIA-906 and EIA-920, on the same page. Corrected 2026-11-07: the first trap
+  and the conventions note said annual wind respondents are always "A" with imputed months; the
+  2023 and 2024 files code them "AM" (monthly values reported once a year), as the trap now
+  explains.
 status: active
 last_checked: 2026-11-06
 checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, file list read from the EIA page; licence read on the publisher's page 2026-11-06

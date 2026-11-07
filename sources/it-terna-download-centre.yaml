@@ -13,6 +13,24 @@ coverage:
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: unknown
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: unknown
+  value: unknown
+  evidence: https://dati.terna.it/en/generation
+  note: >-
+    Neither the Generation page nor the download centre table states a unit, a time zone, or whether
+    a quarter-hour value is an average power or an energy; the page says only that the data are net
+    quarter-hourly production by source. The download centre's data service returns wind at
+    2026-11-05 23:45 as 1.68 (shown on screen as '1,680' with a decimal comma), so values are
+    decimals in an unstated unit. Stamps fall on the quarter hour, the last of the day at 23:45. The
+    downloadable Excel file was not opened in this pass. Read 2026-11-06 by an automated research
+    pass; not yet reviewed. Added 2026-11-07: the data service's stamps follow Italian wall-clock
+    time, with 02:00 to 02:45 twice on 25 October 2026 and missing on 29 March 2026 (see the
+    traps), so Europe/Rome is what the data show; Terna does not state it, so timezone stays
+    unknown. Each month runs from 00:00 on the 1st to 23:45 on the last day, which fits
+    period-start stamps, but that is not stated either. Not yet reviewed by a person.
 access:
   method: portal
   url: https://dati.terna.it/en/download-center
@@ -53,6 +71,25 @@ traps:
       downloaded file before using it.
     evidence: https://dati.terna.it/en/download-center#/generation/actual-generation
     found: 2026-11-06
+  - summary: >-
+      Times are Italian clock time, so the autumn change day has one hour twice and the spring
+      change day is an hour short.
+    detail: >-
+      The download centre's data service (the JSON request its own table sends to
+      /api/sitecore/dati/downloadcenter/recordsv2) gives each row's Date as milliseconds since
+      1 January 0001, the .NET epoch, with no zone: the first October 2026 wind row is
+      [63926409600000, 0.4, "Wind"], which is 2026-10-01 00:00. October 2026 returned 2,980
+      quarter-hours, 31 x 96 plus 4: 02:00, 02:15, 02:30 and 02:45 on 25 October each appear
+      twice, the night Italy left summer time, for example [63928490400000, 4.4, "Wind"] and
+      [63928490400000, 4.44, "Wind"], both 02:00 with the same stamp. March 2026 returned 2,972,
+      and 29 March has 01:45 followed by 03:00. The response's LastDate field,
+      "/Date(1794005100000+0100)/", is 2026-11-06 22:45 UTC, that is 23:45 Italian winter time.
+      Terna states no time zone. Convert
+      from Europe/Rome to UTC, and treat the repeated hour with care: the two copies are not
+      marked, so order alone does not show which is which. Found by an automated research pass
+      on 2026-11-07; not yet reviewed by a person.
+    evidence: https://dati.terna.it/en/download-center#/generation/actual-generation
+    found: 2026-11-07
 notes: >-
   Net quarter-hourly national production by primary source (wind, solar, hydro, geothermal,
   thermal and self-consumption as separate rows), one row per source per quarter hour. Wind is
@@ -62,6 +99,11 @@ notes: >-
   https://developer.terna.it/docs, which needs a registered application key; the API was not
   tested. Terna says the data are also published on the ENTSO-E Transparency Platform. The
   2021 start is the oldest year the selector offered on the check day, not a fixed start.
+  Added 2026-11-07: the data service behind the table answers keylessly but is undocumented; for
+  Actual Generation its smallest request is one month (filterYear and filterMonth). Adding
+  filterDay, a parameter the page's own script can send, still returned all 2,980
+  October 2026 rows, from 1 to 31 October.
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

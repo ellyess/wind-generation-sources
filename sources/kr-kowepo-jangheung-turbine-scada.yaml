@@ -1,0 +1,84 @@
+id: kr-kowepo-jangheung-turbine-scada
+name: Jangheung wind farm SCADA generation information, AI-ready (한국서부발전(주)_(AI친화)장흥풍력발전소 스카다 발전 정보)
+publisher: Korea Western Power Co. (KOWEPO, 한국서부발전), via the Public Data Portal (data.go.kr)
+publisher_role: owner-operator
+countries: [KR]
+area: Jangheung wind farm, Yuchi-myeon, Jangheung-gun, South Jeolla
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2022
+  end: 2025
+  update: one-off release (수시, 1회성 데이터); file last modified 2026-06-15
+capacity: included
+coordinates: included
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: kW
+  value: unknown
+  evidence: https://www.data.go.kr/data/15159034/fileData.do
+  note: >-
+    The page says 2022 to 2024 are 10-minute data and 2025 hourly, and defines the output column as
+    grid active power in kilowatts (계통 유효 전력(킬로와트)), although its description calls it an energy
+    amount (계통 유효 전력량). It does not say whether values are means or samples, which end of the
+    interval the stamp marks, or the time zone. Read 2026-11-06 by an automated research pass; not
+    yet reviewed. Rechecked 2026-11-07 against the downloaded file: every turbine's 10-minute
+    values peak at 3,030 to 3,033 for a 3 MW turbine in each of 2022 to 2024, so the column is
+    power in kW, not energy per step (which could not exceed about 505 kWh). The file runs
+    00:00 to 23:50 each day, and 00:00 to 23:00 in 2025; Korea keeps no daylight saving, so the
+    data cannot test the time zone, and they cannot tell means from samples. The traps state
+    nothing beyond the page.
+access:
+  method: bulk-download
+  url: https://www.data.go.kr/data/15159034/fileData.do
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [ko]
+licence:
+  name: Public Data Portal terms for this dataset, scope of permitted use "no restriction" (이용허락범위 제한 없음), free of charge
+  url: https://www.data.go.kr/data/15159034/fileData.do
+  redistribution: allowed
+  verified: true
+  note: The dataset page states free use with no restriction on the scope of use. The CSV downloaded without login on the check date.
+traps:
+  - summary: The time step changes from 10 minutes (2022 to 2024) to hourly in 2025, inside one file.
+    detail: >-
+      The dataset page says so, and the file shows it: timestamps run 00:00, 00:10, 00:20 through
+      2024 and 00:00, 01:00, 02:00 in 2025. Resample before joining the two periods. Whether the
+      2025 values are hourly means or hourly samples is not stated.
+    evidence: https://www.data.go.kr/data/15159034/fileData.do
+    found: 2026-11-06
+  - summary: The CSV is CP949 (EUC-KR) encoded and about 129 MB, with rows grouped by turbine.
+    detail: >-
+      Read with encoding cp949. All of turbine 1 comes first, then turbine 2 and so on, so a
+      partial download silently loses whole turbines rather than recent dates; check that six
+      turbines are present. The time zone is not stated.
+    evidence: https://www.data.go.kr/data/15159034/fileData.do
+    found: 2026-11-06
+  - summary: Turbine 5 is missing about 7,000 ten-minute steps in 2024.
+    detail: >-
+      Turbines have about 51,000 to 52,000 ten-minute rows per year (52,560 would be complete);
+      turbine 5 has 44,953 in 2024. Power is grid active power in kW and goes slightly negative
+      (to about -60 kW) when a turbine idles.
+    evidence: https://www.data.go.kr/data/15159034/fileData.do
+    found: 2026-11-06
+notes: >-
+  SCADA data for each of the six turbines at Jangheung (발전호기 1 to 6): nacelle wind speed in
+  m/s and grid active power in kW, with address, decimal latitude and longitude, manufacturer
+  (Doosan Enerbility), rated capacity (3 MW), hub height (90 m), rotor diameter (134 m) and model
+  (WinDS3000/134) on every row. Checked 2026-11-06: the file (장흥풍력_스카다 발전정보(2022-2025).csv,
+  979,324 rows) runs from 2022-01-01 00:00 to 2025-12-31 23:00; at 2022-01-07 22:40 turbines 1 and
+  2 give 1,062.78 kW and 1,037.21 kW, so the series are distinct. Nacelle wind speed makes it
+  useful for power-curve work as well as validation.
+  KOWEPO publishes the Hwasun turbines the same way (kr-kowepo-hwasun-turbine-scada) and an
+  earlier farm-level hourly file for both farms, 2017 to June 2023
+  (https://www.data.go.kr/data/15106292/fileData.do), which was not used here.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

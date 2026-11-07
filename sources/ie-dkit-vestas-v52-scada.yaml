@@ -1,0 +1,71 @@
+id: ie-dkit-vestas-v52-scada
+name: Vestas V52 Wind Turbine, 10-minute SCADA Data, 2006-2020 - Dundalk Institute of Technology
+publisher: Dundalk Institute of Technology (DkIT) (via Mendeley Data)
+publisher_role: research
+countries: [IE]
+area: Single Vestas V52 turbine on the DkIT campus, Dundalk
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2006
+  end: 2020
+  update: fixed release (October 2022); covers 30 January 2006 to 12 March 2020
+capacity: none
+coordinates: included
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: kW
+  value: period-mean
+  evidence: https://data.mendeley.com/datasets/tm988rs48k/2
+  note: >-
+    The parameter description PDF in the record defines Power as 'Average 10-minute power output
+    (kW)' (MaxPower, MinPower and StdDevPower are also kW) and Timestamps only as 'Time stamps in
+    10-minute intervals'. It states no time zone and does not say whether a stamp marks the start or
+    end of the interval. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://doi.org/10.17632/tm988rs48k.2
+  docs: https://data.mendeley.com/datasets/tm988rs48k/2
+  key_required: false
+  registration: false
+  formats: [xlsx, pdf]
+  languages: [en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://data.mendeley.com/datasets/tm988rs48k/2
+  redistribution: allowed-with-attribution
+  attribution: Cite Byrne, R. and MacArtain, P., Vestas V52 Wind Turbine, 10-minute SCADA Data, 2006-2020, Mendeley Data, doi:10.17632/tm988rs48k.2.
+  verified: true
+traps:
+  - summary: The turbine is behind the meter, and a gearbox change left no output for ten months.
+    detail: >-
+      The record says the turbine supplies the campus behind the meter and that no positive
+      power was produced from 4 October 2018 to 27 July 2019 during a gearbox changeout. 2010 also
+      has only about a third of a year's rows.
+    evidence: https://data.mendeley.com/datasets/tm988rs48k/2
+    found: 2026-11-06
+  - summary: The power column holds impossible spikes and some timestamps repeat.
+    detail: >-
+      Power ranges from -3,275 to 3,149 kW, while 99.9% of rows lie between -3 and 851 kW; 14 rows
+      exceed 1,000 kW and 51 are below -100 kW, so outliers need removing. Twenty
+      timestamps appear twice (daytime, on scattered dates such as 2014-10-23), and the generator
+      temperature column holds 999 as a fill value. The time zone is not stated; no daylight-saving
+      gaps or repeats were seen in late March.
+    evidence: https://data.mendeley.com/datasets/tm988rs48k/2
+    found: 2026-11-06
+notes: >-
+  Fourteen years of raw 10-minute SCADA (supervisory control and data acquisition) data from one
+  peri-urban turbine (60 m hub, 52 m rotor) at 53.98352 N, 6.39139 W: mean, min, max and standard
+  deviation of power, wind speed and direction, pitch, speeds and temperatures, in one xlsx sheet
+  of 653,103 rows with a parameter description PDF. Checked by downloading the workbook. Rated
+  power is not stated in the record; output tops out near 851 kW. A rare long single-turbine
+  record for power-curve drift and reanalysis checks at one site.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

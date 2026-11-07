@@ -12,6 +12,16 @@ coverage:
 capacity: none
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: "https://cammesaweb.cammesa.com/erenovables/"
+  note: >-
+    The page says the database is "de paso mensual, desde Enero 2011" and lists the field "Energía
+    Generada (GWh)": monthly energy per plant, labelled by month. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://cammesaweb.cammesa.com/erenovables/
@@ -26,20 +36,45 @@ licence:
   verified: true
   note: Reproduction and distribution are prohibited without express authorisation; only viewing is granted. Link to CAMMESA rather than re-host.
 traps:
-  - summary: The summary sheet's header is on row 4, and the region and province columns are merged cells, blank on continuation rows.
-    detail: Forward-fill them, or plants inherit the wrong province.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/dataset-survey.md
+  - summary: The summary sheet's header is on row 5, and the region and province columns are merged cells, blank on continuation rows.
+    detail: >-
+      Forward-fill them, or plants inherit the wrong province. Corrected 2026-11-07: this trap
+      said row 4. In the 2026-09 release, row 4 of "Tabla Resumen x Central" holds only the
+      labels " ENERGÍA GENERADA [GWh]" and "MES"; row 5 is the column header ("FUENTE DE ENERGÍA",
+      "REGIÓN", "PROVINCIA", "CENTRAL DESCRIPCIÓN", then one date per month from 2011-01-01), so
+      pandas needs header=4. Row 7 ("SAN NICOLAS") is blank in the first three columns under row
+      6 ("BIODIESEL", "BUENOS AIRES", "BUENOS AIRES"). The long sheet "Base de Datos" (header on
+      row 2) fills every field on every row and needs no forward-filling.
+    evidence: "https://microfe.cammesa.com/static-content/CammesaWeb/download-manager-files/historica%20renovables/Energ%c3%ada%20Renovables%20-%20Base%20de%20Datos%202026-09.zip"
   - summary: There is no capacity, so a capacity factor needs an external denominator, and farm-level registers over-count phases.
     detail: >-
       Plants with several phases (Loma Blanca 1, 2 and 3, for example) matched the whole farm's
       nameplate in the Global Wind Power Tracker and read capacity factors of 0.03-0.07.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/ar.md
-  - summary: Some codes are duplicates with zero output, reported under another code.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/ar.md
+  - summary: >-
+      Some plants change name but keep their code, so the summary sheet, which lists plants by
+      name, splits one plant over two rows.
+    detail: >-
+      Corrected 2026-11-07: this trap said some codes are duplicates with zero output, reported
+      under another code, after the PyVWF runbook, which dropped three such codes over its own
+      window. The 2026-09 release does not show that: in "Base de Datos" no wind code (CENTRAL)
+      has zero output over 2011-2026, and nothing in the file says one code's output is reported
+      under another. NECOEO (Necochea) reads zero from 2018 and TORDEO (El Tordillo) from 2020.
+      What the file does show is two codes with two names each. ARAUEO is "PARQUE EOLICO ARAUCO
+      SAPEM" from 2011-01 to 2026-07 (785.9 GWh) and "ARAUCO EOLICO" in 2026-08 and 2026-09
+      (15.8 GWh); ARA2EO is "PARQUE EOLICO ARAUCO II SAPEM" from 2014-02 to 2026-07 (689.1 GWh)
+      and "ARAUCO EOLICO 2" in 2026-08 and 2026-09 (14.3 GWh). The wind rows carry 75 codes and
+      77 names, and "Tabla Resumen x Central" gives each name its own row. Group by CENTRAL in
+      "Base de Datos", not by name. Found by an automated research pass on 2026-11-07; not yet
+      reviewed by a person.
+    evidence: "https://microfe.cammesa.com/static-content/CammesaWeb/download-manager-files/historica%20renovables/Energ%c3%ada%20Renovables%20-%20Base%20de%20Datos%202026-09.zip"
+    found: 2026-11-07
 notes: >-
   One ZIP of about 2 MB, no credentials. Sheet "Tabla Resumen x Central" holds monthly GWh per
   plant from January 2011: 75 wind plants by mid-2026. Wind rows have FUENTE DE ENERGÍA equal to
-  EOLICO. No coordinates, capacity or hub heights.
+  EOLICO. No coordinates, capacity or hub heights. Added 2026-11-07: in the 2026-09 release the 75
+  wind plants are 75 codes in "Base de Datos" but 77 named rows in "Tabla Resumen x Central",
+  because two Arauco plants were renamed in August 2026 (see traps).
 status: active
 last_checked: 2026-09-19
 checked_by: Ellyess Benmoufok, from the PyVWF runbook and dataset survey (file verified July 2026); licence read on the publisher's page 2026-11-06

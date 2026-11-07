@@ -1,0 +1,69 @@
+id: is-hagstofa-public-power-plants
+name: Installed capacity and generation in public power plants 1976-2019 (table IDN02101)
+publisher: Statistics Iceland (Hagstofa Íslands)
+publisher_role: statistics-office
+countries: [IS]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2013
+  end: 2019
+  update: none; the table was last updated 2021-06-07
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://px.hagstofa.is/pxen/api/v1/en/Umhverfi/4_orkumal/2_framleidslaognotkun/IDN02101.px
+  note: >-
+    The table's energy variable is 'Annual generation of energy, GWh'; installed capacity is a
+    separate value, 'Installed capacity at end of period, MW'. Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
+access:
+  method: api
+  url: https://px.hagstofa.is/pxen/pxweb/en/Umhverfi/Umhverfi__4_orkumal__2_framleidslaognotkun/IDN02101.px/
+  docs: https://px.hagstofa.is/pxen/api/v1/en/Umhverfi/4_orkumal/2_framleidslaognotkun/IDN02101.px
+  key_required: false
+  registration: false
+  formats: [csv, json]
+  languages: [is, en]
+licence:
+  name: Creative Commons Attribution 4.0 International
+  spdx: CC-BY-4.0
+  url: https://statice.is/publications/open-data-access
+  redistribution: allowed-with-attribution
+  attribution: Credit Statistics Iceland as the author; do not credit it for any changes you make.
+  verified: true
+traps:
+  - summary: The series stops in 2019 and covers only a handful of turbines, so it is a footnote rather than a time series.
+    detail: >-
+      Wind appears from 2013 (2.0 MW, 2.8 GWh) to 2019 (2.4 MW, 6.569 GWh). A single turbine
+      outage moves the national figure, and nothing after 2019 is in this table.
+    evidence: https://px.hagstofa.is/pxen/api/v1/en/Umhverfi/4_orkumal/2_framleidslaognotkun/IDN02101.px
+    found: 2026-11-06
+  - summary: The PxWeb API rate-limits hard and answered every call with HTTP 429 for long stretches.
+    detail: >-
+      On 2026-11-06 the API returned "429 - Too many requests in too short timeframe" for
+      repeated calls over a long stretch, even from a browser, before a single metadata call and
+      a single POST succeeded. Space calls out and retry.
+    evidence: https://px.hagstofa.is/pxen/api/v1/en/Umhverfi/4_orkumal/2_framleidslaognotkun/IDN02101.px
+    found: 2026-11-06
+notes: >-
+  Annual installed wind capacity (MW, year end) and wind generation (GWh) in Icelandic public
+  power plants, from the national energy statistics, alongside hydro, geothermal and fuel.
+  Checked 2026-11-06 with a PxWeb POST for unit "Magn" and sector "Wind energy": values from 2013
+  to 2019 (8.400 GWh in 2014, 10.894 GWh in 2015), empty before. The values use a point as the
+  decimal separator with three decimals, so "8.400" is 8.4 GWh. The National Energy Authority
+  (Orkustofnun) has published later production-by-source tables as PDFs in its data repository
+  (for example OS-2022-T003-01 on rafhladan.is); that file returned HTTP 403 here and was not
+  checked. No hourly or per-plant wind series was found from the transmission operator
+  Landsnet.
+status: discontinued
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

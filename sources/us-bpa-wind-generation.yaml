@@ -14,6 +14,18 @@ coverage:
 capacity: separate-dataset
 coordinates: none
 curtailment: not-reported
+conventions:
+  timezone: UTC
+  timestamp: instant
+  unit: MW
+  value: instantaneous
+  evidence: https://transmission.bpa.gov/Business/Operations/Wind/OPITabularReports/WindGenTotalLoadYTD_2025.xlsx
+  note: >-
+    The 2025 file has "Date/Time" and "Date/Time (UTC)" columns; the first carries no zone label and
+    sits 8 hours behind the UTC column in January (Pacific time). Its Details sheet says the data
+    are "5-minute interpolated snapshots", and the wind column is "TOTAL WIND GENERATION IN BPA
+    CONTROL AREA (MW; SCADA 79687)". The 2007-2021 files were not opened on this pass and may have
+    only the local column. Read 2026-11-06 by an automated research pass; not yet reviewed.
 access:
   method: bulk-download
   url: https://transmission.bpa.gov/Business/Operations/Wind/
@@ -56,3 +68,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

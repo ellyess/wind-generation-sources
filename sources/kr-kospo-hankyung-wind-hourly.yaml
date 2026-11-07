@@ -1,0 +1,82 @@
+id: kr-kospo-hankyung-wind-hourly
+name: Hankyung wind farm generation results (한국남부발전(주)_한경풍력발전실적)
+publisher: Korea Southern Power Co. (KOSPO, 한국남부발전), via the Public Data Portal (data.go.kr)
+publisher_role: owner-operator
+countries: [KR]
+area: Hankyung wind farm, Jeju island, phases 1 and 2 reported separately
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2013
+  update: annual (업데이트 주기 연간); current file runs to 2026-03-31
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: kWh
+  value: period-total
+  evidence: https://www.data.go.kr/data/15043410/fileData.do
+  note: >-
+    The column definitions on the dataset page give columns 1 to 24 as generation per time band
+    (시간대별 발전량) in kWh, and the description says the bands run from 01시 to 24시 in one-hour steps; the
+    daily total, mean, maximum and minimum are also kWh. The page does not say whether band 1 is the
+    hour ending at 01:00 (24 is the last hour of the day), nor the time zone. Read 2026-11-06 by an
+    automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.data.go.kr/data/15043410/fileData.do
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [ko]
+licence:
+  name: Public Data Portal terms for this dataset, scope of permitted use "no restriction" (이용허락범위 제한 없음), free of charge
+  url: https://www.data.go.kr/data/15043410/fileData.do
+  redistribution: allowed
+  verified: true
+  note: The dataset page states free use with no restriction on the scope of use. The CSV downloaded without login on the check date.
+traps:
+  - summary: One row per day and phase, with the 24 hours as columns labelled 1 to 24.
+    detail: >-
+      Columns are date, phase (단계 1 or 2), daily total, mean, maximum and minimum, then hourly
+      energy in kWh in columns 1 to 24, where 24 is the last hour of the day. Melt to long form
+      and shift hour 24 before building timestamps. The file is CP949 (EUC-KR) encoded.
+    evidence: https://www.data.go.kr/data/15043410/fileData.do
+    found: 2026-11-06
+  - summary: Phase 1 has two different rows for 30 January 2023.
+    detail: >-
+      Phase 1 has 4,839 daily rows against 4,838 days in the period; 2023-01-30 appears twice with
+      different values (daily totals 20,712 and 9,144 kWh). Deduplicate, and decide which row to
+      keep, before summing.
+    evidence: https://www.data.go.kr/data/15043410/fileData.do
+    found: 2026-11-06
+  - summary: Some hours hold "-" or nothing instead of a number, so a numeric read of the hour columns fails or turns gaps into zeros.
+    detail: >-
+      In the file modified 2026-04-14, phase 1 on 2025-07-01 has " - " in hours 22 and 24, and on
+      2025-08-19 "          -" (space-padded) in hours 4 and 6 to 10. Another 24 hour cells are
+      empty, all in 2024 and 2025, on 14 phase-days (for example phase 1 on 2024-03-30, hours 1
+      to 5). The daily mean column divides the daily total by the hours that have a number, not
+      by 24 (2025-07-01: total 11030, mean 501.3636364 = 11030 / 22), so these are missing hours,
+      not calm ones. Parse with errors coerced to missing and do not fill them with zero. Found
+      by an automated research pass on 2026-11-07; not yet reviewed by a person.
+    evidence: https://www.data.go.kr/data/15043410/fileData.do
+    found: 2026-11-07
+notes: >-
+  Hourly energy in kWh for each phase of the Hankyung wind farm, operated by KOSPO in western Jeju.
+  Checked 2026-11-06: the file (한국남부발전(주)_한경풍력발전실적.csv, 1.3 MB, registered
+  2025-03-18, modified 2026-04-14) covers every day from 2013-01-01 to 2026-03-31; phase 1 summed
+  to about 16.0 GWh in 2013 and phase 2 to about 36.7 GWh, so the two series differ. Phase 1
+  output falls to about 5.9 GWh in 2025; the file gives no reason, so check availability before
+  treating low years as low wind. Installed capacity and turbine positions are not in the file. The dataset
+  description points to KOSPO's Seongsan wind farm as a companion series; that dataset was not
+  checked. Other public generation companies publish similar files on data.go.kr, for example
+  Korea Midland Power's Sangmyeong wind farm on Jeju
+  (https://www.data.go.kr/data/15119454/fileData.do), not checked.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

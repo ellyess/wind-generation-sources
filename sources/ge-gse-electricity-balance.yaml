@@ -1,0 +1,71 @@
+id: ge-gse-electricity-balance
+name: Actual electricity balance of Georgia, generation by power plant
+publisher: Georgian State Electrosystem (GSE)
+publisher_role: tso
+countries: [GE]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2016
+  update: monthly; the current year's file is replaced as months are added
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: "https://admin.gse.com.ge/storage/files/shares/content_files/2026_10_Eng.pdf"
+  note: >-
+    The 2026 balance is headed "(Mln.kWh)", million kWh, which equals GWh, with one column per
+    month from January to December and a Total. It writes decimals with a comma and thousands
+    with a space (1 102,67); older files differ (see traps). Read 2026-11-06 by an automated
+    research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://admin.gse.com.ge/api/en/menu/actual-balance-125
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [ka, en]
+licence:
+  name: No data licence found (site footer text "GSE. All rights reserved.")
+  redistribution: unclear
+  verified: false
+  note: No terms of use or reuse licence were found for gse.com.ge on 2026-11-06; the only statement found was the "All rights reserved" footer text in the site's translation file.
+traps:
+  - summary: The decimal separator changes between years, a point in 2016 and a comma in 2025-26.
+    detail: >-
+      The 2016 file prints wind as 1.835 and 7.191 (million kWh), while the 2025 and 2026 files
+      print 6,52 and 5,27, and thousands separators are spaces ("1 102,67"). A locale-blind parser
+      will read 1.835 as one thousand eight hundred.
+    evidence: https://admin.gse.com.ge/storage/uploads/content_files/01KN70A79PBAZFNB5AZFG69NXG.pdf
+    found: 2026-11-06
+  - summary: The Electricity System Commercial Operator's copy of the 2026 balance labels the Ruisi farm as a second "Zemo Wind Power Plant".
+    detail: >-
+      In ESCO's energobalans_2026_eng.pdf two rows are named Zemo Wind Power Plant (the second
+      only 0.313 million kWh in September 2026); GSE's file for the same figures names that row
+      Ruisi Wind Farm. Match plants by GSE's names, or by value, when joining the two publishers'
+      files.
+    evidence: https://esco.ge/files/data/Balance/energobalans_2026_eng.pdf
+    found: 2026-11-06
+notes: >-
+  The file list is shown on gse.com.ge under Data from the Power System, Actual Balance; the site
+  is a JavaScript app, so the access link above is the JSON listing it loads, which gives each
+  year's PDF link. A one-page PDF per year with monthly generation in million kWh for every power plant in Georgia,
+  including the wind farms: Qartli (Kartli) from November 2016, Zemo from March 2026 and Ruisi from
+  September 2026. Checked in the 2016, 2025 and 2026 files; in 2026 Qartli and Zemo report
+  different monthly values (for example 10.22 and 3.95 million kWh in March 2026), and the
+  "Wind Power Plants" subtotal equals their sum. The 2026 file (2026_10_Eng.pdf) ran to
+  September 2026 on 2026-11-06. Files go back to 1995, before any wind. GSE's page on the power
+  system gave installed wind capacity of 39.5 MW on 2026-11-06, without dates. The Electricity
+  System Commercial Operator (ESCO, https://esco.ge/en/energy-balance/by-year-1) publishes the
+  same balance tables (2025 values match), but its 2025 file labels the annual total column
+  "2024".
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false

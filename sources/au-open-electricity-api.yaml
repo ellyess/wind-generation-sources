@@ -14,6 +14,21 @@ coverage:
 capacity: separate-dataset
 coordinates: separate-dataset
 curtailment: reported
+conventions:
+  timezone: UTC+10:00
+  timestamp: unknown
+  unit: MWh
+  value: period-total
+  evidence: "https://docs.openelectricity.org.au/guides/networks"
+  note: >-
+    The networks guide gives each network its own fixed zone: NEM "Timezone: UTC+10", WEM
+    "Timezone: UTC+8"; the field above is the NEM one, so Western Australian facilities are
+    UTC+08:00. The facility-data reference gives date_start and date_end in "network-local time".
+    The metrics page lists energy in MWh as a quantity summed over intervals, computed by Open
+    Electricity from 5-minute MW readings with the trapezoidal rule, and power in MW as "an
+    instantaneous measurement" averaged when aggregated. Whether an interval's time stamp marks
+    its start or end is not stated. Read 2026-11-06 by an automated research pass; not yet
+    reviewed.
 access:
   method: api
   url: https://platform.openelectricity.org.au/
@@ -81,3 +96,4 @@ notes: >-
 status: active
 last_checked: 2026-11-06
 checked_by: automated research (Claude Code), 2026-11-06
+reviewed: false

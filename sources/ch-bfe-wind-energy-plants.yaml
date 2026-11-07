@@ -1,0 +1,98 @@
+id: ch-bfe-wind-energy-plants
+name: Wind energy plants (Windenergieanlagen), annual production per facility
+publisher: Swiss Federal Office of Energy (SFOE / Bundesamt für Energie, BFE)
+publisher_role: government
+countries: [CH]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 1997
+  update: annual (the files checked were dated February 2026 and held 2025)
+capacity: included
+coordinates: included
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: kWh
+  value: period-total
+  evidence: https://api3.geo.admin.ch/rest/services/api/MapServer/ch.bfe.windenergieanlagen/facility_MTC/extendedHtmlPopup?lang=en
+  note: >-
+    One total per facility and calendar year. The CSV column "production" and the INTERLIS
+    model carry no unit, but the publisher's own map popup on geo.admin.ch (layer
+    ch.bfe.windenergieanlagen) prints the same yearly figures with "kWh" (for example Mt. Crosin
+    2023: 91'144'250 kWh) and installed power in kW.
+    Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://data.geo.admin.ch/ch.bfe.windenergieanlagen/windenergieanlagen/windenergieanlagen_2056.csv.zip
+  docs: https://www.bfe.admin.ch/windenergieanlagen
+  key_required: false
+  registration: false
+  formats: [csv, gpkg, interlis]
+  languages: [de, fr, it, en]
+licence:
+  name: "opendata.swiss terms of use: Open use. Must provide the source."
+  url: https://opendata.swiss/en/terms-of-use
+  redistribution: allowed-with-attribution
+  attribution: Name the Swiss Federal Office of Energy (SFOE), the dataset title and a link to the dataset.
+  verified: true
+  note: >-
+    Read 2026-11-06. The dataset record on opendata.swiss (windenergieanlagen) tags every
+    resource with the "terms_by" symbol, which the terms page defines as non-commercial and
+    commercial use allowed, source must be given. The data.geo.admin.ch catalogue for the same
+    collection points to the same terms. BFE's own page states the data have no official or
+    legally binding character.
+traps:
+  - summary: The production figures are what operators told BFE, not metered values, and some are rounded.
+    detail: >-
+      BFE says all information is based on what plant operators provide and is for public
+      information only. Several years are given to the nearest thousand or hundred thousand
+      units (for example Haldenstein 4,400,000 in 2023 and Sainte-Croix 20,100,000 in 2024),
+      which suggests estimates or rounded reports for some farms.
+    evidence: https://www.bfe.admin.ch/windenergieanlagen
+    found: 2026-11-06
+  - summary: >-
+      The downloaded files and the data model give no unit for production; the unit, kWh, is
+      stated only in the publisher's map pop-up.
+    detail: >-
+      The INTERLIS model describes production only as "power produced by all the turbines of a
+      facility during one year", and the CSV header is just "xtf_id,year,production,facility".
+      The publisher's own pop-up for the layer ch.bfe.windenergieanlagen on geo.admin.ch does
+      state the unit: for Mont Crosin it lists "2023 91'144'250 kWh", the same figure as the CSV,
+      and "Installierte Leistung 37200.0 kW"
+      (https://api3.geo.admin.ch/rest/services/api/MapServer/ch.bfe.windenergieanlagen/facility_MTC/extendedHtmlPopup?lang=en).
+      Read as kWh, the 2023 and 2024 facility totals (168.5 and 170.5 GWh) also match the
+      national wind figures in BFE's annual electricity balance (169 and 171 GWh). Corrected
+      2026-11-07: the trap said the unit was not stated anywhere; it is stated in the pop-up, not
+      in the files. Not yet reviewed by a person.
+    evidence: https://models.geo.admin.ch/BFE/Windenergyplants_V1.ili
+    found: 2026-11-06
+  - summary: Facility histories have gaps, so a year with fewer rows is not a drop in output.
+    detail: >-
+      The production table held 229 facility-years for 15 facilities. San Gottardo has six years,
+      Sainte-Croix only 2024 and 2025, and Uri only 2025, and the number of facilities reporting
+      changes from year to year (12 in 2018 and 2023, 13 in 2020 and 2024, 14 in 2025). Check
+      commissioning years in the turbine table before summing.
+    evidence: https://data.geo.admin.ch/ch.bfe.windenergieanlagen/windenergieanlagen/windenergieanlagen_2056.csv.zip
+    found: 2026-11-06
+  - summary: Coordinates are Swiss LV95 metres (EPSG:2056), not longitude and latitude.
+    evidence: https://data.geo.admin.ch/ch.bfe.windenergieanlagen/windenergieanlagen/windenergieanlagen_2056.csv.zip
+    found: 2026-11-06
+notes: >-
+  Every Swiss wind facility (15 in the February 2026 snapshot, from single turbines to Mont
+  Crosin) with operator, rated power and location, a turbine table (60 turbines with
+  manufacturer, model, rotor diameter, hub height, altitude, construction and dismantling years)
+  and a production table with one annual total per facility from 1997 to 2025. Checked
+  2026-11-06 by downloading the CSV package: Mont Crosin gave 91,144,250 and Peuchapatte
+  17,107,993 for 2023, and the facility sums match BFE's national annual wind figures. Switzerland
+  has no sub-annual per-farm series that was found; for a daily national series see
+  ch-energy-dashboard-swissgrid-production. The national annual balance
+  (https://www.uvek-gis.admin.ch/BFE/ogd/32/ogd32_elektrizitaetbilanz_jahreswerte.csv) carries
+  the same totals rounded to whole GWh.
+status: active
+reviewed: false
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

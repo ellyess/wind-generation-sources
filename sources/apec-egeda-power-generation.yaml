@@ -1,0 +1,66 @@
+id: apec-egeda-power-generation
+name: APEC Energy Database, Electricity Power Generation Table
+publisher: APEC Expert Group on Energy Data and Analysis (EGEDA), Energy Statistics and Training Office, Asia Pacific Energy Research Centre (APERC)
+publisher_role: statistics-office
+countries: [AU, CA, CL, CN, HK, ID, JP, KR, MX, NZ, PE, PH, RU, TH, TW, US, VN]
+area: >-
+  The database covers all 21 APEC member economies; the 17 listed had a non-zero wind value in
+  2023. Brunei Darussalam, Malaysia, Papua New Guinea and Singapore showed none.
+level: country
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 1980
+  update: annual (2023 was the latest year on the check date)
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: "https://www.egeda.ewg.apec.org/egeda/database_info/electricity_select_form2.html"
+  note: >-
+    The query result page (electricity.php, reached from this form) heads the table "Unit:GWh",
+    one column per year. Whether a year is a calendar year or an economy's fiscal year is not
+    stated on the pages checked. Read 2026-11-06 by an automated research pass; not yet reviewed.
+access:
+  method: portal
+  url: https://www.egeda.ewg.apec.org/egeda/database_info/electricity_select_form2.html
+  docs: https://www.egeda.ewg.apec.org/egeda/database_info/index.html
+  key_required: false
+  registration: false
+  formats: [html, txt]
+  languages: [en]
+licence:
+  name: No terms found
+  url: https://www.egeda.ewg.apec.org/
+  redistribution: unclear
+  verified: false
+  note: >-
+    No terms of use, copyright statement or licence were found on the database pages, the
+    database information pages or the About pages checked. The footer reads "©Energy Statistics &
+    Training Office, Asia Pacific Energy Research Centre (APERC)".
+traps:
+  - summary: A dash stands for both zero and no data.
+    detail: >-
+      The table shows "-" in empty cells (for example every economy's wind in 1980, and Brunei and
+      Singapore in 2023), so a missing report cannot be told apart from a reported zero.
+    evidence: https://www.egeda.ewg.apec.org/egeda/database_info/electricity_select_form2.html
+    found: 2026-11-06
+notes: >-
+  Annual power generation in GWh by economy and source (thermal split into coal, oil and gas;
+  hydro; nuclear; geothermal; solar; wind; biomass; biogas; other), for public producers and
+  autoproducers, 1980 to 2023, from the official data APEC member economies submit to EGEDA.
+  Queried through the web form (one year at a time, chosen economies and sectors) with a text
+  download of the result. Checked by extracting total-sector wind for all 21 economies for 2023,
+  1990 and 1980 on the check date: 2023 values differ by economy (for example Australia 31,385 GWh,
+  China 885,867 GWh, Hong Kong 1 GWh); 1990 has wind only for Mexico and the United States. Generating
+  capacity is in a separate table (Electricity Generating Capacity), not checked for wind. Hong Kong and Chinese Taipei are reported
+  separately.
+status: active
+last_checked: 2026-11-06
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+reviewed: false
