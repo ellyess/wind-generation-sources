@@ -44,7 +44,11 @@ licence:
   redistribution: allowed-with-attribution
   attribution: Credit the Danish Energy Agency (Energistyrelsen) as the source.
   verified: true
-  note: The policy forbids altering or distorting the content, so re-hosting the files unchanged is fine, but cleaned or derived copies are open to question.
+  note: >-
+    The policy forbids altering or distorting the content, so re-hosting the files unchanged is
+    fine, but cleaned or derived copies are open to question. The catalogue's map converts the
+    register's coordinates to latitude and longitude and credits the agency; the maintainer
+    treats that as a change of format, not of content (decided 2026-11-07).
 traps:
   - summary: >-
       Coordinates are ETRS89 / UTM metres, zone 32N except on Bornholm, not longitude and

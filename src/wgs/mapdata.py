@@ -76,7 +76,8 @@ def build_farms() -> dict:
                      "Open Government Licence v3.0)")
     if "ens" in used:
         parts.append("Danish turbine locations from the Danish Energy Agency (Energistyrelsen) "
-                     "turbine register, reprojected from UTM 32N")
+                     "turbine register (https://ens.dk/media/4945/download), converted from "
+                     "ETRS89 / UTM 32N to latitude and longitude and otherwise as published")
     if "eia-860" in used:
         parts.append("US plant locations from EIA-860 (U.S. Energy Information Administration)")
     if any(f["entry"] == "de-netztransparenz-eeg-movement-data" for f in farms.values()):

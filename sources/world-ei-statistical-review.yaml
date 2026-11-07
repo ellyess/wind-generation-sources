@@ -38,7 +38,7 @@ access:
 licence:
   name: Energy Institute website terms and conditions (no dataset licence found)
   url: https://www.energyinst.org/terms
-  redistribution: prohibited
+  redistribution: unclear
   attribution: "Energy Institute (2026), Statistical Review of World Energy 2026, Energy Institute, London (the citation the download page gives)"
   verified: true
   note: >-
@@ -48,7 +48,9 @@ licence:
     data was found on the download page or in the 2025 workbook. The current edition's download
     form (email address and reCAPTCHA) may present further terms; it was not submitted. Other
     aggregators (Ember, Our World in Data) republish EI figures; their basis for doing so was not
-    checked.
+    checked. Changed 2026-11-07 from "prohibited" to "unclear" by the maintainer: the terms
+    found are site-wide, not specific to the dataset, so they do not settle whether the data may
+    be re-hosted. Until the EI says otherwise, link to its download page rather than re-hosting.
 traps:
   - summary: The current edition's files sit behind an email form with a reCAPTCHA; only archived editions download directly.
     detail: >-

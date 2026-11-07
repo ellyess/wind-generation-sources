@@ -29,7 +29,7 @@ did not bypass them.
   - NP3-965-ER: the 60-day SCED disclosure, per resource.
   Until someone checks from a US connection, `us-eia-930-hourly` is the only route.
 - **Honduras, El Salvador, Venezuela:** the publisher sites were unreachable or returned 403.
-- **Panama:** CND's daily and hourly reports by plant use a key embedded in the public page (sitioprivado.cnd.com.pa). Whether to use that key is a decision for the maintainer.
+- **Panama:** CND's daily and hourly reports by plant use a key embedded in the public page (sitioprivado.cnd.com.pa). Decided 2026-11-07: the key is not used. Ask CND for documented access first.
 
 ## Found, not yet added
 
@@ -168,8 +168,15 @@ already a trap in `world-irena-irenastat.yaml`.
 
 ## Decisions for the maintainer
 
-- **Danish turbine points on the map:** the Danish Energy Agency's data policy allows reuse with credit but forbids altering the content, and the catalogue entry already calls derived copies "open to question". The map shows each turbine's position reprojected from UTM 32N. Confirm this is acceptable before publishing, or drop `ens-dk` from `MARKET_ENTRY` in `src/wgs/mapdata.py`.
-
-- **Energy Institute Statistical Review:** recorded as "prohibited" from the site-wide terms, which allow private use only. No licence specific to the dataset was found.
 - **Ember and EIA, gross or net:** Ember's methodology calls EIA's data gross generation; EIA labels it net. Noted in the Ember yearly and EIA entries; `world-ember-monthly` could note it too.
 - **Kelmarsh v4:** the new trap cites a published audit. Confirm it against the 2023 files, and check whether Penmanshiel has the same layout.
+
+Decided on 2026-11-07:
+- **Danish turbine points:** kept on the map with credit to the Danish Energy Agency and a link to
+  the register. Converting coordinates to latitude and longitude is treated as a change of
+  format, not of content.
+- **ISO New England snippet:** kept. It downloads the yearly workbook from the direct link the
+  entry lists, which asks for no captcha; only the report page shows one.
+- **Panama:** the key embedded in CND's public page is not used. Ask CND for documented access.
+- **Energy Institute:** redistribution changed from "prohibited" to "unclear", because the terms
+  found are site-wide rather than specific to the dataset. Link to the EI rather than re-hosting.
