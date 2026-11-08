@@ -1,11 +1,14 @@
 .venv/
 __pycache__/
 *.pyc
-.impeccable/review/
-.impeccable/mocks/
-.impeccable/config.local.json
-.impeccable/direction-payload.json
 .pytest_cache/
 .ruff_cache/
 crosswalk/.cache/
 web/public/data/
+
+# Local only: working notes and tool files, kept off GitHub
+OVERNIGHT_REPORT_*.md
+PRODUCT.md
+DESIGN.md
+.impeccable/
+.claude/

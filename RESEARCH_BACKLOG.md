@@ -249,7 +249,7 @@ Decided on 2026-11-08:
   notices keep their earlier value.
 - **Jordan NEPCO:** `link-only`.
 - **Altahullion:** resolution `1min`, with a trap that the one-minute file covers T11 only.
-- **Theme:** dark only; PRODUCT.md now says so.
+- **Theme:** dark only.
 - **Japan TSO snippet:** the Kyushu shift stays. Its labels run 0:30 to 24:00, and "24:00" can
   only mark the end of a half hour, so moving it back 30 minutes is safe without documentation.
 - **SCADA measure:** SCADA readings from the operator's control system are `reported-generation`;
