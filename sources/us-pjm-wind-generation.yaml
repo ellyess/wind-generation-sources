@@ -35,14 +35,17 @@ access:
   formats: [csv, json]
   languages: [en]
 licence:
-  name: PJM Legal and Privacy notice
-  url: "https://www.pjm.com/about-pjm/legal.aspx"
-  redistribution: unclear
+  name: PJM Data Miner 2 API guide and Legal and Privacy notice
+  url: "https://www.pjm.com/-/media/DotCom/etools/data-miner-2/data-miner-2-api-guide.ashx"
+  redistribution: prohibited
   verified: true
   note: >-
-    The notice says access to the site "does not confer any license" in its content and that PJM
-    reserves all rights. It grants no reuse terms and does not mention data reuse explicitly, so
-    re-hosting is not covered.
+    The Data Miner 2 API guide (page 3) says "information and data contained in Data Miner is for
+    internal use only and redistribution of information and or data contained in or derived from
+    Data Miner is strictly prohibited without a PJM membership." The site's Legal and Privacy
+    notice (https://www.pjm.com/about-pjm/legal.aspx) adds that access "does not confer any
+    license" and that PJM reserves all rights. Changed from unclear to prohibited on 2026-11-08 by
+    maintainer decision, after the API guide was read.
 traps:
   - summary: The area values overlap, so adding every row double-counts.
     detail: >-

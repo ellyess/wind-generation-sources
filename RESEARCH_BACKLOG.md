@@ -146,9 +146,6 @@ Still open:
   describes.
 
 **Found while writing the keyed snippets (not yet written into the entries)**
-- `us-pjm-wind-generation`: the Data Miner 2 API guide says "redistribution of information and
-  or data contained in or derived from Data Miner is strictly prohibited without a PJM
-  membership". The entry says `unclear`; a licence change is a maintainer decision.
 - `eu-entsoe-actual-generation`: the conventions note says position-to-time mapping is not
   documented, but ENTSO-E's curve-type document gives "TimeStepPosition =
   StartDateTimeofTimeInterval + ( Resolution * ( Pos − 1))".
@@ -213,3 +210,8 @@ Decided on 2026-11-07:
 - **Panama:** the key embedded in CND's public page is not used. Ask CND for documented access.
 - **Energy Institute:** redistribution changed from "prohibited" to "unclear", because the terms
   found are site-wide rather than specific to the dataset. Link to the EI rather than re-hosting.
+
+Decided on 2026-11-08:
+- **PJM:** redistribution changed from "unclear" to "prohibited". The Data Miner 2 API guide says
+  its data are "for internal use only" and redistribution "is strictly prohibited without a PJM
+  membership".
