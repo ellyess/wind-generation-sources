@@ -44,7 +44,7 @@
 
 <section class="snip">
   <h3><Icon name="code" size={15} />Get the data in Python</h3>
-  <p class="lead">Fetches a sample with UTC period-start stamps, units in the column names, and traps handled where code can.</p>
+  <p class="lead">Fetches a sample, handles the traps that code can, and names the unit in each column. Times are converted to UTC only where the entry states the time zone.</p>
   {#if run}
     <p class="run" class:ok={run.result === "ok"} class:bad={run.result === "failed"}>
       {#if run.result === "ok"}

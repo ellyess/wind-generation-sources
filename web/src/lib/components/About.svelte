@@ -23,13 +23,13 @@
       <dt>Observed output only</dt>
       <dd>Metered, settled, certified or reported by the publisher. Simulated series, such as renewables.ninja, EMHIRES or
         capacity factors from reanalysis, are left out.</dd>
-      <dt>Licences are read, not inferred</dt>
+      <dt>Licences read at source</dt>
       <dd>Each licence is read on the publisher's own page and dated. Until then, re-hosting stays <em>Unclear</em>.</dd>
       <dt>Every trap cites its evidence</dt>
       <dd>A trap is a property of the source, such as a mislabelled column, a silent change or a gap, linked to the documentation, issue or audit that shows it.</dd>
-      <dt>Links, not copies</dt>
-      <dd>The catalogue holds metadata only and never re-hosts a publisher's data. Live charts are fetched by your browser from
-        publishers that allow it; nothing is stored.</dd>
+      <dt>Metadata and links only</dt>
+      <dd>The catalogue never re-hosts a publisher's data. Live charts are fetched by your browser from publishers that allow it,
+        and nothing is stored.</dd>
       <dt>Checked by machine, and said so</dt>
       <dd>Links are requested weekly; one that refuses automated requests is reported as not judged, never as working.
         Annual totals are compared with a whole-fleet national figure, or else Eurostat or Ember, and each stated time step with the data.
@@ -70,7 +70,7 @@
       <details>
         <summary>Why do two sources give different totals for the same country?</summary>
         <p>Usually they measure different things: gross at the turbine or net to the grid, the whole fleet or only transmission-connected
-          farms, a calendar or a fiscal year, metered values or the publisher's estimate. Sometimes one is simply wrong. The <a class="lnk" {...store.link({ view: "checks" })}>checks page</a>
+          farms, a calendar or a fiscal year, metered values or the publisher's estimate. Sometimes one is wrong. The <a class="lnk" {...store.link({ view: "checks" })}>checks page</a>
           compares them, and the traps say which explanation applies.</p>
       </details>
       <details>

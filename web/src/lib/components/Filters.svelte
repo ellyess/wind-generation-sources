@@ -54,8 +54,8 @@
     <label><span>Capacity</span>
       <select value={store.cap} onchange={(e) => store.set("cap", e.currentTarget.value)}>
         <option value="">Any</option>
-        <option value="included">Comes with the series</option>
-        <option value="any">With the series or alongside</option>
+        <option value="included">In the same data</option>
+        <option value="any">In the same or a separate dataset</option>
       </select></label>
     <label><span>Status</span>
       <select value={store.status} onchange={(e) => store.set("status", e.currentTarget.value)}>

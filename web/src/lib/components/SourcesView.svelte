@@ -90,7 +90,7 @@
               <th scope="row" class="name">
                 <a class="open" {...store.link({ source: s.id })}>{s.name}</a>
                 <span class="pub">{s.publisher}
-                  {#if hasLive(s.id)}<span class="tag live"><Icon name="live" size={11} />Live</span>{/if}
+                  {#if hasLive(s.id)}<span class="tag live"><Icon name="live" size={11} />Live chart</span>{/if}
                   {#if s.reviewed !== false}<span class="tag rev"><Icon name="check" size={11} />Reviewed</span>{/if}
                   {#if s.status !== "active"}<span class="tag">{TEXT.status[s.status]}</span>{/if}
                 </span>

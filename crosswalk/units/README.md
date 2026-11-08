@@ -5,6 +5,15 @@ output that entry publishes. `crosswalk/lists.py` places each row on the map: it
 publisher's own coordinates where given, and otherwise matches the name to an OpenStreetMap
 wind farm in `area`.
 
+## Terms
+
+These lists are not covered by the catalogue's CC BY 4.0 licence. Each list stays under the terms
+of the publisher it was read from, recorded in that entry's `licence` block in `sources/`. Some
+of those terms are non-commercial only, and two (`ar-cammesa-renewables-database` and
+`dk-orsted-offshore-operational-data`) forbid redistribution of the publisher's material. The
+lists hold only plant names, codes, capacities and, where the publisher gives them, coordinates,
+so the map can place each unit. Check the publisher's terms before reusing a list.
+
 Columns:
 
 | Column | Meaning |

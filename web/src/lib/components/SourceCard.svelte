@@ -17,7 +17,7 @@
   <span class="top">
     <LevelDot tier={s._tier} size={10} />
     <span class="lvl">{TEXT.level[s.level]} · {TEXT.step[s.resolution]} · <span class="num">{coverageText(s.coverage)}</span></span>
-    {#if hasLive(s.id)}<span class="tag live"><Icon name="live" size={12} />Live</span>{/if}
+    {#if hasLive(s.id)}<span class="tag live"><Icon name="live" size={12} />Live chart</span>{/if}
     {#if s.status !== "active"}<span class="tag">{TEXT.status[s.status]}</span>{/if}
     {#if s.reviewed !== false}<span class="tag rev" title="A person has checked this entry against the publisher's pages"><Icon name="check" size={11} />Reviewed</span>{/if}
   </span>
