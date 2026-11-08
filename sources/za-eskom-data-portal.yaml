@@ -92,6 +92,6 @@ notes: >-
   sources). Coverage start is the oldest public snapshot found (March 2022); the request form
   may reach further back, which was not tested.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

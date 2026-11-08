@@ -1,0 +1,78 @@
+id: cn-sdwpf-longyuan-134-turbine-scada
+name: "SDWPF: A Dataset for Spatial Dynamic Wind Power Forecasting over a Large Turbine Array"
+publisher: Baidu Research, with data from China Longyuan Power Group Corp. Ltd.
+publisher_role: research
+countries: [CN]
+area: >-
+  One unnamed onshore wind farm of China Longyuan Power Group. China is inferred from the
+  operator and the UTC+08:00 time zone; the publisher never names the country.
+level: turbine
+technology: onshore
+measure: reported-generation
+resolution: 10min
+coverage:
+  start: 2020
+  end: 2021
+  update: none (static release; figshare version 2, published 2024-04-30)
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: UTC+08:00
+  timestamp: unknown
+  unit: kW
+  value: period-mean
+  evidence: https://zhoujingbo.github.io/paper/2024SDWPFScientificData.pdf
+  note: >-
+    Table 2 of the paper describes Tmstamp as "Created time of the record" with the note "Time
+    zone UTC + 08:00", and Patv (kW) as active power; the Data Records section says each
+    10-minute record "represents average values over each 10-minute interval, derived from
+    high-frequency (1 Hz) sampling". Whether a stamp starts or ends its interval is not stated.
+    Onshore is inferred from the turbine elevations (about 1,430 m above sea level in
+    sdwpf_turb_location_elevation.csv), not stated.
+access:
+  method: bulk-download
+  url: https://doi.org/10.6084/m9.figshare.24798654
+  docs: https://doi.org/10.1038/s41597-024-03427-5
+  key_required: false
+  registration: false
+  formats: [csv, parquet]
+  languages: [en]
+licence:
+  name: CC BY 4.0
+  spdx: CC-BY-4.0
+  url: https://doi.org/10.6084/m9.figshare.24798654
+  redistribution: allowed-with-attribution
+  attribution: Cite Zhou et al. (2024), Scientific Data 11:649.
+  verified: true
+traps:
+  - summary: >-
+      The publisher never says where the farm is, not even the country; turbine positions are
+      relative only.
+    detail: >-
+      The paper and README name the data provider (China Longyuan Power Group) but not the farm's
+      country, region or name, and sdwpf_turb_location_elevation.csv gives x and y in metres from
+      an arbitrary origin, so the data cannot be matched to reanalysis grid cells without an
+      outside guess. The time zone UTC+08:00 narrows it but does not fix it, and this catalogue's
+      country tag, China, is an inference from the operator and the time zone. Found by an automated
+      research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://ndownloader.figshare.com/files/46005798
+    found: 2026-11-08
+  - summary: The weather columns are ERA5, not measurements.
+    detail: >-
+      T2m, Sp, RelH, Wspd_w, Wdir_w and Tp in the full file are taken from ERA5 (Table 2), so do
+      not use them as observations when validating a reanalysis. Found by an automated research
+      pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://zhoujingbo.github.io/paper/2024SDWPFScientificData.pdf
+    found: 2026-11-08
+notes: >-
+  Two years (January 2020 to December 2021) of 10-minute SCADA from 134 turbines in one farm,
+  11,361,191 records, with active and reactive power (kW), nacelle wind speed and direction,
+  pitch angles and temperatures. sdwpf_2001_2112_full.csv is 1.7 GB (the parquet copy 292 MB);
+  the 245-day KDD Cup 2022 file (334 MB) withholds dates (the README says timestamps were held
+  back during the challenge). The turbines are Sinovel SL1500/82 (82 m rotor, 70 m hub); rated
+  power is in the paper's supplement, which was not read.
+status: fixed-release
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

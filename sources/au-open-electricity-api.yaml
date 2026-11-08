@@ -6,7 +6,7 @@ countries: [AU]
 area: "NEM: QLD, NSW, VIC, SA, TAS; WEM: Western Australia"
 level: farm
 technology: onshore
-measure: metered-energy
+measure: reported-generation
 resolution: 5min
 coverage:
   start: 1998
@@ -93,7 +93,12 @@ notes: >-
   Checked 2026-11-06 against the documentation only: the API answered 401 without a key and
   no account was created, so per-facility values were not fetched. The measure is AEMO
   SCADA as processed by Open Electricity, which also estimates some series.
+  Corrected 2026-11-08: measure was metered-energy and is now reported-generation. The metrics
+  reference (https://docs.openelectricity.org.au/api-reference/metrics) says "Each 5-minute
+  energy value is computed by Open Electricity from the corresponding generated (MW) readings
+  using the trapezoidal rule", and those readings are AEMO SCADA telemetry, which
+  au-aemo-nem-unit-scada classes as reported-generation, not settlement metering.
 status: active
-last_checked: 2026-11-06
-checked_by: automated research (Claude Code), 2026-11-06
+last_checked: 2026-11-08
+checked_by: automated research (Claude Code), 2026-11-06; re-checked 2026-11-08
 reviewed: false

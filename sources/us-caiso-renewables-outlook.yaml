@@ -48,11 +48,17 @@ licence:
     the California ISO is credited. Read as reuse with credit; check with CAISO before
     large-scale re-hosting.
 traps:
-  - summary: The five-minute production and curtailment workbooks stopped on 1 June 2025.
+  - summary: The five-minute production and curtailment workbooks are discontinued; the last ones end on 31 December 2025.
     detail: >-
-      CAISO no longer publishes the yearly Production and Curtailments Data workbook (May 2014 to
-      May 2025). Curtailment after that is only in the daily renewables reports, and production
-      only in Today's Outlook.
+      CAISO no longer publishes the yearly Production and Curtailments Data workbook. Curtailment
+      after that is only in the daily renewables reports, and production only in Today's Outlook.
+      Corrected 2026-11-08: this trap said the workbooks stopped on 1 June 2025 and covered May
+      2014 to May 2025. The library page does say "As of 6/1/2025 the ISO is no longer publishing
+      this report", but it lists production-and-curtailments-data-2025.xlsx (posted 2026-01-07),
+      whose Production sheet has all 105,120 five-minute rows of 2025, to 2025-12-31 23:55, and
+      production-and-curtailments-data-june-december-2025.xlsx (posted 2026-02-13), a curtailment
+      sheet to 31 December 2025 marked "a one time bulk upload". The 2025 workbook's own
+      curtailment sheet ends on 31 May 2025.
     evidence: https://www.caiso.com/library/production-curtailments-data
     found: 2026-11-06
   - summary: The workbook says its data are raw and not of operational or settlement quality.
@@ -67,6 +73,15 @@ traps:
       Earlier five-minute wind is only in the 2014-2017 workbooks.
     evidence: https://www.caiso.com/outlook/history/20180410/renewables.csv
     found: 2026-11-06
+  - summary: The yearly workbooks' Date column is Pacific clock time with daylight saving, so the autumn change repeats an hour with nothing to tell the two apart.
+    detail: >-
+      In production-and-curtailments-data-2025.xlsx, 9 March 2025 has 276 five-minute rows (no
+      02:00 to 02:55) and 2 November 2025 has 300, with 01:00 to 01:55 appearing twice, both times
+      as Hour 2; the year has 12 duplicated stamps. Only row order separates the first 01:00 (PDT)
+      from the second (PST). Localise with the repeated hour resolved by order before converting
+      to UTC. Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.caiso.com/documents/production-and-curtailments-data-2025.xlsx
+    found: 2026-11-08
 tools:
   - name: gridstatus (CAISO class)
     url: https://github.com/gridstatus/gridstatus
@@ -79,6 +94,6 @@ notes: >-
   net load and a curtailment sheet with wind and solar curtailment per interval and a reason
   (local or system). Nothing here is per plant; CAISO does not publish per-plant output openly.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

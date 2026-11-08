@@ -89,5 +89,5 @@ notes: >-
   /centrales/v4/findByDate and /capacidad-instalada/v4/findByDate, with user_key as a query
   parameter.
 status: active
-last_checked: 2026-09-19
+last_checked: 2026-11-07
 checked_by: Ellyess Benmoufok, from the PyVWF runbook (API verified July 2026); licence read on the publisher's page 2026-11-06

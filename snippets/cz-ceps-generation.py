@@ -7,7 +7,8 @@
 Quarter-hour average MW for the whole Czech system, gross output, by plant type; WPP is wind.
 The service runs in Prague local time and stamps each value with an explicit offset. ČEPS does
 not say whether a stamp opens or closes its quarter hour; a request from 00:00 returns a first
-stamp of 00:00, so the stamp is read as the start (inferred, not documented). Traps handled:
+stamp of 00:00, which fits the start, but that is not documented, so stamps are kept as given.
+Traps handled:
 the October change day repeats 02:00 with +02:00 and +01:00, so the offset is parsed rather than
 the clock time (100 quarter hours); WPP is ČEPS's estimate, not metered output.
 """

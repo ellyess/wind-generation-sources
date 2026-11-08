@@ -7,8 +7,8 @@
 The file (2013-01-01 to 2026-03-31, 1.3 MB) has one row per day and phase (단계), with hourly
 energy in kWh in columns 1 to 24. It is fetched through the portal's own download calls
 (undocumented), after its download-limit check; if the portal asks for a CAPTCHA the script
-stops. No time zone is stated; stamps are read as Korea Standard Time (UTC+9, no daylight
-saving). Traps handled:
+stops. No time zone is stated, so stamps are kept as a naive `time` (Korea Standard Time,
+UTC+9, is likely but not stated). Traps handled:
 - the wide layout is melted to long form, and column h is read as the hour ending at h:00
   (24 is the last hour of the day, which the page states), so its start is h - 1;
 - the file is CP949 (EUC-KR) encoded;
@@ -48,10 +48,10 @@ long["kwh"] = pd.to_numeric(long["kwh"], errors="coerce")  # "-" -> missing
 long = long.dropna(subset=["kwh"])
 start = pd.to_datetime(long["date"]) + pd.to_timedelta(long["hour"].astype(int) - 1, unit="h")
 df = (
-    long.assign(time_utc=start.dt.tz_localize("Asia/Seoul").dt.tz_convert("UTC"),
+    long.assign(time=start,  # zone not stated
                 unit_id="phase " + long["unit_id"].astype(str),
                 wind_mwh=long["kwh"] / 1000)  # kWh -> MWh
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "wind_mwh"]]
 )
 print(df)

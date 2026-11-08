@@ -1,0 +1,69 @@
+id: mn-erc-energy-statistics
+name: Statistics on Energy Performance (Energy Regulatory Commission of Mongolia), electricity generation
+publisher: Energy Regulatory Commission of Mongolia (ERC)
+publisher_role: regulator
+countries: [MN]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2015
+  update: annual statistics book; the 2025 edition, read 2026-11-08, has data to 2025
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: http://admin.erc.gov.mn/uploads/files/statisticseng.pdf
+  note: >-
+    The "Electricity Generation" table, headed GWh, has a "Wind power plant" row: 152.5 (2015),
+    157.5, 154.4, 339.0, 459.3 and 457.2 (2020). Read 2026-11-08 in the English edition with
+    data to 2020 by an automated research pass; not yet reviewed. Extended 2026-11-08: the
+    "Electricity Generation" table in the English flipbook Statistics on Energy Performance 2025
+    (page 16), headed "million kWh", has a "Wind Power Plant" row of 563.0 (2021), 508.5 (2022),
+    531.5 (2023), 517.5 (2024) and 532.6 (2025). The edition carries data to 2025, not 2024.
+access:
+  method: bulk-download
+  url: https://erc.gov.mn/mn/statistic
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [mn, en]
+licence:
+  name: none found
+  url: https://erc.gov.mn/mn/statistic
+  redistribution: unclear
+  verified: false
+  note: No reuse terms were found on the statistics page or in the downloaded edition.
+traps:
+  - summary: Recent editions are flipbooks rather than files, so the wind row has to be read off the page.
+    detail: >-
+      The statistics page links the 2020 editions as PDFs on admin.erc.gov.mn (English, 88
+      pages, 12 MB) and the later editions, including Statistics on Energy Performance 2025, as
+      fliphtml5 flipbooks with no file download found; in the 2025 English edition each page,
+      including the generation table on page 16, is a picture with no text to copy (checked
+      2026-11-08). Per-farm output is not tabulated; the
+      edition read gives individual wind farms only as contributions to the winter peak (Salkhit
+      19 MW, Tsetsii 33 MW and Sainshand 1 MW on 2020-12-15). Found by an automated research
+      pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://erc.gov.mn/mn/statistic
+    found: 2026-11-08
+notes: >-
+  Annual national wind generation for Mongolia, from the energy regulator's statistics book.
+  The 2020 edition covers 2015 to 2020. The 2025 English flipbook
+  (https://online.fliphtml5.com/seigx/ERC-statistic---2025-eng/), linked from the same page, was
+  read on 2026-11-08 and covers 2021 to 2025, so the two editions together give 2015 to 2025
+  with no gap; no edition was found that overlaps both, so revisions between them could not be
+  checked. In the 2025 edition the wind row adds up with the other rows to the stated total
+  generation within 0.1, and its pie chart gives wind 532.6 million kWh, 60.7% of 877.5 million
+  kWh of renewable output in 2025. No monthly or per-farm series was found. The Mongolian-language 2020
+  edition (http://admin.erc.gov.mn/uploads/files/statistic/erchim-huch_suuliinh_04-10_final.pdf)
+  carries the same wind row.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

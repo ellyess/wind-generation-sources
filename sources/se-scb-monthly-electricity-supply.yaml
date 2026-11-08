@@ -1,0 +1,77 @@
+id: se-scb-monthly-electricity-supply
+name: Monthly electricity statistics, supply by type of production and production by bidding zone (EN0108A tables EltillfM and ElEO)
+publisher: Statistics Sweden (SCB), for the Swedish Energy Agency
+publisher_role: statistics-office
+countries: [SE]
+area: Sweden and its four bidding zones (SE1 to SE4)
+level: zone
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 1997
+  update: monthly, about six weeks after the month
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://api.scb.se/OV0104/v1/doris/en/ssd/EN/EN0108/EN0108A/ElEO
+  note: >-
+    Table metadata give the contents as "Net electricity supply, GWh" (EltillfM) and "Electricity
+    production, net and usage, in GWh" (ElEO), with periods labelled like 2024M01. Both name the
+    Swedish Energy Agency as the source. Read 2026-11-08 by an automated research pass; not yet
+    reviewed.
+access:
+  method: api
+  url: https://www.statistikdatabasen.scb.se/pxweb/en/ssd/START__EN__EN0108__EN0108A/
+  docs: https://www.scb.se/en/services/open-data-api/
+  key_required: false
+  registration: false
+  formats: [json, csv, xlsx, px]
+  languages: [sv, en]
+licence:
+  name: CC0 (Statistics Sweden open data)
+  spdx: CC0-1.0
+  url: https://www.scb.se/en/services/open-data-api/
+  redistribution: allowed
+  attribution: "Optional: \"Source: Statistics Sweden\"; name the other agency when a table cites one (here the Swedish Energy Agency)."
+  verified: true
+  note: >-
+    SCB says it uses CC0 for its open data, with no requirement to state the source, but asks that
+    statistics carrying another agency's source reference be credited to that agency. The Swedish
+    Energy Agency's own terms (see se-energimyndigheten-wind-statistics) ask for "Källa:
+    Energimyndigheten". The API allows ten calls per ten seconds per IP address and 100,000 values
+    per call.
+traps:
+  - summary: The national table starts in 1974, but its wind series is empty ("..") until January 1997.
+    detail: >-
+      EltillfM covers 1974M01 to 2026M08; wind is ".." for every month before 1997M01 (16 GWh).
+      Read ".." as missing, not zero. Found by an automated research pass on 2026-11-08; not yet
+      reviewed by a person.
+    evidence: https://api.scb.se/OV0104/v1/doris/en/ssd/EN/EN0108/EN0108A/EltillfM
+    found: 2026-11-08
+  - summary: The bidding-zone table starts only in January 2021.
+    detail: >-
+      ElEO runs from 2021M01. For zone or county figures before 2021 the Swedish Energy Agency's
+      annual tables EN0105_2 (bidding area) and EN0105_3 (county) go back to 2003 (see
+      se-energimyndigheten-wind-by-county). Found by an automated research pass on 2026-11-08;
+      not yet reviewed by a person.
+    evidence: https://api.scb.se/OV0104/v1/doris/en/ssd/EN/EN0108/EN0108A/ElEO
+    found: 2026-11-08
+notes: >-
+  Monthly wind production in whole GWh for Sweden from January 1997 (table EltillfM, category
+  Vind) and for each bidding zone from January 2021 (table ElEO, category Vinkraft), to August
+  2026 when checked. In 2024 the zones gave SE1 7,438, SE2 17,005, SE3 10,458 and SE4 5,865 GWh,
+  40,766 GWh in all, against 40,767 GWh for the year in EltillfM, so the two tables agree to
+  rounding. The national annual sum for 2015 (16,618 GWh) is above the 16,323 GWh in the Swedish
+  Energy Agency's county table for that year. Offshore and onshore are not split here; the
+  agency's annual table EN0105_5 splits them. A sister table, Elprod, gives monthly wind from
+  2017 only. Query the API with a POST of a JSON query to the table's URL.
+status: active
+reviewed: false
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"

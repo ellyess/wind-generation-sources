@@ -1,0 +1,65 @@
+id: jo-nepco-annual-report-energy-purchases
+name: NEPCO annual report, electrical energy purchases by type of generation
+publisher: National Electric Power Company (NEPCO), Jordan
+publisher_role: tso
+countries: [JO]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2020
+  update: annual, with each year's annual report
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://nepco.com.jo/store/DOCS/web/2024_EN.pdf
+  note: >-
+    Table (11) "NEPCO's Electrical Energy Purchases (GWh)" and Table (12) "Electrical Energy
+    Purchased by type of Generation in Jordan (GWh)" both give Wind Energy as 1378.8, 1595.5,
+    1748.2, 1647.1 and 1796.7 for 2020 to 2024. Table (3) gives 621 MW of wind on the
+    transmission network. Read 2026-11-08 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://nepco.com.jo/store/DOCS/web/2024_EN.pdf
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en]
+licence:
+  name: NEPCO website Terms of Use (no reuse grant)
+  url: https://nepco.com.jo/en/TermsOfUse.aspx
+  redistribution: link-only
+  verified: true
+  note: >-
+    No reuse terms were found in the report. Corrected 2026-11-08: the site's Terms of Use (last
+    updated February 25, 2023) cover "the Site and its content", grant a licence "solely for your
+    own personal, noncommercial use", and say "no part of the Site may be copied, reproduced,
+    distributed, republished, downloaded, displayed, posted or transmitted in any form or by any
+    means unless otherwise indicated". The report carries no other indication, so redistribution
+    changed from unclear to prohibited; link to the report and cite figures instead. Changed
+    2026-11-08 (maintainer decision) from prohibited to link-only: the terms forbid copies, not
+    linking to the report or citing its figures.
+traps:
+  - summary: These are NEPCO's purchases from wind farms on its transmission network, not all wind generation.
+    detail: >-
+      The tables count energy bought by NEPCO as single buyer. Table (3) lists wind capacity on
+      the transmission network only (621 MW, all direct offers), so any wind connected to the
+      distribution networks or used on site is outside these figures. Found by an automated
+      research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://nepco.com.jo/store/DOCS/web/2024_EN.pdf
+    found: 2026-11-08
+notes: >-
+  Annual wind energy purchased by Jordan's transmission system operator and single buyer, five
+  years per report (2020 to 2024 in the 2024 report, 96 pages, 17.7 MB). Wind purchases rose
+  9.1% in 2024 to 1,796.7 GWh. The report gives no per-farm or monthly wind series. Earlier
+  reports were not checked.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

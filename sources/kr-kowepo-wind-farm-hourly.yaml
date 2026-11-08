@@ -1,0 +1,94 @@
+id: kr-kowepo-wind-farm-hourly
+name: KOWEPO wind generation status, Hwasun and Jangheung (한국서부발전(주)_풍력 발전 현황)
+publisher: Korea Western Power Co. (KOWEPO, 한국서부발전), via the Public Data Portal (data.go.kr)
+publisher_role: owner-operator
+countries: [KR]
+area: Hwasun wind farm (Hwasun-gun) and Jangheung wind farm (Jangheung-gun), South Jeolla
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2017
+  end: 2023
+  update: one-off release (수시, 1회성 데이터); file named _20230630, modified 2025-08-18
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: unknown
+  value: period-total
+  evidence: https://www.data.go.kr/data/15106292/fileData.do
+  note: >-
+    The description calls the data hourly generation aggregated by the hour (시간 단위로 집계된 발전
+    현황), with columns 01시 to 24시; the column definitions give no unit for them, and give capacity
+    in MW. The Hwasun values fit kWh (peaks of about 15,000 to 16,800 for a 16 MW farm); most
+    Jangheung values are 1,000 times larger (see traps). The page does not say whether 01시 is
+    the hour starting or ending at 01:00, nor the time zone. Read 2026-11-08 by an automated
+    research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.data.go.kr/data/15106292/fileData.do
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [ko]
+licence:
+  name: Public Data Portal terms for this dataset, scope of permitted use "no restriction" (이용허락범위 제한 없음), free of charge
+  url: https://www.data.go.kr/data/15106292/fileData.do
+  redistribution: allowed
+  verified: true
+  note: The dataset page states free use with no restriction on the scope of use. The CSV downloaded without login on the check date.
+traps:
+  - summary: The dates are wrong; Hwasun's rows match KOWEPO's own turbine data about eleven months later, so this file cannot be joined to weather.
+    detail: >-
+      Summed per day, Hwasun in this file correlates at about 0.1 with the eight-turbine total
+      from KOWEPO's Hwasun SCADA release (kr-kowepo-hwasun-turbine-scada) on the same dates, in
+      every year 2017 to 2021, although annual totals are close (24.8 against 27.2 GWh in 2017).
+      Shifted, many months match almost exactly (correlation 0.998 or more): the rows labelled
+      January 2017 are SCADA's December 2017 (2017-01-01 hours 01 to 04 read 6658.656, 5069.736,
+      3219.432, 2194.14; SCADA gives 6691.5, 5001.6, 3217.2, 2165.2 kW for 2017-12-01 00:00 to
+      03:00), February 2017 is January 2018, April 2017 is March 2018; other months match nothing
+      cleanly. The SCADA dates are the right ones: SCADA correlates at 0.71 per day with the two
+      KOSPO Jeju farms on the same dates, this file at 0.08. Jangheung shows the same kind of
+      displacement, and the two farms here correlate at only 0.13 per day with each other. Use
+      the turbine SCADA releases for timing. Found by an automated research pass on 2026-11-08;
+      not yet reviewed by a person.
+    evidence: https://www.data.go.kr/data/15106292/fileData.do
+    found: 2026-11-08
+  - summary: Jangheung values are 1,000 times too large except in August 2022, so an hour reads 1,044,900 for a farm of 16 or 18 MW.
+    detail: >-
+      The last Jangheung row reads "장흥풍력,2023-06-30,16,0,1116,9048,0,0,21168,0,0,5196,1044900,...".
+      Every Jangheung row from 2021-08-01 to 2023-06-30 holds whole numbers peaking at about
+      15.3 million, except August 2022, which has three decimals and peaks at 10,257.27, the same
+      scale as Hwasun's kWh. Read as 1,000 times kWh, so 1044900 is 1,044.9 kWh, Jangheung gives
+      about 21.8 GWh in 2022. Divide Jangheung rows outside August 2022 by 1,000. Found by an
+      automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.data.go.kr/data/15106292/fileData.do
+    found: 2026-11-08
+  - summary: The capacity column swaps the two farms for a year, and the farm names change spelling.
+    detail: >-
+      KOWEPO's turbine SCADA releases give Hwasun eight 2 MW turbines (16 MW) and Jangheung six
+      3 MW turbines (18 MW). Here Hwasun is labelled 18 MW from September 2021 to July 2022 and
+      16 MW otherwise; Jangheung is labelled 18 MW from September 2021 to August 2022 and 16 MW
+      otherwise. The names change from "화순 풍력 발전소" and "장흥 풍력 발전소" to "화순풍력" and
+      "장흥풍력" in August 2022. Blank cells are, per the page, not collected (미집계); there are 30,
+      all Jangheung. The file is CP949 (EUC-KR) encoded. Found by an automated research pass on
+      2026-11-08; not yet reviewed by a person.
+    evidence: https://www.data.go.kr/data/15106292/fileData.do
+    found: 2026-11-08
+notes: >-
+  One row per farm and day, with installed capacity and the 24 hours as columns 01시 to 24시.
+  Checked 2026-11-08: the file (한국서부발전(주)_풍력 발전 현황_20230630.csv, 642 kB, registered
+  2022-08-31, modified 2025-08-18) has 3,071 rows: Hwasun every day from 2017-01-01 to 2023-06-30
+  and Jangheung every day from 2021-08-01 to 2023-06-30, with no duplicate days. Because of the
+  date fault, it is listed so that readers who find it know not to use its timing; the turbine
+  SCADA files for Hwasun (2015 to 2025) and Jangheung (2022 to 2025) cover the same farms with
+  correct dates (kr-kowepo-hwasun-turbine-scada, kr-kowepo-jangheung-turbine-scada). The page
+  also offers the file as an auto-generated open API, which needs a key.
+status: fixed-release
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

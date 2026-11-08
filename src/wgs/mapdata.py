@@ -11,9 +11,7 @@ import shutil
 from functools import cache
 from pathlib import Path
 
-import yaml
-
-from wgs.catalogue import ROOT, SOURCES_DIR
+from wgs.catalogue import ROOT, SOURCES_DIR, parse_entry
 
 GEO = ROOT / "geo"
 CROSSWALK = ROOT / "crosswalk" / "output"
@@ -66,7 +64,7 @@ def _entry_countries(entry: str) -> tuple[str, ...]:
     path = SOURCES_DIR / f"{entry}.yaml"
     if not path.exists():
         return ()
-    return tuple(yaml.safe_load(path.read_text(encoding="utf-8")).get("countries") or ())
+    return tuple(parse_entry(path.read_text(encoding="utf-8")).get("countries") or ())
 
 
 @cache
@@ -181,7 +179,35 @@ def build_farms() -> dict:
     }
 
 
+def columnar(data: dict) -> dict:
+    """The farm points as parallel columns, which is a fraction of the size of 40,000 objects.
+
+    `entry` and `located_by` hold indices into `entries` and `located`; a missing value is null.
+    The site turns the columns back into one object per point.
+    """
+    farms = data["farms"]
+    entries = sorted({f["entry"] for f in farms})
+    located = sorted({f["located_by"] for f in farms})
+    e_ix = {e: i for i, e in enumerate(entries)}
+    l_ix = {k: i for i, k in enumerate(located)}
+    return {
+        "licence": data["licence"], "entries": entries, "located": located, "count": len(farms),
+        "cols": {
+            "name": [f["name"] for f in farms],
+            "entry": [e_ix[f["entry"]] for f in farms],
+            "n": [f["n"] for f in farms],
+            "lat": [f["lat"] for f in farms],
+            "lon": [f["lon"] for f in farms],
+            "located_by": [l_ix[f["located_by"]] for f in farms],
+            "turbine": [1 if f.get("turbine") else 0 for f in farms],
+            "mw": [f.get("mw") for f in farms],
+            "osm": [f.get("osm") for f in farms],
+            "iso": [f.get("iso") for f in farms],
+        },
+    }
+
+
 def write_map(out: Path) -> None:
     shutil.copy2(GEO / "countries.geojson", out / "countries.geojson")
-    (out / "farms.json").write_text(json.dumps(build_farms(), ensure_ascii=False,
+    (out / "farms.json").write_text(json.dumps(columnar(build_farms()), ensure_ascii=False,
                                                separators=(",", ":")), encoding="utf-8")

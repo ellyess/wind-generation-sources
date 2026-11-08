@@ -106,6 +106,6 @@ notes: >-
   countries, years and zero values. The file uses the July 2026 layout (one row per area, year and
   source, metrics as columns).
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

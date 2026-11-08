@@ -9,6 +9,7 @@ measure: reported-generation
 resolution: 30min
 coverage:
   start: 2012
+  update: daily refresh; consolidated in the middle of the following month, definitive in the second half of the following year
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: not-reported
@@ -70,7 +71,12 @@ traps:
 notes: >-
   The complete French national series, offshore included in every month. ENTSO-E's French
   per-type data lacks offshore before June 2023 (see eu-entsoe-actual-generation). First record
-  31 December 2011, 23:00 UTC, which is midnight on 1 January 2012 in Paris.
+  31 December 2011, 23:00 UTC, which is midnight on 1 January 2012 in Paris. Added 2026-11-08:
+  coverage.update was missing. The dataset description says it is "rafraîchi une fois par jour",
+  consolidated data arrive "en milieu de M+1" and definitive data "deuxième semestre A+1"
+  (definitive January 2012 to December 2024, consolidated from January 2021), and that values
+  are "élaborées à partir des comptages et complétées par des forfaits" (meter readings completed
+  with flat-rate estimates). The last wind value on 2026-11-08 was 2026-08-31 21:30 UTC.
 status: active
-last_checked: 2026-11-06
-checked_by: Ellyess Benmoufok and Claude Code; dataset metadata read via the Opendatasoft API; licence read on the publisher's page 2026-11-06
+last_checked: 2026-11-08
+checked_by: Ellyess Benmoufok and Claude Code; dataset metadata read via the Opendatasoft API; licence read on the publisher's page 2026-11-06; links and conventions re-checked by an automated pass 2026-11-08

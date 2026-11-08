@@ -46,12 +46,15 @@ licence:
     The citation the table gives is "IRENA (2026), Renewable Energy Statistics 2026,
     International Renewable Energy Agency (IRENA), Abu Dhabi."
 traps:
-  - summary: South Africa's onshore wind generation is about 30 times too low in 2022-2024.
+  - summary: South Africa's onshore wind generation is far too low (a 1 to 2% capacity factor) in every year from 2018 to 2024.
     detail: >-
       IRENASTAT gives 331 GWh for 2024 (300 GWh for 2023) against 3,442 MW installed, a capacity
       factor near 1%. Ember's monthly series sums to 11.1 TWh for 2024. Found by the catalogue's
       annual cross-check on 2026-11-06; compare any single country against a second source
-      before use.
+      before use. Extended 2026-11-08: the same query for 2018 to 2024 gives a flat 224
+      to 331 GWh a year (328.75 GWh in 2018 against 2,094 MW; 223.75 GWh in 2022 against
+      3,163 MW), so every year since 2018 implies a capacity factor of 1 to 2%. 2025 generation is
+      not yet published.
     evidence: https://pxweb.irena.org/pxweb/en/IRENASTAT/IRENASTAT__Power%20Capacity%20and%20Generation/Country_ELECSTAT_2026_H2_PX.px/
     found: 2026-11-06
   - summary: The latest year of generation is preliminary and, per IRENA, "not accurate at aggregate levels".
@@ -97,6 +100,22 @@ traps:
       by a person.
     evidence: https://www.so-ups.ru/functioning/ups/ups2025/
     found: 2026-11-07
+  - summary: >-
+      South Africa's 2024 wind is 3% of the national figure compiled from Eskom data, about what
+      Eskom's own 100 MW farm alone would produce.
+    detail: >-
+      IRENASTAT gives 0.331 TWh for 2024. The CSIR's "Utility-scale power generation statistics in
+      South Africa 2024" (1 January to 31 December 2024, compiled from Eskom data) gives wind as
+      "11,1" TWh in its page 8 table and 11.1 in its chart, which Ember (11.135) matches; EIA
+      (12.574) is about 13% higher. The CSIR counts Eskom's Sere farm (100 MW) and 3,443 MW of
+      independent producers' wind, the same fleet as IRENA's own 3,442 MW capacity cell, so the gap
+      is not a narrower fleet. 331 GWh from 100 MW is a 38% capacity factor, which would fit Sere
+      alone, so IRENA may hold only the state utility's farm, as suspected for Kenya; that is
+      suspected, not proven. Eskom's data portal (RE_Annual_Energy_Contribution.csv) gives
+      11,627,271 MWh of "Wind(Eskom+IPP)" for the year it labels 2025-26, the same order as the
+      CSIR figure. Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.csir.co.za/sites/default/files/2025-09/Utility%20Statistics%20Report_Jan%202025_Final.pdf
+    found: 2026-11-08
 notes: >-
   Annual electricity generation (GWh) and installed capacity (MW) by country, technology and grid
   connection, from 2000, with onshore and offshore wind as separate technologies (19 countries had
@@ -107,6 +126,6 @@ notes: >-
   offshore wind generation and capacity in every country on the check date. Useful for its breadth
   and its capacity denominator; for any single country, prefer the national source.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

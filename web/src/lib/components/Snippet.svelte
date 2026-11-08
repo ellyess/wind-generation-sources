@@ -10,10 +10,12 @@
   let href = $derived(`./data/snippets/${id}.py`);
   let cmd = $derived(`uv run ${id}.py`);
   $effect(() => {
-    const want = id;
+    // Ignore a reply that lands after the page has moved on (the prop may be gone by then).
+    let live = true;
     code = null; err = false;
-    fetch(`./data/snippets/${want}.py`).then((r) => (r.ok ? r.text() : Promise.reject()))
-      .then((t) => { if (want === id) code = t; }).catch(() => { if (want === id) err = true; });
+    fetch(`./data/snippets/${id}.py`).then((r) => (r.ok ? r.text() : Promise.reject()))
+      .then((t) => { if (live) code = t; }).catch(() => { if (live) err = true; });
+    return () => { live = false; };
   });
 
   // Just enough colour to tell comments and strings from code.
@@ -42,7 +44,7 @@
 
 <section class="snip">
   <h3><Icon name="code" size={15} />Get the data in Python</h3>
-  <p class="lead">Fetches a small sample and reads it as the conventions above say: time stamps as UTC period starts, units in the column names, and the traps handled where code can.</p>
+  <p class="lead">Fetches a sample with UTC period-start stamps, units in the column names, and traps handled where code can.</p>
   {#if run}
     <p class="run" class:ok={run.result === "ok"} class:bad={run.result === "failed"}>
       {#if run.result === "ok"}
@@ -50,7 +52,7 @@
         Ran cleanly on {run.checked}{run.seconds != null ? ` in ${run.seconds} s` : ""}{#if run.summary}<span class="out">Last line printed: <code>{run.summary}</code></span>{/if}
       {:else if run.result === "failed"}
         <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9" rx="1" /></svg>
-        Failed on {run.checked}: <code>{run.error}</code>{#if run.last_ok}<span class="sub"> · last ran cleanly {run.last_ok}</span>{/if}
+        Failed on {run.checked}: <code>{run.error}</code>{#if run.last_ok}<span class="sub">{" · "}last ran cleanly {run.last_ok}</span>{/if}
       {:else}
         <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle class="ring" cx="6" cy="6" r="4" /></svg>
         Not run automatically: {run.reason}
@@ -70,12 +72,12 @@
           <a class="dl" href={href} download="{id}.py"><Icon name="download" size={14} />Download</a>
         </span>
       </div>
-      {#if parts.head}<p class="deps">Needs Python 3.11 and {parts.deps.split(",").map((d) => d.trim()).filter(Boolean).join(", ")}, declared at the top of the file for <code>uv</code>.</p>{/if}
+      {#if parts.head}<p class="deps">Needs Python 3.11, {parts.deps.split(",").map((d) => d.trim()).filter(Boolean).join(", ")} (declared for <code>uv</code>).</p>{/if}
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
       <pre tabindex="0" aria-label="Snippet code"><code>{#each parts.body as tk, i (i)}{#if tk.k}<span class={tk.k}>{tk.t}</span>{:else}{tk.t}{/if}{/each}</code></pre>
     </div>
     <div class="cmd"><code>{cmd}</code><CopyButton text={cmd} what="run command" label="Copy" /></div>
-    <p class="how">With <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">uv</a> installed, this one command installs what the script needs and runs it. All snippets are in <a href="{REPO}/tree/main/snippets" target="_blank" rel="noopener">snippets/</a> on GitHub.</p>
+    <p class="how">With <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">uv</a> installed, this installs the dependencies and runs it. All snippets: <a href="{REPO}/tree/main/snippets" target="_blank" rel="noopener">snippets/</a> on GitHub.</p>
   {/if}
 </section>
 

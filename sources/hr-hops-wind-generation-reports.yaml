@@ -8,7 +8,7 @@ technology: onshore
 measure: reported-generation
 resolution: monthly
 coverage:
-  start: 2016
+  start: 2015
   update: monthly, a few months behind (May 2026 was the latest report on 2026-11-06); annual report for the previous year
 capacity: included
 coordinates: not-applicable
@@ -60,7 +60,11 @@ notes: >-
   answered HTTP 200 to a plain Python requests call with its default user agent, and the report
   page to curl as well, so command-line access worked then; it may not always.) HOPS also publishes yearly "Temeljni podaci" (basic data) PDFs from 2009 at
   https://www.hops.hr/temeljni-podaci, which summarise the national electricity balance.
+  Corrected 2026-11-08: coverage starts in 2015, not 2016. The 2015 annual report on the same page
+  gives "Total WPP generation in Croatia in 2015 was 787.93 GWh" in its text; its monthly figures
+  are only in a chart, with the range quoted in words (34.87 GWh in July to 89.52 GWh in
+  September), so 2015 is annual only and the monthly PDFs start in January 2016.
 status: active
 reviewed: false
-last_checked: 2026-11-06
-checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { store } from "../store.svelte";
-  import { BAND_TEXT, BAND_TONE, twh } from "../text";
+  import { BAND_TEXT, BAND_TONE, stepText, twh } from "../text";
   import Ext from "./Ext.svelte";
 
   // Each source's annual wind total as a ratio of the reference, on one shared axis.
@@ -10,14 +10,14 @@
   let agr = $derived(store.checks.agreement);
   let c = $derived(agr?.countries[code]);
   let ref = $derived(c?.values.find((v) => v.source === c!.reference.source));
+  let national = $derived(c?.reference.kind.startsWith("national") ?? false);
 </script>
 
 {#if agr && c && ref && ref.twh > 0}
   <figure class="agree">
     <figcaption>
-      <span class="t">Annual totals agree?</span>
-      <span class="n">{agr.year}, each source against {c.reference.publisher ?? c.reference.name}'s {twh(ref.twh)} TWh. Shaded: within 15% and 30%.</span>
-      <span class="n">{c.reference.kind.startsWith("national") ? "National reference" : "No national reference"}: {c.reference.why}{#if c.reference.url} <Ext href={c.reference.url} label="Evidence" />{/if}</span>
+      <span class="t">Annual totals compared</span>
+      <span class="n">{agr.year}, against {c.reference.publisher ?? c.reference.name}'s {twh(ref.twh)} TWh{national ? " (national figure)" : ""}. Bands: 15% and 30%.</span>
     </figcaption>
     <ol>
       {#each c.values as v (v.source)}
@@ -25,9 +25,9 @@
         {@const s = store.byId.get(v.source)}
         {@const tone = isRef ? "ref" : BAND_TONE[v.band ?? "small"]}
         <li>
-          {#if s}<button type="button" class="nm" onclick={() => store.go({ source: v.source })}>{s.publisher}</button>
-          {:else}<a class="nm" href={v.url} target="_blank" rel="noopener">{v.publisher ?? v.source}</a>{/if}
-          <span class="val num">{twh(v.twh)}<small> TWh</small></span>
+          {#if s}<a class="nm" {...store.link({ source: v.source })} title="{s.publisher}, {stepText(s).toLowerCase()} data"><span class="pn">{s.publisher}</span><small>{stepText(s)}</small></a>
+          {:else}<a class="nm" href={v.url} target="_blank" rel="noopener"><span class="pn">{v.publisher ?? v.source}</span><small>Annual figure</small></a>{/if}
+          <span class="val num">{twh(v.twh)}&nbsp;<small>TWh</small></span>
           <span class="scale" role="img" aria-label={isRef ? "Reference" : `Ratio ${v.ratio?.toFixed(2)}, ${BAND_TEXT[v.band ?? "small"]}`}>
             <i class="b30"></i><i class="b15"></i><i class="one"></i>
             <b class="mk t-{tone}" class:clamped={v.ratio != null && (v.ratio < LO || v.ratio > HI)} style:left={pos(isRef ? 1 : v.ratio ?? 1)}></b>
@@ -37,21 +37,24 @@
       {/each}
     </ol>
     <div class="axis" aria-hidden="true"><span></span><span></span>
-      <span class="ticks">{#each [0.7, 1, 1.3] as m (m)}<span style:left={pos(m)}>{m.toFixed(2)}</span>{/each}</span><span></span></div>
-    <p class="cave">A match can mean shared upstream data rather than independent confirmation. The check catches a series that covers only part of a fleet.</p>
+      <span class="ticks">{#each [0.7, 1, 1.3] as m (m)}<span style:left={pos(m)}>{m === 1 ? "1" : m}</span>{/each}</span><span></span></div>
+    <p class="cave">Catches series that miss part of the fleet. A match may only mean shared upstream data.</p>
+    {#if national}<details class="method"><summary>Why this reference</summary>{c.reference.why}{#if c.reference.url} <Ext href={c.reference.url} label="Evidence" />{/if}</details>{/if}
   </figure>
 {/if}
 
 <style>
-  .agree { margin: 0; display: grid; gap: 8px; }
+  .agree { margin: 0; display: grid; gap: 8px; container-type: inline-size; }
   figcaption { display: grid; gap: 2px; font-size: 13px; }
   .t { font-weight: 600; }
   .n, .cave { color: var(--ink-3); font-size: 12px; }
   ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
   li, .axis { display: grid; grid-template-columns: minmax(0, 8rem) 4.2rem 1fr 2.6rem; align-items: center; gap: 10px; }
-  .nm { text-align: left; border: 0; background: none; padding: 2px 4px; margin-left: -4px; border-radius: var(--radius-sm);
-    font-size: 12.5px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nm { color: inherit; text-decoration: none; text-align: left; border: 0; background: none; padding: 2px 4px; margin-left: -4px; border-radius: var(--radius-sm);
+    font-size: 12.5px; font-weight: 500; display: grid; min-width: 0; line-height: 1.25; }
+  .nm .pn { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .nm:hover { background: var(--surface-3); }
+  .nm small { font-size: 11px; font-weight: 400; color: var(--ink-3); }
   .val { font-size: 12.5px; text-align: right; }
   small { color: var(--ink-3); font-size: 11px; }
   .ratio { font-size: 12.5px; text-align: right; color: var(--ink-2); }
@@ -71,4 +74,8 @@
   .axis { font-size: 11px; color: var(--ink-3); }
   .ticks { position: relative; height: 14px; }
   .ticks span { position: absolute; transform: translateX(-50%); font-variant-numeric: tabular-nums; }
+  /* In a narrow panel or on a phone, give the scale room: shorter name and value columns. */
+  @container (max-width: 380px) {
+    li, .axis { grid-template-columns: minmax(0, 5.5rem) 3.4rem 1fr 2.2rem; gap: 6px; }
+  }
 </style>

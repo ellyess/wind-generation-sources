@@ -7,7 +7,7 @@ area: Altahullion wind farm, Northern Ireland (29 Siemens SWT-1.3 turbines in tw
 level: turbine
 technology: onshore
 measure: reported-generation
-resolution: 10min
+resolution: 1min
 coverage:
   start: 2025
   end: 2026
@@ -66,18 +66,36 @@ traps:
       record does not say which is used.
     evidence: https://zenodo.org/records/19948235
     found: 2026-11-06
+  - summary: One-minute data exist for turbine T11 only; the other five turbines are 10-minute.
+    detail: >-
+      turbine_data.zip holds two SCADA files: the 10-minute file
+      scada_df_ALTA2_20250904_20260301.parquet for six turbines, and the one-minute file
+      fl_df_ALTA2_T11_20250904_to_20260228.parquet for T11 alone (256,320 rows, 2025-09-04 00:00
+      to 2026-02-28 23:59). Use the 10-minute file to compare turbines, and the one-minute file
+      only for T11.
+    evidence: https://zenodo.org/records/19948235
+    found: 2026-11-08
 notes: >-
   Six months of 10-minute SCADA (supervisory control and data acquisition) statistics from a
   commercial wind farm in Northern Ireland, released, like Hill of Towie, by RES on behalf of TRIG:
-  mean, min, max and standard deviation of active power (ActPower_Value, kW), the power setpoint
+  mean, min, max and standard deviation of active power (ActPower_Value; unit not stated, read
+  as kW), the power setpoint
   (PowerRef) and a power-reduction timer (PowerRed_timeon), wind speed, pitch, yaw and rotor
   speeds. One-minute controller statistics are included for turbine T11 only, with a ZX300 lidar
   near T11 (1 GB). Checked by downloading turbine_data.zip (47 MB): 25,595 ten-minute rows from
   2025-09-04 00:00 to 2026-03-01 00:00, six stations whose power series differ, each peaking near
   the 1,330 kW rating. Curtailment is not reported as such, though the setpoint and reduction
   timer can show when output was held down. Turbine metadata give coordinates, rated power, hub
-  height (49 m) and rotor diameter (62 m).
-status: active
-last_checked: 2026-11-06
+  height (49 m) and rotor diameter (62 m). Corrected 2026-11-08: these notes gave ActPower_Value
+  as kW, which contradicted conventions.unit (unknown); neither the Zenodo record nor the files
+  state a unit. Re-run on 2026-11-08: 153,570 turbine-rows over six stations (25,595 per
+  station), as above. Checked 2026-11-08: turbine T11 alone also has a one-minute file
+  (fl_df_ALTA2_T11_20250904_to_20260228.parquet in turbine_data.zip) with ActPower_Value and 21
+  other tags, 256,320 rows at an even one-minute step from 2025-09-04 00:00 to 2026-02-28 23:59
+  (224,923 non-empty power values). Changed 2026-11-08 (maintainer decision): the resolution is
+  now 1min, the finest step published, and both files are listed; the one-minute data cover T11
+  only (see traps).
+status: fixed-release
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

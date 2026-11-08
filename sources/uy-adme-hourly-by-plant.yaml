@@ -73,6 +73,16 @@ traps:
       or two-plant request tried.
     evidence: https://www.adme.com.uy/panelControl/variables_excel.php?anod=2026&mesd=09&anoh=2026&mesh=09&periodo=1&tipo=1&central%5B%5D=65&central%5B%5D=128&central%5B%5D=119
     found: 2026-11-06
+  - summary: A month not yet published comes back as a full month of zeros, not an error.
+    detail: >-
+      On 2026-11-08, Florida I (id 65) for October 2026 returned 744 hourly rows from
+      "01-10-2026 01:00;0;0;" to "01-11-2026 00:00;0;0;", every value 0, after a PHP warning
+      ("Undefined variable $valoresMeses ... on line 314"); September 2026 for the same plant
+      has normal values (24.617 MWh in its first hour). A calm month cannot be all zeros, so treat
+      an all-zero month, or the warning, as not yet published. Found by an automated research
+      pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.adme.com.uy/panelControl/variables_excel.php?anod=2026&mesd=10&anoh=2026&mesh=10&periodo=1&tipo=1&central%5B%5D=65
+    found: 2026-11-08
 notes: >-
   Hourly energy in MWh for each generating plant in Uruguay, chosen from a list of about 130
   plants, imports and exports, from the "Datos de operación" panel (form variables_excel.php,
@@ -83,6 +93,6 @@ notes: >-
   as unprocessed and unvalidated. That ten-minute route was not tested here (it needs the program
   installed), so its history depth is unverified.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

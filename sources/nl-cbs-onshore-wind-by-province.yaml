@@ -49,6 +49,11 @@ traps:
     evidence: https://opendata.cbs.nl/ODataApi/odata/70960ned/DataProperties
     found: 2026-11-06
   - summary: Production is empty before 2002, although capacity and turbine counts go back to 1990.
+    detail: >-
+      This holds for the provinces only. Corrected 2026-11-08: the national row (RegioS NL01) in
+      the same table does carry actual production from 1990 (56 million kWh in 1990, 825 million
+      kWh in 2001), so a national series from this table starts in 1990 while every provincial
+      series starts in 2002 (Groningen 101, Flevoland 324 million kWh in 2002).
     evidence: https://opendata.cbs.nl/ODataApi/odata/70960ned/TypedDataSet?$select=RegioS,Perioden,NietGenormaliseerdeProductie_11,OpgesteldVermogenEindeJaar_9
     found: 2026-11-06
 notes: >-
@@ -60,6 +65,6 @@ notes: >-
   were announced as delayed to November 2026. A companion table, 71227ned, gives the same
   measures by hub height.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

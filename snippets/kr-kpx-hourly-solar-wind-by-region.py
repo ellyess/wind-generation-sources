@@ -7,8 +7,8 @@
 The 2025 release (6.3 MB CSV) gives market trading volumes in MWh per trading date and trading
 hour, sent-out, for solar by province and wind for the mainland (육지) and Jeju (제주도). It is
 fetched through the portal's own download calls (undocumented), after its download-limit check;
-if the portal asks for a CAPTCHA the script stops. No time zone is stated; stamps are read as
-Korea Standard Time (UTC+9, no daylight saving). Traps handled:
+if the portal asks for a CAPTCHA the script stops. No time zone is stated, so stamps are kept as a
+naive `time` (Korea Standard Time, UTC+9, is likely but not stated). Traps handled:
 - hours run 01 to 24, with 24 the last hour of the day, so hour h starts at h - 1;
 - solar rows share the file and are dropped; wind is kept per region, long form;
 - the file is CP949 (EUC-KR) encoded.
@@ -39,10 +39,10 @@ rows = pd.read_csv(io.BytesIO(resp.content), encoding="cp949", dtype={"거래시
 wind = rows[rows["연료원"] == "풍력"]  # wind; 태양광 is solar
 start = pd.to_datetime(wind["거래일"]) + pd.to_timedelta(wind["거래시간"].astype(int) - 1, "h")
 df = (
-    wind.assign(time_utc=start.dt.tz_localize("Asia/Seoul").dt.tz_convert("UTC"),
+    wind.assign(time=start,  # zone not stated
                 region=wind["지역"].map({"육지": "mainland", "제주도": "jeju"}))
     .rename(columns={"전력거래량(MWh)": "wind_mwh"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["region", "wind_mwh"]]
 )
 print(df)

@@ -3,6 +3,7 @@
 import json
 
 from wgs.catalogue import ROOT, load_catalogue
+from wgs.checks import links
 from wgs.checks.agreement import (
     NATIONAL_ADAPTERS,
     band,
@@ -10,7 +11,7 @@ from wgs.checks.agreement import (
     load_figures,
     totals_from_report,
 )
-from wgs.checks.links import ERROR_ROLE, _judge, entry_links
+from wgs.checks.links import ERROR_ROLE, _judge, check_url, entry_links, is_file_link
 from wgs.checks.totals import ADAPTERS, STEP_OF, _step
 
 
@@ -144,3 +145,30 @@ def test_places_cover_every_catalogued_country():
     assert not missing, missing
     assert places["TR"]["continent"] == "Europe"
     assert places["BR"]["continent"] == "Americas"
+
+
+def test_file_link_answered_with_html_is_not_ok(monkeypatch):
+    # asep.gob.pa answers any path, real or not, with a 200 HTML page.
+    calls = []
+
+    def fake(url, method, timeout):
+        calls.append(method)
+        return 200, url, "text/html; charset=utf-8"
+
+    monkeypatch.setattr(links, "_request", fake)
+    result = check_url("https://example.org/files/ENERO_2013.pdf")
+    assert calls == ["HEAD", "GET"]
+    assert result["state"] == "unchecked"
+    assert _judge(ERROR_ROLE, result)["state"] == "expected"
+    assert check_url("https://example.org/report-page")["state"] == "ok"
+    assert is_file_link("https://example.org/a/B.XLSX?x=1") and not is_file_link("https://example.org/pdf")
+    assert not is_file_link("https://www.dropbox.com/scl/fo/x/a.zip?rlkey=y&dl=0")
+    assert not is_file_link("https://gitlab.example.org/g/r/-/blob/master/report.pdf")
+
+
+def test_unresolved_host_is_asked_again(monkeypatch):
+    answers = [{"state": "broken", "code": None, "error": "host not found"},
+               {"state": "ok", "code": 200, "final": None}]
+    monkeypatch.setattr(links, "_check_url", lambda url, timeout: answers.pop(0))
+    monkeypatch.setattr(links, "DNS_RETRY_PAUSE", 0)
+    assert check_url("https://example.org/")["state"] == "ok"

@@ -3,7 +3,7 @@
 import json
 
 from wgs.catalogue import load_catalogue
-from wgs.mapdata import GEO, MARKET_ENTRY, build_farms
+from wgs.mapdata import GEO, MARKET_ENTRY, _entry_countries, build_farms
 
 
 def test_outlines_are_lon_lat_and_coded():
@@ -68,3 +68,27 @@ def test_multi_country_entries_name_the_country_of_each_point():
                 assert farm["lat"] > 54 and farm["lon"] > -8.2, farm
         elif farm["entry"] == "us-eia-923-plant-generation":
             assert "iso" not in farm
+
+
+def test_columnar_round_trip():
+    from wgs.mapdata import columnar
+
+    data = {"licence": "x", "farms": [
+        {"name": "A", "entry": "e2", "n": 1, "lat": 1.0, "lon": 2.0, "located_by": "osm",
+         "mw": 5.0},
+        {"name": "B", "entry": "e1", "n": 3, "lat": 3.0, "lon": 4.0, "located_by": "publisher",
+         "turbine": True, "iso": "DE"},
+    ]}
+    out = columnar(data)
+    cols = out["cols"]
+    assert out["count"] == 2 and out["entries"] == ["e1", "e2"]
+    back = [{k: cols[k][i] for k in cols} for i in range(out["count"])]
+    assert out["entries"][back[0]["entry"]] == "e2"
+    assert back[0]["mw"] == 5.0 and back[0]["turbine"] == 0
+    assert out["located"][back[1]["located_by"]] == "publisher" and back[1]["iso"] == "DE"
+    assert all(len(v) == 2 for v in cols.values())
+
+
+def test_entry_countries_keeps_norway_as_a_code():
+    # Plain yaml.safe_load reads an unquoted NO as False.
+    assert _entry_countries("no-nve-wind-production-per-plant") == ("NO",)

@@ -77,8 +77,10 @@ notes: >-
   useful for power-curve work as well as validation.
   KOWEPO publishes the Hwasun turbines the same way (kr-kowepo-hwasun-turbine-scada) and an
   earlier farm-level hourly file for both farms, 2017 to June 2023
-  (https://www.data.go.kr/data/15106292/fileData.do), which was not used here.
-status: active
+  (https://www.data.go.kr/data/15106292/fileData.do; entry kr-kowepo-wind-farm-hourly), which
+  was not used here. Its dates are about eleven months off and its Jangheung values mostly
+  1,000 times too large; see that entry's traps.
+status: fixed-release
 last_checked: 2026-11-06
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

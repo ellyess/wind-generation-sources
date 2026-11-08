@@ -88,6 +88,6 @@ notes: >-
   and the scheduled generation for the same plants. XM's older API at servapibi.xm.com.co did not
   resolve from the checking network, so it was not tested.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

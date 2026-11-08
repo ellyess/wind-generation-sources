@@ -1,0 +1,92 @@
+id: lk-pucsl-generation-dispatch-data
+name: Electricity Dispatch Data and daily generation reports (Public Utilities Commission of Sri Lanka)
+publisher: Public Utilities Commission of Sri Lanka (PUCSL)
+publisher_role: regulator
+countries: [LK]
+level: company
+technology: onshore
+measure: reported-generation
+resolution: 15min
+coverage:
+  start: 2016
+  update: daily; the portal held days up to 2026-11-05 when checked on 2026-11-08
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: Asia/Colombo
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://www.pucsl.gov.lk/daily-generation-reports-2/
+  note: >-
+    The monthly 15-minute workbooks ("Actual System Dispatch") label columns 0:15 to 0:00 in
+    Sri Lanka time (UTC+5:30, no daylight saving), with values in MW; they do not say whether a
+    value is a mean or a reading, or which end of the 15 minutes a label marks. The run from
+    0:15 to 0:00 suggests period ends. The portal's own data calls return the same values in
+    UTC (dispatchValueInMW; 2024-04-01 0:15 is 2024-03-31T18:45Z, 25 MW in both). Daily totals
+    are MWh per local day, stamped at local midnight (reportDate 18:30Z the day before).
+    2016 to 2018 hold values every 30 minutes only. Read 2026-11-08 by an automated research
+    pass; not yet reviewed.
+access:
+  method: api
+  url: https://gendata.pucsl.gov.lk/home
+  key_required: false
+  registration: false
+  formats: [json, xlsx, pdf]
+  languages: [en]
+licence:
+  name: none found
+  url: https://www.pucsl.gov.lk/daily-generation-reports-2/
+  redistribution: unclear
+  verified: false
+  note: No reuse terms were found on the report pages or the data portal.
+traps:
+  - summary: The 15-minute series counts telemetered wind plants only, so it falls short of the daily totals.
+    detail: >-
+      The daily reports say the wind chart is "Based on Telemetered Power Stations only". On
+      2024-04-01 the 15-minute values sum to 328 MWh against 335 MWh in the daily table; on
+      2022-06-15 they sum to 1,945 MWh against 2,358 MWh. Use the daily figures for energy and
+      the 15-minute series for shape. Found by an automated research pass on 2026-11-08; not yet
+      reviewed by a person.
+    evidence: https://www.pucsl.gov.lk/daily-generation-reports-2/
+    found: 2026-11-08
+  - summary: In the portal's data, "Wind (IPP)" means all telemetered wind at 15 minutes but private producers only per day.
+    detail: >-
+      The plant list (/api/metadata/power-plants) names id 106 "Wind (IPP)" and id 71 "Wind
+      (CEB)", the state utility's Mannar farm. In the 15-minute dispatch only id 106 carries
+      wind, and it matches the workbooks' single "Wind" row for both owners. In the daily
+      statistics id 106 is the private producers alone (197 MWh on 2024-04-01, the report's "IPP
+      Wind") and id 71 the utility (138 MWh, "CEB Wind"). Ids 61, 70 and 76 are other wind
+      entries that carried no data in the checks. Found by an automated research pass on
+      2026-11-08; not yet reviewed by a person.
+    evidence: https://gendata.pucsl.gov.lk/home
+    found: 2026-11-08
+  - summary: The portal's data calls time out beyond a day or two at 15 minutes, and its monthly aggregation fails.
+    detail: >-
+      A seven-day 15-minute request and a monthly request both returned HTTP 500 after about 30
+      seconds; one day at a time works, and daily statistics return a year in one call. Days
+      can be missing (2019-06-15 has no 15-minute wind). The calls are undocumented and may
+      change. Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://gendata.pucsl.gov.lk/home
+    found: 2026-11-08
+notes: >-
+  Sri Lanka's regulator publishes the system operator's dispatch in three forms, checked
+  2026-11-08. (1) The Electricity Dispatch Data portal (gendata.pucsl.gov.lk), a dashboard whose
+  keyless JSON calls (/api/actual-system-dispatch, /api/daily-generation-statistics) give
+  telemetered wind in MW every 15 minutes from 2019 (every 30 minutes in 2016 to 2018) and daily
+  wind in MWh split into private producers (from 2016-10-31) and the state utility (from
+  2020-11-09), up to 2026-11-05; private wind summed to about 330 GWh in 2017 and 369 GWh in
+  2024, utility wind to 390 GWh in 2024. (2) Monthly workbooks of the 15-minute dispatch per
+  plant, February 2020 to March 2025, one sheet per day with a single "Wind" row
+  (https://www.pucsl.gov.lk/daily-generation-reports-2/ and
+  https://www.pucsl.gov.lk/generation-information-archived/). (3) Daily PDF reports from 2016
+  to 18 March 2025 on the same pages and in monthly posts for 2016 to 2018
+  (https://www.pucsl.gov.lk/daily-generation-reports-archive/); they read as text, with "IPP
+  Wind" and "CEB Wind" in MWh and installed capacity (163 and 100 MW in April 2024, from the
+  utility's monthly review). The PDF file names follow no single pattern. Wind is not split by
+  farm.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

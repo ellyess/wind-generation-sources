@@ -1,6 +1,6 @@
 id: world-eia-international
 name: International Energy Data (wind electricity net generation)
-publisher: U.S. Energy Information Administration (EIA)
+publisher: US Energy Information Administration (EIA)
 publisher_role: government
 countries: [AE, AF, AM, AQ, AR, AT, AU, AW, AZ, BA, BD, BE, BG, BH, BO, BR, BS, BT, BY, CA, CH, CL, CN, CO, CR, CU, CV, CY, CZ, DE, DJ, DK, DM, DO, DZ, EC, EE, EG, ER, ES, ET, FI, FJ, FK, FO, FR, GB, GD, GE, GM, GP, GR, GT, GU, GY, HK, HN, HR, HU, ID, IE, IL, IN, IR, IS, IT, JM, JO, JP, KE, KH, KN, KP, KR, KW, KY, KZ, LB, LK, LT, LU, LV, MA, MD, ME, MG, MK, MN, MQ, MR, MT, MU, MV, MX, NA, NC, NI, NL, NO, NP, NZ, OM, PA, PE, PF, PH, PK, PL, PM, PR, PT, RE, RO, RS, RU, SA, SC, SE, SG, SI, SK, SN, SO, SV, SY, TD, TH, TN, TO, TR, TW, TZ, UA, US, UY, UZ, VE, VG, VN, VU, WS, ZA]
 area: >-
@@ -16,7 +16,7 @@ measure: reported-generation
 resolution: annual
 coverage:
   start: 1980
-  update: irregular; the bulk file was last updated 16 October 2026 and the wind series run to 2024
+  update: irregular; the bulk file was last modified 19 October 2026 and the wind series run to 2024
 capacity: separate-dataset
 coordinates: not-applicable
 curtailment: not-reported
@@ -40,7 +40,7 @@ access:
   formats: [json, zip]
   languages: [en]
 licence:
-  name: U.S. government work, public domain
+  name: US government work, public domain
   url: https://www.eia.gov/about/copyrights_reuse.php
   redistribution: allowed-with-attribution
   attribution: "Source: U.S. Energy Information Administration (month and year of the data)"
@@ -114,7 +114,20 @@ notes: >-
   Note that Ember's methodology describes EIA data as gross generation, but EIA labels these
   series net. Corrected 2026-11-07: the area field said 225 country series; a recount of
   INTL.zip found 229, the extra four under four-letter EIA codes (DEUW, NLDA, HITZ, USIQ).
+  Checked 2026-11-08 (INTL.zip re-read): the country list is right to omit Curacao (CW) and
+  Bonaire (BQ). The file has no CUW, BES or SXM series. It still carries a Netherlands Antilles
+  series (INTL.37-12-NLDA-BKWH.A) to 2024, non-zero from 1993 and 0.236 billion kWh for each of
+  2022 to 2024, which presumably holds their wind; the file does not say which islands it
+  covers, so it is not mapped to an ISO code here. Aruba (ABW) has its own series from 1986 ("--" before) and
+  is non-zero from 2009 (0.136 for 2024), so AW stays listed. For any one island use the
+  national publisher (bq-cbs-electricity-production-by-island,
+  cw-aqualectra-annual-report-wind-intake). Corrected 2026-11-08: coverage.update gave the bulk file's
+  last update as 16 October 2026; the server's Last-Modified header for INTL.zip reads "Mon, 19
+  Oct 2026 19:55:35 GMT", and the wind series' own last_updated stamps are no later than
+  2026-04-01 (World). Rechecked 2026-11-08 from a fresh INTL.zip: 229 wind series whose id code
+  matches their geography, 145 with a non-zero year, which map to exactly the 142 codes listed
+  plus DEUW, NLDA and XKS; World 2024 is 2,511.68 billion kWh.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

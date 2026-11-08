@@ -10,7 +10,7 @@ source. Traps handled:
   date, localises to America/Los_Angeles and converts to UTC (an ordinary day is used; clock-change
   days would need the repeated or missing hour resolving);
 - CAISO does not say whether a time starts or ends its interval; the yearly workbook's numbering
-  reads as interval start, so the stamp is kept as the period start (unconfirmed).
+  reads as interval start, but that is unconfirmed, so the stamp is kept as published.
 """
 
 import io

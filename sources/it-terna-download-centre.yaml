@@ -104,6 +104,6 @@ notes: >-
   filterDay, a parameter the page's own script can send, still returned all 2,980
   October 2026 rows, from 1 to 31 October.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

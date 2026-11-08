@@ -9,7 +9,7 @@ measure: capacity-factor
 resolution: hourly
 coverage:
   start: 2009
-  update: monthly
+  update: daily, a few days behind, into one file per month
 capacity: included
 coordinates: included
 curtailment: separate-dataset
@@ -74,6 +74,10 @@ notes: >-
   coordinates in the same file: about 152 complexes and 26 GW in mid-2023. Pair with ONS
   constrained-off data (https://dados.ons.org.br/dataset/restricao_coff_eolica_usi) to separate
   curtailment from resource. Resource names on the portal start in 2009.
+  Corrected 2026-11-08: coverage.update said monthly. On 2026-11-08 the portal already listed
+  Fator_Capacidade_2-2026-11, and FATOR_CAPACIDADE-2_2026_11.parquet held hours from 2026-11-01
+  00:00 to 2026-11-05 23:00 for 152 wind complexes, so the current month's file is refreshed
+  within the month. The 2009 file starts at 2009-07-01 00:00 with two wind complexes.
 status: active
-last_checked: 2026-11-06
-checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, metadata read via the ONS CKAN API; licence read on the publisher's page 2026-11-06
+last_checked: 2026-11-08
+checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, metadata read via the ONS CKAN API; licence read on the publisher's page 2026-11-06; links and conventions re-checked by an automated pass 2026-11-08

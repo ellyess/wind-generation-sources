@@ -78,9 +78,10 @@ notes: >-
   Enercon E-48 turbines (75 m hub). Checked by downloading UEBB_v1.nc (163 MB): 52,560 ten-minute
   steps from 2013-08-01 00:00 to 2014-07-31 23:50, timestamps in UTC (GPS-synchronised, per the
   time variable's attributes), 32 turbines whose power series differ, about 0.25% missing. The
-  Pedra do Sal file (UEPS_v1.nc, 205 MB) was not downloaded. Installed capacity per turbine is not
+  Pedra do Sal file (UEPS_v1.nc, 205 MB) was read on 2026-11-07 for the units trap. Installed
+  capacity per turbine is not
   in the file; rated power is in the record description only for Pedra do Sal.
-status: active
-last_checked: 2026-11-06
+status: fixed-release
+last_checked: 2026-11-07
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

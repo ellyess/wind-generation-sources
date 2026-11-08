@@ -86,7 +86,7 @@ notes: >-
   commissioning date (2009-01-15). Turbines R80711 and R80721 have different power values at the
   same timestamps. The Mendeley description says the original data ran 2013 to 2020, but only
   2013 to 13 January 2018 was re-deposited.
-status: discontinued
+status: fixed-release
 last_checked: 2026-11-06
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

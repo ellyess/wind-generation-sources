@@ -2,6 +2,7 @@
   import Icon from "./Icon.svelte";
   let { text, what, label = "Copy" }: { text: string; what: string; label?: string } = $props();
   let state = $state<"idle" | "done" | "fail">("idle");
+  let timer: ReturnType<typeof setTimeout> | undefined;
   async function copy() {
     try {
       await navigator.clipboard.writeText(text);
@@ -9,13 +10,14 @@
     } catch {
       state = "fail";
     }
-    setTimeout(() => (state = "idle"), 1600);
+    clearTimeout(timer);
+    timer = setTimeout(() => (state = "idle"), 1600);
   }
 </script>
 
-<button type="button" class="copy" class:done={state === "done"} onclick={copy} aria-label="Copy {what}">
+<button type="button" class="copy" class:done={state === "done"} onclick={copy}>
   <Icon name={state === "done" ? "check" : "copy"} size={14} />
-  <span aria-live="polite">{state === "done" ? "Copied" : state === "fail" ? "Copy failed" : label}</span>
+  <span aria-live="polite">{state === "done" ? "Copied" : state === "fail" ? "Copy failed" : label}</span>{#if label === "Copy"}<span class="visually-hidden"> {what}</span>{/if}
 </button>
 
 <style>

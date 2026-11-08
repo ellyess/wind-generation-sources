@@ -83,8 +83,12 @@ def check_entry(path: Path, entry: dict, validator: Draft202012Validator,
     cov = entry["coverage"]
     if "end" in cov and cov["end"] < cov["start"]:
         problems.append(Problem(path, "coverage end is before start"))
-    if entry["status"] == "discontinued" and "end" not in cov:
-        problems.append(Problem(path, "a discontinued source needs a coverage end"))
+    if entry["status"] in ("discontinued", "fixed-release") and "end" not in cov:
+        problems.append(Problem(path, f"a {entry['status']} source needs a coverage end"))
+    if entry["status"] == "active" and "end" not in cov and not cov.get("update"):
+        problems.append(Problem(
+            path, "an active, open-ended source should say how often it updates (coverage.update)",
+            fatal=False))
 
     lic = entry["licence"]
     if lic["verified"] and "url" not in lic:
@@ -106,7 +110,37 @@ def check_entry(path: Path, entry: dict, validator: Draft202012Validator,
     elif (today - checked).days > STALE_AFTER_DAYS:
         problems.append(Problem(path, f"not checked for over {STALE_AFTER_DAYS} days",
                                 fatal=False))
+    if (latest := _latest_dated_change(entry)) and latest > checked:
+        problems.append(Problem(
+            path, f"a correction or trap is dated {latest}, after last_checked ({checked})",
+            fatal=False))
     return problems
+
+
+_DATED_CHANGE = re.compile(r"\bCorrected (\d{4}-\d{2}-\d{2})")
+
+
+def _texts(value) -> list[str]:
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        return [t for v in value.values() for t in _texts(v)]
+    if isinstance(value, list):
+        return [t for v in value for t in _texts(v)]
+    return []
+
+
+def _latest_dated_change(entry: dict) -> dt.date | None:
+    """The latest "Corrected YYYY-MM-DD" in the entry's text, or trap `found` date."""
+    dates = [m for t in _texts(entry) for m in _DATED_CHANGE.findall(t)]
+    dates += [str(t["found"]) for t in entry.get("traps", []) if t.get("found")]
+    parsed = []
+    for d in dates:
+        try:
+            parsed.append(dt.date.fromisoformat(d))
+        except ValueError:
+            continue
+    return max(parsed, default=None)
 
 
 def load_catalogue(sources_dir: Path = SOURCES_DIR,

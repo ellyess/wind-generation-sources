@@ -1,0 +1,78 @@
+id: mu-ceb-annual-report-plant-generation
+name: CEB annual report, plant capacities, units generated and exported
+publisher: Central Electricity Board (CEB), Mauritius
+publisher_role: utility
+countries: [MU]
+area: Island of Mauritius and Island of Rodrigues, reported in separate tables
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2011
+  update: annual, for the year to 30 June
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: kWh
+  value: period-total
+  evidence: https://ceb.mu/docs/files/files/publications/Annual%20Report/CEB%20ANNUAL%20REPORT%202024-2025.pdf
+  note: >-
+    The 2024/2025 report's table "Plant capacities, units generated and exported: July 2024 - June
+    2025" gives "Units Generated (kWh)" and "Units Sent Out (kWh)" per plant; the Rodrigues table
+    gives "Units generated (kWh)" for the financial year 2024/2025. Read 2026-11-08 by an automated
+    research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://ceb.mu/publications
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en]
+licence:
+  name: No licence or reuse terms found
+  url: https://ceb.mu/publications
+  redistribution: unclear
+  verified: false
+  note: Neither the publications page nor the 2024/2025 report states reuse terms.
+traps:
+  - summary: Years run July to June; Statistics Mauritius reports the same farms by calendar year.
+    detail: >-
+      The CEB report covers July 2024 to June 2025 (Eole Plaine des Roches 10,141,478 kWh), while
+      the Statistics Mauritius digest gives Island of Mauritius wind for calendar 2025 (9.82 GWh).
+      Do not mix the two without aligning periods. The reports for 2011 to 2015 on the same page
+      are labelled by single year and one covers "Jan 2016 - Jun 2017", so the switch to July-June
+      years came in 2017. Found by an automated research pass on 2026-11-08; not yet reviewed by a
+      person.
+    evidence: https://ceb.mu/docs/files/files/publications/Annual%20Report/CEB%20ANNUAL%20REPORT%202024-2025.pdf
+    found: 2026-11-08
+  - summary: Mauritius and Rodrigues wind are in different tables, measured differently.
+    detail: >-
+      The Island of Mauritius table (page 55) gives the one wind farm, an independent producer,
+      with a note that "Energy purchased from IPPs is metered at CEB substations and represents
+      exported figures to the grid". The Rodrigues table (page 104) gives CEB's own Trèfles (120
+      kW, 144,400 kWh) and Grenade (1,100 kW, 1,349,800 kWh) farms as units generated, with no
+      sent-out column. Found by an automated research pass on 2026-11-08; not yet reviewed by a
+      person.
+    evidence: https://ceb.mu/docs/files/files/publications/Annual%20Report/CEB%20ANNUAL%20REPORT%202024-2025.pdf
+    found: 2026-11-08
+notes: >-
+  Annual output of each wind farm in the Republic of Mauritius, with installed and effective
+  capacity: Eole Plaine des Roches (9.35 MW; 10,441,937 kWh in 2022/23 and 10,141,478 kWh in
+  2024/25) on the Island of Mauritius, and Trèfles and Grenade on Rodrigues (139,300 and 1,392,600
+  kWh in 2022/23). The publications page lists annual reports back to 2011. The 2015 report
+  describes the Plaine des Roches farm as under construction. Corrected 2026-11-08: coverage
+  start moved from 2022 to 2011, because the older reports on the same page also give per-farm
+  wind output in kWh. The 2011 report gives Rodrigues "Trèfles Wind 26,800" and "Grenade Wind
+  2,555,390" (Output (kWh)), the 2015 report gives 205,950 and 2,480,200, and the 2017/18 report
+  gives EOLE - Plaine des Roches 11,779,553 kWh. The earliest Plaine des Roches year was not
+  pinned down (the January 2016 to June 2017 report was not opened). The site was redesigned and older
+  statistics pages return 404; the reports now sit under ceb.mu/docs/files/files/publications.
+  For a monthly national series see mu-statsmauritius-electricity-generation.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

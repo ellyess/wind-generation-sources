@@ -37,12 +37,13 @@ access:
 licence:
   name: Copyright of the German transmission system operators; reproduction needs prior written consent
   url: https://www.netztransparenz.de/de-de/Impressum
-  redistribution: link-only
+  redistribution: permission-required
   verified: true
   note: >-
-    The imprint says the site's content is protected by copyright and that copying it needs
-    the German TSOs' prior written consent by email, unless the law already permits it. No open
-    data licence is given.
+    The imprint says the site's content is protected by copyright and that copying it needs the
+    German TSOs' prior written consent by email, unless the law already permits it. No open data
+    licence is given. Changed 2026-11-08 (maintainer decision) from link-only to permission-
+    required: the imprint allows copying with the TSOs' written consent, asked for by email.
 traps:
   - summary: Only the latest year stays online; older years are removed.
     detail: >-
@@ -66,14 +67,17 @@ traps:
     found: 2026-11-06
 notes: >-
   Every installation paid under the Renewable Energy Sources Act (EEG) or its market premium,
-  with fed-in electricity (Strommenge, in kWh) and payments, one ZIP per transmission operator.
+  with fed-in electricity (Strommenge, unit not stated; the payments suggest kWh) and payments,
+  one ZIP per transmission operator.
   For wind an EEG installation is normally a single turbine. Checked 2026-11-06 on the 50Hertz
   2025 file: 11,090 wind installations (remuneration categories starting with W) totalling about
   38.4 TWh, and different installations return different volumes. Each row carries the Market
   Master Data Register number (EEG_Mastr_Nr), which links to the register for capacity and
   location; the register itself holds no generation. Onshore and offshore are not split by a
-  documented column. Plants outside EEG support are missing.
+  documented column. Plants outside EEG support are missing. Corrected 2026-11-08: these notes said
+  Strommenge was in kWh, which contradicted the conventions block; neither the page, the legend
+  workbook nor the CSV header states a unit.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

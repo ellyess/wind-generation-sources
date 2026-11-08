@@ -8,7 +8,7 @@ technology: onshore
 measure: reported-generation
 resolution: monthly
 coverage:
-  start: 2013
+  start: 2014
   update: monthly (September 2026 was the latest file found at the check)
 capacity: included
 coordinates: none
@@ -22,7 +22,9 @@ conventions:
   note: >-
     Generation per company and plant is given in MWh for the month (for example 'Eólica, AES Panamá,
     UEP I, 9,417.31' in the generation-by-technology table of September 2026). Read 2026-11-06 by an
-    automated research pass; not yet reviewed.
+    automated research pass; not yet reviewed. Corrected 2026-11-08: that September 2026 row is a
+    repeat of August 2026 (see the trap on repeated breakdown tables), so it is an example of the
+    unit only, not of September's output.
 access:
   method: bulk-download
   url: https://www.asep.gob.pa/wp-content/uploads/electricidad/estadisticas_mensuales/2026/SEPTIEMBRE_2026.pdf
@@ -65,21 +67,44 @@ traps:
       The pattern is /wp-content/uploads/electricidad/estadisticas_mensuales/YYYY/MONTHNAME_YYYY.pdf
       with the Spanish month in capitals. January 2013 and January 2012 return 404; December 2013
       exists. Older files are titled "Datos relevantes del mercado eléctrico panameño" and have a
-      different layout, so table extraction has to be adapted by year.
+      different layout, so table extraction has to be adapted by year. Re-checked 2026-11-08:
+      January, February and March 2013 still redirect to a "Página no encontrada" page (HTTP 404
+      on GET); asep.gob.pa answers any HEAD request with 200 text/html, which makes a link checker
+      report the missing file as live. The earliest file in the series is ABRIL_2013.pdf, and no
+      2013 file has a wind row.
     evidence: https://www.asep.gob.pa/wp-content/uploads/electricidad/estadisticas_mensuales/2013/ENERO_2013.pdf
     evidence_is_error: true
     found: 2026-11-06
+  - summary: The September 2026 file repeats August's "OTROS" breakdown, so its wind rows are August's figures.
+    detail: >-
+      All 97 rows of the plant breakdown in SEPTIEMBRE_2026.pdf, the four wind rows included (UEP I
+      9,417.31, UEP II 45,667.27, Toabré 23,407.43, Caimitillo 0.28 MWh), are identical to those in
+      AGOSTO_2026.pdf. The breakdown sums to 218,367.67 MWh, August's "OTROS" total, while the
+      September file's own main table gives "OTROS" as 191,070.23 MWh. The September values are
+      also far above earlier Septembers (UEP II 3,399.49 MWh in 2022, 11,251.05 in 2023, 4,542.54
+      in 2024). Check each month's breakdown sum against its own "OTROS" total before using it;
+      in June, July and August 2026 and September 2024 the two agree to within 0.1 MWh. Found by
+      an automated research pass on 2026-11-08; not yet reviewed by a person. Also checked
+      2026-11-08: the same repeat occurs in 2014. FEBRERO_2014.pdf repeats January's "OTROS"
+      breakdown (total 52,963.02 MWh, UEP 15,600.92 MWh in both), and ABRIL_2014.pdf repeats
+      March's (total 45,441.70 MWh, UEP 20,218.80 MWh in both), so the problem is not new.
+    evidence: https://www.asep.gob.pa/wp-content/uploads/electricidad/estadisticas_mensuales/2026/SEPTIEMBRE_2026.pdf
+    found: 2026-11-08
 notes: >-
   Panama's regulator publishes a monthly PDF with installed and firm capacity per plant,
   generation per company and per plant in MWh, imports and exports, marginal cost and distributor
   sales. Checked on 2026-11-06: September 2026 lists four wind rows with different values (UEP I
   9,417.31 MWh, UEP II 45,667.27 MWh, Toabré 23,407.43 MWh, Caimitillo 0.28 MWh) and wind installed
-  capacity of 336 MW; files for 2014, 2015, 2018, 2020 to 2026 were downloaded. The December 2013
-  file already lists UEP (Penonomé). Capacity per plant is in section I of each file. No index page
+  capacity of 336 MW (corrected 2026-11-08: those four values are August 2026's, repeated in the
+  September file; see the trap); files for 2014, 2015, 2018, 2020 to 2026 were downloaded. The December 2013
+  file already lists UEP (Penonomé). Corrected 2026-11-08: in December 2013 UEP appears only as a
+  buyer of 7.86 MWh in the spot-market table (section VII), and the installed-capacity-by-technology
+  table has no wind; the first wind generation row is "U E P 15,600.92" MWh in the "OTROS" breakdown
+  of ENERO_2014.pdf, so coverage.start moved from 2013 to 2014. Capacity per plant is in section I of each file. No index page
   for the series was found on asep.gob.pa; files were located by URL pattern and by web search.
   The system operator (Centro Nacional de Despacho, CND) is likely to hold finer, daily or hourly,
   per-plant data in its operation reports, but those were not checked in this pass.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

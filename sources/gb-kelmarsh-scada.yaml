@@ -43,7 +43,7 @@ licence:
   spdx: CC-BY-4.0
   url: https://zenodo.org/records/16807551
   redistribution: allowed-with-attribution
-  attribution: Cite the Zenodo record (Plumley, C., Kelmarsh wind farm data, Zenodo, doi:10.5281/zenodo.5841833).
+  attribution: Cite the Zenodo record (Plumley, C. and Takeuchi, R., Kelmarsh wind farm data, Zenodo, doi:10.5281/zenodo.5841833).
   verified: true
   note: >-
     The Zenodo record states the data were released by Cubico Sustainable Investments Ltd under
@@ -118,6 +118,6 @@ notes: >-
   comparing two turbines: their power values differ, as they should. Signals are not all present
   for the whole period.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

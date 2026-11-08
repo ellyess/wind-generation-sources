@@ -8,7 +8,7 @@ technology: onshore
 measure: reported-generation
 resolution: monthly
 coverage:
-  start: 2020
+  start: 2019
   update: monthly bulletin, year to date
 capacity: none
 coordinates: none
@@ -56,11 +56,14 @@ traps:
 notes: >-
   Monthly year-to-date national electricity production by source in GWh, with a wind row. The
   same page holds the annual Bilan National de l'Energie (2010 to 2025, the last provisional) and
-  annual key figures (Chiffres clés). Coverage start is the oldest bulletin listed (March 2020),
-  which has the wind row; older bulletins may exist elsewhere. The large fall in 2026 wind output
+  annual key figures (Chiffres clés). Corrected 2026-11-08: coverage start was 2020, from a
+  March 2020 bulletin taken as the oldest listed; the publications page also lists a December
+  2019 bulletin (wind "EOLIENNE" 500 GWh to end December 2019, against 453 GWh in 2018) and a
+  February 2020 one, so the series starts with full-year 2019. Older bulletins may exist
+  elsewhere. The large fall in 2026 wind output
   coincides with press reports of rehabilitation work at the Sidi Daoud wind plant; not verified
   on a STEG page. STEG's own website (steg.com.tn) refused connections on 2026-11-06.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

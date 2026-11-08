@@ -10,10 +10,11 @@ The public CSV is a rolling window of the previous and current month, national, 
   built from the current year and month, falling back to the previous month;
 - hours not yet reached are filled with zeros; trailing all-zero rows are dropped;
 - stamps mark the start of each hour.
-Eskom states neither the time zone nor the unit. The snippet assumes South African Standard Time
-(UTC+02:00, no daylight saving), which the solar column's sunrise supports, and reads the values
-as average MW, which their size against about 4.2 GW of installed wind supports. Both are
-assumptions. Only wind that Eskom owns or contracts is included. There is no stable dated file.
+Eskom states neither the time zone nor the unit, so stamps are kept as a naive `time`, not UTC
+(South African Standard Time, UTC+02:00, fits the solar column's sunrise but is not stated), and
+the values are read as average MW, which their size against about 4.2 GW of installed wind
+supports (an assumption). Only wind that Eskom owns or contracts is included. There is no
+stable dated file.
 """
 
 import io
@@ -31,10 +32,10 @@ for month in (now, now - pd.DateOffset(months=1)):
 resp.raise_for_status()
 rows = pd.read_csv(io.StringIO(resp.text))
 
-stamp = pd.to_datetime(rows["Date Time Hour Beginning"]).dt.tz_localize("Africa/Johannesburg")
+stamp = pd.to_datetime(rows["Date Time Hour Beginning"])  # zone not stated
 df = (
-    rows.assign(time_utc=stamp.dt.tz_convert("UTC"))
-    .set_index("time_utc")
+    rows.assign(time=stamp)
+    .set_index("time")
     .sort_index()[["Wind"]]
     .rename(columns={"Wind": "wind_mw"})
 )

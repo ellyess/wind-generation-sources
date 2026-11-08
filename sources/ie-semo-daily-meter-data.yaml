@@ -91,6 +91,18 @@ traps:
       and a separate D+5 report (BM-086_MD5) republishes each day later.
     evidence: https://reports.sem-o.com/api/v1/documents/static-reports?DPuG_ID=BM-086&page_size=5&sort_by=Date&order_by=DESC
     found: 2026-11-06
+  - summary: >-
+      The D+1 file can show zero for a wind farm that did generate; the D+5 version fills it in, so
+      a D+1 zero may be missing data.
+    detail: >-
+      For trade date 2026-11-01, the D+5 file (PUB_DailyMeterDataD5_202611051440.xml) differs from
+      the D+1 file (PUB_DailyMeterDataD1_202611021548.xml) for 25 of the 229 WIND-tagged units in
+      the November 2026 BM-003 report, 19 of them from a zero day to a positive one. Bawnmore WF,
+      GU_401150, 24 MW, goes from 0 to 401.2 MWh. The WIND-tagged total rises from 27,939.9 to
+      29,272.4 MWh (+4.8%). Use the D+5 report where it exists, and do not read D+1 zeros as calm
+      or outage. Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://reports.sem-o.com/documents/PUB_DailyMeterDataD5_202611051440.xml
+    found: 2026-11-08
   - summary: The meter file does not say which units are wind; join on the registered-capacity report.
     detail: >-
       Units are identified only by codes such as GU_405210. The monthly Registered Capacity report
@@ -132,5 +144,5 @@ notes: >-
   wind forecasts (BM-012), which are not observations.
 status: active
 reviewed: false
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

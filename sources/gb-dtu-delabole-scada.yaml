@@ -91,7 +91,7 @@ notes: >-
   the year, per the summary. Turbine rating, hub height and local x-y positions are in the site
   documentation, not the data files. The time zone is not stated in the files; the 1994
   performance report linked from the site documentation gives GMT (added 2026-11-07).
-status: active
-last_checked: 2026-11-06
+status: fixed-release
+last_checked: 2026-11-07
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

@@ -1,13 +1,14 @@
 <script lang="ts">
   import * as maplibregl from "maplibre-gl";
-  import type { ErrorEvent, ExpressionSpecification, GeoJSONSource, Map as MLMap, MapGeoJSONFeature, MapMouseEvent } from "maplibre-gl";
+  import "maplibre-gl/dist/maplibre-gl.css";
+  import type { ErrorEvent, ExpressionSpecification, GeoJSONSource, Map as MLMap, MapGeoJSONFeature, MapMouseEvent, PointLike } from "maplibre-gl";
   import type * as GeoJSON from "geojson";
   import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 
   maplibregl.setWorkerUrl(workerUrl);
   import { onMount } from "svelte";
   import { store } from "../store.svelte";
-  import { TIER_TEXT, plural } from "../text";
+  import { TIER_TEXT, plural, stepText } from "../text";
   import { PLACED, mwText } from "./FarmTable.svelte";
   import Icon from "./Icon.svelte";
   import LevelDot from "./LevelDot.svelte";
@@ -29,7 +30,14 @@
   let ready = $state(false);
   let failed = $state("");
   let globe = $state(false);
-  let keyOpen = $state(false);
+  // The key starts open on wide screens and folded on phones; a choice made with the toggle is remembered.
+  const KEY_PREF = "wgs:map-key";
+  const savedKey = (() => { try { return localStorage.getItem(KEY_PREF); } catch { return null; } })();
+  let keyOpen = $state(savedKey ? savedKey === "open" : !matchMedia("(max-width: 819px)").matches);
+  const toggleKey = () => {
+    keyOpen = !keyOpen;
+    try { localStorage.setItem(KEY_PREF, keyOpen ? "open" : "closed"); } catch { /* storage blocked */ }
+  };
   let outlines: GeoJSON.FeatureCollection | null = null;
   let bounds = new Map<string, [number, number, number, number]>();
   let hovered: string | null = null;
@@ -61,7 +69,11 @@
   /** The smallest of the farm points under the pointer: the one drawn on top. */
   const topFarm = (fs: MapGeoJSONFeature[]) => fs.reduce<MapGeoJSONFeature | undefined>((best, f) =>
     !best || sizeOf(f.properties.mw) < sizeOf(best.properties.mw) ? f : best, undefined);
-  const focusFilter = (): ExpressionSpecification => ["==", ["id"], store.focusFarm ?? -1];
+  /** The farm drawn on top under a point: a shown one before a faded one. */
+  const pickFarm = (m: MLMap, pt: PointLike) =>
+    topFarm(m.queryRenderedFeatures(pt, { layers: ["farms"] })) ?? topFarm(m.queryRenderedFeatures(pt, { layers: ["farms-faded"] }));
+  const focusFilter = (): ExpressionSpecification =>
+    ["in", ["id"], ["literal", store.focusGroup ?? (store.focusFarm == null ? [] : [store.focusFarm])]];
 
   const css = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
@@ -95,8 +107,10 @@
       else if (sl === "boundary") { set("line-color", l.id.startsWith("boundary_country") ? border : "#33403b"); set("line-blur", 0); }
       else if (l.type === "symbol") {
         set("text-color", sl === "water_name" ? "#56645f" : l.id.startsWith("place_country") ? "#c3cfca" : label);
-        set("text-halo-color", sl === "water_name" ? "rgba(0,0,0,0)" : "rgba(26,30,33,0.7)");
-        set("text-halo-width", 1); set("text-halo-blur", 0.5);
+        // Country names sit on the light level fills too, so they get a firmer halo.
+        const country = l.id.startsWith("place_country");
+        set("text-halo-color", sl === "water_name" ? "rgba(0,0,0,0)" : country ? "rgba(26,30,33,0.92)" : "rgba(26,30,33,0.7)");
+        set("text-halo-width", country ? 1.6 : 1); set("text-halo-blur", country ? 0.3 : 0.5);
       }
     }
   }
@@ -129,7 +143,10 @@
       paint: { "line-color": css("--ink"), "line-opacity": ["case", ["boolean", ["feature-state", "picked"], false], 1, 0],
         "line-width": 2 } });
     m.addSource("farms", { type: "geojson", data: farmData() });
-    m.addLayer({ id: "farms", type: "circle", source: "farms",
+    farmCount = store.farms?.farms.length ?? 0;
+    // Two layers over one source: points outside the filters fade, and changing the filters only
+    // swaps the layer filters rather than rebuilding 40,000 features.
+    const farmLayer = (id: string, opacity: number) => m.addLayer({ id, type: "circle", source: "farms", filter: shownFilter(id === "farms"),
       // Big circles first, so the small ones drawn over them stay visible and clickable.
       layout: { "circle-sort-key": ["get", "sort"] },
       paint: {
@@ -141,9 +158,12 @@
         "circle-stroke-width": ["interpolate", ["linear"], ["zoom"],
           2, ["case", ["get", "approx"], 1, ["get", "turbine"], 0, 0.6],
           8, ["case", ["get", "approx"], 1.8, ["get", "turbine"], 0.8, 1.5]],
-        "circle-opacity": ["case", ["boolean", ["get", "shown"], true], 1, 0.15],
-        "circle-stroke-opacity": ["case", ["boolean", ["get", "shown"], true], 1, 0.15],
+        "circle-opacity": opacity,
+        "circle-stroke-opacity": opacity,
       } });
+    // Faded points sit under every shown one.
+    farmLayer("farms-faded", 0.15);
+    farmLayer("farms", 1);
     // The farm picked in the panel's table: an ink ring around its point.
     m.addLayer({ id: "farm-focus", type: "circle", source: "farms", filter: focusFilter(),
       paint: { "circle-radius": radius(3), "circle-color": "rgba(0,0,0,0)",
@@ -155,17 +175,26 @@
   /** The open source's countries, outlined and framed while it is open. */
   let srcCountries = $derived(store.source ? store.byId.get(store.source)?.countries ?? [] : []);
 
+  // With a source open, only its own farms stay at full strength.
+  const shownIds = () => (store.source && store.byId.has(store.source) ? [store.source] : store.filtered.map((s) => s.id));
+  const FARM_LAYERS = ["farms", "farms-faded"];
+  /** What the farm layers were last filtered and built from, so typing a search does not touch them. */
+  let farmKey = "", farmCount = -1;
+  // Only entries that own farm points change the layers.
+  let owners = $derived(new Set((store.farms?.farms ?? []).map((f) => f.entry)));
+  function shownFilter(on: boolean): ExpressionSpecification {
+    const inside: ExpressionSpecification = ["in", ["get", "entry"], ["literal", shownIds().filter((id) => owners.has(id))]];
+    return on ? inside : ["!", inside];
+  }
   function farmData(): GeoJSON.FeatureCollection {
-    // With a source open, only its own farms stay at full strength.
-    const shown = new Set(store.source && store.byId.has(store.source) ? [store.source] : store.filtered.map((s) => s.id));
     return { type: "FeatureCollection", features: (store.farms?.farms ?? []).map((f, i) => {
-      const on = shown.has(f.entry), mw = f.mw ?? 0;
+      const mw = f.mw ?? 0;
       return {
         type: "Feature", id: i, geometry: { type: "Point", coordinates: [f.lon, f.lat] },
-        properties: { name: f.name, entry: f.entry, units: f.n, shown: on, mw, placed: f.located_by,
+        properties: { name: f.name, entry: f.entry, units: f.n, mw, placed: f.located_by,
           turbine: !!f.turbine, matched: MATCHED.has(f.located_by), approx: f.located_by === POSTCODE,
-          // Faded points sit under every shown one; within each, larger under smaller.
-          sort: (on ? 0 : -1e5) - sizeOf(mw) },
+          // Larger under smaller.
+          sort: -sizeOf(mw) },
       };
     }) };
   }
@@ -181,7 +210,12 @@
         picked: store.country === iso || (!store.country && srcCountries.includes(iso)),
       });
     }
-    (map.getSource("farms") as GeoJSONSource | undefined)?.setData(farmData());
+    const farmSrc = map.getSource("farms") as GeoJSONSource | undefined;
+    if (!farmSrc) return;
+    const count = store.farms?.farms.length ?? 0;
+    if (count !== farmCount) { farmCount = count; farmSrc.setData(farmData()); }
+    const key = shownIds().filter((id) => owners.has(id)).sort().join(",");
+    if (key !== farmKey) { farmKey = key; map.setFilter("farms", shownFilter(true)); map.setFilter("farms-faded", shownFilter(false)); }
   }
 
   // Repaint when filters or the pick change, or when the farm points arrive after the map.
@@ -213,11 +247,18 @@
   // Fly to the farm picked in the table and ring it.
   $effect(() => {
     const id = store.focusFarm;
+    const group = store.focusGroup;
     if (!ready || !map) return;
     map.setFilter("farm-focus", focusFilter());
     const f = id == null ? undefined : store.farms?.farms[id];
     if (!f) return;
-    map.flyTo({ center: [f.lon, f.lat], zoom: Math.max(map.getZoom(), f.turbine ? 10 : 8), duration: still() ? 0 : 900 });
+    const pts = (group ?? []).map((i) => store.farms!.farms[i]);
+    if (pts.length > 1) {
+      // A farm drawn as its turbines: frame them all.
+      const lon = pts.map((p) => p.lon), lat = pts.map((p) => p.lat);
+      map.fitBounds([Math.min(...lon), Math.min(...lat), Math.max(...lon), Math.max(...lat)],
+        { padding: 60, maxZoom: 13, duration: still() ? 0 : 900 });
+    } else map.flyTo({ center: [f.lon, f.lat], zoom: Math.max(map.getZoom(), f.turbine ? 10 : 8), duration: still() ? 0 : 900 });
     // On phones the map sits above the panel; bring it into view.
     if (innerWidth < 820 && host.getBoundingClientRect().bottom < 80) host.scrollIntoView({ behavior: still() ? "auto" : "smooth" });
   });
@@ -244,7 +285,7 @@
       hovered = iso;
       m.setFeatureState({ source: "countries", id: iso }, { hover: true });
       m.getCanvas().style.cursor = store.catalogued.has(iso) ? "pointer" : "";
-      if (!m.queryRenderedFeatures(e.point, { layers: ["farms"] }).length) showTip(e, store.placeName(iso), countryLines(iso));
+      if (!m.queryRenderedFeatures(e.point, { layers: FARM_LAYERS }).length) showTip(e, store.placeName(iso), countryLines(iso));
     });
     m.on("mouseleave", "country-fill", () => {
       if (hovered) m.setFeatureState({ source: "countries", id: hovered }, { hover: false });
@@ -252,8 +293,8 @@
       tip = null;
       m.getCanvas().style.cursor = "";
     });
-    m.on("mousemove", "farms", (e) => {
-      const top = topFarm(e.features ?? []);
+    m.on("mousemove", FARM_LAYERS, (e) => {
+      const top = pickFarm(m, e.point);
       const p = top?.properties;
       if (!p) return;
       m.getCanvas().style.cursor = "pointer";
@@ -261,14 +302,14 @@
       const src = store.byId.get(p.entry);
       const via = PLACED[p.placed]?.via;
       showTip(e, p.name, [p.mw > 0 ? `${mwText(p.mw)} MW, ${plural(p.units, "unit")}` : plural(p.units, "unit"),
-        src ? src.publisher : p.entry,
-        p.approx ? "Approximate: placed at the station's postcode centroid, not at the turbine"
+        src ? `${src.publisher} · ${stepText(src)}` : p.entry,
+        p.approx ? "Approximate: placed at the station's postcode centre, not at the turbine"
           : p.placed === "wikidata" ? "Location linked by unit ID on Wikidata, not reviewed"
           : p.matched ? `Location matched by name${via ? ` (${via})` : ""}, not reviewed` : "Location from the publisher's register"]);
     });
-    m.on("mouseleave", "farms", () => { store.hoverFarm = null; });
+    m.on("mouseleave", FARM_LAYERS, () => { store.hoverFarm = null; });
     m.on("click", (e) => {
-      const farm = topFarm(m.queryRenderedFeatures(e.point, { layers: ["farms"] }));
+      const farm = pickFarm(m, e.point);
       if (farm) {
         const src = store.byId.get(farm.properties.entry);
         store.go({ view: "map", country: src?.countries[0] ?? store.country, source: farm.properties.entry });
@@ -321,15 +362,24 @@
       const m = new maplibregl.Map({
         container: host, style: STYLE,
         ...(at ?? { bounds: WORLD, fitBoundsOptions: { padding: 8 } }), minZoom: 0, maxZoom: 11, renderWorldCopies: false,
-        attributionControl: { compact: true, customAttribution: "Outlines: Natural Earth. Farms: OpenStreetMap (ODbL), REPD (OGL), postcode centroids: Contains OS data © Crown copyright and database right 2026, Contains Royal Mail data © Royal Mail copyright and database right 2026, Contains National Statistics data © Crown copyright and database right 2026 (OS Code-Point Open, OGL), Danish Energy Agency, US EIA, BNetzA MaStR (dl-de/by-2-0) and the data publishers" },
+        attributionControl: { compact: true, customAttribution: "Outlines: Natural Earth. Farms: OpenStreetMap (ODbL), REPD (OGL), Wikidata (CC0), OS Code-Point Open (OGL; contains OS data © Crown copyright, Royal Mail data © Royal Mail copyright and National Statistics data © Crown copyright, 2026), Danish Energy Agency, US EIA, BNetzA MaStR (dl-de/by-2-0) and the data publishers. Full credits under About" },
         dragRotate: false, pitchWithRotate: false, touchPitch: false,
         // On touch screens the page scrolls with one finger; the map pans with two.
         cooperativeGestures: matchMedia("(pointer: coarse)").matches,
       });
       map = m;
+      m.getCanvas().setAttribute("aria-label", "World map of observed wind data");
+      m.getCanvas().setAttribute("aria-describedby", "map-desc");
       m.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
       m.on("style.load", addLayers);
-      m.once("load", () => host.querySelector(".maplibregl-ctrl-attrib")?.classList.remove("maplibregl-compact-show"));
+      // The attribution starts folded, even if the basemap is slow; the (i) button opens it.
+      const fold = () => host.querySelector(".maplibregl-ctrl-attrib")?.classList.remove("maplibregl-compact-show");
+      fold();
+      m.once("load", fold);
+      // The basemap style names a few point-of-interest icons its sprite lacks; give them a blank.
+      m.setMissingStyleImageResolver((id) => {
+        if (!m.hasImage(id)) m.addImage(id, { width: 1, height: 1, data: new Uint8Array(4) });
+      });
       m.on("error", (e: ErrorEvent) => { if (!ready) failed = `The basemap did not load (${e.error?.message ?? "network"}).`; });
       wire(m);
       m.on("moveend", keep);
@@ -361,7 +411,8 @@
 </script>
 
 <div class="map-wrap">
-  <div class="map" bind:this={host} role="img" aria-label="World map shaded by the finest level of observed wind data each country publishes. Use the country list for keyboard access."></div>
+  <div class="map" bind:this={host}></div>
+  <p id="map-desc" class="visually-hidden">World map shaded by the finest level of observed wind data each country publishes. Use the country list for keyboard access.</p>
 
   {#if tip}
     <div class="tip" style:left="{tip.x}px" style:top="{tip.y}px" role="presentation">
@@ -370,27 +421,37 @@
     </div>
   {/if}
 
-  {#if failed}<p class="map-state">{failed} The lists and tables still work.</p>{/if}
+  {#if failed}<p class="map-state">{failed} The lists and tables still work.</p>
+  {:else if !ready}<p class="map-loading" aria-live="polite">Loading the map</p>{/if}
 
-  <div class="legend" class:open={keyOpen} aria-label="Map key">
-    <button type="button" class="lg-toggle" aria-expanded={keyOpen} onclick={() => (keyOpen = !keyOpen)}>Key</button>
-    <p class="lg-title">Finest level published</p>
-    <ul>
+  <div class="legend" class:open={keyOpen} role="group" aria-label="Map key">
+    <button type="button" class="lg-toggle" aria-expanded={keyOpen} aria-controls="map-key" onclick={toggleKey}>
+      <span>{keyOpen ? "Countries by finest level" : "Key"}</span><Icon name="chev" size={14} />
+    </button>
+    <ul id="map-key">
       {#each [1, 2, 3, 4] as t (t)}
         <li>
           <button type="button" class:on={store.level === `tier:${t}`} aria-pressed={store.level === `tier:${t}`} onclick={() => pickTier(t)}>
-            <LevelDot tier={t} size={12} /><span>{TIER_TEXT[t]}</span><b class="num">{counts[t]}</b>
+            <LevelDot tier={t} size={12} /><span>{TIER_TEXT[t]}</span><b class="num">{counts[t].toLocaleString("en-GB")}</b>
           </button>
         </li>
       {/each}
       {#if counts[0]}<li class="muted"><LevelDot tier={0} size={12} /><span>None under these filters</span><b class="num">{counts[0]}</b></li>{/if}
-      {#if store.farms?.farms.length}<li class="muted"><i class="farm" aria-hidden="true"></i><span title="Units whose own output is published and whose location is known. So far: {located}">Farm or turbine with its own output</span><b class="num">{store.farms.farms.length - approxCount}</b></li>{/if}
-      {#if sizedCount}<li class="muted"><i class="sizes" aria-hidden="true"><i></i><i></i></i><span title="Circle area grows with the capacity behind the point; points with no published capacity keep a middle size">Larger circle, more capacity</span><b></b></li>{/if}
-      {#if approxCount}<li class="muted"><i class="farm approx" aria-hidden="true"></i><span title="Great Britain stations with no confident farm match, placed at their postcode's centroid (Ordnance Survey Code-Point Open), not at the turbine">Approximate: at its postcode centroid</span><b class="num">{approxCount}</b></li>{/if}
+      {#if store.farms?.farms.length}<li class="lg-sub">Points</li><li class="muted"><i class="farm" aria-hidden="true"></i><span>Farm or turbine with its own output</span><b class="num">{(store.farms.farms.length - approxCount).toLocaleString("en-GB")}</b></li>{/if}
+      {#if sizedCount}<li class="muted"><i class="sizes" aria-hidden="true"><i></i><i></i></i><span>Larger circle, more capacity</span><b></b></li>{/if}
+      {#if approxCount}<li class="muted"><i class="farm approx" aria-hidden="true"></i><span>Approximate: at its postcode centre</span><b class="num">{approxCount.toLocaleString("en-GB")}</b></li>{/if}
     </ul>
+    {#if store.farms?.farms.length}
+      <details class="lg-about">
+        <summary>About the points</summary>
+        <p>Units whose own output is published and whose location is known. So far: {located}.</p>
+        {#if sizedCount}<p>Circle area grows with the capacity behind the point; points with no published capacity keep a middle size.</p>{/if}
+        {#if approxCount}<p>Approximate points are Great Britain stations with no confident farm match, placed at their postcode's centre (OS Code-Point Open), not at the turbine.</p>{/if}
+      </details>
+    {/if}
   </div>
 
-  <button type="button" class="proj" onclick={toggleGlobe} aria-pressed={globe} title={globe ? "Show a flat map" : "Show a globe"}>
+  <button type="button" class="proj" onclick={toggleGlobe} title={globe ? "Show a flat map" : "Show a globe"}>
     <Icon name={globe ? "flat" : "globe"} />{globe ? "Flat" : "Globe"}
   </button>
 </div>
@@ -405,6 +466,7 @@
     box-shadow: var(--shadow-2); font-size: 12.5px; color: var(--ink-2);
   }
   .tip strong { color: var(--ink); font-size: 13.5px; font-weight: 600; }
+  .map-loading { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--ink-3); font-size: 13px; pointer-events: none; }
   .map-state { position: absolute; top: 16px; left: 16px; right: 16px; padding: 10px 12px; background: var(--surface);
     border-radius: var(--radius); box-shadow: var(--shadow-1); font-size: 13px; }
   .legend {
@@ -412,8 +474,17 @@
     background: color-mix(in srgb, var(--surface) 94%, transparent); border: 1px solid var(--line);
     border-radius: var(--radius); box-shadow: var(--shadow-1); font-size: 12.5px; min-width: 220px;
   }
-  .lg-title { padding: 0 8px 4px; font-weight: 600; color: var(--ink); }
-  .lg-toggle { display: none; }
+  .lg-toggle { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; height: 26px; padding: 0 8px;
+    border: 0; background: none; border-radius: var(--radius-sm); font-weight: 600; font-size: 12.5px; color: var(--ink); }
+  .lg-toggle:hover { background: var(--surface-3); }
+  .lg-toggle :global(svg) { color: var(--ink-3); transform: rotate(90deg); transition: transform 0.15s; }
+  .legend.open .lg-toggle :global(svg) { transform: rotate(-90deg); }
+  .legend:not(.open) { min-width: 0; padding: 2px; }
+  .legend:not(.open) ul, .legend:not(.open) .lg-about { display: none; }
+  .lg-about { margin: 4px 8px 0; color: var(--ink-3); font-size: 12px; max-width: 220px; }
+  .lg-about summary { cursor: pointer; color: var(--ink-2); padding: 2px 0; }
+  .lg-about p { margin: 4px 0 0; }
+  .lg-sub { padding: 6px 8px 2px; font-size: 11.5px; font-weight: 600; color: var(--ink-3); }
   ul { list-style: none; margin: 0; padding: 0; }
   li > button, li.muted {
     display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 8px; width: 100%;
@@ -447,9 +518,7 @@
   @media (max-width: 819px) {
     .legend { left: 8px; top: 8px; bottom: auto; min-width: 0; padding: 2px; font-size: 12px; }
     .proj { top: 76px; }
-    .lg-title { display: none; }
-    .lg-toggle { display: block; height: 28px; padding: 0 10px; border: 0; background: none; font-weight: 600; font-size: 12.5px; }
-    .legend:not(.open) ul { display: none; }
+    .lg-toggle { height: 28px; }
     .legend.open { padding: 2px 2px 6px; }
   }
 </style>

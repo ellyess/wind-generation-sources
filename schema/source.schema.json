@@ -90,7 +90,7 @@
       ]
     },
     "measure": {
-      "description": "What the number actually is. Metered at the connection point, reported by the operator, estimated by the system operator, or a capacity factor.",
+      "description": "What the number actually is. Metered at the connection point, reported by the operator, estimated by the system operator, or a capacity factor. SCADA readings from the operator's control system are reported-generation; metered-energy is for revenue or settlement meters.",
       "enum": [
         "metered-energy",
         "reported-generation",
@@ -312,12 +312,13 @@
           "pattern": "^https?://"
         },
         "redistribution": {
-          "description": "Whether the raw series may be re-hosted. 'unclear' means no reuse terms could be found or read.",
+          "description": "Whether the raw series may be re-hosted. 'permission-required' means the terms allow re-hosting once the publisher agrees, and say how to ask. 'unclear' means no reuse terms could be found or read.",
           "enum": [
             "allowed",
             "allowed-with-attribution",
             "non-commercial-only",
             "link-only",
+            "permission-required",
             "prohibited",
             "unclear"
           ]
@@ -400,8 +401,10 @@
       "type": "string"
     },
     "status": {
+      "description": "'active': still published and updated. 'fixed-release': a dataset released once as a closed set, not meant to be updated. 'discontinued': a series that was updated but has stopped. 'restricted': access is closed or limited.",
       "enum": [
         "active",
+        "fixed-release",
         "discontinued",
         "restricted"
       ]

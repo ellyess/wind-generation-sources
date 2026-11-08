@@ -35,6 +35,8 @@
   let hp = $derived(hover != null ? pts[hover] : pts[pts.length - 1]);
   $effect(() => { if ((mode === "cap" && !hasCap) || (mode === "cf" && !hasCf)) mode = "gen"; });
   const setMode = (k: Mode) => { mode = k; hover = null; };
+  // A series that stops well short of the present (GB after Brexit) says so, rather than looking current.
+  let stale = $derived.by(() => { const last = all.at(-1)?.year; return last && last < new Date().getFullYear() - 3 ? last : null; });
 </script>
 
 {#if !err && (data === null || all.length > 1)}
@@ -44,10 +46,10 @@
     {#if hp}<span class="num">{hp.year}: <b>{m.fmt(m.get(hp) ?? 0)}</b></span>{/if}
   </figcaption>
   {#if data && (hasCap || hasCf)}
-    <div class="tabs" role="tablist" aria-label="Annual series">
+    <div class="tabs" role="group" aria-label="Annual series">
       {#each Object.entries(MODES) as [k, v] (k)}
         {#if k === "gen" || (k === "cap" && hasCap) || (k === "cf" && hasCf)}
-          <button role="tab" aria-selected={mode === k} class:on={mode === k} onclick={() => setMode(k as Mode)}>{v.tab}</button>
+          <button type="button" aria-pressed={mode === k} class:on={mode === k} onclick={() => setMode(k as Mode)}>{v.tab}</button>
         {/if}
       {/each}
     </div>
@@ -77,11 +79,16 @@
   </div>
   {#if data}
     <p class="src">
-      {#if mode === "gen"}Gross production (nrg_bal_peh, RA300), fetched live. <Ext href={data.request} label="Raw request" />
-      {:else if mode === "cap"}Net maximum capacity at 31 December (nrg_inf_epcrw), fetched live. <Ext href={data.capacityRequest} label="Raw request" />
-      {:else}Gross generation divided by the mean of this and last year's year-end net capacity, times the hours in the year.
-        Years when the fleet grew by more than half are left out. Gross over net reads slightly high; use it to compare years, not as a fleet's true yield.{/if}
+      {#if mode === "gen"}Gross production, fetched live.{#if stale}{" "}Eurostat has no figure for {store.placeName(code)} after {stale}.{/if}
+      {:else if mode === "cap"}Net maximum capacity at 31 December, fetched live.
+      {:else}Reads slightly high: compare years with it, not as a fleet's true yield.{/if}
     </p>
+    <details class="method"><summary>Method</summary>
+      {#if mode === "gen"}Eurostat nrg_bal_peh, RA300. <Ext href={data.request} label="Raw request" />
+      {:else if mode === "cap"}Eurostat nrg_inf_epcrw. <Ext href={data.capacityRequest} label="Raw request" />
+      {:else}Gross generation divided by the mean of this and last year's year-end net capacity, times the hours in the year.
+        Years when the fleet grew by more than half are left out. Gross over net is why it reads high.{/if}
+    </details>
   {/if}
 </figure>
 {/if}

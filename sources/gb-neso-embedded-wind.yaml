@@ -36,14 +36,17 @@ access:
   languages: [en]
 licence:
   name: NESO Open Data Licence
-  url: https://www.neso.energy/data-portal/ngeso-open-licence
+  url: https://www.neso.energy/data-portal/neso-open-licence
   redistribution: allowed-with-attribution
   attribution: "Supported by National Energy SO Open Data"
   verified: true
   note: >-
     Based on the Open Government Licence v3.0 with NESO amendments: copy, publish, distribute,
     adapt and use commercially, with the attribution statement. NESO may throttle access or
-    revise the licence.
+    revise the licence. Corrected 2026-11-08: the licence URL now redirects from
+    /ngeso-open-licence to /neso-open-licence, and the link was updated; the page reads "exploit
+    the Information commercially and non-commercially" with the attribution statement
+    "Supported by National Energy SO Open Data".
 traps:
   - summary: The wind figure is a model estimate, not a measurement.
     detail: >-
@@ -80,6 +83,6 @@ notes: >-
   half-hour with an estimate (458 MW against 1,129 MW of capacity). Files are also queryable
   through the portal's CKAN datastore API.
 status: active
-last_checked: 2026-11-06
-checked_by: automated research (Claude Code), 2026-11-06
+last_checked: 2026-11-08
+checked_by: automated research (Claude Code), 2026-11-08
 reviewed: false

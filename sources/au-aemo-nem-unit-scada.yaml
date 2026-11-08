@@ -79,5 +79,5 @@ notes: >-
   settlement metering or energy; reported-generation is how the catalogue's other SCADA entries are
   classed.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, archive listing read on NEMweb; licence read on the publisher's page 2026-11-06

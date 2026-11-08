@@ -58,9 +58,12 @@ traps:
   - summary: This is real-time telemetry in MW, not metered energy, and it covers the mainland only.
     detail: >-
       REE describes 551 as generation measured in real time for the peninsular system. Values
-      are instantaneous power (MW), whereas the metered indicators 1159 and 1160 are hourly
-      energy (MWh) for all of Spain by province. Replace with the metered series once it is
-      published (see es-ree-esios-measured-generation).
+      are power (MW; whether a snapshot or a five-minute mean is not stated), whereas the metered
+      indicators 1159 and 1160 are hourly energy (MWh) for all of Spain by province. Replace with
+      the metered series once it is published (see es-ree-esios-measured-generation). Corrected
+      2026-11-08: this said the values were instantaneous, which the publisher does not state
+      and which contradicted conventions.value (unknown); the API gives the magnitude only as
+      "Potencia" (power) at "Cinco minutos".
     evidence: https://api.esios.ree.es/indicators
     found: 2026-11-06
 notes: >-
@@ -83,7 +86,11 @@ notes: >-
   history through the API needs one.
   Rechecked 2026-11-07, later the same day: /indicators/551 with no dates and no token now
   also answers 403, so no keyless API route remains.
+  Rechecked 2026-11-08: /indicators/551 with no dates and no token answered 200 again, with 52
+  five-minute values for the current Madrid day (from 2026-11-08T00:00+01:00, geo "Península",
+  magnitud "Potencia", tiempo "Cinco minutos"), while /indicators/1159 with dates still answered
+  403. The keyless current-day route comes and goes; do not rely on it.
 status: active
 reviewed: false
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

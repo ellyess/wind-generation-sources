@@ -9,6 +9,7 @@ measure: reported-generation
 resolution: monthly
 coverage:
   start: 2001
+  update: monthly (August 2026 data released 2026-10-23); final annual data about nine months after the year
 capacity: separate-dataset
 coordinates: separate-dataset
 curtailment: not-reported
@@ -34,10 +35,15 @@ access:
 licence:
   name: US government work, public domain
   url: "https://www.eia.gov/about/copyrights_reuse.php"
-  redistribution: allowed
-  attribution: "Source: U.S. Energy Information Administration (with the date of access)"
+  redistribution: allowed-with-attribution
+  attribution: "Source: U.S. Energy Information Administration (with the publication date, for example \"(Oct 2008)\")"
   verified: true
-  note: Photos, contributed private documents and the EIA logo are excluded.
+  note: >-
+    Photos, contributed private documents and the EIA logo are excluded. Corrected 2026-11-08: the
+    attribution said "with the date of access"; EIA's page asks for "an acknowledgment, which
+    includes the publication date", with the example "Source: U.S. Energy Information Administration
+    (Oct 2008)." Changed 2026-11-08 (maintainer decision) from allowed to allowed-with-attribution,
+    because EIA asks for an acknowledgment.
 traps:
   - summary: >-
       Up to 2022 most wind plants were annual respondents whose months EIA fills in; from 2023
@@ -78,7 +84,12 @@ notes: >-
   predecessor forms EIA-906 and EIA-920, on the same page. Corrected 2026-11-07: the first trap
   and the conventions note said annual wind respondents are always "A" with imputed months; the
   2023 and 2024 files code them "AM" (monthly values reported once a year), as the trap now
-  explains.
+  explains. Checked 2026-11-08: Hawaii is covered, Puerto Rico is not. The 2022, 2024 and 2025
+  files each hold seven Hawaii wind plants (Pakini Nui, Kaheawa Pastures, Kaheawa Wind Power II,
+  Kahuku, Kawailoa, Auwahi and Na Pua Makani; 111,762 MWh for Pakini Nui in 2024) plus a
+  "State-Fuel Level Increment" row (plant 99999) for Hawaii wind. No file has a Puerto Rico row:
+  the Plant State column holds the 50 states and DC only, so for Puerto Rico's wind farms use
+  EIA's annual territory total in world-eia-international.
 status: active
-last_checked: 2026-11-06
-checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, file list read from the EIA page; licence read on the publisher's page 2026-11-06
+last_checked: 2026-11-08
+checked_by: Ellyess Benmoufok and Claude Code; traps from the PyVWF runbook, file list read from the EIA page; licence read on the publisher's page 2026-11-06; links and conventions re-checked by an automated pass 2026-11-08

@@ -7,8 +7,9 @@
 POST /v1/generation/data/injection-quantity returns one item per hour with a "date" (ISO 8601,
 +03:00), an "hour" and a value per source; "wind" is kept. EPİAŞ describes it as the electricity
 given to the system hourly by the settlement units. It states no unit and does not say whether
-the hour starts or ends the period; MWh per hour and the hour start are assumed here, so check a
-total against an annual figure before relying on it. Turkey has kept +03:00 all year since 2016.
+the hour starts or ends the period; MWh per hour is assumed here and the stamp is kept as
+given, so check a total against an annual figure before relying on it. Turkey has kept +03:00
+all year since 2016.
 
 Traps handled:
 - The plant filter (powerplantId) is silently ignored and the national series comes back, so no

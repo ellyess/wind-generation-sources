@@ -1,0 +1,74 @@
+id: pt-dgeg-electricity-production
+name: Annual electricity production by NUTS I region and monthly production (DGEG electricity statistics)
+publisher: Directorate-General for Energy and Geology (Direção-Geral de Energia e Geologia, DGEG)
+publisher_role: government
+countries: [PT]
+area: Portugal by NUTS I region (mainland, Azores, Madeira); the monthly files cover the mainland only
+level: zone
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 1994
+  update: monthly files, provisional; annual file revised once a year
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://www.dgeg.gov.pt/pt/estatistica/energia/eletricidade/producao-anual-e-potencia-instalada/
+  note: >-
+    The annual workbook (dgeg-epa-2005-2025.xlsx) states "unidade: GWh" on each region's sheet,
+    with one column per year. The monthly workbooks label their rows "Produção bruta (GWh)" and
+    "Produção líquida (GWh)" with one column per calendar month and a total. Read 2026-11-08 by
+    an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.dgeg.gov.pt/pt/estatistica/energia/eletricidade/
+  docs: https://www.dgeg.gov.pt/pt/estatistica/energia/calendario-metainformacao-e-outra-documentacao/documentos-metodologicos/
+  key_required: false
+  registration: false
+  formats: [xlsx, xls]
+  languages: [pt]
+licence:
+  name: No data licence found (site footer "Copyright 2026. All Rights Reserved.")
+  url: https://www.dgeg.gov.pt/pt/termos-e-condicoes/
+  redistribution: unclear
+  verified: false
+  note: >-
+    The "Termos e condições" page linked from the footer had no terms text on 2026-11-08; the
+    footer reads "Copyright 2026. All Rights Reserved." No reuse licence for the statistics was
+    found.
+traps:
+  - summary: The monthly files are provisional and cover mainland Portugal only.
+    detail: >-
+      The 2025 monthly file (dated 2026-02-02) is headed "Portugal Continental (dados
+      provisórios)" and gives 13,595 GWh of gross wind for 2025; the annual workbook updated
+      2026-10-16 gives 13,574 GWh for the mainland in 2025. The Azores and Madeira appear only in
+      the annual workbook. Found by an automated research pass on 2026-11-08; not yet reviewed by
+      a person.
+    evidence: https://www.dgeg.gov.pt/pt/estatistica/energia/eletricidade/producao-mensal-de-eletricidade/
+    found: 2026-11-08
+  - summary: File links carry random path segments and the newest file is replaced, so URLs are not stable.
+    detail: >-
+      The 2026 monthly file is /media/uemlppcm/dgeg-epm-2026-09.xls and the annual file
+      /media/u2ydwgfi/dgeg-epa-2005-2025.xlsx; an older annual file for 2005-2022 sits beside it.
+      Take links from the statistics pages rather than building them. Found by an automated
+      research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.dgeg.gov.pt/pt/estatistica/energia/eletricidade/producao-anual-e-potencia-instalada/
+    found: 2026-11-08
+notes: >-
+  Annual gross production by source (wind row "EÓLICA") for Portugal, the mainland
+  (Continente), the Azores and Madeira, in one workbook for 2005 to 2025 and another for 1994 to
+  2004 (wind 17 GWh in 1994). In 2025 wind was 13,777 GWh for Portugal: 13,574 mainland, 68
+  Azores and 135 Madeira. Monthly gross and net production by source for the mainland comes as
+  one workbook per year from 2012 (2025: 1,822 GWh gross wind in January, 716 in June). Installed
+  capacity by plant type (2008-2025) and by municipality (2010-2024) are separate workbooks on
+  the annual page. For quarter-hourly mainland data see pt-ren-datahub-production-breakdown.
+status: active
+reviewed: false
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"

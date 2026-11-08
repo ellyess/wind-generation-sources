@@ -165,5 +165,5 @@ notes: >-
   Changed 2026-11-07: coverage.update rewritten for the three files now on the page; the 2002
   coverage start depends on the unlinked 2002-2020 workbook (see traps).
 status: active
-last_checked: 2026-09-25
+last_checked: 2026-11-07
 checked_by: Ellyess Benmoufok, from the PyVWF runbook as last updated; licence read on the publisher's page 2026-11-06

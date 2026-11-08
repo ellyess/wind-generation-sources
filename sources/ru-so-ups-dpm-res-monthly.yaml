@@ -1,0 +1,90 @@
+id: ru-so-ups-dpm-res-monthly
+name: Actual operation of renewable plants under capacity supply agreements, monthly (Режим работы объектов ДПМ ВИЭ)
+publisher: System Operator of the Unified Energy System of Russia (АО «СО ЕЭС», SO UPS)
+publisher_role: tso
+countries: [RU]
+area: >-
+  Russian regions (federal subjects) with wind plants under the renewable capacity supply
+  agreement scheme (ДПМ ВИЭ), grouped by interconnected power system
+level: zone
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2021
+  update: monthly, irregularly, between about two and ten weeks after the month
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www.so-ups.ru/fileadmin/files/company/markets/2026/res/res_aug_26.pdf
+  note: >-
+    Each monthly PDF headed "Информация о фактическом режиме работы объектов ДПМ ВИЭ" gives
+    "Выработка, тыс. кВтч" (output in thousand kWh, which is MWh) twice: from the start of the
+    year and in the reporting month. Installed capacity is in MW as entered in the register of
+    capacity supply limits on the first day of the month. Read 2026-11-08 by an automated research
+    pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.so-ups.ru/functioning/markets/surveys/renewable/2026/
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [ru]
+licence:
+  name: SO UPS website rules for use of information (Использование информации)
+  url: https://www.so-ups.ru/responsibility/
+  redistribution: non-commercial-only
+  attribution: Keep SO UPS's copyright notices and link to the source page, with the publication date and the date copied.
+  verified: true
+  note: >-
+    Unless stated otherwise, information on the site may be reproduced or distributed unchanged
+    for non-commercial use only; any other use, change or distribution needs SO UPS's written
+    consent. Read 2026-11-08.
+traps:
+  - summary: Only plants under the capacity supply agreement scheme on the wholesale market are counted, not all Russian wind.
+    detail: >-
+      The footnote says the figures cover certified generating units operating on the wholesale
+      market, and capacity is that registered under the scheme (3,005.0 MW of wind for August
+      2026). Wind outside the scheme or on retail markets is missing, so this is not a national
+      total. Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.so-ups.ru/fileadmin/files/company/markets/2026/res/res_aug_26.pdf
+    found: 2026-11-08
+  - summary: Each row has a year-to-date and a single-month output figure side by side; summing both double counts.
+    detail: >-
+      For August 2026 the national wind row gives 4,171,418 thousand kWh from the start of the
+      year and 468,370 thousand kWh in the month. Found by an automated research pass on
+      2026-11-08; not yet reviewed by a person.
+    evidence: https://www.so-ups.ru/fileadmin/files/company/markets/2026/res/res_aug_26.pdf
+    found: 2026-11-08
+  - summary: File names follow no single pattern, so URLs cannot be built from the month.
+    detail: >-
+      Examples: res_may21.pdf, res_sept21.pdf, res_yan_24.pdf, res_mai_24_.pdf, res_apr_24_.pdf,
+      res_aprl_25.pdf and res_aug_26.pdf. Take the links from each year's page
+      (functioning/markets/surveys/renewable/YYYY/). Found by an automated research pass on
+      2026-11-08; not yet reviewed by a person.
+    evidence: https://www.so-ups.ru/functioning/markets/surveys/renewable/2024/
+    found: 2026-11-08
+notes: >-
+  One PDF per month from May 2021 to August 2026 when checked, with separate tables for solar
+  and wind: for each interconnected power system and region, installed capacity, output in
+  thousand kWh (year to date and month), the largest deviations from the dispatch schedule, and
+  dispatcher-ordered limits on output (hours and largest MW), which do not give curtailed energy.
+  The tables read cleanly with pdftotext -layout. Wind regions in August 2026: Ulyanovsk,
+  Samara, Astrakhan, Adygea, Kalmykia, Volgograd, Rostov, Stavropol, Dagestan and Murmansk;
+  Stavropol gave 161,344 MWh in the month on 765.0 MW, Rostov 78,346 MWh on 607.3 MW. The wind
+  tables checked (May 2021, December 2025, August 2026) list no region in occupied Ukrainian
+  territory; the map on the first page was not checked. Year to date in December 2025 was
+  5,641,114 MWh on 2,857.5 MW. No snippet: the data are PDF only, about 1 MB a month.
+  Corrected 2026-11-08: the update cadence said about two weeks after the month. The files'
+  Last-Modified dates on 2026-11-08 were 4 May for March 2026, 26 June for May, 10 September for
+  June, and 14 September for both July and August, and no September 2026 file was listed on
+  8 November, so the lag runs from about two to ten weeks (the dates may reflect re-uploads).
+status: active
+reviewed: false
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"

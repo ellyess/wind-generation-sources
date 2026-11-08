@@ -2,10 +2,11 @@
   import { scaleLinear, scaleTime } from "d3-scale";
   import { area, line, curveMonotoneX } from "d3-shape";
   import { bisector } from "d3-array";
-  import { timeFormat } from "d3-time-format";
-  import { timeDay } from "d3-time";
+  import { utcFormat } from "d3-time-format";
+  import { utcDay } from "d3-time";
   import { fetchLive, type Series } from "../live";
   import { store } from "../store.svelte";
+  import { capital, creditIsRule, creditText } from "../text";
   import Ext from "./Ext.svelte";
   import Icon from "./Icon.svelte";
 
@@ -17,9 +18,10 @@
   let hover = $state<number | null>(null);
 
   $effect(() => {
-    const want = id;
+    let live = true;
     data = null; err = ""; hover = null;
-    fetchLive(want).then((d) => { if (want === id) data = d; }).catch((e) => { if (want === id) err = e.message; });
+    fetchLive(id).then((d) => { if (live) data = d; }).catch((e) => { if (live) err = e.message; });
+    return () => { live = false; };
   });
 
   const H = $derived(compact ? 132 : 168);
@@ -34,16 +36,17 @@
     ? area<{ t: Date; v: number }>().x((p) => x!(p.t)).y0(H - M.b).y1((p) => y!(p.v)).curve(curveMonotoneX)(data.points) : "");
   let barW = $derived(data && x && data.kind === "bars" && data.points.length > 1
     ? Math.max(2, (w - M.l - M.r) / data.points.length - 2) : 6);
-  const fmtDay = timeFormat("%-d %b");
+  // Times are shown in UTC, the zone most publishers stamp in, and said so.
+  const fmtDay = utcFormat("%-d %b");
   // Daily ticks thinned by index, so they never bunch at a month boundary.
   let dayTicks = $derived.by(() => {
     if (!x) return [];
     const [a, b] = x.domain();
-    const days = timeDay.range(timeDay.ceil(a), b);
+    const days = utcDay.range(utcDay.ceil(a), b);
     const every = Math.max(1, Math.ceil(days.length / Math.max(2, Math.floor(w / 80))));
     return days.filter((_, i) => i % every === 0);
   });
-  const fmtTime = timeFormat("%-d %b %H:%M");
+  const fmtTime = utcFormat("%-d %b %H:%M UTC");
   const bis = bisector((p: { t: Date }) => p.t).center;
   const nf = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 1 });
 
@@ -55,19 +58,22 @@
   let hp = $derived(hover != null && data ? data.points[hover] : null);
   let peak = $derived(data && data.points.length ? data.points.reduce((a, b) => (b.v > a.v ? b : a)) : null);
   let last = $derived(data && data.points.length ? data.points[data.points.length - 1] : null);
+  // A sub-daily series whose newest value is over six hours old is said to lag, in whole hours.
+  let lagHours = $derived(last && data?.kind !== "bars" ? Math.floor((Date.now() - last.t.getTime()) / 3.6e6) : 0);
 </script>
 
 <figure class="live" class:compact>
   <figcaption>
     <span class="t"><Icon name="live" />{data?.kind === "bars" ? "Last 30 days" : "Last 7 days"}, live from {src?.publisher ?? "the publisher"}</span>
     {#if last && data}
-      <span class="read num">{hp ? (data.kind === "bars" ? fmtDay(hp.t) : fmtTime(hp.t)) : "Latest"}: <b>{nf.format((hp ?? last).v)} {data.unit}</b><span class="u"> · axis in {data.unit}</span></span>
+      {@const at = hp ?? last}
+      <span class="read num">{hp ? "" : "Latest, "}{data.kind === "bars" ? fmtDay(at.t) : fmtTime(at.t)}: <b>{nf.format(at.v)} {data.unit}</b>{#if !hp && lagHours > 6}<span class="lag">{" · "}{lagHours} hours behind now</span>{/if}</span>
     {/if}
   </figcaption>
 
   <div class="plot" bind:clientWidth={w}>
     {#if err}
-      <p class="state">The publisher did not answer this request ({err}). It may be busy or rate limited; the source itself is unaffected.</p>
+      <p class="state">No answer from the publisher ({err}). It may be busy or rate limited.</p>
     {:else if !data || !x || !y}
       <div class="skeleton" style:height="{H}px" aria-label="Loading live data"></div>
     {:else if !data.points.length}
@@ -101,21 +107,21 @@
 
   {#if data}
     <p class="src">
-      Fetched by your browser just now, {data.stepText} values; nothing is stored here.
-      {data.note ?? ""}
-      <Ext href={data.request} label="Raw request" />
-      {#if src?.licence.attribution}<span class="cred">{src.licence.attribution}</span>{/if}
+      {capital(data.stepText)} values, fetched by your browser; nothing stored here.
+      {#if src?.licence.attribution && !creditIsRule(src.licence.attribution)}<span class="cred">{creditText(src.licence.attribution)}</span>
+      {:else if src}<span class="cred">Source: {src.publisher}</span>{/if}
     </p>
+    <details class="method"><summary>Method</summary>{data.note ?? ""} <Ext href={data.request} label="Raw request" /></details>
   {/if}
 </figure>
 
 <style>
+  .lag { font-weight: 400; color: var(--ink-3); }
   .live { margin: 0; display: grid; gap: 6px; }
   figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 13px; color: var(--ink-2); }
   .t { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--ink); }
   .t :global(.ic) { color: var(--accent); }
   .read b { color: var(--ink); font-weight: 600; }
-  .u { color: var(--ink-3); }
   .plot { min-height: 40px; }
   svg { display: block; touch-action: pan-y; }
   .grid { stroke: var(--line); stroke-width: 1; }

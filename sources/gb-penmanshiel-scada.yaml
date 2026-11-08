@@ -40,7 +40,7 @@ licence:
   spdx: CC-BY-4.0
   url: https://zenodo.org/records/16807304
   redistribution: allowed-with-attribution
-  attribution: Cite the Zenodo record (Plumley, C., Penmanshiel wind farm data, Zenodo, doi:10.5281/zenodo.5946807).
+  attribution: Cite the Zenodo record (Plumley, C. and Takeuchi, R., Penmanshiel wind farm data, Zenodo, doi:10.5281/zenodo.5946807).
   verified: true
   note: >-
     The Zenodo record states the data were released by Cubico Sustainable Investments Ltd under
@@ -88,9 +88,9 @@ notes: >-
   estimates including curtailment, plus substation and fiscal grid meter data. A static CSV gives
   coordinates, rated power, hub height and rotor diameter. Times are UTC per the file headers.
   The same header quirk as Kelmarsh applies (the column header line begins with '#'); it was
-  confirmed here on the grid meter file. Turbine SCADA archives were not downloaded for this
-  check; contents are as listed on the record.
+  confirmed here on the grid meter file. The 2026-11-06 check did not download the turbine SCADA
+  archives; the 2016 WT11-15 archive was read on 2026-11-07 for the start-date trap above.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

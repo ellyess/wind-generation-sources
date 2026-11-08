@@ -9,8 +9,8 @@ turbines (800 kW), with Time in seconds since 1970 UTC. Traps handled:
 - the power variables are labelled "rpm"; the values (0 to 840) are kW, so the units attribute
   is ignored and the column is named power_kw;
 - the minimum-power variable uses 65535 as an undeclared missing-value marker, which is masked.
-Whether a stamp marks the start or end of its 10 minutes is not stated; the first stamp is
-00:00 and the last 23:50, which reads as period start, and this snippet assumes so. Turbine
+Whether a stamp marks the start or end of its 10 minutes is not stated, so stamps are kept as
+published; the first stamp is 00:00 and the last 23:50, which fits period start. Turbine
 numbers 1 to 32 have no coordinates in the file. Pedra do Sal (UEPS_v1.nc, 205 MB) has the
 same layout.
 """

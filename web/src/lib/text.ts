@@ -1,7 +1,7 @@
 // Plain-English labels for every coded field. One place, so the map, table and charts agree.
 export const LEVELS = ["turbine", "farm", "connection-point", "complex", "company", "zone", "country"];
 export const STEPS = ["1s", "1min", "5min", "10min", "15min", "30min", "hourly", "daily", "monthly", "annual"];
-export const CONTINENTS = ["Europe", "Americas", "Asia", "Oceania", "Africa"];
+export const CONTINENTS = ["Europe", "Americas", "Asia", "Oceania", "Africa", "Antarctica"];
 
 /** Finest-level tier: 1 turbine, 2 farm-like, 3 zone or company, 4 national. */
 export const TIER: Record<string, number> = {
@@ -18,7 +18,7 @@ export const TIER_LONG: Record<number, string> = {
 export const TEXT: Record<string, Record<string, string>> = {
   level: {
     turbine: "Turbine", farm: "Farm", "connection-point": "Connection point", complex: "Complex",
-    company: "Company", zone: "Zone", country: "Country",
+    company: "Company", zone: "Zone", country: "National total",
   },
   levelLong: {
     turbine: "Turbine", farm: "Farm",
@@ -34,7 +34,7 @@ export const TEXT: Record<string, Record<string, string>> = {
   reuse: {
     allowed: "Allowed", "allowed-with-attribution": "Allowed with credit",
     "non-commercial-only": "Non-commercial only", "link-only": "Link only, no copies",
-    prohibited: "Not allowed", unclear: "Unclear",
+    "permission-required": "Ask the publisher first", prohibited: "Not allowed", unclear: "Unclear",
   },
   measure: {
     "metered-energy": "Metered energy", "reported-generation": "Reported generation",
@@ -55,7 +55,10 @@ export const TEXT: Record<string, Record<string, string>> = {
     reported: "Reported", "separate-dataset": "In a separate dataset",
     "not-reported": "Not reported", unknown: "Unknown",
   },
-  status: { active: "Active", discontinued: "Discontinued", restricted: "Access restricted" },
+  status: {
+    active: "Active", "fixed-release": "Fixed release", discontinued: "Discontinued",
+    restricted: "Access restricted",
+  },
   role: {
     tso: "Transmission operator", "market-operator": "Market operator",
     "owner-operator": "Owner and operator", utility: "Utility", research: "Research body",
@@ -67,7 +70,7 @@ export const TEXT: Record<string, Record<string, string>> = {
 /** Licence verdict to a status role, for the dot beside the words. */
 export const REUSE_TONE: Record<string, string> = {
   allowed: "good", "allowed-with-attribution": "good", "non-commercial-only": "warn",
-  "link-only": "serious", prohibited: "bad", unclear: "none",
+  "link-only": "serious", "permission-required": "warn", prohibited: "bad", unclear: "none",
 };
 
 export const BAND_TEXT: Record<string, string> = {
@@ -77,8 +80,27 @@ export const BAND_TONE: Record<string, string> = { agrees: "good", noted: "warn"
 
 export const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
+/** A publisher's credit line, with a template's "[year]" filled in with this year. */
+export const creditText = (t: string) => t.replace(/\[year\]/gi, String(new Date().getFullYear()));
+/** True when the publisher gives a rule for crediting ("Cite the record…"), not a line to paste. */
+export const creditIsRule = (t: string) =>
+  /^(name|cite|credit|indicate|mention|acknowledge|reference|give|state|quote|use|include|refer|keep|attribute|accurate|full|not required|optional)\b/i.test(t.trim())
+  // A template with parts to fill in is a rule too.
+  || /<[^>]+>|access date|\((with the|month and year)\b/i.test(t);
+/** A source's area in running text: up to three countries by name, otherwise a count. */
+export const areaText = (codes: string[], name: (c: string) => string) =>
+  codes.length > 3 ? `${codes.length} countries` : codes.map(name).join(", ");
+/** A publisher's name up to its first bracket or comma, for running text. */
+export const shortName = (p: string) => p.split(/\s[(,]|,/)[0].trim();
+/** First letter upper case. */
+export const capital = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+
+/** A source's finest time step, in words ("15 min", "Hourly"). */
+export const stepText = (s: { resolution: string }) => TEXT.step[s.resolution] ?? s.resolution;
+
 export function coverageText(cov: { start: number; end?: number }) {
-  return cov.end ? `${cov.start}–${cov.end}` : `${cov.start} on`;
+  if (cov.end && cov.end === cov.start) return String(cov.start);
+  return cov.end ? `${cov.start}–${cov.end}` : `${cov.start}–`;
 }
 
 export function shortLink(url: string) {
@@ -100,11 +122,11 @@ export const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n ==
 // How to read a source's time stamps and values (the `conventions` block).
 export const STAMP: Record<string, string> = {
   "period-start": "marks the start of each period", "period-end": "marks the end of each period",
-  instant: "is an instantaneous reading", "period-label": "names the whole day, month or year", unknown: "is not documented",
+  instant: "is an instantaneous reading", "period-label": "names the whole day, month or year", unknown: "not documented",
 };
 export const VALUE: Record<string, string> = {
   "period-mean": "mean power over the period", "period-total": "total energy over the period",
-  instantaneous: "instantaneous power", unknown: "not documented",
+  instantaneous: "instantaneous power", unknown: "type of value (mean, total or instantaneous) not stated",
 };
 export function zoneText(z: string): string {
   if (z === "UTC") return "UTC";

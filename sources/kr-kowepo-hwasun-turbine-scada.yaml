@@ -69,9 +69,11 @@ notes: >-
   with a few hours missing in most years; turbines 3 and 4 give 817.955 kW and 386.182 kW at
   2016-01-11 17, so the series are distinct. Nacelle wind speed makes this useful for power-curve
   work as well as validation. KOWEPO also published an earlier farm-level hourly file for Hwasun
-  and Jangheung, 2017 to June 2023 (https://www.data.go.kr/data/15106292/fileData.do), and the
-  Jangheung turbines separately (kr-kowepo-jangheung-turbine-scada).
-status: active
+  and Jangheung, 2017 to June 2023 (https://www.data.go.kr/data/15106292/fileData.do; entry
+  kr-kowepo-wind-farm-hourly), whose dates run about eleven months off this series, so use this
+  one for timing. The Jangheung turbines are published separately
+  (kr-kowepo-jangheung-turbine-scada).
+status: fixed-release
 last_checked: 2026-11-06
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

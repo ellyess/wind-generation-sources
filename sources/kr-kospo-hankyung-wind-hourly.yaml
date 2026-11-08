@@ -3,7 +3,7 @@ name: Hankyung wind farm generation results (한국남부발전(주)_한경풍�
 publisher: Korea Southern Power Co. (KOSPO, 한국남부발전), via the Public Data Portal (data.go.kr)
 publisher_role: owner-operator
 countries: [KR]
-area: Hankyung wind farm, Jeju island, phases 1 and 2 reported separately
+area: Hankyung wind farm, Jeju island, phases 1 (turbines 1 to 4) and 2 (turbines 5 to 9) reported separately
 level: farm
 technology: onshore
 measure: reported-generation
@@ -75,8 +75,11 @@ notes: >-
   description points to KOSPO's Seongsan wind farm as a companion series; that dataset was not
   checked. Other public generation companies publish similar files on data.go.kr, for example
   Korea Midland Power's Sangmyeong wind farm on Jeju
-  (https://www.data.go.kr/data/15119454/fileData.do), not checked.
+  (https://www.data.go.kr/data/15119454/fileData.do), not checked. Corrected 2026-11-08: the page's notes field
+  says "한경풍력 1단계는 1~4호기, 2단계는 5~9호기" (phase 1 is turbines 1 to 4, phase 2 turbines 5
+  to 9), now in the area field; the page lists 9,677 rows, matching 4,839 phase-1 and 4,838
+  phase-2 days.
 status: active
-last_checked: 2026-11-06
-checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
 reviewed: false

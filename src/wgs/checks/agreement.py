@@ -22,9 +22,7 @@ import datetime as dt
 from collections import defaultdict
 from pathlib import Path
 
-import yaml
-
-from wgs.catalogue import ROOT
+from wgs.catalogue import ROOT, parse_entry
 
 CHECKS_DIR = ROOT / "checks"
 EUROSTAT, EMBER = "eu-eurostat-nrg-bal-peh", "world-ember-monthly"
@@ -65,7 +63,7 @@ def load_figures(year: int, checks_dir: Path = CHECKS_DIR) -> list[dict]:
     path = checks_dir / f"national-figures-{year}.yaml"
     if not path.exists():
         return []
-    return yaml.safe_load(path.read_text(encoding="utf-8"))["figures"]
+    return parse_entry(path.read_text(encoding="utf-8"))["figures"]
 
 
 def _figure_key(fig: dict) -> str:

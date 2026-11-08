@@ -9,6 +9,7 @@ measure: estimated-generation
 resolution: 15min
 coverage:
   start: 2015
+  update: daily (on 2026-11-08 the last record was 2026-11-06 22:45 UTC)
 capacity: included
 coordinates: not-applicable
 curtailment: reported
@@ -73,6 +74,8 @@ notes: >-
   a park to reduce output, though Elia publishes no detail on bids at the owners' request. The
   dataset's first record is 31 December 2014, 23:00 UTC. A better national series for Belgium
   than ENTSO-E's per-type data, which needs onshore and offshore added correctly.
+  Added 2026-11-08: coverage.update was missing. The API's latest record on 2026-11-08 was
+  2026-11-06T22:45:00+00:00, and the dataset is now titled "(Historical)".
 status: active
-last_checked: 2026-11-06
-checked_by: Ellyess Benmoufok and Claude Code; dataset metadata read via the Opendatasoft API; licence read on the publisher's page 2026-11-06
+last_checked: 2026-11-08
+checked_by: Ellyess Benmoufok and Claude Code; dataset metadata read via the Opendatasoft API; licence read on the publisher's page 2026-11-06; links and conventions re-checked by an automated pass 2026-11-08

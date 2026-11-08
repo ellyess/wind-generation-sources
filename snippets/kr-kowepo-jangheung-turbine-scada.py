@@ -10,8 +10,8 @@ so it is a one-turbine sample by design: do not read a partial download as the w
 is fetched through the portal's own download calls (undocumented), after its download-limit
 check; if the portal asks for a CAPTCHA the script stops. Power is grid active power in kW
 (10-minute values peak near 3,030 kW, so it is not energy per step). Whether values are means
-or samples, the stamp end and the time zone are not stated; stamps are read as period starts
-in Korea Standard Time (UTC+9, no daylight saving). Traps handled:
+or samples, the stamp end and the time zone are not stated, so stamps are kept as published,
+a naive `time` (Korea Standard Time, UTC+9, is likely but not stated). Traps handled:
 - the file is CP949 (EUC-KR) encoded;
 - the step changes from 10 minutes to hourly in 2025; this sample is 10-minute only, and the
   step is printed so a longer read shows the change;
@@ -49,10 +49,10 @@ rows = pd.read_csv(io.StringIO("\n".join(lines)))
 
 start = pd.to_datetime(rows["일자"], format="%Y-%m-%d %H:%M")
 df = (
-    rows.assign(time_utc=start.dt.tz_localize("Asia/Seoul").dt.tz_convert("UTC"))
+    rows.assign(time=start)  # zone and stamp end not stated
     .rename(columns={"발전호기": "unit_id", "계통 유효 전력(킬로와트)": "power_kw",
                      "나셀 풍속(초당 미터)": "wind_speed_ms"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "power_kw", "wind_speed_ms"]]
 )
 step = df.index.to_series().diff().mode()[0]

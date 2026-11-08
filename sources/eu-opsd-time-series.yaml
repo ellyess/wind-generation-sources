@@ -33,7 +33,7 @@ conventions:
 access:
   method: bulk-download
   url: https://data.open-power-system-data.org/time_series/
-  docs: https://github.com/Open-Power-System-Data/datapackage_timeseries/blob/2020-10-06/main.ipynb
+  docs: https://github.com/Open-Power-System-Data/time_series/blob/2020-10-06/main.ipynb
   key_required: false
   registration: false
   formats: [csv, xlsx, sqlite]
@@ -72,8 +72,11 @@ notes: >-
   versions' pre-2015 TSO data; for 2015 onward the ENTSO-E Transparency Platform
   (eu-entsoe-actual-generation) is the primary source. Checked by reading the datapackage.json
   metadata of the final and 2019-06-05 versions on the check date; the CSV files themselves were
-  not downloaded.
+  not downloaded. Corrected 2026-11-08: access.docs pointed at the
+  Open-Power-System-Data/datapackage_timeseries repository, which GitHub now redirects to
+  Open-Power-System-Data/time_series; the link was updated to the new home (the datapackage.json
+  still names the old one). The 30-minute CSV was downloaded on 2026-11-08 by the snippet.
 status: discontinued
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

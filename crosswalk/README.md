@@ -12,6 +12,9 @@ Three scripts feed the map's farm points:
   `units/README.md`). Rows with the publisher's own coordinates keep them; the rest are matched
   by name and capacity to OpenStreetMap wind farms in the row's country, by the rules below.
   Run it with `uv run python crosswalk/lists.py`; `output/lists.json` counts each entry's results.
+- `corrections.csv` holds checked fixes to single matches (`move` to another farm, or `keep` with
+  the reason a flagged match stands). `lists.py` applies them last, and each row's note says who
+  checked it.
   In Great Britain, a row that gives a postcode and finds no confident farm falls back to the
   postcode's centroid from Ordnance Survey Code-Point Open (keyless download from the OS Downloads
   API, cached as `.cache/codepo_gb.zip`; Open Government Licence v3.0). Such rows get status

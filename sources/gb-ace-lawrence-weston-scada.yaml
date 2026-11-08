@@ -92,6 +92,6 @@ notes: >-
   says static data with coordinates and rated power are included, but no separate static file
   is listed in version 2026.10 and the KMZ file was not opened.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

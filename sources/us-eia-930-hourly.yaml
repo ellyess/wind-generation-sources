@@ -36,13 +36,14 @@ access:
 licence:
   name: US government work, public domain
   url: "https://www.eia.gov/about/copyrights_reuse.php"
-  redistribution: allowed
+  redistribution: allowed-with-attribution
   attribution: "Source: U.S. Energy Information Administration (with the publication date)"
   verified: true
   note: >-
-    EIA's reuse page says US government publications are public domain and its data may be used
-    and distributed. It asks for an acknowledgment naming EIA and the date. Photos, contributed
-    documents and the EIA logo are excluded.
+    EIA's reuse page says US government publications are public domain and its data may be used and
+    distributed. It asks for an acknowledgment naming EIA and the date. Photos, contributed
+    documents and the EIA logo are excluded. Changed 2026-11-08 (maintainer decision) from allowed
+    to allowed-with-attribution, because EIA asks for an acknowledgment.
 traps:
   - summary: Wind changed from one column to two in the second half of 2024, so a long series has to be stitched.
     detail: >-

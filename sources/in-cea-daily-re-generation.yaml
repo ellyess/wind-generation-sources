@@ -35,13 +35,14 @@ access:
 licence:
   name: CEA website copyright policy
   url: https://cea.nic.in/api/websitepolicy/pdf/view/en/2
-  redistribution: link-only
+  redistribution: permission-required
   verified: true
   note: >-
     The policy says content may be reproduced free of charge, but only after obtaining prior
-    permission by email from CEA, without changes that alter its meaning, and with CEA
-    acknowledged as the source. Without that permission, link to the reports rather than
-    re-host them.
+    permission by email from CEA, without changes that alter its meaning, and with CEA acknowledged
+    as the source. Without that permission, link to the reports rather than re-host them. Changed
+    2026-11-08 (maintainer decision) from link-only to permission-required: the policy allows free
+    reproduction after permission is asked for by email.
 traps:
   - summary: Sheet order changes between workbooks, so read sheets by name, not position.
     detail: >-

@@ -29,7 +29,7 @@ from pyproj import Transformer
 HERE = Path(__file__).resolve().parent
 CACHE = HERE / ".cache"
 OUT = HERE / "output"
-UA = "wind-generation-sources-crosswalk/0.1"
+UA = "wind-generation-sources-crosswalk/0.1 (+https://github.com/ellyess/wind-generation-sources)"
 
 EIA_YEAR = 2025
 SOURCES = {

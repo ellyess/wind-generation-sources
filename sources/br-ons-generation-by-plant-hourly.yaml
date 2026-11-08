@@ -94,6 +94,6 @@ notes: >-
   complex-to-plant table (https://dados.ons.org.br/dataset/usina_conjunto). Constrained-off output
   is in https://dados.ons.org.br/dataset/restricao_coff_eolica_usi.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

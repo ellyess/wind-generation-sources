@@ -7,11 +7,12 @@
 551 is control-centre telemetry of wind generation in MW for the peninsular system only (the
 islands, Ceuta and Melilla are not in it). Each value has a local "datetime" with its offset and
 a "datetime_utc"; the UTC one is used. REE does not say whether a value is a snapshot or a
-five-minute mean, nor whether a stamp opens or closes its interval; it is read here as the start.
+five-minute mean, nor whether a stamp opens or closes its interval; it is kept as published.
 
 Traps handled:
-- This is power in MW, not metered energy; energy is MW x the time step. Older periods are at
-  10 minutes rather than 5, so the step is taken from the stamps rather than assumed.
+- This is power in MW, not metered energy, and REE does not say whether it is a mean, so no
+  energy total is formed. Older periods are at 10 minutes rather than 5, so the step is read
+  from the stamps rather than assumed.
 - The day asked for is a Madrid day, given in UTC (23:00Z to 23:00Z in winter).
 
 Written from https://api.esios.ree.es/ (indicator pages) on 2026-11-07; not yet run with a key.
@@ -47,5 +48,5 @@ df = (
 )
 step_h = df.index.to_series().diff().median() / pd.Timedelta("1h")  # 5 or 10 minutes
 print(df)
-print(f"{len(df)} intervals of {step_h * 60:.0f} min, "
-      f"{df['wind_mw'].sum() * step_h / 1000:.1f} GWh")  # MW x step
+print(f"{len(df)} intervals of {step_h * 60:.0f} min, mean {df['wind_mw'].mean():,.0f} MW, "
+      f"peak {df['wind_mw'].max():,.0f} MW")

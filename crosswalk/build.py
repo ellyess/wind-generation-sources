@@ -33,7 +33,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 CACHE = HERE / ".cache"
 OUT = HERE / "output"
-UA = "wind-generation-sources-crosswalk/0.1"
+UA = "wind-generation-sources-crosswalk/0.1 (+https://github.com/ellyess/wind-generation-sources)"
 
 SOURCES = {
     "elexon_bmunits.json": "https://data.elexon.co.uk/bmrs/api/v1/reference/bmunits/all",
@@ -608,7 +608,7 @@ WHERE {
 }
 GROUP BY ?item ?itemLabel
 """
-WIKIDATA_UA = f"{UA} (wind-generation-sources catalogue, unit-to-farm crosswalk; Python urllib)"
+WIKIDATA_UA = f"{UA} unit-to-farm crosswalk, Python urllib"
 # Two points for the same farm closer than this agree; farther apart, the old one has "moved".
 AGREE_KM = 5.0
 

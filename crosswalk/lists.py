@@ -300,6 +300,42 @@ def unplaced_postcodes(rows: list[dict], units: dict[str, dict],
     return why
 
 
+CORRECTIONS = Path(__file__).with_name("corrections.csv")
+
+
+def apply_corrections(entry: str, rows: list[dict], path: Path = CORRECTIONS) -> int:
+    """Apply the checked corrections in corrections.csv to one entry's rows, in place.
+
+    `move` puts a unit on the named farm (and drops the match it replaces); `keep` leaves the
+    match and replaces any automatic "check:" note with the reason. Each note says who checked.
+    """
+    if not path.exists():
+        return 0
+    fixes = {r["unit_id"]: r for r in csv.DictReader(path.open(encoding="utf-8"))
+             if r["entry"] == entry}
+    done = 0
+    for row in rows:
+        fix = fixes.get(row["unit_id"])
+        if not fix:
+            continue
+        kept = [n for n in (row.get("notes") or "").split("; ") if n and not n.startswith("check:")]
+        note = f"corrected ({fix['checked']}): {fix['reason']}"
+        if fix["action"] == "move":
+            was = row.get("farm_name") or ""
+            for key in ("score", "farm_state", "farm_capacity_mw", "farm_capacity_ratio",
+                        "repd_id", "wikidata", "runner_up"):
+                row[key] = ""
+            row.update({"status": "proposed", "method": "corrected", "location_source": "osm",
+                        "farm_name": fix["farm_name"], "osm_url": fix["osm_url"],
+                        "lat": float(fix["lat"]), "lon": float(fix["lon"])})
+            kept = [n for n in kept if "units point at this farm" not in n]
+            if was:
+                kept.append(f"was matched to {was}")
+        row["notes"] = "; ".join([*kept, note])
+        done += 1
+    return done
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("entries", nargs="*", help="entry ids (default: every list)")
@@ -321,6 +357,7 @@ def main() -> None:
             postcode_fallback(rows, by_id, codepoint)
             for why, n in sorted(unplaced_postcodes(rows, by_id, codepoint).items()):
                 print(f"  {path.stem}: {n} not placed by postcode: {why}")
+        apply_corrections(path.stem, rows)
         with (cb.OUT / f"{path.stem}.csv").open("w", newline="", encoding="utf-8") as fh:
             w = csv.DictWriter(fh, FIELDS, extrasaction="ignore")
             w.writeheader()

@@ -2,11 +2,16 @@ id: world-unsd-energy-statistics
 name: Energy Statistics Database, Electricity - total wind production
 publisher: United Nations Statistics Division (UNSD), via UNdata
 publisher_role: statistics-office
-countries: [AM, AR, AT, AU, AW, AZ, BA, BD, BE, BG, BH, BO, BQ, BR, BS, BT, BY, CA, CH, CL, CN, CO, CR, CU, CV, CW, CY, CZ, DE, DJ, DK, DM, DO, DZ, EC, EE, EG, ER, ES, ET, FI, FJ, FK, FM, FO, FR, GB, GE, GM, GP, GR, GT, GU, HN, HR, HU, ID, IE, IL, IN, IR, IS, IT, JM, JO, JP, KE, KN, KR, KW, KZ, LK, LT, LU, LV, MA, MD, ME, MG, MK, MN, MP, MQ, MR, MU, MV, MX, NA, NC, NG, NI, NL, NO, NP, NZ, OM, PA, PE, PG, PH, PK, PL, PM, PR, PT, RE, RO, RS, RU, SA, SC, SE, SH, SI, SK, SN, SO, SV, SY, TD, TH, TN, TO, TR, TZ, UA, US, UY, UZ, VE, VG, VN, VU, ZA]
+countries: [AM, AR, AT, AU, AW, AZ, BA, BD, BE, BG, BH, BO, BQ, BR, BS, BT, BY, CA, CH, CL, CN, CO, CR, CU, CV, CW, CY, CZ, DE, DJ, DK, DM, DO, DZ, EC, EE, EG, ER, ES, ET, FI, FJ, FK, FM, FO, FR, GB, GD, GE, GL, GM, GP, GR, GT, GU, GY, HN, HR, HT, HU, ID, IE, IL, IN, IR, IS, IT, JM, JO, JP, KE, KN, KR, KW, KZ, LK, LT, LU, LV, MA, MD, ME, MG, MH, MK, MN, MP, MQ, MR, MT, MU, MV, MX, NA, NC, NG, NI, NL, NO, NP, NZ, OM, PA, PE, PF, PG, PH, PK, PL, PM, PR, PT, RE, RO, RS, RU, SA, SC, SE, SH, SI, SK, SN, SO, SV, SY, TD, TH, TN, TO, TR, TT, TZ, UA, US, UY, UZ, VE, VG, VI, VN, VU, WS, ZA]
 area: >-
-  147 country or area names appear for this commodity; the 134 listed in countries had a non-zero
-  value in at least one year. Kosovo, "Other Asia" and the former Federal Republic of Germany also
-  have rows but no ISO 3166-1 code.
+  147 country or area names appear for this commodity, and every one has a non-zero value in at
+  least one year; the 144 listed in countries are those with an ISO 3166-1 code. Kosovo, "Other
+  Asia" and the former Federal Republic of Germany also have rows but no ISO 3166-1 code.
+  Corrected 2026-11-08: this said 134 countries had a non-zero value. The CSV export of
+  2026-11-08 also gives small non-zero values (under 0.5 million kWh a year) for Grenada (GD),
+  Greenland (GL), Guyana (GY), Haiti (HT), the Marshall Islands (MH), Malta (MT), French
+  Polynesia (PF), Trinidad and Tobago (TT), Samoa (WS) and the US Virgin Islands (VI), for
+  example Malta 0.033 to 0.058 in 2017 to 2023, so those ten were added.
 level: country
 technology: onshore-and-offshore-combined
 measure: reported-generation
@@ -66,6 +71,6 @@ notes: >-
   page offers CSV and XML downloads, which were not tested. Whether the figures are gross or net is
   set by the questionnaire guidelines linked as docs, which were not read for this entry.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

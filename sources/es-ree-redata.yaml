@@ -99,6 +99,6 @@ notes: >-
   indicator descriptions were read from the public indicator list at
   https://api.esios.ree.es/indicators. No maintained open-source REData client was found.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

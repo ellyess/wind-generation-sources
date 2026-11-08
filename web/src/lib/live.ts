@@ -45,14 +45,19 @@ const ADAPTERS: Record<string, () => Promise<Series>> = {
   },
   "be-elia-wind-production": async () => {
     const url = "https://opendata.elia.be/api/explore/v2.1/catalog/datasets/ods031/exports/json?"
-      + new URLSearchParams({ select: "datetime,sum(measured) as mw", group_by: "datetime",
+      + new URLSearchParams({ select: "datetime,sum(measured) as mw,count(measured) as n", group_by: "datetime",
         where: "datetime>=now(days=-7)", order_by: "datetime" });
-    const d: { datetime: string; mw: number }[] = await json(url);
-    return { points: sorted(d.map((r) => ({ t: new Date(r.datetime), v: r.mw }))), unit: "MW", kind: "line",
-      stepText: "15 min", request: url, note: "Measured wind summed over every region and grid row." };
+    const d: { datetime: string; mw: number; n: number }[] = await json(url);
+    // The newest quarter-hours can arrive before every region has reported; a partial sum reads low, so drop them.
+    const full = [...d.map((r) => r.n)].sort((a, b) => a - b)[Math.floor(d.length / 2)] ?? 0;
+    let end = d.length;
+    while (end > 0 && d[end - 1].n < full) end--;
+    return { points: sorted(d.slice(0, end).map((r) => ({ t: new Date(r.datetime), v: r.mw }))), unit: "MW", kind: "line",
+      stepText: "15 min", request: url, note: "Measured wind summed over every region and grid row; trailing quarter-hours with regions still missing are left out." };
   },
   "de-smard": async () => {
     const sum = new Map<number, number>();
+    const seen = new Map<number, number>();
     let request = "";
     for (const filt of [4067, 1225]) {
       const base = `https://www.smard.de/app/chart_data/${filt}/DE/`;
@@ -61,12 +66,13 @@ const ADAPTERS: Record<string, () => Promise<Series>> = {
         const url = `${base}${filt}_DE_quarterhour_${ts}.json`;
         if (!request) request = url;
         const series: [number, number | null][] = (await json(url)).series;
-        for (const [t, v] of series) if (v != null) sum.set(t, (sum.get(t) ?? 0) + v);
+        for (const [t, v] of series) if (v != null) { sum.set(t, (sum.get(t) ?? 0) + v); seen.set(t, (seen.get(t) ?? 0) + 1); }
       }
     }
     const cut = Date.now() - 7 * DAY;
     // SMARD gives MWh per quarter hour; times four is average MW.
-    const points = [...sum].filter(([t]) => t >= cut).map(([t, v]) => ({ t: new Date(t), v: v * 4 }));
+    // Keep only quarter-hours both series have published, so the newest point is not onshore alone.
+    const points = [...sum].filter(([t]) => t >= cut && seen.get(t) === 2).map(([t, v]) => ({ t: new Date(t), v: v * 4 }));
     return { points: sorted(points), unit: "MW", kind: "line", stepText: "15 min", request,
       note: "Onshore (filter 4067) plus offshore (1225), MWh per quarter hour times four." };
   },
@@ -79,7 +85,8 @@ const ADAPTERS: Record<string, () => Promise<Series>> = {
     const wind = d.included.find((i: { attributes: { title: string } }) => i.attributes.title === "Wind");
     if (!wind) throw new Error("no Wind series in the response");
     const points = wind.attributes.values.map((v: { datetime: string; value: number }) =>
-      ({ t: new Date(v.datetime), v: v.value / 1000 }));
+      // Each value is a Spanish calendar day; keep its date, whatever the offset, so it labels in UTC.
+      ({ t: new Date(`${v.datetime.slice(0, 10)}T00:00:00Z`), v: v.value / 1000 }));
     return { points: sorted(points), unit: "GWh", kind: "bars", stepText: "daily", request: url,
       note: "The hourly widget is often unavailable, so this shows daily energy." };
   },

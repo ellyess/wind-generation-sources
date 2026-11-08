@@ -1,7 +1,7 @@
 <script lang="ts">
   import { scaleLog } from "d3-scale";
   import { store } from "../store.svelte";
-  import { BAND_TEXT, BAND_TONE, twh } from "../text";
+  import { BAND_TEXT, BAND_TONE, stepText, twh } from "../text";
   import Ext from "./Ext.svelte";
 
   let agr = $derived(store.checks.agreement);
@@ -28,7 +28,8 @@
   });
   let judged = $derived(rows.flatMap((r) => r.vals).filter((v) => v.band && v.band !== "small"));
   let counts = $derived(["agrees", "noted", "outside"].map((b) => judged.filter((v) => v.band === b).length));
-  const ROW = 22;
+  // Taller rows on touch screens, so each country label is a 24px or larger target.
+  const ROW = matchMedia("(pointer: coarse)").matches ? 28 : 22;
   let ticks = $derived(narrow ? [0.1, 0.5, 1, 2, 4] : [0.1, 0.25, 0.5, 0.7, 1, 1.3, 2, 4]);
   let H = $derived(rows.length * ROW);
   const short = (name: string) => (narrow && name.length > 15 ? `${name.slice(0, 14).trimEnd()}…` : name);
@@ -40,34 +41,35 @@
 
 <div class="checks">
   <header>
-    <h1>Checked by machine</h1>
-    <p class="lead">
-      Every link is requested again on each weekly run, each source's Python snippet is run, and where a source can be read without a key, its wind total for
-      {agr?.year ?? "one year"} is summed from the raw data and compared with the national figure where one covers the whole wind fleet for the
-      calendar year, otherwise with Eurostat's gross production, or Ember's outside Eurostat's countries. A national figure is only as good as its
-      publisher. Within 15% agrees; within 30% is noted, following the PyVWF scorecard audit.
-    </p>
+    <h1>Checks</h1>
+    <p class="lead">By machine, each week: every link is requested, every Python snippet run, and each keyless source's {agr?.year ?? "annual"} wind total compared with a reference.</p>
+    <details class="method"><summary>Method</summary>
+      The total is summed from the raw data. The reference is the national figure where one covers the whole wind fleet for the calendar year,
+      otherwise Eurostat's gross production, or Ember's outside Eurostat's countries. A national figure is only as good as its publisher.
+      Within 15% agrees; within 30% is noted.
+    </details>
   </header>
+  {#if !links && !agr && !snips.length}<p class="loading">Loading the checks.</p>{/if}
 
   <dl class="stats">
     {#if links}
-      <div><dt>Links answering</dt><dd class="num">{links.summary.ok} <small>of {links.summary.ok + links.summary.broken + links.summary.recheck + links.summary.unchecked}</small></dd><dd class="sub">{links.summary.unchecked} refused automated requests, so not judged</dd></div>
+      <div><dt>Links that load</dt><dd class="num">{links.summary.ok} <small>of {links.summary.ok + links.summary.broken + links.summary.recheck + links.summary.unchecked}</small></dd><dd class="sub">{links.summary.broken} broken{links.summary.recheck ? `, ${links.summary.recheck} now load, so their traps may be out of date` : ""}, {links.summary.unchecked} not judged: refused automated requests or timed out</dd></div>
     {/if}
     {#if snips.length}
-      <div><dt>Python snippets running</dt><dd class="num">{snips.filter((r) => r.result === "ok").length} <small>of {snips.length}</small></dd><dd class="sub">{snips.filter((r) => r.result === "failed").length} failed, {snips.filter((r) => r.result === "skipped").length} not run automatically</dd></div>
+      <div><dt>Python snippets that ran cleanly</dt><dd class="num">{snips.filter((r) => r.result === "ok").length} <small>of {snips.length}</small></dd><dd class="sub">{snips.filter((r) => r.result === "failed").length} failed, {snips.filter((r) => r.result === "skipped").length} not run automatically</dd></div>
     {/if}
     {#if agr}
       <div><dt>Annual totals within 15%</dt><dd class="num">{counts[0]} <small>of {judged.length}</small></dd><dd class="sub">{counts[1]} within 30%, {counts[2]} further out</dd></div>
-      <div><dt>Countries compared</dt><dd class="num">{rows.length}</dd><dd class="sub">checked {agr.checked}</dd></div>
+      <div><dt>Countries compared</dt><dd class="num">{rows.length}</dd><dd class="sub">Totals compared {agr.checked}</dd></div>
     {/if}
   </dl>
 
   {#if agr}
     <section class="plot">
       <h2>Each source's {agr.year} total as a ratio of the reference</h2>
-      <p class="sub">One row per country, furthest disagreement first. Log scale from 0.05 to 8; shading marks 15% and 30%; arrows mark values beyond the scale. A match can mean shared upstream data, not independent confirmation.</p>
+      <p class="sub">Furthest disagreement first; log scale, bands at 15% and 30%. A match may only mean shared upstream data.</p>
       {#if natRefs.length}
-        <p class="sub">National references: {#each natRefs as [iso, c], i (iso)}{i ? "; " : ""}{store.placeName(iso)}, {#if c.reference.url}<Ext href={c.reference.url} label={c.reference.name} />{:else}<button type="button" class="lnk" onclick={() => store.go({ view: "sources", source: c.reference.source })}>{c.reference.name}</button>{/if}{/each}. Elsewhere Eurostat, or Ember outside Eurostat's countries.</p>
+        <details class="method"><summary>National references ({natRefs.length})</summary>{#each natRefs as [iso, c], i (iso)}{i ? "; " : ""}{store.placeName(iso)}, {#if c.reference.url}<Ext href={c.reference.url} label={c.reference.name} />{:else}<button type="button" class="lnk" onclick={() => store.go({ view: "sources", source: c.reference.source })}>{c.reference.name}</button>{/if}{/each}. Elsewhere Eurostat, or Ember outside Eurostat's countries.</details>
       {/if}
       <div class="legend">
         {#each ["agrees", "noted", "outside", "small"] as b (b)}
@@ -93,9 +95,12 @@
           {#each rows as r, i (r.iso)}
             <g transform="translate(0,{i * ROW})">
               <line class="row" x1={LABEL} x2={w - PAD} y1={ROW / 2} y2={ROW / 2} />
+              <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+              <rect class="hit" x="0" y="0" width={LABEL} height={ROW} aria-hidden="true"
+                onclick={() => store.go({ view: "map", country: r.iso, source: "" })} />
               <text class="cn" x={LABEL - 10} y={ROW / 2} dy="0.32em" text-anchor="end" role="button" tabindex="0"
                 onclick={() => store.go({ view: "map", country: r.iso, source: "" })}
-                onkeydown={(e) => e.key === "Enter" && store.go({ view: "map", country: r.iso, source: "" })}><title>{store.placeName(r.iso)}</title>{short(store.placeName(r.iso))}</text>
+                onkeydown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); store.go({ view: "map", country: r.iso, source: "" }); } }}><title>{store.placeName(r.iso)}</title>{short(store.placeName(r.iso))}</text>
               {#each r.vals as v (v.source)}
                 {@const s = store.byId.get(v.source)}
                 {@const tone = BAND_TONE[v.band ?? "small"]}
@@ -103,7 +108,7 @@
                 {@const cx = x(v.ratio!)}
                 {@const cy = ROW / 2}
                 <g class="mk t-{tone}" role="button" tabindex="-1"
-                  onpointerenter={(e) => (hover = { x: Math.max(0, Math.min(e.offsetX, w - 240)), y: e.offsetY, lines: [`${store.placeName(r.iso)}: ${s?.publisher ?? v.publisher ?? v.source}`, `${twh(v.twh)} TWh against ${r.ref}'s ${twh(r.refTwh)} TWh`, `Ratio ${v.ratio!.toFixed(2)}, ${BAND_TEXT[v.band ?? "small"].toLowerCase()}`, ...(off ? [`Off the scale: drawn at the ${off < 0 ? "left" : "right"} edge`] : [])] })}
+                  onpointerenter={(e) => (hover = { x: Math.max(0, Math.min(e.offsetX, w - Math.min(300, w) - 16)), y: e.offsetY, lines: [`${store.placeName(r.iso)}: ${s ? `${s.publisher} · ${stepText(s)}` : v.publisher ?? v.source}`, `${twh(v.twh)} TWh against ${r.ref}'s ${twh(r.refTwh)} TWh`, `Ratio ${v.ratio!.toFixed(2)}, ${BAND_TEXT[v.band ?? "small"].toLowerCase()}`, ...(off ? [`Off the scale: drawn at the ${off < 0 ? "left" : "right"} edge`] : [])] })}
                   onclick={() => (s ? store.go({ view: "sources", source: v.source }) : v.url && window.open(v.url, "_blank", "noopener"))} onkeydown={() => {}}>
                   {#if off}
                     <path d={off < 0 ? `M${cx + 5},${cy - 6}L${cx - 3},${cy}L${cx + 5},${cy + 6}Z` : `M${cx - 5},${cy - 6}L${cx + 3},${cy}L${cx - 5},${cy + 6}Z`} />
@@ -122,6 +127,24 @@
           <div class="tip" style:left="{hover.x}px" style:top="{hover.y}px">{#each hover.lines as l, i (i)}<span class:b={i === 0}>{l}</span>{/each}</div>
         {/if}
       </div>
+      <details class="method astable"><summary>Show as a table</summary>
+        <div class="tblwrap">
+          <table>
+            <thead><tr><th scope="col">Country</th><th scope="col">Source</th><th scope="col" class="r">TWh</th><th scope="col" class="r">Reference</th><th scope="col" class="r">Ratio</th><th scope="col">Band</th></tr></thead>
+            <tbody>
+              {#each rows as r (r.iso)}
+                {#each r.vals as v (v.source)}
+                  {@const s = store.byId.get(v.source)}
+                  <tr><td>{store.placeName(r.iso)}</td>
+                    <td>{#if s}<button type="button" class="lnk" onclick={() => store.go({ view: "sources", source: v.source })}>{s.publisher}</button> <span class="sub">{stepText(s)}</span>{:else}{v.publisher ?? v.source}{/if}</td>
+                    <td class="r num">{twh(v.twh)}</td><td class="r num">{twh(r.refTwh)} <span class="sub">{r.ref}</span></td>
+                    <td class="r num">{v.ratio!.toFixed(2)}</td><td>{BAND_TEXT[v.band ?? "small"]}</td></tr>
+                {/each}
+              {/each}
+            </tbody>
+          </table>
+        </div>
+      </details>
     </section>
   {/if}
 
@@ -134,15 +157,23 @@
       </ul>
     </section>
   {/if}
-  <p class="sub">Full results: <a href="./data/checks.json">checks.json</a>. The run is scheduled weekly on GitHub Actions.</p>
+  <p class="sub">Full results: <a href="./data/checks.json">checks.json</a> · runs weekly on GitHub Actions</p>
 </div>
 
 <style>
+  .hit { fill: transparent; cursor: pointer; }
   .checks { overflow-y: auto; height: 100%; padding: 28px 28px 56px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; align-content: start; max-width: 1180px; margin: 0 auto; width: 100%; }
   header { display: grid; gap: 8px; }
   h1 { font-size: 24px; letter-spacing: -0.02em; }
   h2 { font-size: 15px; }
   .lead { color: var(--ink-2); max-width: 64ch; }
+  .loading { color: var(--ink-3); font-size: 13.5px; }
+  .astable .tblwrap { margin-top: 8px; max-height: 420px; overflow: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+  .astable table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .astable th, .astable td { padding: 5px 8px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .astable thead th { position: sticky; top: 0; background: var(--surface); color: var(--ink-2); font-weight: 600; }
+  .astable .r { text-align: right; white-space: nowrap; }
+  header :global(details.method) { max-width: 64ch; font-size: 12.5px; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 0; }
   .stats div { padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
   .stats dt { font-size: 12.5px; color: var(--ink-2); }
@@ -156,7 +187,7 @@
 
   .svgwrap { position: relative; min-width: 0; }
   svg { display: block; overflow: visible; }
-  .b30 { fill: color-mix(in srgb, var(--ink) 5%, transparent); }
+  .b30 { fill: color-mix(in srgb, var(--warn-dot) 14%, transparent); }
   .b15 { fill: color-mix(in srgb, var(--good-dot) 13%, transparent); }
   .grid { stroke: var(--line); }
   .one { stroke: var(--ink-3); }
@@ -174,7 +205,7 @@
   .mk .ring, svg.mk .ring { fill: none; stroke: var(--none-dot) !important; stroke-width: 1.6 !important; }
   .edge { fill: var(--ink-2); font-size: 10.5px; stroke: none !important; font-variant-numeric: tabular-nums; }
   .tip { position: absolute; z-index: 3; transform: translate(12px, 12px); pointer-events: none; display: grid; gap: 1px; padding: 8px 10px;
-    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-2); font-size: 12.5px; color: var(--ink-2); white-space: nowrap; }
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-2); font-size: 12.5px; color: var(--ink-2); max-width: min(300px, calc(100% - 8px)); }
   .tip .b { color: var(--ink); font-weight: 600; }
   .lnk { border: 0; background: none; padding: 0; font: inherit; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 0.18em; }
   .issues ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; font-size: 13.5px; }

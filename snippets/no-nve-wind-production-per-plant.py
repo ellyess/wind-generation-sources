@@ -11,8 +11,8 @@ then one row per hour with a value per plant. Traps handled:
 - the wide sheet is turned long, one row per plant and hour, keyed on the plant number;
 - empty cells (a plant not yet built) are dropped, not read as zero.
 NVE states no unit and not which end of the hour a stamp marks. This assumes MWh per hour
-(Kvitfjell, about 200 MW, peaks near 130) stamped at the hour start, as the entry's trap does
-(the file's last stamp, 23:00 UTC+1 on 31 December 2021, leaves the 23:00 UTC hour missing).
+(each plant's peak sits just under its capacity: Roan 251 of 256 MW); stamps are converted to
+UTC but otherwise kept as published, not claimed as hour starts.
 """
 
 import io

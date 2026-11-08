@@ -26,6 +26,10 @@ conventions:
     neither the time zone nor which clock hour column 01 covers, and the 26 October 2025 file
     still has 24 hour columns (see traps). IPTO's file-type listing gives no description for
     this file. Read 2026-11-06 by an automated research pass; not yet reviewed.
+    Checked 2026-11-08: on the 23-hour spring day 29 March 2026 columns 01 to 23 hold the day
+    and column 24 is about zero (NET LOAD 2 MWh), which suggests the columns are the day's hours
+    in sequence from local midnight rather than clock-hour labels; the publisher still does not
+    say so.
 access:
   method: bulk-download
   url: https://www.admie.gr/en/market/market-statistics/detail-data
@@ -59,11 +63,16 @@ traps:
       single farms. Classify each station against a register before using it as wind.
     evidence: https://www.admie.gr/sites/default/files/attached-files/type-file/2020/03/20110310_SystemRealizationSCADA_01.xls
     found: 2026-11-06
-  - summary: The autumn clock-change day still has only 24 hourly columns.
+  - summary: Until mid-June 2026 the autumn clock-change day had only 24 hourly columns; newer files always have 25.
     detail: >-
       26 October 2025, a 25-hour day in Athens local time, has columns 01 to 24 and a SUM, the
       same layout as any other day, so one hour is missing or merged. The separate RES injections
-      file (RealTimeSCADARES) does carry a 25th column.
+      file (RealTimeSCADARES) does carry a 25th column. Corrected 2026-11-08: the layout changed in mid-2026. Files from
+      between 15 and 20 June 2026 onwards (checked 20 June, 1 July, 1 October, 24 and 25 October
+      and 6 November 2026) have hour columns 01 to 25 and SUM on every day. On 25 October 2026,
+      the 25-hour day, all 25 columns hold values (NET LOAD 4,494 MWh in column 25); on 24
+      October 2026 column 25 is 0. The 24-column problem applies to files up to mid-June 2026,
+      and newer files need column 25 dropped on ordinary days rather than read as a 25th hour.
     evidence: https://www.admie.gr/sites/default/files/attached-files/type-file/2025/10/20251026_SystemRealizationSCADA_01.xls
     found: 2026-11-06
   - summary: The list of stations, and so the row positions, changes from file to file.
@@ -81,6 +90,6 @@ notes: >-
   RESMVLVPROD, certified monthly), and total renewable injections per hour as RealTimeSCADARES;
   neither splits out wind. Installed capacity and locations are not in the file.
 status: active
-last_checked: 2026-11-06
-checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
 reviewed: false

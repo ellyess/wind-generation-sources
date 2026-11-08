@@ -1,0 +1,82 @@
+id: it-terna-production-by-province
+name: Terna statistical data, production from renewable sources by region and province (Fonti rinnovabili)
+publisher: Terna
+publisher_role: tso
+countries: [IT]
+area: the 20 regions and about 107 provinces of Italy
+level: zone
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2000
+  update: annual, with Terna's statistical yearbook (Dati statistici sull'energia elettrica in Italia)
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://dati.terna.it/generazione/dati-statistici
+  note: >-
+    The data service returns the column "Produzione (GWh)" with one row per year, production type
+    (Lorda, gross; Netta, net), region, province and renewable source. The statistical data page
+    says the regional production is shown by source and province from 2000, is consolidated, and
+    is published annually in Terna's yearbook. Read 2026-11-08 by an automated research pass; not
+    yet reviewed.
+access:
+  method: portal
+  url: https://dati.terna.it/download-center
+  docs: https://dati.terna.it/generazione/dati-statistici
+  key_required: false
+  registration: false
+  formats: [json, xlsx, csv]
+  languages: [it, en]
+licence:
+  name: No data licence found
+  url: https://developer.terna.it/API_Terms_of_Use
+  redistribution: unclear
+  verified: false
+  note: >-
+    As for it-terna-download-centre: the site's legal link points to the developer portal's API
+    terms, which do not cover reuse of the download centre's data. No other terms were found on
+    dati.terna.it on 2026-11-08.
+traps:
+  - summary: Every year has two rows per province, gross (Lorda) and net (Netta); summing all rows double counts.
+    detail: >-
+      For 2024 the gross rows sum to 22,321.9 GWh and the net rows to 22,087.8 GWh; Foggia gives
+      4,852.2 GWh gross and 4,800.4 GWh net. Filter on "Tipo produzione" before summing. Found by
+      an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://dati.terna.it/generazione/dati-statistici
+    found: 2026-11-08
+  - summary: Sardinia's provinces change between years, so a per-province series breaks there.
+    detail: >-
+      The 2010 rows include Carbonia Iglesias, Medio Campidano, Ogliastra and Olbia-Tempio; the
+      2024 and 2025 rows have Sud Sardegna instead. Other regions' provinces were unchanged between
+      2010 and 2025. Compare Sardinia at region level, or map the old provinces yourself. Found by
+      an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://dati.terna.it/generazione/dati-statistici
+    found: 2026-11-08
+  - summary: The data service behind the table is undocumented, and a request without orderByColumn fails.
+    detail: >-
+      A POST to /api/sitecore/dati/downloadcenter/recordsv2 with filterDataset
+      ProductionRenewableSources, filterSource Eolico and filterYear returned HTTP 500 until
+      orderByColumn ("Anno", the value the page's own script sends for this cluster) was added.
+      Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://dati.terna.it/download-center
+    found: 2026-11-08
+notes: >-
+  Annual wind (Eolico) production per province and region, gross and net, from 2000 to 2025 when
+  checked on 2026-11-08. Values differ by place and year as expected: Foggia 4,852.2 GWh gross in
+  2024 and 5,030.5 in 2025; Sassari 1,036.5 and 938.4; the national gross total was 563.1 GWh in
+  2000, 9,125.9 in 2010, 22,321.9 in 2024 and 21,535.3 in 2025. Provinces with no wind carry 0
+  (64 of 214 rows in 2024). The table has one wind source with no onshore and offshore split. The
+  same download centre holds installed capacity by province (dataset
+  CapacityRenewableSources) and production from all sources by province (ElectricityBySource).
+  For the national quarter-hourly series see it-terna-download-centre.
+status: active
+reviewed: false
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"

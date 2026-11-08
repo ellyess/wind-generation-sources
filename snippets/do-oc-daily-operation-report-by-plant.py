@@ -11,7 +11,8 @@ code or by "EÓLICO"/"EOLICO" in the name, not by plant name, because solar plan
 Esperanza name; Los Cocos 1 and 2 and Quilvio Cabrera have no "eólico" in their names, so their
 codes are listed. Small negative values (auxiliary use) are kept. Not handled: the publisher
 does not state the zone, which hour period 1 covers, or mean versus snapshot; here period p is
-read as the hour starting p-1:00 Dominican time (UTC-4 all year), an assumption. Check the
+placed at p-1:00 on the report day as a naive `time` (the `period` column keeps the label), not
+converted to UTC; Dominican time is UTC-4 all year, but the zone is not stated. Check the
 month folder for a later version (V1) of a day; the folder only lists with JavaScript.
 """
 
@@ -41,12 +42,12 @@ wind = units[is_wind | units["code"].isin(NO_EOLICO_IN_NAME)]
 
 long = wind.melt(id_vars=["code", "name"], value_vars=list(range(1, 25)),
                  var_name="period", value_name="wind_mw")
-start = pd.Timestamp(DAY, tz="America/Santo_Domingo")
+start = pd.Timestamp(DAY)  # the zone is not stated, so no UTC conversion
 df = (
-    long.assign(time_utc=start.tz_convert("UTC") + pd.to_timedelta(long["period"] - 1, unit="h"),
+    long.assign(time=start + pd.to_timedelta(long["period"] - 1, unit="h"),
                 wind_mw=long["wind_mw"].astype(float))
     .rename(columns={"code": "unit_id"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "name", "period", "wind_mw"]]
 )
 print(df)

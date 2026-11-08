@@ -1,14 +1,16 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { load, store } from "./lib/store.svelte";
+  import { load, needFarms, store } from "./lib/store.svelte";
   import About from "./lib/components/About.svelte";
   import ChecksView from "./lib/components/ChecksView.svelte";
   import Panel from "./lib/components/Panel.svelte";
   import SourcesView from "./lib/components/SourcesView.svelte";
   import TopBar from "./lib/components/TopBar.svelte";
 
-  // The map library is the heaviest part, so it loads after the panel can be used.
-  const mapView = import("./lib/components/MapView.svelte");
+  // The map library is the heaviest part, so it loads only when the map is shown, after the
+  // panel can be used.
+  let mapLoad: Promise<typeof import("./lib/components/MapView.svelte")> | undefined;
+  let mapView = $derived(store.view === "map" ? (mapLoad ??= import("./lib/components/MapView.svelte")) : undefined);
 
   onMount(() => {
     store.readURL();
@@ -18,28 +20,33 @@
     return () => removeEventListener("popstate", pop);
   });
 
+  // The farm points load only once the map (or a country or source on it) is shown.
+  $effect(() => { if (store.cat && store.view === "map") needFarms(); });
+
   // Filters and search update the address in place, so a filtered view can be shared.
   $effect(() => {
-    void [store.level, store.step, store.reuse, store.status, store.review, store.region, store.q];
+    void [store.level, store.step, store.reuse, store.cap, store.status, store.review, store.region, store.q];
     if (store.cat) history.replaceState(null, "", store.url());
   });
 
   $effect(() => {
     const s = store.source ? store.byId.get(store.source) : undefined;
     const c = store.country ? store.placeName(store.country) : "";
-    document.title = [s?.name, c, "Wind Generation Sources"].filter(Boolean).join(" · ");
+    const view = { map: "", sources: "Sources", checks: "Checks", about: "About" }[store.view];
+    document.title = [s?.name, c, s || c ? "" : view, "Wind Generation Sources"].filter(Boolean).join(" · ");
   });
 </script>
 
+<a class="skip" href="#main">Skip to content</a>
 <TopBar />
-<main class="stage" data-view={store.view}>
+<main id="main" tabindex="-1" class="stage" data-view={store.view}>
   {#if store.error}
     <p class="fatal">The catalogue could not be loaded ({store.error}). Reload the page, or download <a href="./data/catalogue.csv">catalogue.csv</a> directly.</p>
   {:else if !store.cat}
     <p class="loading">Loading the catalogue.</p>
   {:else if store.view === "map"}
     <div class="mapview" data-depth={store.source || store.country ? "detail" : "top"}><Panel />
-      {#await mapView}<div class="map-wrap"></div>{:then m}<m.default />{:catch}<p class="loading">The map could not load; the lists still work.</p>{/await}
+      {#await mapView!}<div class="map-wrap"></div>{:then m}<m.default />{:catch}<p class="loading">The map could not load; the lists still work.</p>{/await}
     </div>
   {:else if store.view === "sources"}
     <SourcesView />

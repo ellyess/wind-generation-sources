@@ -9,7 +9,7 @@ technology: onshore
 measure: reported-generation
 resolution: monthly
 coverage:
-  start: 2022
+  start: 2021
   update: monthly, about four weeks after the month (April 2025 released 27 May 2025)
 capacity: none
 coordinates: not-applicable
@@ -60,7 +60,12 @@ notes: >-
   2024, 71 and 65 GWh for March and April 2025). The release index page renders its file list with
   JavaScript; the PDFs follow the pattern /wp-content/uploads/YYYY/MM/22.2.N.pdf, where N is the
   release number in the year.
+  Corrected 2026-11-08: coverage start was 2022 and is now 2021. The January 2021 release
+  (https://fzs.ba/wp-content/uploads/2021/02/22.2.1.pdf, published 26.02.2021) gives wind gross
+  production of 25 GWh for January 2021, with dashes for October 2019 to January 2020 and for
+  October to December 2020; the releases for 2019 and 2020 have no wind row at all. The latest
+  release found on 2026-11-08 is 22.2.9 (September 2026, wind 46 GWh).
 status: active
-last_checked: 2026-11-06
-checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06, re-checked 2026-11-08; not yet reviewed by a person"
 reviewed: false

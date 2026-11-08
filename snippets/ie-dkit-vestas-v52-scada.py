@@ -7,8 +7,8 @@
 The record (doi:10.17632/tm988rs48k.2) is one 79 MB xlsx sheet, 2006 to 2020, found through
 Mendeley Data's public file API. The sheet is read row by row and only January 2020 is kept.
 Power is the average 10-minute output in kW. The record states no time zone and not which end
-of the interval a stamp marks; no daylight-saving gaps or repeats appear, so stamps are read as
-UTC period starts. Traps handled:
+of the interval a stamp marks, so the index is the stamp as published, a naive `time`, not
+UTC; no daylight-saving gaps or repeats appear, which fits UTC. Traps handled:
 - the power column holds impossible spikes (from -3,275 to 3,149 kW, against a ceiling near
   851 kW), so values outside -100 to 1,000 kW are dropped;
 - some timestamps appear twice with different rows; both copies are dropped.
@@ -44,9 +44,9 @@ raw = pd.DataFrame(keep, columns=header)
 raw = raw[~raw["Timestamps"].duplicated(keep=False)]  # repeated stamps: drop both
 raw = raw[raw["Power"].between(-100, 1000)]  # remove impossible spikes
 df = (
-    raw.assign(time_utc=pd.to_datetime(raw["Timestamps"]).dt.tz_localize("UTC"))
+    raw.assign(time=pd.to_datetime(raw["Timestamps"]))  # zone and stamp end not stated
     .rename(columns={"Power": "power_kw", "WindSpeed": "wind_speed_ms"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["power_kw", "wind_speed_ms"]]
 )
 print(df)

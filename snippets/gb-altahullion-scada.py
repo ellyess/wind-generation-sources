@@ -10,9 +10,9 @@ column index of station id and signal. ActPower_Value_mean is the 10-minute mean
 the unit is not stated, but values peak at the 1,330 kW rating, so it is read as kW. Traps
 handled: columns are keyed by station id, so they are mapped to turbine names with the metadata
 file; only six of the 29 turbines have data, so no farm total is formed. The time zone and
-which end of the period the stamp marks are not stated. The stamps run straight through the
-26 October 2025 clock change with no repeated hour, as a UTC clock would, so they are read as
-UTC here; that is an assumption, not the publisher's statement.
+which end of the period the stamp marks are not stated, so the index is left as a naive `time`,
+not UTC. The stamps run straight through the 26 October 2025 clock change with no repeated
+hour, as a UTC clock would, but a local logger that overwrote that hour would look the same.
 """
 
 import io
@@ -35,11 +35,10 @@ scada = pd.read_parquet(io.BytesIO(zipfile.ZipFile(io.BytesIO(resp.content)).rea
 power = scada.xs("ActPower_Value_mean", axis=1, level=1)
 df = (
     power.rename(columns=names)
-    .rename_axis(index="time_utc", columns="unit_id")
+    .rename_axis(index="time", columns="unit_id")
     .stack()
     .rename("power_kw")
     .reset_index("unit_id")
-    .tz_localize("UTC")  # assumed, see the docstring
     .sort_index()
 )
 print(df)

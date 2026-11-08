@@ -1,0 +1,74 @@
+id: lt-vda-gross-renewable-generation
+name: "S1R094: Total gross electricity production from renewables (official statistics portal, table M8020313)"
+publisher: State Data Agency (Statistics Lithuania)
+publisher_role: statistics-office
+countries: [LT]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2004
+  update: annual (dataset last updated 2026-09-08, with 2025 marked provisional)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://osp-rs.stat.gov.lt/rest_xml/datastructure/LSD/M8020313
+  note: >-
+    Annual values labelled by year (LAIKOTARPIS). Each observation carries MATVNT "GWh", and the
+    data structure names the unit codes GWh, thousand TOE and TJ; only GWh rows were returned
+    for wind. The dataflow is titled "Total gross electricity production from renewables", so
+    the values are gross production. Read 2026-11-08 by an automated research pass; not yet
+    reviewed.
+access:
+  method: api
+  url: https://osp-rs.stat.gov.lt/rest_xml/data/S1R094_M8020313
+  docs: https://osp-rs.stat.gov.lt/rest_xml/dataflow/LSD/S1R094_M8020313
+  key_required: false
+  registration: false
+  formats: [xml, json]
+  languages: [lt, en]
+licence:
+  name: No licence read (the portal's pages returned HTTP 403)
+  redistribution: unclear
+  verified: false
+  note: >-
+    On 2026-11-08 every page tried on osp.stat.gov.lt, including the portal home, the indicator
+    page and candidate terms-of-use pages, returned HTTP 403 to a plain request, and
+    www.stat.gov.lt redirected to vda.lrv.lt, which also returned 403. Only the SDMX service
+    answered.
+traps:
+  - summary: Years before wind existed are "NaN" with a status code, not zero or absent.
+    detail: >-
+      Wind (code 06V) has ObsValue "NaN" with OBS_STATUS "nebuvo" ("category not applicable")
+      for 1990 to 2003; the first value is 1.2 GWh in 2004. The latest year carries
+      "isankstiniai" (provisional data): 4,214.3 GWh for 2025. Read the status before using the
+      last year. Found by an automated research pass on 2026-11-08; not yet reviewed by a
+      person.
+    evidence: https://osp-rs.stat.gov.lt/rest_xml/data/S1R094_M8020313
+    found: 2026-11-08
+  - summary: A series-key filter in the URL returns an empty message instead of the wind series.
+    detail: >-
+      On 2026-11-08 /rest_xml/data/S1R094_M8020313/06V.GWh returned HTTP 200 with a header and
+      no observations, while the unfiltered request returned every installation type. Fetch
+      the whole table (about 350 kB) and filter on elektros_irenginiai = 06V. Found by an
+      automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://osp-rs.stat.gov.lt/rest_xml/data/S1R094_M8020313/06V.GWh
+    found: 2026-11-08
+notes: >-
+  Annual gross electricity production from renewables for Lithuania, by installation type
+  (hydro by size class, wind, solar photovoltaic, solid biofuels, biogases, waste, geothermal,
+  total), 1990 to 2025, from the official statistics portal's keyless SDMX 2.1 service (the
+  /rest_xml/ and /rest_json/ paths redirect to /ords/ipospp/ospp/...). Checked 2026-11-08: wind
+  rises from 1.2 GWh (2004) and 106.1 GWh (2007) to 1,512.4 (2022), 2,536.1 (2023), 3,448.2
+  (2024) and 4,214.3 GWh (2025, provisional). The message header names the sender "Lietuvos
+  statistikos departamentas". For hourly national wind from 2023 see lt-litgrid-open-data-wind.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

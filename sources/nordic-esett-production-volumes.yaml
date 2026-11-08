@@ -70,6 +70,18 @@ traps:
     evidence: https://api.opendata.esett.com/EXP16/Volumes?start=2023-01-15T00:00:00.000Z&end=2023-01-15T00:31:00.000Z&mba=10YDK-1--------W
     evidence_is_error: true
     found: 2026-11-06
+  - summary: For months after the switch to 15 minutes, Swedish and Norwegian quarter hours are an hourly value split into four equal parts.
+    detail: >-
+      From 23 May 2023 Finland's wind values vary within each hour, but in the Swedish and
+      Norwegian zones the four quarter hours of every hour carry the same value (SE1 on
+      2023-06-15 10:00-11:00 UTC: 6.065494 MWh four times; NO2: 5.16016 four times). Sampled day
+      by day, SE1 was flat in all 23 hours checked on 2023-10-25 and varied in all of them on
+      2023-11-01; NO2 was flat on 2024-01-20 and varied on 2024-01-25 (SE3 varied by 2023-11-15,
+      NO4 by 2024-02-15). Until then the 15-minute series has hourly resolution in disguise; treat
+      it as hourly energy. eSett's pages do not mention this. Found by an automated research pass
+      on 2026-11-08; not yet reviewed by a person.
+    evidence: https://api.opendata.esett.com/EXP16/Volumes?start=2023-06-15T10:00:00.000Z&end=2023-06-15T11:00:00.000Z&mba=10Y1001A1001A44P
+    found: 2026-11-08
   - summary: The API does not state units; the website labels the values MWh per period.
     detail: >-
       The OpenAPI schema gives the production fields as plain numbers. The website's chart legend
@@ -86,6 +98,6 @@ notes: >-
   and DK1 returns no wind split. A separate offshore wind column exists but was null or zero in
   every row sampled. Recent days were present for SE1 but not yet for FI or DK1 on the check date.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

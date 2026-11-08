@@ -10,8 +10,8 @@ only its first 3,000 rows out of the archive with HTTP range requests. active_po
 one-minute mean for turbine N. The unit is not stated; values near 2,000 on 2.05 MW turbines
 read as kW. The time zone and which end of the minute the stamp marks are not stated either. The
 stamps run straight through 02:00 to 02:59 on 29 March 2020, an hour that did not exist on
-French clocks, so they are not French local time; they are read as UTC here, as RES's wind-up
-tool also reads them, which is an assumption (CET all year would fit too). Not fixable in code:
+French clocks, so they are not French local time; they are kept as a naive `time`, not UTC
+(RES's wind-up tool reads them as UTC; CET all year would fit too). Not fixable in code:
 minutes when any turbine was stopped were removed, so the series cannot give energy totals, and
 SMV6 was deliberately yawed off the wind at times (see the control log), so its output and its
 neighbours' are not normal operation.
@@ -62,8 +62,8 @@ with archive.open(FILE) as f:
     rows = pd.read_csv(f, usecols=["time", *COLS], nrows=3000)  # from 17 Feb 16:30
 
 df = (
-    rows.assign(time_utc=pd.to_datetime(rows["time"]).dt.tz_localize("UTC"))  # assumed
-    .set_index("time_utc")
+    rows.assign(time=pd.to_datetime(rows["time"]))  # zone and stamp end not stated
+    .set_index("time")
     .loc["2020-02-18", list(COLS)]
     .rename(columns=COLS)
     .rename_axis(columns="unit_id")

@@ -8,61 +8,62 @@
 <div class="about">
   <article>
     <h1>About this catalogue</h1>
-    <p class="lead">Wind Generation Sources lists where to find observed wind power generation, metered or reported by its publisher,
-      for each country. Every entry says what the data are, how to get them, whether you may re-host them, and what goes wrong when you use them.</p>
+    <p class="lead">Where to find observed wind power generation, metered or reported by its publisher, country by country. Each entry
+      says what the data are, how to get them, whether you may re-host them, and what goes wrong when you use them.</p>
 
     <h2>How the entries are made</h2>
     <dl>
       <dt>Observed output only</dt>
-      <dd>Every source is metered, settled, certified or reported by its publisher. Simulated series, such as renewables.ninja, EMHIRES or
-        capacity factors computed from reanalysis, have other homes and are left out.</dd>
+      <dd>Metered, settled, certified or reported by the publisher. Simulated series, such as renewables.ninja, EMHIRES or
+        capacity factors from reanalysis, are left out.</dd>
       <dt>Licences are read, not inferred</dt>
-      <dd>Each licence was read on the publisher's own page on the date shown. Until it has been read, re-hosting stays <em>Unclear</em>.</dd>
+      <dd>Each licence is read on the publisher's own page and dated. Until then, re-hosting stays <em>Unclear</em>.</dd>
       <dt>Every trap cites its evidence</dt>
-      <dd>A trap is a property of the source: a mislabelled column, a silent change, a gap. Each one links to the documentation, issue or audit that shows it.</dd>
+      <dd>A trap is a property of the source, such as a mislabelled column, a silent change or a gap, linked to the documentation, issue or audit that shows it.</dd>
       <dt>Links, not copies</dt>
-      <dd>The catalogue holds metadata only and never re-hosts a publisher's data. The live charts are fetched by your browser straight from
-        publishers that allow it, and nothing is stored.</dd>
+      <dd>The catalogue holds metadata only and never re-hosts a publisher's data. Live charts are fetched by your browser from
+        publishers that allow it; nothing is stored.</dd>
       <dt>Checked by machine, and said so</dt>
-      <dd>Every link is requested again each week; a link that refuses automated requests is reported as not checked, never as working.
-        Annual totals are compared with a national figure for the whole wind fleet where there is one, otherwise Eurostat or Ember, and the time step found in the data with the one the entry states.
-        Entries a person has checked against the publisher's pages are marked <em>Reviewed</em>; the rest were compiled by an automated research pass and are leads until checked.
-        <button type="button" class="lnk" onclick={() => store.go({ view: "checks" })}>See the latest results.</button></dd>
+      <dd>Links are requested weekly; one that refuses automated requests is reported as not judged, never as working.
+        Annual totals are compared with a whole-fleet national figure, or else Eurostat or Ember, and each stated time step with the data.
+        Entries a person has checked are marked <em>Reviewed</em>; the rest come from an automated research pass and are leads.
+        <a class="lnk" {...store.link({ view: "checks" })}>Latest results</a></dd>
     </dl>
 
     <h2>The map</h2>
-    <p>Each country is shaded by the finest level any catalogued source publishes: per turbine, per farm or plant, per zone or company, or a
-      national total. Blue marks data finer than a country total; countries with only a national total are grey. Orange points are farms or turbines whose own output is published and whose location is known. Where the publisher
-      gives locations (Denmark's and Germany's turbine registers, EIA-860 in the US, the Brazilian, Swiss, Norwegian and Chilean operators, the
-      research datasets), the point is theirs. Elsewhere the publisher names its plants but gives no location, so each name was matched to a
-      wind farm in OpenStreetMap (or, in Great Britain, the Renewable Energy Planning Database). Great Britain's balancing mechanism units are linked to their farms through Wikidata (CC0) where it records the unit's ID. All these links are unreviewed proposals, and the
-      tooltip says which kind a point is. In Great Britain, Ofgem-accredited stations whose names found no confident match are placed
-      at the postcode the register gives for them, drawn as hollow rings: that is the postcode's centroid, not the turbine, and can be a few
-      kilometres off. Postcode centroids are from Ordnance Survey Code-Point Open under the Open Government Licence v3.0. Contains OS data
+    <p>Countries are shaded by the finest level any source publishes: turbine, farm or plant, zone or company, or national total.
+      Green marks data finer than a national total; grey, a national total only.</p>
+    <p>Orange points are farms or turbines with their own published output and a known location. Where the publisher gives locations
+      (Denmark's and Germany's turbine registers, EIA-860 in the US, the Brazilian, Swiss, Norwegian and Chilean operators, the research
+      datasets), the point is theirs. Elsewhere each plant name was matched to a wind farm in OpenStreetMap (in Great Britain, also the
+      Renewable Energy Planning Database), and Great Britain's balancing mechanism units are linked to farms through Wikidata (CC0) where
+      it records the unit's ID. These links are unreviewed proposals; the tooltip says which kind a point is.</p>
+    <p>In Great Britain, Ofgem-accredited stations with no confident match sit at their postcode's centre, drawn as hollow rings. That
+      is not the turbine and can be a few kilometres off. Northern Ireland postcodes are not in the dataset, so those stations, and other
+      plants with no confident match, have no point yet.</p>
+    <p class="credits">Postcode centres from Ordnance Survey Code-Point Open under the Open Government Licence v3.0. Contains OS data
       © Crown copyright and database right 2026. Contains Royal Mail data © Royal Mail copyright and database right 2026. Contains National
-      Statistics data © Crown copyright and database right 2026. Northern Ireland postcodes are not in that dataset, so those stations, and
-      other plants with no confident match, have no point yet. Basemap by OpenFreeMap from OpenMapTiles and OpenStreetMap data;
+      Statistics data © Crown copyright and database right 2026. Basemap by OpenFreeMap from OpenMapTiles and OpenStreetMap data;
       country outlines from Natural Earth, public domain.</p>
 
     <h2>Questions</h2>
     <div class="faq">
       <details>
         <summary>How accurate is this?</summary>
-        <p>The data are as good as their publishers, and each entry says where they fall short. Most entries and every map match were
-          compiled by an automated research pass and are marked <em>Unreviewed</em> until a person has checked them, so expect the odd
-          mistake. The traps were each checked against the publisher's own files or documentation, and each links to that evidence.
-          Map points matched by name are proposals, and postcode points can be a few kilometres off.</p>
+        <p>As good as the publishers, and each entry says where they fall short. Most entries and every map match come from an automated
+          research pass and stay unreviewed until a person checks them, so expect the odd mistake. Each trap was checked against the
+          publisher's own files or documentation and links to that evidence. Name-matched points are proposals; postcode points can be a
+          few kilometres off.</p>
       </details>
       <details>
         <summary>Can I download the wind data here?</summary>
-        <p>No. The catalogue says where the data are and how to read them; the data stay with their publishers. Each entry links to the
-          download or API, and most have a short Python script that fetches a sample and reads its time stamps and units correctly.</p>
+        <p>No; the data stay with their publishers. Each entry links to the download or API, and most have a short Python script that
+          fetches a sample and reads its time stamps and units correctly.</p>
       </details>
       <details>
         <summary>Why do two sources give different totals for the same country?</summary>
-        <p>Usually because they measure different things: gross output at the turbine or net output to the grid, the whole fleet or only
-          farms connected to the transmission grid, a calendar year or a fiscal one, metered values or the publisher's estimate. Sometimes
-          one of them is simply wrong. The <button type="button" class="lnk" onclick={() => store.go({ view: "checks" })}>checks page</button>
+        <p>Usually they measure different things: gross at the turbine or net to the grid, the whole fleet or only transmission-connected
+          farms, a calendar or a fiscal year, metered values or the publisher's estimate. Sometimes one is simply wrong. The <a class="lnk" {...store.link({ view: "checks" })}>checks page</a>
           compares them, and the traps say which explanation applies.</p>
       </details>
       <details>
@@ -73,14 +74,15 @@
       </details>
       <details>
         <summary>Why is a country or a wind farm missing?</summary>
-        <p>Either no publisher was found that reports observed wind output for it, or its publisher names plants without saying where they
-          are and no confident match was found. Many publishers also block automated requests, so they could not be checked. If you know
-          a source, a pull request or an issue is welcome.</p>
+        <p>Either no publisher of observed wind output was found for it, or the publisher names plants without locations and no confident
+          match was found. Many publishers also block automated requests, so they could not be checked. Know a source? A pull request or
+          an issue is welcome.</p>
       </details>
       <details>
         <summary>Is this simulated data?</summary>
-        <p>No. Every source is output that was metered, settled, certified or reported. Modelled series built from weather data are left
-          out on purpose, because the point of this catalogue is the observed record that models are tested against.</p>
+        <p>No. Every source is metered, settled, certified or reported output. Modelled series built from weather data are left out on
+          purpose: this is the observed record that models are tested against. A few sources are the publisher's own estimate of output
+          it cannot meter, such as embedded wind; those say so under Measure.</p>
       </details>
     </div>
 
@@ -88,7 +90,7 @@
     <p>Download the whole catalogue as <a href="./data/catalogue.csv" download>CSV</a> or <a href="./data/catalogue.json">JSON</a>.
       Entries are licensed CC BY 4.0, the code MIT; publishers' data stay under their own terms.</p>
     <div class="cite"><p>{cite}</p><CopyButton text={cite} what="citation" /></div>
-    <p>Each source is one YAML file. To add or correct one, edit it and open a pull request; the validator checks the schema and the house rules.
+    <p>Each source is one YAML file. Edit it and open a pull request; the validator checks the schema and house rules.
       <a href="{REPO}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">How to contribute</a>.</p>
     <p class="maint">Maintained by Ellyess Benmoufok.</p>
   </article>
@@ -111,6 +113,7 @@
   .faq summary { cursor: pointer; padding: 10px 0; font-weight: 600; color: var(--ink); }
   .faq summary:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
   .faq details p { padding: 0 0 12px; }
+  .credits { font-size: 13px; color: var(--ink-3); }
   .maint { margin-top: 12px; font-size: 13px; color: var(--ink-3); }
   @media (max-width: 819px) { .about { padding: 24px 16px 48px; } }
 </style>

@@ -1,0 +1,102 @@
+id: kr-koen-wind-farm-hourly
+name: Hourly wind generation results (시간대별 풍력 발전실적), Korea South-East Power
+publisher: Korea South-East Power Co. (KOEN, 한국남동발전), on its own site; listed on the Public Data Portal (data.go.kr)
+publisher_role: owner-operator
+countries: [KR]
+area: >-
+  KOEN's own wind farms: Yeongheung phases 1 and 2 (영흥풍력), Gunwi Hwasan (군위 화산풍력),
+  Samcheonpo small wind (삼천포풍력) and, from December 2023, Eoeum on Jeju (어음풍력)
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2022
+  update: monthly; on 2026-11-08 three farms ran to 2026-10-31 and two to 2026-09-30
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: kWh
+  value: period-total
+  evidence: https://www.koenergy.kr/kosep/gv/nf/dt/nfdt23/main.do?menuCd=FN0912020218
+  note: >-
+    The CSV header gives the hourly columns as "1시 발전량(MWh)" to "24시 발전량(MWh)" and the
+    daily total and mean as KW; the on-page table says 총량(KW) and 평균(KWh). The data settle it
+    for kWh: Yeongheung phase 2, listed at 24 MW, peaks at 25,824 in one hour, and the 0.75 MW
+    Samcheonpo turbine at 724. The daily total equals the sum of the 24 hours on every row. The
+    page does not say whether column 1시 is the hour ending at 01:00, nor the time zone. Hour 24
+    of one day tracks hour 1 of the next (correlation 0.87 to 0.96 by farm) far better than hour
+    1 of the same day (0.15 to 0.41), so rows are not misdated by a day. Read 2026-11-08 by an
+    automated research pass; not yet reviewed.
+access:
+  method: portal
+  url: https://www.koenergy.kr/kosep/gv/nf/dt/nfdt23/main.do?menuCd=FN0912020218
+  docs: https://www.data.go.kr/data/15131520/fileData.do
+  key_required: false
+  registration: false
+  formats: [csv, xlsx]
+  languages: [ko]
+licence:
+  name: Public Data Portal terms for this dataset, scope of permitted use "no restriction" (이용허락범위 제한 없음), free of charge
+  url: https://www.data.go.kr/data/15131520/fileData.do
+  redistribution: allowed
+  verified: true
+  note: >-
+    The Public Data Portal listing (한국남동발전㈜_시간대별 풍력 발전실적, provider KOEN) states
+    free use with no restriction on scope and points to the KOEN page for the download. No terms
+    were found on the KOEN page itself.
+traps:
+  - summary: The file labels hourly values MWh and daily totals KW, but every value is kWh.
+    detail: >-
+      Read as MWh, Yeongheung phase 2 would produce 25,824 MWh in one hour from a 24 MW farm.
+      Read as kWh, every farm sits at or near its listed capacity at its peak: Samcheonpo 724
+      against 0.75 MW, Yeongheung phase 1 16,177 against 22 MW, Eoeum about 20,400 against 21
+      MW. Monthly maxima from January 2022 to October 2026 show no change of scale, so unlike
+      the KOMIPO Sangmyeong file (kr-komipo-sangmyeong-wind-hourly) there is no 1,000-fold
+      break. Divide by 1,000 for MWh. Found by an automated research pass on 2026-11-08; not
+      yet reviewed by a person.
+    evidence: https://www.koenergy.kr/kosep/gv/nf/dt/nfdt23/main.do?menuCd=FN0912020218
+    found: 2026-11-08
+  - summary: A few hours exceed the farm's listed capacity, some of them at the battery's discharge hours.
+    detail: >-
+      KOEN's plant list on data.go.kr (15131923) gives Gunwi Hwasan 11.55, Yeongheung phase 2
+      24 and Eoeum 21, without a unit, and lists batteries of 3.2 and 4 linked to Gunwi Hwasan
+      and to each Yeongheung phase. Gunwi Hwasan exceeds 11,550 kWh in 14 hours, all in hours
+      10 to 12, up to 12,853 (January 2026); Yeongheung phase 2 in 3 hours in 2022, up to 25,824.
+      Eoeum, which tops out near 20,400 until June 2026, reads up to 23,808 in 12 hours from July
+      to September 2026. The page does not say whether battery output is included. Screen hours
+      above capacity before using maxima or ramps. Found by an automated research pass on
+      2026-11-08; not yet reviewed by a person.
+    evidence: https://www.data.go.kr/data/15131923/fileData.do
+    found: 2026-11-08
+  - summary: One month per request, a trailing comma on every row, and zeros that are outages, not calm.
+    detail: >-
+      The page allows at most one month per query (최대 1개월만 조회 가능합니다), so a history
+      takes one request per month. Each data row has one more comma than the header, which shifts every column in a
+      plain CSV reader unless the first column is kept as data (pandas index_col=False). The file
+      is UTF-8 with a byte-order mark. Samcheonpo is zero on 1,237 of 1,765 days and on every
+      day since mid-2025; Yeongheung phase 1 has 190 all-zero days. Requests for months before
+      2022 return the header only. Found by an automated research pass on 2026-11-08; not yet
+      reviewed by a person.
+    evidence: https://www.koenergy.kr/kosep/gv/nf/dt/nfdt23/main.do?menuCd=FN0912020218
+    found: 2026-11-08
+notes: >-
+  Hourly energy for each of KOEN's own wind farms, one row per day and farm with the 24 hours as
+  columns, from a search form that returns CSV or Excel for a chosen period of up to a month.
+  Checked 2026-11-08: every month from January 2022 to October 2026 was downloaded with a plain
+  POST to the form's csvDown.do (no login, no CAPTCHA). There are no duplicate days and every row
+  falls in the month asked for. Annual totals differ by farm and year (for example Gunwi Hwasan
+  18.3 GWh in 2022 and 15.2 GWh in 2025; Eoeum 49.2 GWh in 2025, Yeongheung phase 2 21.5 GWh).
+  Capacities come from a separate KOEN file on data.go.kr
+  (https://www.data.go.kr/data/15131923/fileData.do), which also lists wind farms KOEN runs
+  through joint companies (Tamra offshore 30, Korea Offshore Wind 7.5, Samsu 22.5); those are
+  not in this series. KOEN's keyed open API of hourly wind results
+  (https://www.data.go.kr/data/15119503/openapi.do) was not checked. The farms are not described
+  as onshore or offshore on the page; none is named offshore (해상) in KOEN's plant list.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

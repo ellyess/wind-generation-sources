@@ -4,10 +4,12 @@
 # ///
 """All-island (Ireland plus Northern Ireland) wind output for one day, EirGrid Smart Grid Dashboard.
 
-The dashboard's JSON service (undocumented; it is what the wind page calls) gives an estimate of
+The dashboard's JSON chart service (undocumented; /api/chart/ is what the wind page calls since
+the older DashboardService.svc endpoint started answering only HTTP 503) gives an estimate of
 all wind farms' output in MW per quarter hour, stamped in Irish local wall-clock time with no
 zone. EirGrid does not say whether a value is an average or a snapshot, or which end of the
-quarter hour the stamp marks; the day runs 00:00 to 23:45, so stamps are read as period starts.
+quarter hour the stamp marks; the day runs 00:00 to 23:45, which fits period starts, but stamps
+are kept as published.
 Traps handled:
 - the stamps are local time, converted here to UTC;
 - on the autumn clock-change day the repeated 01:00 to 02:00 hour appears only once, and which
@@ -23,9 +25,9 @@ import pandas as pd
 import requests
 
 DAY = "26-Oct-2025"  # an autumn clock-change day
-URL = "https://www.smartgriddashboard.com/DashboardService.svc/data"
-params = {"area": "windactual", "region": "ALL",
-          "datefrom": f"{DAY} 00:00", "dateto": f"{DAY} 23:45"}
+URL = "https://www.smartgriddashboard.com/api/chart/"
+params = {"region": "ALL", "chartType": "default", "dateRange": "day",
+          "dateFrom": DAY, "dateTo": DAY, "areas": "windactual"}
 
 for _attempt in range(10):
     resp = requests.get(URL, params=params, timeout=60)

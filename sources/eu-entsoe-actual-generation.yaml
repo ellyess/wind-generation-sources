@@ -21,14 +21,19 @@ conventions:
   timestamp: period-start
   unit: MW
   value: unknown
-  evidence: "https://documenter.getpostman.com/view/7009892/2s93JtP3F6"
+  evidence: "https://eepublicdownloads.entsoe.eu/clean-documents/EDI/Library/Introduction_of_different_time_series_v1.4.1.pdf"
   note: >-
     The documented 16.1.B&C response gives each Period a timeInterval with start and end in UTC
     (for example 2023-08-15T22:00Z), a resolution (PT15M, PT30M or PT60M) and numbered Points,
-    and quantity_Measure_Unit.name MAW (megawatt). Individual points carry no stamp; the
-    documentation does not spell out the position-to-time mapping, the usual reading being start
-    plus (position - 1) times the resolution. It does not say whether a quantity is the mean
-    over its interval. Read 2026-11-06 by an automated research pass; not yet reviewed.
+    and quantity_Measure_Unit.name MAW (megawatt); see
+    https://documenter.getpostman.com/view/7009892/2s93JtP3F6. Individual points carry no stamp.
+    ENTSO-E's time series guide (v1.4.1, section 3) gives the mapping: "TimeStepPosition =
+    StartDateTimeofTimeInterval + (Resolution * (Pos − 1))", the start of the interval, so a
+    Pos of 9 at PT30M from 22:00 is "the interval [02:00, 02:30[". For variable-sized blocks
+    (curveType A03) a point runs until the next position given, so missing positions repeat the
+    last value rather than being gaps. Neither document says whether a quantity is the mean over
+    its interval. Read 2026-11-06 by an automated research pass; the mapping was settled from the
+    guide on 2026-11-08. Not yet reviewed.
 access:
   method: api
   url: https://transparency.entsoe.eu/
@@ -40,10 +45,15 @@ access:
 licence:
   name: ENTSO-E Transparency Platform Terms and Conditions (29 March 2023) and list of data available for reuse (18 October 2023)
   url: "https://transparencyplatform.zendesk.com/hc/en-us/articles/40921911218961"
-  redistribution: link-only
+  redistribution: permission-required
   attribution: Mention the ENTSO-E Transparency Platform as the source of publication.
   verified: true
-  note: CC-BY-4.0 applies only to the 35 items on the reuse list. Actual generation per production type (16.1) and installed capacity (14.1) are not on it, so re-hosting them needs the prior agreement of the copyright holder. Link to the platform, or publish derived statistics.
+  note: >-
+    CC-BY-4.0 applies only to the 35 items on the reuse list. Actual generation per production type
+    (16.1) and installed capacity (14.1) are not on it, so re-hosting them needs the prior agreement
+    of the copyright holder. Link to the platform, or publish derived statistics. Changed 2026-11-08
+    (maintainer decision) from link-only to permission-required: the terms allow re-hosting with the
+    copyright holder's prior agreement.
 traps:
   - summary: Onshore (B19) and offshore (B18) wind are separate production types, and a query for one is easy to mistake for the whole fleet.
     detail: >-

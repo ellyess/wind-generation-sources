@@ -1,0 +1,68 @@
+id: kz-kegoc-annual-report-res-generation
+name: KEGOC annual report, electricity balance (Электробаланс), generation by renewable plants
+publisher: KEGOC (Kazakhstan Electricity Grid Operating Company), from National Dispatch Centre data
+publisher_role: tso
+countries: [KZ]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2023
+  update: annual, with each year's annual report
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://ar2024.kegoc.kz/ru/download/electricity-balance
+  note: >-
+    The table "Информация по производству электрической энергии объектами ВИЭ за 2024 год" gives
+    wind generation (ветровые электростанции) as 4 497,6 million kWh, which is GWh, and installed
+    wind capacity as 1 525,7 MW; the text says the figures are from the National Dispatch
+    Centre of the system operator (по данным НДЦ СО). The 2023 report gives 3 805,6 million kWh
+    and 1 411,3 MW. Read 2026-11-08 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://ar2024.kegoc.kz/ru/download/electricity-balance
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [ru]
+licence:
+  name: none found
+  url: https://ar2024.kegoc.kz/ru/download/electricity-balance
+  redistribution: unclear
+  verified: false
+  note: No reuse terms were found in the downloaded section.
+traps:
+  - summary: Each report gives one year of wind, and only the 2023 and 2024 sections were found at the predictable address.
+    detail: >-
+      The electricity-balance section downloads as a three-page PDF from
+      ar2024.kegoc.kz/ru/download/electricity-balance and ar2023.kegoc.kz with the same path; the
+      same path on ar2021, ar2022 and ar2025 returned 404 on the check date. Each section's wind
+      table covers its own year only, and the year-on-year charts lump wind with solar and
+      biogas. Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+      Corrected 2026-11-08: the 2025 report exists as one 198-page PDF rather than as a section
+      download (ar2025.kegoc.kz/files/kegoc_ar2025_rus.pdf, last modified 2026-10-06); its table
+      "Информация по производству электрической энергии объектами ВИЭ за 2025 год" on page 23 gives
+      wind as 5 400,7 million kWh and 2 071,0 MW. A missing section path does not mean a missing year.
+    evidence: https://ar2023.kegoc.kz/ru/download/electricity-balance
+    found: 2026-11-08
+notes: >-
+  Annual national wind generation and capacity for Kazakhstan from the grid operator's annual
+  report: 3,805.6 GWh in 2023 (1,411.3 MW) and 4,497.6 GWh in 2024 (57 wind farms, 1,525.7 MW).
+  Corrected 2026-11-08: the 2025 annual report, published as a single PDF at
+  https://ar2025.kegoc.kz/files/kegoc_ar2025_rus.pdf, adds 5,400.7 GWh for 2025 (62 wind farms,
+  2,071.0 MW), again "по данным НДЦ СО". No report for 2021 or 2022 was found on ar2021 or
+  ar2022.kegoc.kz on that date.
+  No monthly or per-farm wind series from KEGOC, the market operator or the statistics bureau
+  was found in a short search on 2026-11-08; the ministry announces quarterly renewable totals
+  in press releases only.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

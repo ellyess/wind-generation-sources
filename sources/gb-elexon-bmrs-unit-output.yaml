@@ -13,7 +13,7 @@ coverage:
   update: daily, about five days after the day, then revised by later settlement runs
 capacity: separate-dataset
 coordinates: none
-curtailment: reported
+curtailment: separate-dataset
 conventions:
   timezone: UTC
   timestamp: period-end
@@ -103,12 +103,12 @@ notes: >-
   earliest data on the current API is 2019-02-01. Capacity comes from the generationCapacity field
   of the reference list, which reflects current registration, not the history. Curtailment is not
   in this dataset, but the same API publishes per-unit bid-offer acceptances (BOALF) and physical
-  notifications (PN), from which constrained-off volume can be reconstructed. The older
+  notifications (PN), from which constrained-off volume can be reconstructed. Corrected 2026-11-08: curtailment changed from reported to separate-dataset, since B1610 carries only metered volume and the curtailment evidence is the BOALF and PN datasets named here. The older
   ElexonDataPortal client (OSUKED) targets the BMRS API that Elexon has shut down and no longer
   works. Wind farms without their own balancing unit, mostly small farms on the distribution
   network, do not appear, so summing the wind units understates total British wind output; see
   gb-neso-embedded-wind for the system operator's estimate of that part.
 status: active
-last_checked: 2026-11-06
-checked_by: automated research (Claude Code), 2026-11-06
+last_checked: 2026-11-08
+checked_by: automated research (Claude Code), 2026-11-08
 reviewed: false

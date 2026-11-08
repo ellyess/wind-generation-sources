@@ -9,9 +9,9 @@ from 23 May 2023, an hour before). Traps handled:
 - several zones in one request come back summed, so each zone is requested on its own;
 - the values are MWh in the quarter hour, not average MW (multiply by 4 for MW);
 - each row has a local CET/CEST stamp and a UTC one; only timestampUTC is used.
-eSett does not say which end of the period a stamp marks; this reads it as the start (it
-matches Svenska kraftnät's hour-start Mimer data). Danish zones are not requested: their
-production is all under "other", with no wind split.
+eSett does not say which end of the period a stamp marks, so it is kept as published (it
+matches Svenska kraftnät's Mimer data read as hour starts, but neither publisher says so).
+Danish zones are not requested: their production is all under "other", with no wind split.
 """
 
 import pandas as pd

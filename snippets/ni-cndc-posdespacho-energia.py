@@ -11,9 +11,9 @@ dd/mm/yyyy. Values are MWh per hour per generating unit. Traps handled:
 - "valor" is text and may use a decimal comma, so a comma is replaced before parsing;
 - some days return only the demand rows, so an empty wind set stops the script rather than
   reading as zero.
-CNDC states neither the time zone nor which end of the hour "00" to "23" marks. This assumes
-Nicaraguan local time (UTC-6, no daylight saving) and that "00" is the hour starting at 00:00;
-both are assumptions, not publisher statements.
+CNDC states neither the time zone nor which end of the hour "00" to "23" marks, so label "hh"
+is kept as hh:00 on the day, a naive `time`, not UTC and not claimed as an hour start
+(Nicaraguan local time, UTC-6, is likely; a live check hints that labels may mark hour ends).
 """
 
 import pandas as pd
@@ -36,11 +36,11 @@ if rows.empty:
 local = pd.to_datetime(DAY) + pd.to_timedelta(rows["fecha_hora"].astype(int), unit="h")
 df = (
     rows.assign(
-        time_utc=local.dt.tz_localize("America/Managua").dt.tz_convert("UTC"),
+        time=local,  # zone and stamp end not stated
         unit_id=rows["ggd"],
         wind_mwh=pd.to_numeric(rows["valor"].str.replace(",", ".")),
     )
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "wind_mwh"]]
 )
 print(df)

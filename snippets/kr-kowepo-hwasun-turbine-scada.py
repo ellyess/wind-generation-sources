@@ -9,8 +9,8 @@ after the first month, December 2015; its rows run in time order with all eight 
 hour. It is fetched through the portal's own download calls (undocumented), after its
 download-limit check; if the portal asks for a CAPTCHA the script stops. The page gives the
 power as grid active power in kW but not whether an hourly value is a mean or a sample, nor
-the stamp end or time zone; stamps (hours 00 to 23) are read as period starts in Korea
-Standard Time (UTC+9, no daylight saving). Traps handled:
+the stamp end or time zone, so stamps (hours 00 to 23) are kept as published, a naive
+`time` (Korea Standard Time, UTC+9, is likely but not stated). Traps handled:
 - the file is CP949 (EUC-KR) encoded;
 - power is kW, not energy, and dips slightly negative at idle; it is kept as power, and the
   printed energy is the net sum (negatives included);
@@ -50,10 +50,10 @@ lon = rows.groupby("발전호기")["경도(십진수)"].first()
 odd = lon[(lon - lon.median()).abs() > 0.5]
 start = pd.to_datetime(rows["일자(1시간단위)"], format="%Y-%m-%d %H")
 df = (
-    rows.assign(time_utc=start.dt.tz_localize("Asia/Seoul").dt.tz_convert("UTC"))
+    rows.assign(time=start)  # zone and stamp end not stated
     .rename(columns={"발전호기": "unit_id", "계통 유효 전력(킬로와트)": "power_kw",
                      "나셀 풍속(초당 미터)": "wind_speed_ms"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "power_kw", "wind_speed_ms"]]
 )
 print(df)

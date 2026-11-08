@@ -4,8 +4,8 @@
 # ///
 """PJM wind output for one day from Data Miner 2's hourly wind_gen feed (settlement data).
 
-Each row is wind generation in MW for one area and one hour; with hourly values, the MW figure
-read as the hour's mean is also the MWh in that hour. The feed gives datetime_beginning_utc and
+Each row is wind generation in MW for one area and one hour. PJM does not say whether it is the
+hour's mean or a reading, so no energy total is formed. The feed gives datetime_beginning_utc and
 datetime_beginning_ept; PJM's guide says "beginning" marks the start of the interval, so the UTC
 start is used and Eastern prevailing time is not needed.
 
@@ -45,4 +45,4 @@ df = (
     .rename(columns={"wind_generation_mw": "wind_mw"})
 )
 print(df)
-print(f"{len(df)} hours, {df['wind_mw'].sum() / 1000:.1f} GWh")  # MW x 1 h
+print(f"{len(df)} hours, mean {df['wind_mw'].mean():,.0f} MW, peak {df['wind_mw'].max():,.0f} MW")

@@ -66,6 +66,15 @@ traps:
     evidence: https://servicebus.ren.pt/datahubapi/electricity/ElectricityProductionBreakdownDaily?culture=en-US&date=2009-12-31
     evidence_is_error: true
     found: 2026-11-06
+  - summary: The monthly installed-power endpoint ignores a date parameter it does not know and returns the latest month.
+    detail: >-
+      ElectricityInstalledPowerMonthly takes year and month. Called on 2026-11-08 with
+      date=2015-01-01, date=2020-06-01 or date=2026-10-01 instead, it answered HTTP 200 with the
+      same WIND 5,445 MW each time, while year=2025&month=01 gave 5,408 MW. A capacity factor built
+      from a wrongly parameterised call silently uses today's fleet. Found by an automated research
+      pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://datahub.ren.pt/en/api-instructions/
+    found: 2026-11-08
 notes: >-
   One request per day returns chart-ready JSON (xAxis categories plus a series per source) in
   MW at 15-minute steps, with a "Wind" series alongside hydro, solar, gas, imports and
@@ -76,6 +85,6 @@ notes: >-
   capacity denominator. Portugal's wind series in ENTSO-E is covered by
   eu-entsoe-actual-generation.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

@@ -26,8 +26,11 @@ conventions:
     the hour; the local column follows daylight saving (GMT minus 7 hours in January, minus 6 in
     April). The 2010-2019 file writes dates as "1/1/2010 7:00" while the other two use "2001-01-01
     7:00". Neither the files nor the data-request page state the unit of the metered volumes or
-    whether they are hourly energy or mean power; unit is set to unknown only because the schema has
-    no unknown unit. Read 2026-11-06 by an automated research pass; not yet reviewed.
+    whether they are hourly energy or mean power, so unit and value are unknown. Read 2026-11-06
+    by an automated research pass; not yet reviewed. Corrected 2026-11-08: this note said the unit
+    was set to unknown "only because the schema has no unknown unit"; the schema does have
+    unknown, and unknown is the right value because the publisher states no unit. The page's only
+    unit is in "generators with a capacity greater than 5 MW".
 access:
   method: bulk-download
   url: https://aeso.ca/market/market-and-system-reporting/data-requests/hourly-generation-metered-volumes-and-pool-price-and-ail-data-2001-to-july-2025/
@@ -66,7 +69,7 @@ notes: >-
   CR1, McBride Lake (AKE1) and Blue Trail (BTR1) give different series. For data after July 2025,
   AESO's API page lists a Metered Volume Report; its access terms were not checked. Turbine
   locations are in Natural Resources Canada's Canadian Wind Turbine Database, a separate source.
-status: active
-last_checked: 2026-11-06
-checked_by: automated research (Claude Code), 2026-11-06
+status: fixed-release
+last_checked: 2026-11-08
+checked_by: automated research (Claude Code), 2026-11-06; re-checked 2026-11-08
 reviewed: false

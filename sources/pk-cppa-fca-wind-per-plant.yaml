@@ -10,7 +10,7 @@ measure: reported-generation
 resolution: monthly
 coverage:
   start: 2016
-  update: monthly; the April 2026 decision was dated 4 June 2026
+  update: monthly, about two months behind; the July 2026 decision (scanned 4 September 2026) was the latest on 2026-11-08
 capacity: included
 coordinates: none
 curtailment: not-reported
@@ -53,7 +53,13 @@ traps:
       January 2019 lists 20-odd wind companies by short names (Zorlu, FFCEL, TGF, Foundation)
       with capacity and energy; April 2026 lists 30 wind producers by full company name, with
       Tricon Boston split into projects A, B and C. Some producers appear with a blank capacity
-      cell. Build a name mapping per year rather than parsing by position.
+      cell. Build a name mapping per year rather than parsing by position. Corrected 2026-11-08:
+      April 2026 lists 36 wind producers, not 30. Thirty are on annex page 11; six more (Liberty
+      Wind Power-I 12,546,240, DIN Energy 13,193,180, Gul Ahmed Electric 15,592,220, Liberty Wind
+      Power-II 13,523,830, NASDA Green Energy 14,002,700 and Metro Wind Power 18,859,890 kWh, read
+      from the page image) are on page 12, whose text layer is almost unreadable. Only with them do
+      the rows add up to the printed "Wind - Total" of 1,833 MW and 409,101,737 kWh; the 30 rows
+      of page 11 sum to 321,383,677 kWh. Check each month's rows against that total.
     evidence: https://www.cppa.gov.pk/storage/uploads/downloads/LnzXvaasvCzjTcg6oEGNV5SF9rLyjxBAfovvbyN4.pdf
     found: 2026-11-06
 notes: >-
@@ -70,6 +76,6 @@ notes: >-
   applied equally across plants, but no curtailed volumes are given per plant. NEPRA publishes
   the same decisions on its own site (www.nepra.org.pk); that copy was not checked.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

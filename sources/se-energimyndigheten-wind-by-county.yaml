@@ -1,0 +1,82 @@
+id: se-energimyndigheten-wind-by-county
+name: Wind power statistics by county and by bidding area (Vindkraftsstatistik, tables EN0105_3 and EN0105_2)
+publisher: Swedish Energy Agency (Energimyndigheten)
+publisher_role: statistics-office
+countries: [SE]
+area: Sweden's 21 counties (län); a sister table gives the four bidding areas
+level: zone
+technology: onshore-and-offshore-combined
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2004
+  update: annual
+capacity: included
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_3.px
+  note: >-
+    The table's categories are "Antal verk, st", "Installerad effekt, MW" and "Elproduktion, GWh"
+    by year (År) and county (Län), and the PX file's UNITS line reads "Number, MW, GWh". Read
+    2026-11-08 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://pxexternal.energimyndigheten.se/
+  docs: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/
+  key_required: false
+  registration: false
+  formats: [json, csv, px]
+  languages: [sv, en]
+licence:
+  name: Energimyndigheten terms of use for statistics (updated 18 September 2024; no named licence)
+  url: "https://www.energimyndigheten.se/statistik/statistik/anvandarvillkor/"
+  redistribution: allowed-with-attribution
+  attribution: "Källa: Energimyndigheten (Source: Swedish Energy Agency)"
+  verified: true
+  note: >-
+    Published statistics may be freely copied and redistributed if Energimyndigheten is named as
+    the source; processed figures must not name the agency as the source. Transfer through the
+    API needs no permission. Read 2026-11-08.
+traps:
+  - summary: Some counties' production is withheld (".."), so the counties do not sum to the national total.
+    detail: >-
+      ".." means "data not available" in the table's legend. Two to five counties are ".." in most
+      years: Västmanland in every year from 2004 except 2014 to 2019, joined by Kronoberg or
+      Södermanland in 2004 to 2022 and by Uppsala in 2023 to 2025. No county's production is
+      withheld in 2014 to 2019. For Uppsala and Västmanland in 2024 the turbine count and capacity
+      are ".." as well. In 2024 the counties sum to 40,392.0 GWh against 40,419.0 GWh for the
+      whole country in EN0105_1. Found by an automated research pass on 2026-11-08; not yet
+      reviewed by a person.
+    evidence: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_3.px
+    found: 2026-11-08
+  - summary: The table lists 2003, but every county's production that year is "..".
+    detail: >-
+      Turbine counts and capacity exist for 2003; production starts in 2004. Found by an
+      automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_3.px
+    found: 2026-11-08
+  - summary: The API server does not send its intermediate certificate, so Python requests with certifi fail TLS verification.
+    detail: >-
+      On 2026-11-08 requests (certifi bundle) failed with CERTIFICATE_VERIFY_FAILED on this table,
+      while curl on macOS succeeded. Keep verification on and use truststore, as the snippet does;
+      the same server is described in se-energimyndigheten-wind-statistics. Found by an automated
+      research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_3.px
+    found: 2026-11-08
+notes: >-
+  Annual wind production, installed capacity and turbine count per county, 2004 to 2025 when
+  checked on 2026-11-08. In 2024 Norrbotten gave 5,821.4 GWh on 2,448.7 MW and Gotland 380.1 GWh
+  on 177.9 MW. Codes in the API are positions (År "21" is 2024, Län "18" is Norrbotten), so read
+  the labels from the table metadata. Table EN0105_2 gives the same three measures by bidding
+  area from 2003; EN0105_4 gives turbines and capacity (no production) by municipality. For the
+  national annual series see se-energimyndigheten-wind-statistics; for monthly figures by bidding
+  zone see se-scb-monthly-electricity-supply.
+status: active
+reviewed: false
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"

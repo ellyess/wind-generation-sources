@@ -2413,16 +2413,24 @@
   },
   "ZA": {
    "reference": {
-    "source": "world-ember-monthly",
-    "kind": "ember",
-    "name": "Ember",
-    "why": "No whole-fleet calendar-year national figure, and outside Eurostat."
+    "source": "za-csir-utility-scale-power-statistics",
+    "kind": "national-figure",
+    "name": "CSIR",
+    "publisher": "CSIR Energy Centre, from Eskom data",
+    "url": "https://www.csir.co.za/sites/default/files/2025-09/Utility%20Statistics%20Report_Jan%202025_Final.pdf",
+    "why": "The figure covers all utility-scale wind, the private REIPPPP farms and Eskom's Sere farm. It leaves out curtailed energy and any small embedded wind, neither quantified, so it reads slightly low against a gross production figure."
    },
    "values": [
     {
      "source": "world-eia-international",
      "twh": 12.574,
-     "ratio": 1.129,
+     "ratio": 1.133,
+     "band": "agrees"
+    },
+    {
+     "source": "world-ember-monthly",
+     "twh": 11.135,
+     "ratio": 1.003,
      "band": "agrees"
     },
     {
@@ -2432,8 +2440,11 @@
      "band": "outside"
     },
     {
-     "source": "world-ember-monthly",
-     "twh": 11.135
+     "source": "za-csir-utility-scale-power-statistics",
+     "twh": 11.1,
+     "national": true,
+     "publisher": "CSIR",
+     "url": "https://www.csir.co.za/sites/default/files/2025-09/Utility%20Statistics%20Report_Jan%202025_Final.pdf"
     }
    ]
   }

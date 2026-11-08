@@ -13,8 +13,8 @@ Traps handled:
 - PSE warns that "%24" may not be decoded to "$", so the query string is sent with a literal
   "$" and the script checks that the filter was applied.
 Past days are republished: keep publication_ts with each value and re-download before final
-use. PSE does not say whether a value is a quarter-hour mean or a reading; mean is assumed for
-the energy total.
+use. PSE does not say whether a value is a quarter-hour mean or a reading, so no energy total is
+formed.
 """
 
 import pandas as pd
@@ -39,4 +39,5 @@ df = (
     .rename(columns={"wi": "wind_mw"})[["wind_mw", "publication_ts"]]
 )
 print(df)
-print(f"{len(df)} quarter-hours, {df['wind_mw'].sum() * 0.25 / 1000:.1f} GWh")  # MW x 0.25 h
+print(f"{len(df)} quarter-hours, mean {df['wind_mw'].mean():,.0f} MW, "
+      f"peak {df['wind_mw'].max():,.0f} MW")

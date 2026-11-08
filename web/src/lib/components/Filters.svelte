@@ -2,10 +2,16 @@
   import { CONTINENTS, LEVELS, store } from "../store.svelte";
   import { TEXT, TIER_TEXT } from "../text";
   import Icon from "./Icon.svelte";
+  // Each search re-filters the map and lists, so wait for a pause in typing.
+  let typing: ReturnType<typeof setTimeout> | undefined;
+  const typed = (v: string) => { clearTimeout(typing); typing = setTimeout(() => store.set("q", v), v ? 150 : 0); };
 
   let { wide = false }: { wide?: boolean } = $props();
   let levels = $derived(LEVELS.filter((l) => store.sources.some((s) => s.level === l)));
   let n = $derived(store.country ? store.shown.length : store.filtered.length);
+  // On phones the menus fold behind one button, so the list starts near the top of the screen.
+  let open = $state(false);
+  let picked = $derived(store.activeFilters - (store.q ? 1 : 0));
   let total = $derived(store.country ? store.sources.filter((s) => s.countries.includes(store.country)).length : store.sources.length);
 </script>
 
@@ -14,9 +20,12 @@
     <Icon name="search" />
     <span class="visually-hidden">Search</span>
     <input type="search" placeholder="Search country, publisher, dataset or trap" autocomplete="off" spellcheck="false"
-      value={store.q} oninput={(e) => store.set("q", e.currentTarget.value)} />
+      value={store.q} oninput={(e) => typed(e.currentTarget.value)} />
   </label>
-  <div class="sel">
+  <button type="button" class="ftoggle" aria-expanded={open} aria-controls="filter-menus" onclick={() => (open = !open)}>
+    <Icon name="chev" size={14} />Filters{picked ? ` · ${picked}` : ""}
+  </button>
+  <div class="sel" id="filter-menus" class:open>
     <label><span>Region</span>
       <select value={store.region} onchange={(e) => store.set("region", e.currentTarget.value)}>
         <option value="">Anywhere</option>
@@ -26,7 +35,7 @@
       <select value={store.level} onchange={(e) => store.set("level", e.currentTarget.value)}>
         <option value="">Any level</option>
         <optgroup label="Map groups">{#each [1, 2, 3, 4] as t (t)}<option value="tier:{t}">{TIER_TEXT[t]}</option>{/each}</optgroup>
-        <optgroup label="Exact level">{#each levels as l (l)}<option value={l}>{TEXT.level[l]}</option>{/each}</optgroup>
+        <optgroup label="Exact level">{#each levels as l (l)}<option value={l}>{TEXT.level[l]} only</option>{/each}</optgroup>
       </select></label>
     <label><span>Time step</span>
       <select value={store.step} onchange={(e) => store.set("step", e.currentTarget.value)}>
@@ -92,4 +101,12 @@
   .clear:hover { background: var(--accent-wash); }
   @media (max-width: 1100px) { .wide .sel { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   @media (max-width: 420px) { .sel, .wide .sel { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .ftoggle { display: none; }
+  @media (max-width: 819px) {
+    .ftoggle { display: inline-flex; align-items: center; gap: 4px; justify-self: start; height: 32px; padding: 0 10px 0 6px;
+      border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); font-size: 13px; font-weight: 500; color: var(--ink-2); }
+    .ftoggle :global(.ic) { transition: transform 120ms ease; }
+    .ftoggle[aria-expanded="true"] :global(.ic) { transform: rotate(90deg); }
+    .sel:not(.open) { display: none; }
+  }
 </style>

@@ -109,6 +109,6 @@ notes: >-
   hourly output is the average of five-minute outputs. Turbine locations and hub heights are in
   Natural Resources Canada's Canadian Wind Turbine Database, which is a separate source.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-07
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

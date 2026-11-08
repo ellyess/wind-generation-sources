@@ -63,7 +63,12 @@ traps:
       The 1 January 2016 file has a single "QOLLPANA" row; the 15 March 2020 file has Qollpana I and
       Qollpana II only; Warnes, San Julián and El Dorado appear in 2026. Files up to 2025 are zips
       holding .xls workbooks, while 2026 files are plain .xlsx under a year and month folder. Use
-      the listing service rather than guessing file paths.
+      the listing service rather than guessing file paths. Corrected 2026-11-08: this trap said
+      Warnes, San Julián and El Dorado appear in 2026. They first appear between 1 September 2021
+      (rows QOLLPANA I and QOLLPANA II only) and 1 October 2021 (all five wind rows), and are
+      present in the 31 December 2021 and 2022 files. The ".xls" files inside the zips for 2016,
+      2021 and 2022 are in fact Excel 2007+ (xlsx) workbooks: xlrd rejects them and openpyxl reads
+      them, so pass engine="openpyxl" despite the extension.
     evidence: https://www.cndc.bo/wp-content/uploads/mem/estadisticas/diaria/2016/dcdr_010116.zip
     found: 2026-11-06
 notes: >-
@@ -76,6 +81,6 @@ notes: >-
   profiles, so the values are per plant. No per-plant capacity or location is published with these
   files; national effective wind capacity appears only on the CNDC dashboard.
 status: active
-last_checked: 2026-11-06
-checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06, re-checked 2026-11-08; not yet reviewed by a person"
 reviewed: false

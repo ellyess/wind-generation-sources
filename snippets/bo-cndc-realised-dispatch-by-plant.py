@@ -12,8 +12,9 @@ The "POST" sheet ("DESPACHO DE CARGA REALIZADO (MW)") has one row per plant and 
 - file paths change format over the years, so the file is found through CNDC's public
   WordPress listing service (an undocumented endpoint the statistics page calls);
 - wind rows are the block above "SUBTOTAL EOLICO", whose plants change over the years.
-The file states no time zone. This snippet assumes Bolivian clock time, UTC-04:00 all year
-(Bolivia keeps no daylight saving), and reads 24:00 as midnight ending the day.
+The file states no time zone, so df keeps the hour labels as a naive `time` (24:00 read as
+the midnight ending the day), not UTC; Bolivian clock time (UTC-04:00, no daylight saving) is
+likely but not stated.
 """
 
 import io
@@ -40,9 +41,8 @@ wind = sheet.loc[start:end - 1, :24].set_index(0)
 wind.columns = pd.Timestamp(DAY) + pd.to_timedelta(range(1, 25), unit="h")
 
 df = (
-    wind.stack().rename("wind_mw").rename_axis(["unit_id", "time_local"]).reset_index()
-    .assign(time_utc=lambda d: d["time_local"].dt.tz_localize("-04:00").dt.tz_convert("UTC"))
-    .set_index("time_utc").sort_index()[["unit_id", "wind_mw"]]
+    wind.stack().rename("wind_mw").rename_axis(["unit_id", "time"]).reset_index()
+    .set_index("time").sort_index()[["unit_id", "wind_mw"]]
 )
 df["wind_mw"] = df["wind_mw"].astype(float)
 print(df)

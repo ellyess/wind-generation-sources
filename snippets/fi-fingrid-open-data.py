@@ -11,8 +11,9 @@ capacity), and does not say whether a value is a mean or a reading.
 Traps handled:
 - The API returns 10 rows a page and the newest first by default; the snippet asks for one page
   of up to 20,000 rows in ascending order, and stops if more pages remain.
-- Dataset 75 is hourly before 13 June 2023 and 15-minute after, so the energy total uses each
-  row's own length (endTime - startTime), not a fixed step.
+- Dataset 75 is hourly before 13 June 2023 and 15-minute after, so each row keeps its own
+  length in hours (endTime - startTime), not a fixed step. No energy total is formed, because
+  Fingrid does not say whether a value is a mean.
 
 Written from https://data.fingrid.fi/en/instructions and the developer portal's operation
 definition (https://developer-data.fingrid.fi/, GetDatasetData) on 2026-11-07; not yet run with
@@ -46,4 +47,5 @@ df = (
     .set_index("time_utc").sort_index()
 )
 print(df)
-print(f"{len(df)} intervals, {(df['wind_mw'] * df['hours']).sum() / 1000:.1f} GWh")  # MW x h
+print(f"{len(df)} intervals, mean {df['wind_mw'].mean():,.0f} MW, "
+      f"peak {df['wind_mw'].max():,.0f} MW")

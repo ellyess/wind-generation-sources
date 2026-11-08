@@ -1,0 +1,82 @@
+id: mk-makstat-monthly-electricity
+name: Electricity in MWh, by months (MakStat table 125_Ene_Mk_EEmes_ml)
+publisher: State Statistical Office of the Republic of North Macedonia (MakStat)
+publisher_role: statistics-office
+countries: [MK]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2014
+  update: monthly
+capacity: separate-dataset
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://makstat.stat.gov.mk/PXWeb/api/v1/en/MakStat/Energija/MesecEnergetStatistiki/125_Ene_Mk_EEmes_ml.px
+  note: >-
+    The table title is "Electricity in MWh, by months" and its PX file has UNITS="MWh"; periods
+    are labelled like 2024M01. Indicator 8 is gross and indicator 15 net production of wind power
+    plants. Read 2026-11-08 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://makstat.stat.gov.mk/PXWeb/pxweb/en/MakStat/MakStat__Energija__MesecEnergetStatistiki/125_Ene_Mk_EEmes_ml.px/
+  docs: https://makstat.stat.gov.mk/PXWeb/api/v1/en/MakStat/Energija/MesecEnergetStatistiki/
+  key_required: false
+  registration: false
+  formats: [json, csv, xlsx, px]
+  languages: [mk, en]
+licence:
+  name: No data licence found
+  url: https://www.stat.gov.mk/Default_en.aspx
+  redistribution: unclear
+  verified: false
+  note: >-
+    The PX file carries COPYRIGHT=YES. No terms of use or reuse licence were found on the State
+    Statistical Office's site on 2026-11-08.
+traps:
+  - summary: Seven English period labels break the YYYYMmm pattern, so parsing the labels fails on them.
+    detail: >-
+      The English table metadata label 2019-09, 2020-07, 2020-08, 2020-12, 2021-03 and 2023-09 as
+      "2019_09" and so on, and January 2026 as "2026М01", with a Cyrillic М; the Macedonian labels
+      have a Cyrillic М in eight months. Use the position of the value code (0 is 2012M01) or fix
+      those labels. Found by an automated research pass on 2026-11-08; not yet reviewed by a
+      person. Corrected 2026-11-08: the trap said two English labels were malformed; the API
+      metadata and the PX file both list seven ("2019_09", "2020_07", "2020_08", "2020_12",
+      "2021_03", "2023_09", "2026М01").
+    evidence: https://makstat.stat.gov.mk/PXWeb/api/v1/en/MakStat/Energija/MesecEnergetStatistiki/125_Ene_Mk_EEmes_ml.px
+    found: 2026-11-08
+  - summary: Most months since 2022 are flagged as preliminary data and may be revised.
+    detail: >-
+      The PX file's value notes mark every month from 2022M01 to 2025M11 "прeтходни податоци"
+      (preliminary data); the table note says the same. Found by an automated research pass on
+      2026-11-08; not yet reviewed by a person.
+    evidence: https://makstat.stat.gov.mk/PXWeb/api/v1/en/MakStat/Energija/MesecEnergetStatistiki/125_Ene_Mk_EEmes_ml.px
+    found: 2026-11-08
+  - summary: Gross and net wind production are identical in most years, so the net series is not a separate measurement.
+    detail: >-
+      Pulled 2026-11-08 for indicators 8 (gross) and 15 (net, ".. Wind power plants"): the two
+      are equal in every month of 2015 to 2023, 2025 and January to August 2026. They differ only
+      in 2014 (10 of 12 months) and 2024 (all 12; for example 2024M01 13,840 gross and 13,791
+      net). Some months also repeat another month's value exactly (2024M08 and 2024M09 both
+      11,964 MWh gross; 2025M03 and 2025M09 both 22,450 MWh gross and net), which may be a
+      copying error. Prefer the gross series and treat net-minus-gross as unreported. Found by an
+      automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://makstat.stat.gov.mk/PXWeb/api/v1/en/MakStat/Energija/MesecEnergetStatistiki/125_Ene_Mk_EEmes_ml.px
+    found: 2026-11-08
+notes: >-
+  Monthly gross and net electricity production of wind power plants in MWh, January 2012 to
+  August 2026 when checked; wind is 0 until April 2014 (4,802 MWh gross). Gross wind was
+  165,916 MWh in 2024 and 275,384 MWh in 2025. The same table gives total gross and net
+  production, imports, exports and consumption. Installed capacity by type is in the annual
+  table 225_Ene_Mk_PrKap_ang.px (Energy balances). The API's time codes are positions ("0" to
+  "175" when checked), not labels.
+status: active
+reviewed: false
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"

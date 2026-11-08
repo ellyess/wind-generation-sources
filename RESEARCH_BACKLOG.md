@@ -33,50 +33,52 @@ did not bypass them.
 
 ## Found, not yet added
 
+Leads left after the two research passes of 2026-11-08. The first added 17 entries (Canada CCEI;
+Italy, Portugal, Sweden x2, North Macedonia and Russia; South Korea x3, Sri Lanka, Kazakhstan,
+Mongolia and Jordan; South Africa, Kenya and Mauritius). The second added 8 (Switzerland Pronovo,
+Lithuania, Romania, Bulgaria, Prince Edward Island, KOEN, Azerbaijan and SDWPF) and extended
+`mn-erc-energy-statistics` to 2025.
+
 ### Americas
-- **Canada:** the CCEI high-frequency electricity dataset (HFED) has wind for NS, PEI, QC, ON, SK and AB. It is a beta aggregator with known duplicates and gaps, and its API link was not found.
-- **Canada, live display only:** Nova Scotia Power OASIS, NB Power and SaskPower show the current day with no history. Use `ca-statcan-monthly-generation-by-type` instead.
-- **Hawaii and Puerto Rico:** check whether EIA-923 covers their wind plants. Hawaiian Electric's Renewable Watch is a live display only.
-- **Guatemala:** the AMM BI portal (reportesbi.amm.org.gt) has not been checked.
-- **Ecuador:** CENACE lumps wind into "non-conventional"; SIMEM needs a certificate.
-- **Check these country lists:** `world-eia-international` lists AQ and AW but not CW or BQ. Check `lac-olacde-sielac` against what sieLAC actually holds for wind.
+- **Puerto Rico:** Polaris Infrastructure's reports name Punta Lima (26 MW) output; check whether
+  they give a usable series. EIA-923 does not cover the island.
+- **Prince Edward Island:** the PEIEC annual reports before those in
+  `ca-pe-peiec-annual-report-wind-farms` may extend it back.
+- **sieLAC:** confirm which wind series `lac-olacde-sielac` holds; the data pages ask for
+  credentials (not registered).
+- **Honduras:** CND publishes through a mobile app only; no web route found.
+- **Not added, for the record:** Nova Scotia Power, NB Power and SaskPower show the current day
+  only or no wind column; Hawaiian Electric's page is gone; Guatemala's AMM BI portal embeds
+  credentials in the page (not used); Ecuador lumps wind or needs a certificate.
 
 ### Europe
-- **Italy:** Terna annual production per region and province (dati.terna.it).
-- **Portugal:** DGEG statistics.
-- **Czechia:** OTE.
-- **Lithuania:** Statistics Lithuania.
-- **Serbia:** EPS, AERS.
-- **Romania:** INS, ANRE.
-- **Bulgaria:** NSI.
-- **North Macedonia:** MakStat.
-- **Switzerland:** BFE weekly data, Pronovo.
-- **Sweden:** SCB monthly; Energimyndigheten county files.
-- **Ireland:** SEMO BM-151 and BM-152 reports.
-- **Russia:** SO-UPS monthly PDFs on renewable plants in the support scheme, wind included (so-ups.ru/fileadmin/files/company/markets/YYYY/res/).
+- **Bulgaria:** NSI monthly wind starts in January 2026 (`bg-nsi-monthly-electricity-production`);
+  look again for an earlier series once the entry has a year behind it.
+- **Lithuania and Romania:** the licence pages returned 403, so both entries carry an unverified
+  licence. ANRE would not connect.
+- **Not added, for the record:** Czechia OTE (subsidised volume only), Serbia AERS and EPS (PDF,
+  covered by `rs-ems`), SEMO BM-151 and BM-152 (the same as BM-086 D+1 and D+5).
 
 ### Asia and the Middle East
-- **Sri Lanka:** PUCSL daily generation reports. Daily wind for the state utility and private producers, from 2016 to June 2024. They count telemetered plants only, and some wind plants are excluded. No listing page was found.
-- **South Korea:** more generator-company files on data.go.kr, each under a "no restriction" licence:
-  - Korea Midland Power, Sangmyeong (15119454);
-  - KOSPO, Seongsan;
-  - KOWEPO farm-level 2017-2023 (15106292). One hour in this file reads 1,044,900 for a 16 MW farm.
-- **Philippines:** Department of Energy monthly generation by plant type per grid (the PDFs could not be read).
-- **Not reached:** Kazakhstan (annual figures only), Mongolia, Jordan, Oman, Iran, Saudi Arabia, UAE, Kuwait, Azerbaijan, Uzbekistan.
+- **Japan:** OCCTO unit output needs a person to accept the disclaimer (see above).
+- **South Korea:** KOEN's keyed API and its joint-venture farms; KOMIPO's regional wind API
+  (15157017) needs a key.
+- **Saudi Arabia:** the GASTAT figure for Dumat al-Jandal (1,588 GWh in 2022) is an expected
+  yield, not observed generation. Not added.
+- **Philippines:** the DOE PDF paths return "Page Not Found".
+- **Only press figures found:** Oman, UAE, Kuwait, Iran, Uzbekistan.
 
 ### Africa
-- **South Africa:**
-  - IPP Office (REIPPPP) quarterly reports: every PDF returned 404.
-  - SAWEA, NERSA.
-- **Kenya:** KPLC annual reports (purchases per station).
-- **Namibia:** NamPower annual reports. The ECB bulletin rounds wind to whole GWh.
-- **Mauritius:** CEB (the site was redesigned and old statistics pages 404).
-- **Not searched:** Mauritania (SOMELEC), Djibouti (Ghoubet), power pools (SAPP, WAPP, EAPP), AFREC.
+- **South Africa:** Stats SA electricity tables sit behind a bot check (not bypassed).
+- **Namibia:** NamPower lumps wind; the ECB bulletin rounds it to whole GWh. Later bulletins may
+  split it.
+- **Not added, for the record:** IPP Office reports (404), SAWEA, NERSA, AFREC and the power pools
+  (SAPP, EAPP, WAPP), SOMELEC and Djibouti had no usable wind series.
 
 ### Open turbine datasets
-- **SDWPF** (Baidu KDD Cup 2022, 134 turbines, CC BY 4.0): the publisher never states a country.
-- **Levenmouth demonstration turbine** (ORE Catapult): the data site did not respond.
-- **EDP open data:** the page returns 404.
+- **Levenmouth demonstration turbine** (ORE Catapult): paid access, and the site's TLS certificate
+  has expired.
+- **EDP open data:** the download returns 403.
 
 ## Time and unit conventions to confirm
 
@@ -146,11 +148,9 @@ Still open:
   describes.
 
 **Found while writing the keyed snippets (not yet written into the entries)**
-- `eu-entsoe-actual-generation`: the conventions note says position-to-time mapping is not
-  documented, but ENTSO-E's curve-type document gives "TimeStepPosition =
-  StartDateTimeofTimeInterval + ( Resolution * ( Pos − 1))".
 - Corrected the same day: `cl-cen` (the host is in the specification's key description) and
-  `es-ree-esios-real-time-wind` (the no-date request now also answers 403).
+  `es-ree-esios-real-time-wind` (the no-date request now also answers 403). On 2026-11-08 the
+  `eu-entsoe` conventions note was given ENTSO-E's documented position-to-time formula.
 
 ## Map points still missing
 
@@ -161,7 +161,7 @@ marked `review` or `unmatched` in `crosswalk/output/<entry>.csv` have no point y
 - **Costa Rica (CENCE, both entries):** apps.grupoice.com returns 403 to automated requests, so no unit list.
 - **Brazil, CCEE:** the dataset page, API and downloads return 403 "Acesso bloqueado". The ONS entries cover the same fleet.
 - **Greece, IPTO:** the SCADA file gives no technology. The 90 units listed are presumed wind (untagged renewables with output at night), and only names that matched an OpenStreetMap wind farm got a point. Confirm against a list of wind units before trusting the rest.
-- **Ofgem RER:** on 7 November 2026 stations with no confident OpenStreetMap farm were placed at their postcode centroid (OS Code-Point Open, shown as hollow rings on the map), and 591 of 1,882 now have a point. 1,291 remain: 817 have Northern Ireland postcodes, which Code-Point Open does not cover (ONS's NI postcode data is for internal business use only), 458 have no postcode, 11 are offshore and 5 postcodes are not found. Two existing matches look wrong and carry a "check:" note: KIRKSTANTON AIRFIELD (284 km from its postcode) and West Durham (21 km).
+- **Ofgem RER:** on 7 November 2026 stations with no confident OpenStreetMap farm were placed at their postcode centroid (OS Code-Point Open, shown as hollow rings on the map), and 591 of 1,882 now have a point. 1,291 remain: 817 have Northern Ireland postcodes, which Code-Point Open does not cover (ONS's NI postcode data is for internal business use only), 458 have no postcode, 11 are offshore and 5 postcodes are not found. On 8 November the two flagged matches were settled in `crosswalk/corrections.csv`: KIRKSTANTON AIRFIELD moved from Airfield Farm (Bedfordshire) to Haverigg (Cumbria), and West Durham kept, as its name and capacity match.
 - **Brazil, ONS generation by plant:** 103 older single plants have no coordinates in ONS's capacity-factor dataset and no confident OpenStreetMap match.
 - **Germany:** 461 units in the movement data had no wind unit in the Marktstammdatenregister export.
 - **Greece, underpin dataset:** the farm is anonymous, so it cannot be placed.
@@ -186,7 +186,7 @@ Still open:
 - Moldova: whether Ember's ENTSO-E series covers only the 40.84 MW on the transmission grid
   (checking needs an ENTSO-E key). ANRE's site refused connections.
 - Pakistan and Bangladesh: no calendar-year national figure was found, only fiscal years.
-- South Africa is also flagged: IRENA gives 0.331 TWh against Ember 11.135 and EIA 12.574. IRENA has not been checked against Eskom or NERSA.
+- South Africa: settled on 8 November. CSIR's statistics from Eskom data give 11.1 TWh for 2024, now the national reference; Ember agrees and IRENA's 0.331 TWh is far off (it may hold only Eskom's 100 MW Sere farm, not proven; trap added).
 
 Since 7 November 2026 the reference is a national figure for the whole wind fleet in the calendar
 year where one exists, then Eurostat, then Ember. Live national readers are used for Spain, France
@@ -196,10 +196,32 @@ for Kenya, Kazakhstan, Sri Lanka, Mongolia, Peru and Russia. Germany (SMARD), Gr
 not used, and Bosnia and Herzegovina's DERK figure covers only transmission-connected plants.
 `wgs check agreement` re-applies the rule to the saved totals without fetching anything.
 
+## Verification doubts, 2026-11-08
+
+The verification pass of 2026-11-08 re-read every entry against its source. These points could not
+be settled without a person:
+
+- **Unreachable or blocked:** `cv-electra` (site unreachable); `dk-orsted` (403); the Energy
+  Institute and IRENA terms pages (blocked); ISO New England's report page (captcha; the workbook
+  link works); Litgrid (expired TLS); the Lithuanian and Romanian terms pages (403).
+- **Seen only through a proxy:** CCEE and both CENCE entries were read through a search-engine
+  cache, not the publisher's site. Their claims stand but are unconfirmed at source.
+- **Latvia (`lv-ast`):** Cloudflare refused plain requests; the verifier opened the page in a
+  browser, which loaded without a challenge. No check was bypassed.
+- **Licence still open:** PSE (Poland) data terms.
+- **Lags to watch:** REN (Portugal) publication lag; CEA (India) weekend gaps; the Swissgrid CSV may
+  not have been refreshed this year.
+- **Figures to re-read:** Kenya's Figure 3.6 month order; the UEP I rows in Panama's reports; the
+  Kelmarsh claim that each file holds 81 blocks.
+- **Japan OCCTO:** needs a disclaimer accepted by hand before any data shows.
+
 ## Decisions for the maintainer
 
 - **Ember and EIA, gross or net:** Ember's methodology calls EIA's data gross generation; EIA labels it net. Noted in the Ember yearly and EIA entries; `world-ember-monthly` could note it too.
 - **Kelmarsh v4:** the new trap cites a published audit. Confirm it against the 2023 files, and check whether Penmanshiel has the same layout.
+- **Ember monthly:** its countries list holds Europe only, though the dataset is wider.
+- **Ofgem:** the register may be renamed "Renewable Electricity Register"; update the entry title
+  if so.
 
 Decided on 2026-11-07:
 - **Danish turbine points:** kept on the map with credit to the Danish Energy Agency and a link to
@@ -215,3 +237,26 @@ Decided on 2026-11-08:
 - **PJM:** redistribution changed from "unclear" to "prohibited". The Data Miner 2 API guide says
   its data are "for internal use only" and redistribution "is strictly prohibited without a PJM
   membership".
+- **EIA licence:** `allowed-with-attribution` for every EIA entry, because EIA asks for an
+  acknowledgment. `us-eia-923` and `us-eia-930` changed.
+- **Fixed releases:** a new status, `fixed-release`, for datasets released once as a closed set.
+  13 entries moved: the 11 one-off releases marked `active`, plus `cn-sdwpf` and
+  `fr-engie-la-haute-borne`. `eu-opsd`, `is-hagstofa`, `no-nve` and `se-svk` stay `discontinued`,
+  as series that were updated and then stopped. Like `discontinued`, it needs a coverage end.
+- **Permission-required redistribution:** a new value for terms that allow re-hosting once the
+  publisher agrees and say how to ask. Four entries moved from `link-only`: `ec-arconel`,
+  `in-cea`, `de-netztransparenz` and `eu-entsoe`. Plain "all rights reserved without permission"
+  notices keep their earlier value.
+- **Jordan NEPCO:** `link-only`.
+- **Altahullion:** resolution `1min`, with a trap that the one-minute file covers T11 only.
+- **Theme:** dark only; PRODUCT.md now says so.
+- **Japan TSO snippet:** the Kyushu shift stays. Its labels run 0:30 to 24:00, and "24:00" can
+  only mark the end of a half hour, so moving it back 30 minutes is safe without documentation.
+- **SCADA measure:** SCADA readings from the operator's control system are `reported-generation`;
+  `metered-energy` is for revenue or settlement meters. The schema says so. `co-xm` stays
+  `metered-energy`: dataset 055A4D is XM's settlement data, and its SCADA estimate is a separate
+  dataset (E17D25).
+- **Snippets with an unknown value type:** they no longer turn MW into energy. Hydro-Québec, PJM,
+  ENTSO-E, Fingrid, REE real time, PSE and REN now print mean and peak MW instead of GWh.
+  AESO and NVE keep `wind_mwh`, and UFSC `power_kw`, because each docstring states the assumption
+  and its evidence.

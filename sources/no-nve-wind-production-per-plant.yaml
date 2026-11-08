@@ -28,6 +28,11 @@ conventions:
     (https://www.nve.no/media/13401/mev-ws-2022-001-vind-og-produksjonsindekser-for-vindkraft-i-norge-2021.pdf)
     describes the underlying data as hourly aggregated production per plant registered by Statnett
     at the feed-in point. Read 2026-11-06 by an automated research pass; not yet reviewed.
+    Checked 2026-11-08 on the downloaded file: 175,320 hourly rows from 2002-01-01 00:00 to
+    2021-12-31 23:00 with no gap or repeated hour at any daylight-saving change, which fits a
+    fixed UTC+1 base. The data suggest, but NVE does not state, MWh per hour: each plant's
+    highest value sits just under its registered capacity (Roan 251.0 against 255.6 MW, Kvitfjell
+    191.3 against 197.4 MW in NVE's register).
 access:
   method: bulk-download
   url: https://www.nve.no/media/13399/vindprod2002-2021_kraftverk_utcplus1.xlsx
@@ -58,5 +63,5 @@ notes: >-
   (https://api.nve.no/web/WindPowerplant/GetWindPowerPlants). For 2015-21
   this file is a better measure of the Norwegian fleet than ENTSO-E's summed zones.
 status: discontinued
-last_checked: 2026-10-27
-checked_by: Ellyess Benmoufok, from the PyVWF ENTSO-E runbook and scorecard audits; licence read on the publisher's page 2026-11-06
+last_checked: 2026-11-08
+checked_by: Ellyess Benmoufok, from the PyVWF ENTSO-E runbook and scorecard audits; licence read on the publisher's page 2026-11-06; links and conventions re-checked by an automated pass 2026-11-08

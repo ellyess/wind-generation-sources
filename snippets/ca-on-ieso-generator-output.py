@@ -10,8 +10,9 @@ average of the hour's five-minute outputs, in MW. Traps handled: hour-ending num
 period starts (Hour 1 is 00:00 to 01:00); only the "Output" rows are kept, not "Available
 Capacity" (nameplate minus outages) or "Forecast"; telemetry faults written "N/A" become
 missing; only the unversioned file is read, because the _vN files are month-to-date copies of
-it. The time zone is not stated: every day has exactly 24 hours, including clock-change days,
-so the hours are read here as Eastern Standard Time (fixed UTC-05:00). That is an inference.
+it. The time zone is not stated, so hour starts are kept as a naive `time`, not UTC: every day
+has exactly 24 hours, including clock-change days, which suggests Eastern Standard Time (fixed
+UTC-05:00), but that is an inference.
 """
 
 import io
@@ -33,10 +34,10 @@ long = rows.melt(id_vars=["Delivery Date", "Generator"],
 hour_start = long["variable"].str.removeprefix("Hour ").astype(int) - 1
 local = pd.to_datetime(long["Delivery Date"]) + pd.to_timedelta(hour_start, unit="h")
 df = (
-    long.assign(time_utc=local.dt.tz_localize("Etc/GMT+5").dt.tz_convert("UTC"),
+    long.assign(time=local,  # zone not stated
                 wind_mw=pd.to_numeric(long["wind_mw"], errors="coerce"))
     .rename(columns={"Generator": "unit_id"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "wind_mw"]]
 )
 print(df)

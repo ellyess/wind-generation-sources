@@ -9,7 +9,7 @@ measure: reported-generation
 resolution: hourly
 coverage:
   start: 2009
-  update: daily (5 November 2026 was available on 6 November 2026)
+  update: through the day; the current day is returned while still incomplete
 capacity: none
 coordinates: separate-dataset
 curtailment: unknown
@@ -23,7 +23,12 @@ conventions:
     The MEMN Diarios page titles the table 'Postdespacho de Energía (MWh)' (beside 'Predespacho de
     Energía (MWh)'), and the JSON gives one value per unit per hour, labelled '00' to '23' in
     fecha_hora. No time zone is stated, nor which end of the hour a label marks. Read 2026-11-06 by
-    an automated research pass; not yet reviewed.
+    an automated research pass; not yet reviewed. A hint, not a publisher statement: requested at
+    03:28 and 03:30 UTC on 2026-11-08 (21:28 to 21:30 in Managua, UTC-6), the day 7 November 2026
+    already had hour "21" with a full-looking demand value (685.988 MWh, against 720.77 for "20"),
+    unchanged two minutes later. If the clock is Managua time, that fits labels marking the end
+    of the hour (or a value that is not yet metered) better than the start. Observed 2026-11-08
+    by an automated research pass; not yet reviewed.
 access:
   method: portal
   url: https://www.cndc.org.ni/MEMNDiarios
@@ -61,6 +66,15 @@ traps:
       is dd/mm/yyyy.
     evidence: https://www.cndc.org.ni/js/customScript/MEMNDiarios/PrePos_Energia/posdespacho/postdespacho.js
     found: 2026-11-06
+  - summary: The current day is served while it is still in progress, with fewer than 24 hours.
+    detail: >-
+      Requested at 03:28 UTC on 2026-11-08 (21:28 on 7 November in Managua), 7 November 2026
+      returned 22 hourly labels ("00" to "21") for every unit. A script that takes the latest
+      date, or sums a day without counting its hours, gets a partial day. Request only days that
+      have 24 labels, and re-download recent days, since a partial day may also be revised. Found
+      by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.cndc.org.ni/MEMNDiarios/consultarPosdespachoEnergia?fecha=07%2F11%2F2026
+    found: 2026-11-08
 notes: >-
   Nicaragua's dispatch centre shows the daily post-dispatch ("Postdespacho de Energía (MWh)") on
   its MEMN Diarios page; the table is filled from the JSON endpoint
@@ -73,8 +87,10 @@ notes: >-
   page gives the source of its operating data as the SCADA database and the wholesale market
   information system (SIIMEM). Substation coordinates, including AMAYO, ALBARIVAS, PLANTA EOLO and
   PLANTA BLUE POWER, are embedded in https://www.cndc.org.ni/mapageneracion. The time zone of the
-  hour labels is not stated.
+  hour labels is not stated. Corrected 2026-11-08: the update field said "daily (5 November 2026
+  was available on 6 November 2026)"; the endpoint returns the current day as it fills in (22
+  hours of 7 November at 21:28 Managua time), so it is updated through the day.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

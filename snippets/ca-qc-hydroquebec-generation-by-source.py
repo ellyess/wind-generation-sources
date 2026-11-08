@@ -40,4 +40,4 @@ df = (
 print(df)
 print(f"{len(df)} hours ({df['wind_mw'].isna().sum()} unknown, {repeated.sum()} rows dropped as "
       f"repeated stamps), mean {df['wind_mw'].mean():.0f} MW, "
-      f"{df['wind_mw'].sum() / 1e3:.1f} GWh over the known hours")
+      f"peak {df['wind_mw'].max():.0f} MW")  # MW, not energy: the value type is not stated

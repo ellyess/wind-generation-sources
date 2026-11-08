@@ -90,7 +90,7 @@ notes: >-
   long-run generation statistics. Checked by downloading the archive: per-turbine active power
   columns are present and differ between turbines. The time zone of the timestamps is not
   stated in the CSV header.
-status: active
-last_checked: 2026-11-06
+status: fixed-release
+last_checked: 2026-11-07
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

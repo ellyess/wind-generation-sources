@@ -26,6 +26,9 @@ conventions:
     in even hourly steps, so the repeated autumn hour is absent (see trap). AST does not say whether
     a value is an hourly average or a reading, or which end of the hour the stamp marks. The XLS and
     CSV exports were not checked. Read 2026-11-06 by an automated research pass; not yet reviewed.
+    Corrected 2026-11-08: the repeated autumn hour is present (on 26 October 2025 both
+    00:00Z and 01:00Z carry values); what is lost is the last hour of the requested range, so
+    the stamps themselves are UTC and correct (see trap).
 access:
   method: portal
   url: https://www.ast.lv/en/content/power-system-state
@@ -56,10 +59,17 @@ traps:
       to August or October; full months resume in November 2017.
     evidence: https://www.ast.lv/en/ajax/charts/generations-daily?generationsDate=2017-02-01&generationsDateTo=2017-02-28
     found: 2026-11-06
-  - summary: The repeated hour at the autumn clock change is dropped, so October has 744 hourly values instead of 745.
+  - summary: A request that spans the autumn clock change loses its last hour, so October has 744 hourly values instead of 745.
     detail: >-
       26 October 2025 returns 24 values and 30 March 2025 returns 23. Timestamps are epoch
-      milliseconds, so align on those rather than on a count of rows.
+      milliseconds, so align on those rather than on a count of rows. Corrected 2026-11-08: it
+      is not the repeated hour that is dropped. A request for 26 October 2025 returns 24 values
+      from 2025-10-25T21:00Z to 2025-10-26T20:00Z, with both 00:00Z and 01:00Z (local 03:00
+      twice) present, and leaves out 21:00Z (local 23:00, 18 MW), which a request for 26 to 27
+      October does return; that longer request then ends at 2025-10-27T20:00Z and drops its own
+      last hour. The same happens on 27 October 2024, and October 2025 requested as one month
+      ends at 2025-10-31T20:00Z. Request ranges that end well after the autumn change, or add a
+      day and trim. Spring days are complete (23 values).
     evidence: https://www.ast.lv/en/ajax/charts/generations-daily?generationsDate=2025-10-26&generationsDateTo=2025-10-26
     found: 2026-11-06
 notes: >-
@@ -68,12 +78,15 @@ notes: >-
   /en/ajax/charts/generations-daily?generationsDate=YYYY-MM-DD&generationsDateTo=YYYY-MM-DD,
   which answered requests of a full month. Checked by requesting days and months in 2010, 2014,
   2019, 2023, 2025 and 2026 and seeing different values; 2009 returned no wind series, and the
-  first months of 2010 carry small values, so 2010 is the first year seen. ast.lv sits behind
+  first months of 2010 carry small values, so 2010 is the first year seen. Re-checked
+  2026-11-08: December 2009 and January 2010 return a wind series of zeros; the first non-zero
+  value is at 2010-02-19T16:00Z, and February 2010 sums to about 0.8 GWh. The series ran to
+  2026-11-08T03:00Z that morning. ast.lv sits behind
   Cloudflare and refused plain command-line requests (HTTP 403) but loaded in a browser. AST's
   monthly Latvian electricity market overview (https://www.ast.lv/en/electricity-market-review,
   from 2015) gives monthly wind GWh in its text and matches the Central Statistical Bureau's
   monthly table (lv-csb-monthly-electricity-production).
 status: active
 reviewed: false
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"

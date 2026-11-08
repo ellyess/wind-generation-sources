@@ -1,0 +1,74 @@
+id: ro-ins-tempo-electricity-by-plant-type
+name: "IND118A: Electricity production by category of power plant (Productia de energie electrica pe categorii de centrale electrice), TEMPO-Online"
+publisher: National Institute of Statistics (Institutul Național de Statistică, INS)
+publisher_role: statistics-office
+countries: [RO]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2007
+  update: annual (the matrix was last updated 27-11-2025 and ended at 2024)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: http://statistici.insse.ro:8077/tempo-ins/matrix/IND118A
+  note: >-
+    Values labelled by year ("Anul 2024"). The matrix's unit dimension is "UM: Milioane kWh"
+    (million kilowatt-hours), which is GWh. The definition says production is the electricity
+    obtained in thermal, hydro and nuclear plants and from other sources; it does not say
+    whether the figures are gross or net. Read 2026-11-08 by an automated research pass; not
+    yet reviewed.
+access:
+  method: api
+  url: http://statistici.insse.ro:8077/tempo-online/
+  docs: http://statistici.insse.ro:8077/tempo-ins/matrix/IND118A
+  key_required: false
+  registration: false
+  formats: [csv, json]
+  languages: [ro]
+licence:
+  name: No licence read (insse.ro returned HTTP 403)
+  redistribution: unclear
+  verified: false
+  note: >-
+    On 2026-11-08 every insse.ro page tried (the CMS home, candidate terms pages and the
+    methodology PDF linked from the matrix) returned HTTP 403 to a plain request. The TEMPO
+    application itself shows no terms in its page source.
+traps:
+  - summary: Wind is simply absent before 2007; the query returns no rows for those years rather than zeros.
+    detail: >-
+      A pivot query for "Eoliana" over every year in the matrix (1992 to 2024) returned 18 rows,
+      2007 (3 GWh) to 2024 (6,350 GWh). Treat earlier years as not reported. Found by an
+      automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: http://statistici.insse.ro:8077/tempo-ins/matrix/IND118A
+    found: 2026-11-08
+  - summary: Values are whole GWh, and the service is plain HTTP on port 8077.
+    detail: >-
+      Every wind value came back as an integer number of million kWh (for example 6,997 in 2022
+      and 7,547 in 2023). The TEMPO application and its JSON API are served over http:// on port
+      8077, which some networks block. Found by an automated research pass on 2026-11-08; not
+      yet reviewed by a person.
+    evidence: http://statistici.insse.ro:8077/tempo-ins/matrix/IND118A
+    found: 2026-11-08
+notes: >-
+  Annual electricity production in Romania by category of power plant: total, thermal, hydro,
+  wind ("Eoliana"), solar and nuclear. TEMPO-Online's matrix endpoint
+  (tempo-ins/matrix/IND118A) describes the dimensions and their nomItemId codes; data come from
+  a POST to tempo-ins/pivot with an encQuery of codes per dimension (wind is 26255, the unit
+  9654), which returns comma-separated text. Checked 2026-11-08: wind 306 GWh in 2010, 6,201 in
+  2014, 7,547 in 2023 and 6,350 in 2024. Sources named on the matrix are INS surveys of the
+  energy balance and of electricity and heat production. For hourly national wind see
+  ro-transelectrica-sen-production. The regulator ANRE (anre.ro) could not be checked: on
+  2026-11-08 both https://www.anre.ro/ and https://anre.ro/ failed with an expired TLS
+  certificate.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

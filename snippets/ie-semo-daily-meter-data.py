@@ -5,9 +5,9 @@
 """Island of Ireland metered wind output per unit for one day, from SEMO report BM-086.
 
 Each unit's value is energy in MWh over a 30-minute settlement period, although the field is
-called MeteredMW: it is summed as it is, never halved. StartTime marks the period start; the
-files show it in UTC over the Irish calendar day (undocumented), so clock-change days have 46
-or 50 periods. Traps handled:
+called MeteredMW: it is summed as it is, never halved. StartTime marks the period start; its zone
+is not stated, so it is kept as a naive `time`, not UTC (the files fit UTC over the Irish
+calendar day, with 46 or 50 periods on clock-change days, but SEMO does not say so). Traps handled:
 - only about two months are online, so the latest trade date is listed through the reports API
   rather than a fixed file, and of its several versions the last published is kept;
 - the meter file does not say which units are wind, so it is joined to the monthly Registered
@@ -46,9 +46,9 @@ wind = wind[~solar]
 meter = latest("BM-086")
 meter = meter[meter["ResourceName"].isin(wind["ResourceName"])]
 df = (
-    meter.assign(time_utc=pd.to_datetime(meter["StartTime"]).dt.tz_localize("UTC"))
+    meter.assign(time=pd.to_datetime(meter["StartTime"]))  # zone not stated
     .rename(columns={"ResourceName": "unit_id", "MeteredMW": "wind_mwh"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "Jurisdiction", "wind_mwh"]]
 )
 print(df)

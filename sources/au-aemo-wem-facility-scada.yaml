@@ -6,7 +6,7 @@ countries: [AU]
 area: "WEM: South West Interconnected System, Western Australia"
 level: farm
 technology: onshore
-measure: metered-energy
+measure: reported-generation
 resolution: 5min
 coverage:
   start: 2006
@@ -32,7 +32,10 @@ conventions:
     pre-reform files of those years stay on standard time (48 intervals every day, 02:00 present
     on 3 December 2006; checked 2026-11-07, see trap). The definition gives the post-reform format
     as YYYY-MM-DD HH:MM:SS, but the files read are day-first. Read 2026-11-06 by an automated
-    research pass; not yet reviewed.
+    research pass; not yet reviewed. Corrected 2026-11-08: measure changed from metered-energy to
+    reported-generation. The definition says the quantity is "measured by SCADA", the operator's
+    telemetry rather than a settlement meter at the connection point, which is how the reviewed
+    NEM entry (au-aemo-nem-unit-scada) classes the same kind of data.
 access:
   method: bulk-download
   url: https://data.wa.aemo.com.au/
@@ -116,6 +119,6 @@ notes: >-
   in post-facilities/facilities.csv. Western Australia is not part of the National Electricity
   Market, so this is separate from the NEMWEB SCADA entry.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

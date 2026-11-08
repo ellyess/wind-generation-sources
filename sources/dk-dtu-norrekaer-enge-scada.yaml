@@ -73,7 +73,7 @@ notes: >-
   in the site documentation, not the data files. Useful for long-range checks of old reanalysis
   periods or for wake studies, not for current fleet output. The time zone is not stated in the
   files.
-status: active
+status: fixed-release
 last_checked: 2026-11-06
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

@@ -9,8 +9,9 @@ their "Eolica" tag in dataset E17D25 for the same day, because the plant master 
 Traps handled: every plant-hour comes once per settlement version (TX1, TX2, TXR on this day),
 so one version is kept per hour, the last in sort order (the publisher does not document how TXR
 ranks against TX3 to TX6); plants are short codes, so names and capacity need another source.
-FechaHora has no zone and no start/end statement: a day runs 00:00 to 23:00, read here as
-hour-start in Colombian time (UTC-5 all year), an assumption the publisher does not state.
+FechaHora has no zone and no start/end statement, so it is kept as published, a naive `time`:
+a day runs 00:00 to 23:00, which fits hour-start in Colombian time (UTC-5 all year), but XM does
+not say so.
 """
 
 import pandas as pd
@@ -36,12 +37,11 @@ latest = rows.sort_values("Version").groupby(["CodigoPlanta", "FechaHora"]).tail
 
 df = (
     latest.assign(
-        time_utc=pd.to_datetime(latest["FechaHora"]).dt.tz_localize("America/Bogota")
-        .dt.tz_convert("UTC"),
+        time=pd.to_datetime(latest["FechaHora"]),  # zone and stamp end not stated
         wind_mwh=latest["Valor"] / 1000,  # kWh -> MWh
     )
     .rename(columns={"CodigoPlanta": "unit_id", "Version": "version"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "version", "wind_mwh"]]
 )
 print(df)

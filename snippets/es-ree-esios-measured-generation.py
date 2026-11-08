@@ -8,7 +8,7 @@
 is asked to sum the provinces to Spain (geo_trunc=country) and to sum within each hour. Each
 value has a local "datetime" with its offset and a "datetime_utc"; the UTC one is used. REE does
 not say whether a stamp opens or closes its hour; the analysis page lists a day as 00:00 to
-23:00, so it is read here as the start.
+23:00, which fits the start, but the stamp is kept as published.
 
 Traps handled:
 - The combined indicator 10037 is empty in older years, so onshore 1159 and offshore 1160 are

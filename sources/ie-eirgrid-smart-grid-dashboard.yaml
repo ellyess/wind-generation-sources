@@ -58,21 +58,27 @@ traps:
       A request for 26 October 2025 returned 96 quarter-hours with no repeated hour, so one of
       the two 01:00 to 02:00 hours is missing. A request for 30 March 2025 returned four empty
       values for the hour that does not exist. Convert to UTC with care and expect a gap each
-      autumn.
-    evidence: https://www.smartgriddashboard.com/DashboardService.svc/data?area=windactual&region=ALL&datefrom=26-Oct-2025+00:00&dateto=26-Oct-2025+23:45
+      autumn. Corrected 2026-11-08: evidence moved to the /api/chart/ endpoint the dashboard
+      page now calls (the old DashboardService.svc link answered only HTTP 503); it gives the same
+      result, 96 rows for 26 October 2025 with no repeat, and four null values at 01:00 to 01:45
+      on 30 March 2025.
+    evidence: https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=default&dateRange=day&dateFrom=26-Oct-2025&dateTo=26-Oct-2025&areas=windactual
     found: 2026-11-06
   - summary: The data service is undocumented and often answers with "Service Unavailable".
     detail: >-
       The JSON endpoint behind the dashboard has no published documentation, and on 2026-11-06
       roughly half of the requests returned HTTP 503 until retried after a pause. The licence
-      warns that EirGrid may throttle feeds without notice. Space out requests and retry.
+      warns that EirGrid may throttle feeds without notice. Space out requests and retry. Updated
+      2026-11-08: every request to DashboardService.svc/data returned HTTP 503 that night, while
+      the /api/chart/ endpoint the current Next.js dashboard calls answered every request.
     evidence: https://www.smartgriddashboard.com/all/open-data-license/
     found: 2026-11-06
   - summary: Requests for dates before 2014 succeed but return empty values.
     detail: >-
       Dates in 2010 to 2013 came back with status "Success" and every value null, so a
-      successful response does not mean data exist.
-    evidence: https://www.smartgriddashboard.com/DashboardService.svc/data?area=windactual&region=ALL&datefrom=15-Jun-2013+00:00&dateto=15-Jun-2013+00:15
+      successful response does not mean data exist. Corrected 2026-11-08: evidence moved
+      to the /api/chart/ endpoint, which returns 96 rows with every value null for 15 June 2013.
+    evidence: https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=default&dateRange=day&dateFrom=15-Jun-2013&dateTo=15-Jun-2013&areas=windactual
     found: 2026-11-06
 tools:
   - name: EirGrid_Data_Download (Daniel Parke)
@@ -81,7 +87,11 @@ tools:
 notes: >-
   Quarter-hourly wind generation for Ireland (region ROI), Northern Ireland (NI) and the whole
   island (ALL) from the dashboard's JSON service
-  (DashboardService.svc/data?area=windactual&region=...). Checked 2026-11-06: for 2024-01-15
+  (DashboardService.svc/data?area=windactual&region=...). Corrected 2026-11-08: the current
+  dashboard page (a Next.js app) calls
+  /api/chart/?region=ALL&chartType=default&dateRange=day&dateFrom=DD-Mon-YYYY&dateTo=DD-Mon-YYYY&areas=windactual
+  instead, which returns the same Rows/EffectiveTime/Value JSON; DashboardService.svc answered
+  only HTTP 503 on 2026-11-08, and the snippet now uses /api/chart/. Checked 2026-11-06: for 2024-01-15
   00:00, ROI gave 1,159 MW and NI 198 MW, summing to the 1,357 MW given for ALL; the first
   non-empty values are in January 2014. The same EirGrid page publishes quarter-hourly system
   data as yearly spreadsheets, a wind installed-capacity history, and dispatch-down
@@ -89,6 +99,6 @@ notes: >-
   here. EirGrid's dispatch-down user guide says its figures are built from each wind farm's own
   one-minute SCADA signal averaged to 30 minutes, which will differ from metered output.
 status: active
-last_checked: 2026-11-06
-checked_by: automated research (Claude Code), 2026-11-06
+last_checked: 2026-11-08
+checked_by: automated research (Claude Code), 2026-11-08
 reviewed: false

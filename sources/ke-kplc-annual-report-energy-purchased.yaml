@@ -1,0 +1,81 @@
+id: ke-kplc-annual-report-energy-purchased
+name: Kenya Power annual report, power system operation statistics (energy purchased per station)
+publisher: The Kenya Power and Lighting Company Plc (Kenya Power)
+publisher_role: utility
+countries: [KE]
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2017
+  update: annual, for the year to 30 June
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://www.kplc.co.ke/storage/01KB4JTB49DXJ81DG79JVEE0M3.pdf
+  note: >-
+    Table 1, "Power system operation statistics for 5 years", heads its columns "Energy Purchased
+    GWh" for the years 2020/21 to 2024/25, each a year ending 30 June; installed and effective or
+    contracted capacity are in MW "as at 30.06.2025". Read 2026-11-08 by an automated research
+    pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.kplc.co.ke/annual-reports
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en]
+licence:
+  name: No licence or reuse terms found
+  url: https://www.kplc.co.ke/annual-reports
+  redistribution: unclear
+  verified: false
+  note: >-
+    Neither the 2025 integrated annual report nor the annual reports page states reuse terms;
+    the site has a data privacy page but no terms of use was found.
+traps:
+  - summary: Values are energy Kenya Power bought from each station, not the station's gross output.
+    detail: >-
+      The table is headed "Energy Purchased GWh", and the cost-of-sales note (page 170) gives the
+      same units per supplier with their cost. The report does not say where the energy is
+      metered or how curtailment is treated. Found by an automated research pass on 2026-11-08;
+      not yet reviewed by a person.
+    evidence: https://www.kplc.co.ke/storage/01KB4JTB49DXJ81DG79JVEE0M3.pdf
+    found: 2026-11-08
+  - summary: Each report covers five fiscal years, and the wind rows are split across two pages.
+    detail: >-
+      KenGen's Ngong farm sits in the KenGen block on page 257 (48 GWh in 2024/25), and the two
+      private farms in the independent producers block on page 258 (Lake Turkana Wind Power 1,437
+      GWh, Kipeto Energy 423 GWh in 2024/25), whose "Wind Total" of 1,859 GWh leaves out Ngong.
+      The national wind figure is the sum of both blocks (1,908 GWh in the cost-of-sales note). A
+      longer series means joining reports; the 2022 report goes back to 2017/18. Found by an
+      automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.kplc.co.ke/storage/01KB4JTB49DXJ81DG79JVEE0M3.pdf
+    found: 2026-11-08
+  - summary: Report files have opaque names, so a link does not say which year it holds.
+    detail: >-
+      Files are served as random identifiers (the 2025 report is 01KB4JTB49DXJ81DG79JVEE0M3.pdf,
+      the 2022 report 01J199X5D4WQQ1XEK07HM6WJYZ.pdf). Take the year from the link text on the
+      annual reports page. Found by an automated research pass on 2026-11-08; not yet reviewed by
+      a person.
+    evidence: https://www.kplc.co.ke/annual-reports
+    found: 2026-11-08
+notes: >-
+  Annual energy purchased from each of Kenya's three grid wind farms, five years per report, with
+  installed and contracted capacity: Lake Turkana Wind Power (310 MW installed, 300 MW contracted;
+  1,326 GWh in 2023/24, 1,437 GWh in 2024/25), Kipeto Energy (100 MW; 404 and 423 GWh) and KenGen's
+  Ngong (25.5 MW; 50 and 48 GWh). Kenya Power is the single buyer, so the sum is the grid wind
+  total for the fiscal year. The 2022 report's table covers 2017/18 to 2021/22, with Lake Turkana
+  from 2018/19 (1,124 GWh) and Kipeto from 2020/21 (88 GWh). The page lists annual reports back to
+  the year to 30 June 2022. For calendar-year and monthly national wind, see
+  ke-epra-energy-statistics-report.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

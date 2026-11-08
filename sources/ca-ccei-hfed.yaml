@@ -1,0 +1,144 @@
+id: ca-ccei-hfed
+name: High-Frequency Electricity Data (HFED), Canadian Centre for Energy Information (beta)
+publisher: Canadian Centre for Energy Information (CCEI), Statistics Canada
+publisher_role: aggregator
+countries: [CA]
+area: >-
+  Wind series for Alberta, Nova Scotia, Ontario (per wind farm), Prince Edward Island, Quebec,
+  Saskatchewan and Yukon. The New Brunswick and Newfoundland and Labrador dataflows list a WIND
+  code but return no wind data, and British Columbia has none.
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: 5min
+coverage:
+  start: 2012
+  update: near real time (scraped from provincial sites; the latest Alberta reading was minutes old on 2026-11-08)
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: MW
+  value: unknown
+  evidence: https://api.statcan.gc.ca/hfed-dehf/sdmx/rest/dataflow/CCEI/DF_HFED_AB/1.0?references=all
+  note: >-
+    Every row carries UNIT_MEASURE "MW". Each row has a TIME_PERIOD and a DATETIME_LOCAL
+    attribute; CCEI does not say that TIME_PERIOD is UTC, but the data read that way: Ontario's
+    TIME_PERIOD 05:00 on 2026-10-30 and 2026-11-06 carries IESO's hour ending 1 (00:00 to 01:00
+    EST) for Bornish and Wolfe Island, so for Ontario it is the hour's start in UTC. What a value
+    is depends on the province and is not stated by CCEI: IESO's hourly values are averages (CCEI's
+    dictionary says Ontario output is "five-minute outputs averaged over an hour"), Nova Scotia
+    Power's page says its values are "2 minute averages", SaskPower calls its daily figure "an
+    average of a 24-hour period", and Alberta, Prince Edward Island and Quebec are readings at
+    irregular moments. Read 2026-11-08 by an automated research pass; not yet reviewed.
+access:
+  method: api
+  url: https://api.statcan.gc.ca/hfed-dehf/sdmx/rest/dataflow/CCEI
+  docs: https://energy-information.canada.ca/en/resources/high-frequency-electricity-data
+  key_required: false
+  registration: false
+  formats: [csv, xml]
+  languages: [en, fr]
+licence:
+  name: Government of Canada (Canada.ca) terms and conditions
+  url: https://www.canada.ca/en/transparency/terms.html
+  redistribution: non-commercial-only
+  verified: true
+  note: >-
+    The HFED page links the Canada.ca terms, which allow reproduction for non-commercial purposes
+    in any format without charge, naming the title and author, and require prior written
+    permission for commercial redistribution. No separate open licence was found for HFED. The
+    data are scraped from provincial publishers whose own terms differ (AESO's are non-commercial,
+    Hydro-Québec's CC BY-NC 4.0; see ca-ab-aeso-metered-volumes and
+    ca-qc-hydroquebec-generation-by-source).
+traps:
+  - summary: The FREQ dimension is not the time step, and in three provinces two overlapping copies of the wind series share it.
+    detail: >-
+      Ontario's hourly and Saskatchewan's daily values are coded "N" (minutely). Alberta has "N"
+      rows every 5 minutes from 2023-02-07 and "H" rows from May 2023 to 2024-08-19; Nova Scotia
+      likewise to 2024-08-02. Each "H" row repeats the "N" reading at the same stamp (Alberta
+      2024-01-15T00:00, 117 MW in both), so taking both doubles the hour marks: 24 of 301 Alberta
+      rows on 2024-01-15 are duplicates. Quebec has an "N" series from 2019-01-01 to 2024-01-01 and
+      an "H" series from 2021-10-05, which disagree where they overlap (2023-07-15T00:30, 75.22
+      against 102 MW). Filter on FREQ before use. Found by an automated research pass on
+      2026-11-08; not yet reviewed by a person.
+    evidence: https://api.statcan.gc.ca/hfed-dehf/sdmx/rest/data/CCEI,DF_HFED_AB,1.0/...WIND?startPeriod=2024-01-15&endPeriod=2024-01-15&dimensionAtObservation=AllDimensions&format=csv
+    found: 2026-11-08
+  - summary: Large gaps, some lasting months, with no missing-value rows to mark them.
+    detail: >-
+      Nova Scotia has no wind rows from May 2025 to May 2026 and only 41 in January 2025; Alberta
+      has 522 five-minute rows in January 2025 and 873 in February 2025, against about 8,900 in a
+      full month; Alberta, Prince Edward Island, Quebec and Saskatchewan all lack roughly 1 to 9
+      June 2025, and Nova Scotia's 5-minute readings skip stamps within the hour (no 00:29 or
+      00:49 on 2024-01-15). Missing periods are absent rows, not flagged values. CCEI's page warns
+      that "not all data sets are complete and may contain duplicates or other irregularities".
+      Ontario's Bornish farm is complete (744 hours in each 31-day month from June 2019 to
+      October 2026). Found by an automated
+      research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://energy-information.canada.ca/en/resources/high-frequency-electricity-data
+    found: 2026-11-08
+  - summary: Prince Edward Island's TIME_PERIOD runs an hour early every winter since November 2024; its local time is the one that matches the source.
+    detail: >-
+      TIME_PERIOD is three hours ahead of DATETIME_LOCAL all year from 3 November 2024
+      (2026-01-15T00:14 against 2026-01-14T21:14, 79.29 MW), although Atlantic Standard Time is
+      four hours behind UTC; on 2024-11-01 and earlier winters the gap is four hours. The
+      archive CCEI cites for the island (energy.reinvented.net, a personal scrape of the
+      province's Wind Energy page) gives 79.29 MW at 2026-01-14 21:14, matching the local time.
+      Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://api.statcan.gc.ca/hfed-dehf/sdmx/rest/data/CCEI,DF_HFED_PE,1.0/...ON_ISL_WIND?startPeriod=2026-01-15&endPeriod=2026-01-15&dimensionAtObservation=AllDimensions&format=csv
+    found: 2026-11-08
+  - summary: Quebec's two series sit hours apart on the same day, and neither equals Hydro-Québec's own history.
+    detail: >-
+      On 2022-01-15 the "H" series' value at 00:30 UTC (2,006 MW, local 04:30) is the "N" series'
+      value at 09:30 UTC, also local 04:30, so one of the two UTC stamps is nine hours off. On
+      2023-07-15 the "N" series reads 75.22, 151.71 and 146.06 MW at 00:30 to 02:30 UTC, while
+      Hydro-Québec's history dataset gives 75, 152 and 146 MW at 02:00 to 04:00 UTC. The "H"
+      series stamps every hour at :30 while Hydro-Québec's stamps fall on the hour. Use
+      ca-qc-hydroquebec-generation-by-source for Quebec. Found by an automated research pass on
+      2026-11-08; not yet reviewed by a person.
+    evidence: https://api.statcan.gc.ca/hfed-dehf/sdmx/rest/data/CCEI,DF_HFED_QC,1.0/...WIND?startPeriod=2022-01-15&endPeriod=2022-01-15&dimensionAtObservation=AllDimensions&format=csv
+    found: 2026-11-08
+  - summary: DATETIME_LOCAL_OFFSET is unreliable; do not use it to convert times.
+    detail: >-
+      It reads 4 for Saskatchewan, whose local midnight falls at 06:00 UTC (UTC-6), 4 for
+      Ontario, Nova Scotia and Prince Edward Island, 5 for Quebec and -7 or -6 for Alberta, so
+      both its sign and its size vary; in January 2026 Alberta's is blank. Found by an automated
+      research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://api.statcan.gc.ca/hfed-dehf/sdmx/rest/data/CCEI,DF_HFED_SK,1.0/...WIND?startPeriod=2025-01-01&endPeriod=2025-01-10&dimensionAtObservation=AllDimensions&format=csv
+    found: 2026-11-08
+  - summary: endPeriod cuts the last day at 23:00, so a request must run a day past the wanted range.
+    detail: >-
+      startPeriod=2024-01-15&endPeriod=2024-01-15 (and endPeriod=2024-01-15T23:59:59) returns
+      Alberta readings from 00:00 to 23:00 only, 277 rows; ending on 2024-01-16 returns all 288
+      for the 15th. Found by an automated research pass on 2026-11-08; not yet reviewed by a
+      person.
+    evidence: https://api.statcan.gc.ca/hfed-dehf/sdmx/rest/data/CCEI,DF_HFED_AB,1.0/N...WIND?startPeriod=2024-01-15&endPeriod=2024-01-16&dimensionAtObservation=AllDimensions&format=csv
+    found: 2026-11-08
+notes: >-
+  A beta Statistics Canada tool that scrapes provincial utilities' and system operators' public
+  pages and republishes them through one keyless SDMX API (the HFED page itself embeds a Shiny
+  app at dv-vd.shinyapps.io; the API is at api.statcan.gc.ca/hfed-dehf, one dataflow per
+  province, DF_HFED_AB to DF_HFED_YK). Query keys are FREQ.REF_AREA.COUNTERPART_AREA.ENERGY_FLOWS,
+  for example ...WIND; add dimensionAtObservation=AllDimensions&format=csv for CSV, and
+  firstNObservations=1 or lastNObservations=1 for the ends of a series. Wind variables and the
+  span found on 2026-11-08: Alberta WIND, 5-minute, from 2023-02-07 (AESO's public reports);
+  Nova Scotia WIND, about 5-minute, from 2022-12-07 (Nova Scotia Power's OASIS page);
+  Ontario WIND_OUTPUT, hourly for 45 wind farms by COUNTERPART_AREA (CA_BORNISH, CA_WOLFE_ISLAND
+  and so on), from 2019-05-01, with WIND_CAPABILITY (labelled "Wind Forecast") and
+  WIND_AVAILABLE_CAPACITY alongside (IESO); Prince Edward Island ON_ISL_WIND, WIND_LOCAL and
+  WIND_EXPORT, every 15 minutes (10 minutes in 2017 and most of 2018) from 2012-11-13, the early
+  years from a personal archive (energy.reinvented.net) that CCEI names as its source; Quebec
+  WIND, hourly, from 2019-01-01; Saskatchewan WIND, one value a day, from 2024-09-29; Yukon WIND,
+  under 1 MW, from 2025-07-08. Each province's publisher is the authoritative source, as CCEI's
+  page says: prefer ca-on-ieso-generator-output, ca-qc-hydroquebec-generation-by-source and
+  ca-ab-aeso-metered-volumes where they cover the period. HFED's value is history the provinces
+  do not keep themselves: Nova Scotia Power's and SaskPower's pages show only the current
+  state, and IESO's public report directory held generator output files only from
+  2026-08-08 on the check date. Not the same as Statistics Canada's monthly table
+  (ca-statcan-monthly-generation-by-type).
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

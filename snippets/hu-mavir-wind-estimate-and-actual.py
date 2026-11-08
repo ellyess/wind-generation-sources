@@ -11,7 +11,7 @@ hour. Traps handled:
   rather than the clock time, which repeats on the autumn change day (this sample has 100
   quarter hours);
 - stamps behave as the end of each quarter hour (a day runs 00:15 to 24:00), observed in the
-  data rather than documented, so they are moved back 15 minutes to the period start;
+  data rather than documented, so they are kept as published, not moved to a period start;
 - the actual columns disagree by 10 to 16 per cent, so one is chosen: net commercial
   settlement metering, the only one that goes back to 2015. Forecast columns are left out so
   that observed and forecast values are not mixed.
@@ -35,9 +35,9 @@ resp = requests.get(
 resp.raise_for_status()  # HTTP 429 means too many requests: wait a minute
 rows = pd.read_excel(io.BytesIO(resp.content)).dropna(subset=[SETTLEMENT])
 
-end = pd.to_datetime(rows["Időpont"], format="%Y.%m.%d %H:%M:%S %z", utc=True)
+stamp = pd.to_datetime(rows["Időpont"], format="%Y.%m.%d %H:%M:%S %z", utc=True)
 df = (
-    rows.assign(time_utc=end - pd.Timedelta(minutes=15))  # period end -> period start
+    rows.assign(time_utc=stamp)  # stamp end not stated, so not shifted
     .set_index("time_utc")
     .sort_index()[[SETTLEMENT]]
     .rename(columns={SETTLEMENT: "wind_mw"})

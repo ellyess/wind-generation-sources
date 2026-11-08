@@ -70,9 +70,11 @@ notes: >-
   there were 13 wind rows with different values (for example Cupisnique 484.00 and Talara 374.05
   MWh), and 1-3 March 2016 gave different daily values for Cupisnique, Talara and Marcona. The
   export answers for 2010, but the first wind row found was Marcona on 1 June 2014, so the start
-  is given as 2014. COES's daily operations archive (IEOD) is a separate document library that
+  is given as 2014. Corrected 2026-11-08: Marcona's first row is earlier, on 16 April 2014 (the
+  export for April 2014 has 15 Marcona days from 16/04/2014; February and March 2014 have no wind
+  rows); the start year is unchanged. COES's daily operations archive (IEOD) is a separate document library that
   may hold sub-daily per-plant data; it was not tested.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

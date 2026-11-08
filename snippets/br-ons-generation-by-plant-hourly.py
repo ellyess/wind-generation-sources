@@ -9,9 +9,9 @@ plant, complex and small-plant group in the interconnected system; wind rows hav
 "EOLIELÉTRICA". Traps handled:
 - small-plant groups ("Pequenas Usinas (Tipo III)", names "PQU ... EOL") are forecasts, not
   measurements, so they are dropped;
-- the time zone and which end of the hour din_instante marks are not documented. This snippet
-  assumes the stamp is the start of the hour in Brasília clock time; since 2019 Brazil has had
-  no daylight saving, so that is a fixed UTC-03:00. Before 2019, localise as America/Sao_Paulo;
+- the time zone and which end of the hour din_instante marks are not documented, so the stamp
+  is kept as published, a naive `time`. The data suggest Brasília clock time (fixed UTC-03:00
+  since 2019, America/Sao_Paulo before), but ONS does not say so;
 - the value is MW, not MWh, so energy is MW x 1 h.
 """
 
@@ -32,11 +32,11 @@ wind = rows[(rows["nom_tipousina"] == "EOLIELÉTRICA")
             & ~rows["cod_modalidadeoperacao"].str.contains("Tipo III", case=False)]
 df = (
     wind.assign(
-        time_utc=wind["din_instante"].dt.tz_localize("-03:00").dt.tz_convert("UTC"),
+        time=wind["din_instante"],  # zone and stamp end not stated
         wind_mw=pd.to_numeric(wind["val_geracao"]),
     )
     .rename(columns={"nom_usina": "unit_id", "id_estado": "state"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "state", "cod_modalidadeoperacao", "wind_mw"]]
 )
 print(df)

@@ -18,12 +18,16 @@ conventions:
   timestamp: period-label
   unit: other
   value: period-total
-  evidence: https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202610/t20261019_1965613.html
+  evidence: https://www.stats.gov.cn/sj/zxfb/202610/t20261019_1965617.html
   note: >-
     Monthly and year-to-date totals labelled by month, published in 亿千瓦时 (100 million kWh,
     that is 0.1 TWh or 100 GWh), which the schema has no unit for; multiply by 100 for GWh. The
     September 2026 release text gives generation in 亿千瓦时 throughout.
-    Read 2026-11-06 by an automated research pass; not yet reviewed.
+    Read 2026-11-06 by an automated research pass; not yet reviewed. Corrected 2026-11-08: the
+    evidence link was the September 2026 energy production release (能源生产情况,
+    t20261019_1965613), which gives wind only as a growth rate (规上工业风电增长 10.6%). The table
+    "2026年9月份规模以上工业生产主要数据" with the row "风力发电量（亿千瓦时） 776 10.6 8022 1.9"
+    is in the same day's industrial value-added release (t20261019_1965617), now the evidence.
 access:
   method: portal
   url: https://www.stats.gov.cn/sj/zxfb/
@@ -54,6 +58,15 @@ traps:
       the published levels.
     evidence: https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202610/t20261019_1965613.html
     found: 2026-11-06
+  - summary: There is no January figure; January and February are published only as one combined value.
+    detail: >-
+      The March release for January and February 2026 has a single column "1—2月" (风力发电量
+      1946 亿千瓦时, growth 5.3%), and its methodology note says the monthly survey is run in full
+      every month except January ("1月份数据免报"). A monthly series therefore has eleven values
+      a year; split or drop the January-February value deliberately rather than reading it as
+      February. Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.stats.gov.cn/sj/zxfb/202603/t20260316_1962782.html
+    found: 2026-11-08
 notes: >-
   National monthly wind generation (风力发电量) in 100 million kWh (亿千瓦时, that is 0.1 TWh),
   with the month value, the cumulative year-to-date value and both growth rates, in the table of
@@ -67,6 +80,6 @@ notes: >-
   was found; the National Energy Administration and China Electricity Council publish national
   capacity and utilisation hours rather than plant series.
 status: active
-last_checked: 2026-11-06
-checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06, re-checked 2026-11-08; not yet reviewed by a person"
 reviewed: false

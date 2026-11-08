@@ -11,7 +11,7 @@
   let area = $derived(s.countries.length <= 3 ? s.countries.map(store.placeName).join(", ") : plural(s.countries.length, "country", "countries"));
 </script>
 
-<button type="button" class="card" onclick={() => store.go({ source: s.id })}>
+<a class="card" {...store.link({ source: s.id })}>
   <span class="name">{s.name}</span>
   <span class="pub">{s.publisher}{store.country ? "" : ` · ${area}`}</span>
   <span class="top">
@@ -26,11 +26,11 @@
     {#if traps}<span class="traps"><Icon name="trap" size={13} />{plural(traps, "trap")}</span>{/if}
     {#if s.access.key_required}<span class="key">Key needed</span>{/if}
   </span>
-</button>
+</a>
 
 <style>
   .card {
-    display: grid; gap: 3px; width: 100%; padding: 11px 12px 10px; text-align: left;
+    display: grid; gap: 3px; width: 100%; padding: 11px 12px 10px; text-align: left; color: inherit; text-decoration: none;
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
     transition: border-color 120ms ease, box-shadow 120ms ease;
   }

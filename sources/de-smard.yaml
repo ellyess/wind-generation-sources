@@ -10,6 +10,9 @@ measure: reported-generation
 resolution: 15min
 coverage:
   start: 2015
+  update: >-
+    continuous; read at 03:30 UTC on 2026-11-08, the quarter-hour series ran to 02:45 UTC (observed,
+    not stated by SMARD)
 capacity: none
 coordinates: not-applicable
 curtailment: unknown
@@ -95,8 +98,11 @@ notes: >-
   return different values for the same interval. The same API also serves Austria and
   Luxembourg. The series carries no capacity; SMARD's own installed-capacity figures were not
   checked. A separate download covers generation by unit for units of at least 100 MW; it was
-  not checked here.
+  not checked here. Added 2026-11-08: the user guide (section on actual generation) says "The
+  actual generation corresponds to the net generation", fed into the general supply network,
+  excluding the Deutsche Bahn network, industrial networks and closed distribution networks, and
+  that the data "can be updated later"; compare it with net, not gross, figures.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

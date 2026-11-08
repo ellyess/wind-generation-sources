@@ -9,7 +9,9 @@ measure: reported-generation
 resolution: 15min
 coverage:
   start: 2024
-  update: daily, the previous day published at about 03:00 local time, with later revisions
+  update: >-
+    intraday for the current day (rows filled as quarter hours pass), the complete previous day
+    by about 03:00 local time, with later revisions
 capacity: none
 coordinates: not-applicable
 curtailment: reported
@@ -65,6 +67,15 @@ traps:
       $filter and $first may be ignored depending on how a client encodes the query.
     evidence: https://raporty.pse.pl/
     found: 2026-11-06
+  - summary: Rows for the current day exist before their quarter hours have happened, with wi empty.
+    detail: >-
+      On 2026-11-08 the 96 rows for business_date 2026-11-08 were already returned at 04:07 local
+      time, 82 of them with wi null; the 2026-11-07 rows were complete (published 02:52 on
+      2026-11-08). A query ordered by dtime descending therefore returns an empty value. Drop null
+      wi rows rather than reading them as zero. Found by an automated research pass on 2026-11-08;
+      not yet reviewed by a person.
+    evidence: https://api.raporty.pse.pl/api/his-wlk-cal?$orderby=dtime%20desc&$first=1
+    found: 2026-11-08
 notes: >-
   The wi field is "Total generation of Wind Sources" in MW per quarter hour, for units both
   inside and outside the balancing market (PSE's comment on the report page
@@ -75,7 +86,10 @@ notes: >-
   populated from September 2024 and published ahead of the day, so it records instructions
   rather than measured lost output. The API is OData-style ($filter, $select, $first, cursor
   paging through nextLink). No installed wind capacity series was found in the same API.
+  Corrected 2026-11-08: the update cadence said daily only; the current day's rows are already
+  published and filled through the day (14 of 96 quarter hours filled at 04:07 local time on
+  2026-11-08), so the series is intraday.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

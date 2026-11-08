@@ -20,6 +20,7 @@ measure: metered-energy
 resolution: hourly
 coverage:
   start: 2015
+  update: daily
 capacity: included
 coordinates: none
 conventions:
@@ -96,6 +97,11 @@ def test_discontinued_needs_an_end():
     assert any("coverage end" in m for m in check(text))
 
 
+def test_fixed_release_needs_an_end():
+    text = MINIMAL.replace("status: active", "status: fixed-release")
+    assert any("coverage end" in m for m in check(text))
+
+
 def test_future_check_date_is_refused():
     assert any("future" in m for m in check(MINIMAL.replace("2026-11-01", "2027-01-01")))
 
@@ -122,3 +128,16 @@ def test_every_published_entry_is_valid():
     fatal = [str(p) for p in problems if p.fatal]
     assert fatal == []
     assert len(entries) >= 15
+
+
+def test_active_open_ended_source_without_update_is_warned():
+    text = MINIMAL.replace("  update: daily\n", "")
+    found = check_entry(Path("no-example-source.yaml"), parse_entry(text), VALIDATOR, TODAY)
+    assert [p.fatal for p in found] == [False] and "coverage.update" in found[0].message
+
+
+def test_correction_dated_after_last_checked_is_warned():
+    note = "notes: Corrected 2026-11-03, after a re-read.\n"
+    text = MINIMAL.replace("last_checked: 2026-11-01\n", note + "last_checked: 2026-11-01\n")
+    found = check_entry(Path("no-example-source.yaml"), parse_entry(text), VALIDATOR, TODAY)
+    assert [p.fatal for p in found] == [False] and "2026-11-03" in found[0].message

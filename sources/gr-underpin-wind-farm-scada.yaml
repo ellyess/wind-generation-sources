@@ -75,7 +75,7 @@ notes: >-
   downloading the workbook: WT01 and WT02 each have 26,208 ten-minute rows from 2020-01-01 00:00
   to 2020-06-30 23:50, with power values that differ. Possible power is published alongside
   actual power, so curtailed or lost output can be estimated.
-status: active
+status: fixed-release
 last_checked: 2026-11-06
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

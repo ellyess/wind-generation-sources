@@ -2,11 +2,13 @@ id: world-ember-monthly
 name: Monthly Electricity Data
 publisher: Ember
 publisher_role: aggregator
-countries: [AT, BA, BE, BG, BY, CH, CY, CZ, DE, DK, EE, ES, FI, FR, GB, GR, HR, HU, IE, IS, IT, LT, LU, LV, MD, ME, MK, MT, NL, NO, PL, PT, RO, RS, RU, SE, SI, SK, UA]
+countries: [AT, BA, BE, BG, BY, CH, CY, CZ, DE, DK, EE, ES, FI, FR, GB, GR, HR, HU, IE, IS, IT, LT, LU, LV, MD, ME, MK, NL, NO, PL, PT, RO, RS, RU, SE, SI, SK, UA]
 area: >-
   About 80 countries with a monthly wind series in the global file (40 European, 19 Asian, 8
   South American, 7 North American, 5 African, 2 in Oceania); only the European ones are listed
-  in countries. Kosovo is also covered but has no ISO 3166-1 code.
+  in countries. Kosovo is also covered but has no ISO 3166-1 code. Corrected 2026-11-08: Malta
+  (MT) was removed from countries; its global-file wind series (2017-01 to 2026-08, 116 months)
+  is 0 in every month.
 level: country
 technology: onshore-and-offshore-split
 measure: reported-generation
@@ -68,7 +70,11 @@ traps:
       The earliest wind month in the global file is January 2000 (Mongolia, Taiwan); the United
       States begins in 2001, Ireland in 2010, the United Kingdom and most of Europe in January 2015,
       Russia and Belarus in 2019. Ukraine stops in September 2022. Latest months also differ by
-      country.
+      country. Added 2026-11-08: the January 2000 rows for Mongolia and Taiwan are 0;
+      the first non-zero month is December 2000 for Taiwan and 2017 for Mongolia, so a leading run
+      of zeros is not evidence of measured calm. In the 3 November 2026 release the latest month is
+      October 2026 for 28 countries and September 2026 for 23, and earlier for the rest (Belarus
+      June 2026).
     evidence: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_monthly_global.csv
     found: 2026-11-06
   - summary: The file layout changed in July 2026.
@@ -124,6 +130,6 @@ notes: >-
   primary source: for any one country, go to the national source it was compiled from.
   Countries were confirmed by reading the global CSV on the check date.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: automated research (Claude Code), 2026-11-06
 reviewed: false

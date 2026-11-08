@@ -1,0 +1,84 @@
+id: za-csir-utility-scale-power-statistics
+name: Utility-scale power generation statistics in South Africa, annual wind energy
+publisher: Council for Scientific and Industrial Research (CSIR), Energy Research Centre
+publisher_role: research
+countries: [ZA]
+area: >-
+  South Africa's utility-scale fleet: Eskom plus the independent power producers it contracts.
+  Embedded generation and private capacity are excluded.
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2014
+  update: annual (the 2024 report was dated 17 March 2025)
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: TWh
+  value: period-total
+  evidence: https://www.csir.co.za/sites/default/files/2025-09/Utility%20Statistics%20Report_Jan%202025_Final.pdf
+  note: >-
+    The 2024 report's title page gives its period as "1 January 2024 – 31 December 2024", and the
+    page 8 table of annual generation is in TWh by calendar year (wind "11,6" in 2023 and "11,1" in
+    2024). The chart "Annual energy produced [TWh]" gives wind for each calendar year from 2014.
+    Monthly wind appears only as GWh data labels on a stacked chart. Read 2026-11-08 by an
+    automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.csir.co.za/media-hub/media-room/csir-releases-statistics-on-power-generation-in-south-africa-for-2024
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en]
+licence:
+  name: Copyright © CSIR 2025, all rights reserved
+  url: https://www.csir.co.za/sites/default/files/2025-09/Utility%20Statistics%20Report_Jan%202025_Final.pdf
+  redistribution: prohibited
+  verified: true
+  note: >-
+    The report's last page says that, absent contract conditions, all rights in its contents
+    remain with the CSIR and that no part may be reproduced, stored or transmitted without the
+    CSIR's express written permission. Read in the 2024 report on 2026-11-08.
+traps:
+  - summary: Wind energy excludes curtailed output, so it runs below what the fleet could produce.
+    detail: >-
+      Every wind table and chart carries the note "Wind and solar PV energy excludes curtailment
+      and is thus lower than actual wind and solar PV generation". The curtailed amount is not
+      given. Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.csir.co.za/sites/default/files/2025-09/Utility%20Statistics%20Report_Jan%202025_Final.pdf
+    found: 2026-11-08
+  - summary: The generation table uses a decimal comma, while the charts use a decimal point.
+    detail: >-
+      The page 8 table prints 2024 wind as "11,1" TWh (coal "177,9"); the chart on the same page
+      labels it "11.1". A parser that treats the comma as a thousands separator reads 111. Found by
+      an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.csir.co.za/sites/default/files/2025-09/Utility%20Statistics%20Report_Jan%202025_Final.pdf
+    found: 2026-11-08
+  - summary: Only utility-scale wind is counted; embedded and private plants are left out.
+    detail: >-
+      The capacity page says installed capacity excludes "embedded generation capacity and private
+      capacity". The wind figure is Eskom's Sere farm (100 MW) plus the plants under the renewable
+      independent power producer programme (3,443 MW operational at 30 June 2024). Wind built
+      outside these, for example for private offtake, is not in the series. Found by an automated
+      research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.csir.co.za/sites/default/files/2025-09/Utility%20Statistics%20Report_Jan%202025_Final.pdf
+    found: 2026-11-08
+notes: >-
+  A yearly slide report by the CSIR, compiled from Eskom data ("Sources: Eskom; CSIR analysis";
+  Eskom's data portal is the first reference). For wind it gives the calendar-year energy (11.1 TWh
+  in 2024, 11.6 TWh in 2023, back to 2014 in a chart), operational capacity (3,443 MW), monthly
+  energy as GWh labels on a stacked chart (hard to assign to a series from the text layer) and
+  monthly capacity factors. The same file is also served at
+  https://www.csir.co.za/sites/default/files/2025-11/UtilityStatisticsReportJan2025Final.pdf
+  (byte-identical on the check date). Earlier editions were not checked. Stats SA, which publishes
+  a national wind figure too, refused automated requests (an Incapsula bot check) on the check
+  date.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

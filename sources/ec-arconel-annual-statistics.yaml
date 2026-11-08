@@ -8,7 +8,7 @@ technology: onshore
 measure: reported-generation
 resolution: annual
 coverage:
-  start: 2005
+  start: 2007
   update: annual (the 2025 edition was posted in April 2026)
 capacity: included
 coordinates: not-applicable
@@ -33,14 +33,15 @@ access:
   languages: [es]
 licence:
   name: Reproduction allowed only with the editors' authorisation and correct citation
-  redistribution: link-only
+  redistribution: permission-required
   verified: true
   url: https://arconel.gob.ec/wp-content/uploads/downloads/2026/04/Estadistica-2025.pdf
   note: >-
     The imprint of the 2025 edition, read on 2026-11-06, says partial or total reproduction is
-    permitted provided it is authorised by the editors and the source is cited correctly. That is
-    a permission-on-request, not an open grant, so link to the publication and ask ARCONEL before
-    republishing figures in bulk.
+    permitted provided it is authorised by the editors and the source is cited correctly. That is a
+    permission-on-request, not an open grant, so link to the publication and ask ARCONEL before
+    republishing figures in bulk. Changed 2026-11-08 (maintainer decision) from link-only to
+    permission-required: the imprint allows reproduction once the editors authorise it.
 traps:
   - summary: National wind is split between the interconnected system and the isolated Galápagos systems, and the headline totals include both.
     detail: >-
@@ -70,12 +71,16 @@ notes: >-
   wind with other non-conventional renewables, and its market information system (SIMEM) needs a
   digital certificate, so this regulator's statistics are the finest public wind series found.
   The annual publications page lists PDF editions back to 2005; only the 2016 and 2025 editions
-  were opened, so the year wind first appears was not checked. The 2025 edition (99 pages) gives
+  were opened, so the year wind first appears was not checked. Corrected 2026-11-08: coverage
+  starts in 2007, not 2005. The 2005 and 2006 editions (download ids 313 and 314 on the
+  publications page) have no wind ("eólica") anywhere in their text; the 2007 edition (id 315)
+  lists the 2.40 MW San Cristóbal wind plant in Galápagos and gives wind generation of 0.96 GWh
+  (0.01%) of 18,197.52 GWh gross for January to December 2007. The 2025 edition (99 pages) gives
   wind generation in GWh by company type and the wind capacity history from 2016 to 2025 (21.15 MW
   rising to 71.15 MW nominal). ARCONEL's business intelligence service (SisdatBI) needs a login and
   reportes.arconel.gob.ec returned a server error on 2026-11-06. Figures have to be extracted from
   PDF tables.
 status: active
-last_checked: 2026-11-06
+last_checked: 2026-11-08
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

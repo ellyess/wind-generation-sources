@@ -1,0 +1,75 @@
+id: ca-pe-peiec-annual-report-wind-farms
+name: Prince Edward Island Energy Corporation Annual Report, wind farm performance tables
+publisher: Prince Edward Island Energy Corporation
+publisher_role: owner-operator
+countries: [CA]
+area: Prince Edward Island (the corporation's own wind farms only)
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2016
+  update: annual (the 2025-26 report covers the year ended 31 March 2026)
+capacity: included
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: MWh
+  value: period-total
+  evidence: https://www.peiec.ca/uploads/6/6/6/4/66648535/peiec_annual_report_2025-26.pdf
+  note: >-
+    Each farm's performance table gives "Electricity Production (MWh)" per fiscal year labelled
+    "2016/17" to "2025/26"; the report is "For the Year Ended March 31, 2026", so a fiscal year
+    runs 1 April to 31 March. Read 2026-11-08 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.peiec.ca/annual-report.html
+  key_required: false
+  registration: false
+  formats: [pdf]
+  languages: [en]
+licence:
+  name: No licence found
+  redistribution: unclear
+  verified: false
+  note: No terms of use or copyright statement were found on peiec.ca or in the annual report on 2026-11-08.
+traps:
+  - summary: The Eastern Kings Phase I capacity factors for 2016/17 to 2022/23 are copied from North Cape, not computed.
+    detail: >-
+      Both tables list 33.0%, 33.5%, 35.0%, 33.5%, 33.1%, 31.5% and 29.6% for those seven years.
+      They fit North Cape (30,521 MWh from 10.56 MW is 33.0%) but not Eastern Kings Phase I
+      (90,957 MWh from 30 MW in 2017/18 is 34.6%, not 33.5%). Compute capacity factors from the
+      MWh column and the stated capacity. Found by an automated research pass on 2026-11-08; not
+      yet reviewed by a person.
+    evidence: https://www.peiec.ca/uploads/6/6/6/4/66648535/peiec_annual_report_2025-26.pdf
+    found: 2026-11-08
+  - summary: Years are fiscal years ending 31 March, not calendar years.
+    detail: >-
+      A row labelled 2025/26 is April 2025 to March 2026. Eastern Kings Phase II, which reached
+      full operation in late December 2025, has a single row (50,737 MWh) footnoted as 1 January
+      to 31 March 2026. Hermanville/Clearspring's availability is computed on nine turbines
+      instead of ten from July 2025. Found by an automated research pass on 2026-11-08; not yet
+      reviewed by a person.
+    evidence: https://www.peiec.ca/uploads/6/6/6/4/66648535/peiec_annual_report_2025-26.pdf
+    found: 2026-11-08
+notes: >-
+  The provincial energy corporation, which owns and operates several of Prince Edward Island's
+  wind farms, publishes, in each annual report, a ten-year table of production (MWh), availability
+  and capacity factor per wind farm. The 2025-26 report (54 pages, text extractable) has North
+  Cape (16 Vestas V47, 10.56 MW; 30,521 MWh in 2016/17, 26,402 MWh in 2025/26), Eastern Kings
+  Phase I (10 Vestas V90, 30 MW; 74,338 MWh in 2025/26), Eastern Kings Phase II (seven Enercon
+  E-138, 30 MW, from December 2025), Aeolus (one 3 MW V90; 9,916 MWh) and Hermanville/Clearspring
+  (Acciona AW 3.0-116, 27 MW in the report and 30 MW on peiec.ca; 33,441 MWh in 2023/24 at 34.1%
+  availability, 74,782 MWh in 2025/26). Only the current report is linked from the annual report
+  page, so earlier years come from older reports if they can be found. This is not a provincial
+  archive: a search on 2026-11-08 found no longer provincial wind history than ca-ccei-hfed
+  (15-minute island wind from November 2012), and the province's wind and renewable-indicator
+  pages on princeedwardisland.ca returned a bot check to a plain request. No snippet: the source
+  is a PDF.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

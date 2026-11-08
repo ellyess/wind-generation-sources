@@ -65,7 +65,7 @@ notes: >-
   of 653,103 rows with a parameter description PDF. Checked by downloading the workbook. Rated
   power is not stated in the record; output tops out near 851 kW. A rare long single-turbine
   record for power-curve drift and reanalysis checks at one site.
-status: active
+status: fixed-release
 last_checked: 2026-11-06
 checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
 reviewed: false

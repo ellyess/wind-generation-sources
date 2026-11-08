@@ -1,0 +1,99 @@
+id: ch-pronovo-guarantees-of-origin-raw-data
+name: "HKN-Cockpit raw data: guarantee-of-origin transactions for electricity (HKN-Cockpit Rohdaten)"
+publisher: Pronovo AG
+countries: [CH]
+level: country
+technology: onshore
+measure: certificates
+resolution: monthly
+coverage:
+  start: 2024
+  update: >-
+    annual file per year, replaced when re-run (the 2025 file is listed as 06.02.2026 but the
+    archive downloaded on 2026-11-08 was evaluated on 08.07.2026)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: kWh
+  value: period-total
+  evidence: https://pronovo.ch/de/herkunftsnachweise/information/prozess-erfassung-bis-entwertung/
+  note: >-
+    The column header names the quantity "Issued(kWh)", and each row carries a production month
+    (Produktionsmonat, for example "1.2025" or "04.2025"). Pronovo's process page says plants
+    over 30 kVA must report production monthly, from a remotely read meter, by the end of the
+    following month, and that guarantees of origin are issued for the produced quantity; so an
+    issued row is metered energy for a calendar month. Small plants may report per month,
+    quarter or year; how those appear in the file is not stated. Read 2026-11-08 by an
+    automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://pronovo.ch/de/services/berichte/
+  docs: https://pronovo.ch/de/herkunftsnachweise/information/herkunftsnachweise-hkn/
+  key_required: false
+  registration: false
+  formats: [csv, zip]
+  languages: [de, fr, it]
+licence:
+  name: Pronovo website legal notice (Haftungsausschluss), copyright section
+  url: https://pronovo.ch/haftungsausschluss/
+  redistribution: prohibited
+  attribution: Full citation of the source (vollständige Quellenangabe).
+  verified: true
+  note: >-
+    Read 2026-11-08: "Für den privaten Gebrauch ist die Weiterverwendung mit vollständiger
+    Quellenangabe erlaubt." Any other use, in particular reproducing it in whole or in part in
+    electronic or printed form, needs Pronovo's prior written consent. No separate licence for
+    the raw data files was found.
+traps:
+  - summary: The file is a ledger of certificate transactions for every country, not a Swiss production table.
+    detail: >-
+      Rows cover issuance, Swiss cancellation, export, import and expiry, for all energy carriers
+      and for certificates produced in other countries (Land = GR, NO, IT and so on, imported into
+      the Swiss registry). Swiss wind production is the sum of Issued(kWh) over rows with
+      Energieträger "Windenergie" and Land "CH". Summing all wind rows, or the Cancelled column,
+      gives the wrong figure. Found by an automated research pass on 2026-11-08; not yet reviewed
+      by a person.
+    evidence: https://pronovo.ch/?wpdmdl=16733
+    found: 2026-11-08
+  - summary: The two yearly files have different layouts, and the month labels are not zero-padded consistently.
+    detail: >-
+      The 2025 CSVs start with an evaluation date line and two blank lines before the header,
+      and every row begins with an empty column; the 2024 CSVs start with the header and have no
+      leading column. Both are Latin-1, semicolon-separated, with CRLF line ends. In the 2025
+      file the production month reads "1.2025", "2.2025", "3.2025" but "04.2025" to "12.2025";
+      in the 2024 file "1.2024" to "6.2024" but "07.2024" to "12.2024". Parse the label as
+      month and year rather than matching strings. Found by an automated research pass on
+      2026-11-08; not yet reviewed by a person.
+    evidence: https://pronovo.ch/?wpdmdl=14152
+    found: 2026-11-08
+  - summary: Certificates for a month keep arriving for months afterwards, and the file is re-run without a new name.
+    detail: >-
+      In the archive evaluated on 08.07.2026, December 2025 wind was issued in January (14.78
+      GWh), February (1.20 GWh) and March 2026; November 2025 in December 2025 and February
+      2026. The listing still dates the 2025 file 06.02.2026. A copy taken soon after year end
+      will be short; record the "Datum der Auswertung" line. Found by an automated research
+      pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://pronovo.ch/de/services/berichte/
+    found: 2026-11-08
+notes: >-
+  Pronovo runs the Swiss guarantee-of-origin registry (Herkunftsnachweissystem). The reports
+  page lists "HKN-Cockpit 2024 Rohdaten" (https://pronovo.ch/?wpdmdl=14152, an 18 MB zip of
+  four quarterly CSVs) and "HKN-Cockpit 2025 Rohdaten" (https://pronovo.ch/?wpdmdl=16733,
+  22.5 MB, four CSVs of about a million rows each); no earlier raw files are listed. Rows carry
+  no plant identifier, so only the national total can be formed. Checked 2026-11-08: Swiss wind
+  issuance sums to 170.54 GWh for 2024 and 160.23 GWh for 2025 (24.58 GWh in January 2025,
+  7.82 GWh in August 2025). Against the daily Swissgrid series
+  (ch-energy-dashboard-swissgrid-production, bfe-ogd.ch CSV downloaded the same day) the 2024
+  totals agree within 0.4% (171.1 GWh) and every month within 0.7 GWh, but 2025 does not:
+  Swissgrid sums to 154.0 GWh, and
+  December 2025 is 9.2 GWh there against 16.0 GWh here; the other 2025 months agree within
+  0.8 GWh. The Pronovo 2025 total is closer to BFE's official 161 GWh. Rows also carry Swiss
+  cancellations, exports and expiries, for market analysis. For per-farm annual output see
+  ch-bfe-wind-energy-plants.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

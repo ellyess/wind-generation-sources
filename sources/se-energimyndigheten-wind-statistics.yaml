@@ -8,7 +8,7 @@ technology: onshore-and-offshore-split
 measure: reported-generation
 resolution: annual
 coverage:
-  start: 2015
+  start: 1984
   update: annual
 capacity: included
 coordinates: not-applicable
@@ -23,9 +23,14 @@ conventions:
     Table EN0105 gives "Wind power production, GWh" per year, with "Installed capacity, MW" and
     turbine counts in the same table. EN0105_1 covers the whole country from 1982; EN0105_5 splits
     offshore and onshore from 2003. Read 2026-11-06 by an automated research pass; not yet reviewed.
+    Corrected 2026-11-08: the tables list those years but production starts later. EN0105_1's
+    first production figure is 0.10 GWh for 1984 (1982 and 1983 are "."), and EN0105_5's onshore
+    and offshore production is "." for 2003 and starts in 2004 (55.91 GWh offshore, 803.55 GWh
+    onshore).
 access:
   method: api
   url: https://pxexternal.energimyndigheten.se/
+  docs: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/
   key_required: false
   registration: false
 licence:
@@ -70,8 +75,10 @@ traps:
     found: 2026-11-07
 notes: >-
   Official annual wind production and year-end installed capacity, onshore and offshore. ENTSO-E's
-  Swedish generation came to 0.976-1.007 of this table's production each year in 2015-21. Coverage
-  start is the earliest year PyVWF used; the table itself may go further back (not checked).
+  Swedish generation came to 0.976-1.007 of this table's production each year in 2015-21.
+  Corrected 2026-11-08: coverage start was 2015, the earliest year PyVWF used; the API shows
+  national production from 1984 in EN0105_1 and the onshore and offshore split from 2004 in
+  EN0105_5, both through 2025 (tables updated 2026-04-15).
 status: active
-last_checked: 2026-10-27
-checked_by: Ellyess Benmoufok, from the PyVWF ENTSO-E runbook and scorecard audits; licence read on the publisher's page 2026-11-06
+last_checked: 2026-11-08
+checked_by: Ellyess Benmoufok, from the PyVWF ENTSO-E runbook and scorecard audits; licence read on the publisher's page 2026-11-06; links and conventions re-checked by an automated pass 2026-11-08

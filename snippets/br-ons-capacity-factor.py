@@ -9,9 +9,9 @@ ONS's "Fator de Capacidade" file gives, per wind or solar complex and hour, veri
 ratio. Traps handled:
 - the file also holds solar complexes, so rows are filtered to "Eólica";
 - the numbers are stored as decimals (text), so they are converted to floats;
-- the time zone and which end of the hour din_instante marks are not documented. This snippet
-  assumes the stamp is the start of the hour in Brasília clock time; since 2019 Brazil has had
-  no daylight saving, so that is a fixed UTC-03:00. Before 2019, localise as America/Sao_Paulo.
+- the time zone and which end of the hour din_instante marks are not documented, so the stamp
+  is kept as published, a naive `time`. The data suggest Brasília clock time (fixed UTC-03:00
+  since 2019, America/Sao_Paulo before), but ONS does not say so.
 Curtailment is inside the factor; remove it with ONS's constrained-off dataset.
 """
 
@@ -31,14 +31,14 @@ wind = rows[rows["nom_tipousina"] == "Eólica"]
 
 df = (
     wind.assign(
-        time_utc=wind["din_instante"].dt.tz_localize("-03:00").dt.tz_convert("UTC"),
+        time=wind["din_instante"],  # zone and stamp end not stated
         wind_mw=pd.to_numeric(wind["val_geracaoverificada"]),
         capacity_mw=pd.to_numeric(wind["val_capacidadeinstalada"]),
         capacity_factor=wind["val_fatorcapacidade"],
     )
     .rename(columns={"nom_usina_conjunto": "unit_id",
                      "val_latitudesecoletora": "lat", "val_longitudesecoletora": "lon"})
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["unit_id", "lat", "lon", "wind_mw", "capacity_mw", "capacity_factor"]]
 )
 print(df)

@@ -1,0 +1,78 @@
+id: bg-nsi-monthly-electricity-production
+name: Production and deliveries of electricity, monthly (Energy 1.4)
+publisher: National Statistical Institute of Bulgaria (NSI)
+publisher_role: statistics-office
+countries: [BG]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: monthly
+coverage:
+  start: 2026
+  update: monthly, about two months after the reference month (August 2026 was released 30 October 2026)
+capacity: none
+coordinates: not-applicable
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://www.nsi.bg/sites/default/files/files/metadata/Energy-1.4.Methodology_en.pdf
+  note: >-
+    Columns are labelled by year and Roman-numeral month (2026, I to VIII), with "GWh" in the
+    Measure column of each row. The methodological notes define net production as electricity
+    measured at the output of the power station (gross production minus the station's own
+    needs), reported by energy product including wind. The wind row is an "of which" row of net
+    production: in January 2026 the nine products sum to 3,770 GWh, the net production figure.
+    Read 2026-11-08 by an automated research pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.nsi.bg/en/statistical-data/81/293
+  docs: https://www.nsi.bg/sites/default/files/files/metadata/Energy-1.4.Methodology_en.pdf
+  key_required: false
+  registration: false
+  formats: [xlsx, pdf]
+  languages: [bg, en]
+licence:
+  name: License to use statistical information produced and disseminated by the NSI (version 2.0)
+  url: https://www.nsi.bg/en/pages/license-to-use-statistical-information-produced-and-disseminated-by-the-national-statistical-institute-485
+  redistribution: allowed-with-attribution
+  attribution: Indicate the NSI as the source of the information with each use.
+  verified: true
+  note: >-
+    Read 2026-11-08 from the licence PDF linked on that page. Section 2.1 grants the right to
+    reproduce, disseminate and use NSI statistical information and aggregated survey data,
+    including for commercial purposes, provided the author is named with each use; it adds
+    "You may not disseminate derivative or collective works." Users must not infringe the
+    data's original meaning.
+traps:
+  - summary: Wind is separated only from January 2026; earlier months in the same file are "x" (not applicable).
+    detail: >-
+      In the workbook downloaded on 2026-11-08 the "2024-2026" sheet gives gross and net
+      production for every month from January 2024, but all the "of which" rows, wind
+      included, are "x" for 2024 and 2025, and the "2019" sheet has no fuel split at all. The
+      monthly wind series is therefore eight months long (January to August 2026, 177 GWh to
+      47 GWh). Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.nsi.bg/sites/default/files/files/data/timeseries/Energy-1.4.Electricity_en.xlsx
+    found: 2026-11-08
+  - summary: Wind is net production, so it will read slightly below gross wind series from other publishers.
+    detail: >-
+      The wind row sits under net production, which the methodology defines as gross minus the
+      station's own needs. Compare it with net figures, not with gross annual statistics.
+      Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.nsi.bg/sites/default/files/files/metadata/Energy-1.4.Methodology_en.pdf
+    found: 2026-11-08
+notes: >-
+  Monthly national electricity production in GWh (gross, net, and net by product: nuclear, coal,
+  petroleum products, natural gas, combustible renewables, hydro, wind, solar photovoltaic,
+  other), imports, exports and net consumption, as an English and a Bulgarian workbook
+  (Energy-1.4.Electricity_en.xlsx and Energy-1.4.Electricity.xlsx) and as monthly press-release
+  PDFs ("Production and deliveries of energy products"). Checked 2026-11-08: wind 177 GWh in
+  January, 144 in February, 115 in March, 86 in April, 117 in May, 47 in June, 76 in July and 83
+  in August 2026. The short span is the point: this is the only monthly official wind figure for
+  Bulgaria found so far, alongside ESO's hourly page (bg-eso-generation-per-day).
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

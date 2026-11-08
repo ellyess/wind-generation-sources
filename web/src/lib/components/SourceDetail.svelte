@@ -1,7 +1,7 @@
 <script lang="ts">
   import { hasLive } from "../live";
   import { REPO, store, type Indexed } from "../store.svelte";
-  import { BAND_TEXT, STAMP, TEXT, VALUE, coverageText, plural, twh, zoneText } from "../text";
+  import { BAND_TEXT, STAMP, TEXT, VALUE, areaText, coverageText, creditIsRule, creditText, plural, twh, zoneText } from "../text";
   import CopyButton from "./CopyButton.svelte";
   import Ext from "./Ext.svelte";
   import FarmTable from "./FarmTable.svelte";
@@ -33,6 +33,7 @@
     return out;
   });
   let entryLink = $derived(`${location.origin}${location.pathname}?source=${encodeURIComponent(s.id)}`);
+  const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
   const yesNo = (v?: boolean) => (v == null ? "" : v ? "Yes" : "No");
   let allOpen = $state(false);
   // In-page index: the source page runs long, so each section is one tap away.
@@ -44,8 +45,14 @@
     ["sd-access", "Access"], ["sd-licence", "Licence"], ["sd-data", "Data"], ["sd-checks", "Checks"],
   ] as [string, string][]);
   let root: HTMLElement;
-  const jump = (id: string) => root?.querySelector(`#${id}`)?.scrollIntoView({
-    block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  function jump(id: string) {
+    const el = root?.querySelector<HTMLElement>(`#${id}`);
+    if (!el) return;
+    el.scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    // Move focus too, so the next Tab continues inside the section.
+    el.tabIndex = -1;
+    el.focus({ preventScroll: true });
+  }
   /** Split prose into text and bare URLs, so pasted evidence links become real links. */
   function linkify(text: string): { text: string; url?: string }[] {
     const out: { text: string; url?: string }[] = [];
@@ -72,7 +79,7 @@
   </header>
 
   {#if s.reviewed === false}
-    <p class="note">Compiled by an automated research pass from the publisher's own pages. A person has not checked it yet, so treat the details as leads.</p>
+    <p class="note"><strong>Unreviewed.</strong> Compiled automatically from the publisher's pages; treat details as leads.</p>
   {/if}
 
   <dl class="facts">
@@ -81,7 +88,7 @@
     <div><dt>Re-hosting</dt><dd><Verdict value={s.licence.redistribution} /></dd></div>
     <div><dt>Coverage</dt><dd class="num">{coverageText(s.coverage)}</dd></div>
     <div><dt>Access</dt><dd>{TEXT.method[s.access.method]}{s.access.key_required ? ", key needed" : ", no key"}</dd></div>
-    <div><dt>Area</dt><dd>{s.countries.length > 4 ? `${s.countries.length} countries` : s.countries.map(store.placeName).join(", ")}</dd></div>
+    <div><dt>Area</dt><dd>{areaText(s.countries, store.placeName)}</dd></div>
   </dl>
 
   <div class="use">
@@ -90,8 +97,9 @@
       <CopyButton text={s.access.url} what="access URL" label="Copy URL" />
       <CopyButton text={entryLink} what="link to this entry" label="Copy link" />
     </div>
-    <p class="terms">Terms: {#if s.licence.url}<Ext href={s.licence.url} label={s.licence.name} />{:else}{s.licence.name}{/if}<span class="sub"> · {s.licence.verified ? "read on the publisher's page" : "not yet read on the publisher's page"}</span></p>
-    {#if s.licence.attribution}<p class="credit"><span class="sub">Credit:</span> <q>{s.licence.attribution}</q><CopyButton text={s.licence.attribution} what="credit line" /></p>{/if}
+    <p class="terms">Terms: {#if s.licence.url}<Ext href={s.licence.url} label={s.licence.name} />{:else}{s.licence.name}{/if}<span class="sub">{" · "}{s.licence.verified ? "read on the publisher's page" : "not yet read"}</span></p>
+    {#if s.licence.attribution && creditIsRule(s.licence.attribution)}<p class="credit"><span class="sub">How to credit:</span> {creditText(s.licence.attribution)}</p>
+    {:else if s.licence.attribution}<p class="credit"><span class="sub">Credit:</span> <q>{creditText(s.licence.attribution)}</q><CopyButton text={creditText(s.licence.attribution)} what="credit line" /></p>{/if}
   </div>
 
   <nav class="toc" aria-label="On this page">
@@ -111,14 +119,14 @@
               <summary><span class="tn num" aria-hidden="true">{i + 1}</span><span class="ts">{t.summary}</span><Icon name="chev" size={14} /></summary>
               <div class="tb">
                 {#if t.detail}<p class="td">{#each linkify(t.detail) as part, j (j)}{#if part.url}<Ext href={part.url} />{:else}{part.text}{/if}{/each}</p>{/if}
-                <p class="te">Evidence: <Ext href={t.evidence} />{#if t.found}<span class="sub"> · found {t.found}</span>{/if}</p>
+                <p class="te">Evidence: <Ext href={t.evidence} />{#if t.found}<span class="sub">{" · "}found {t.found}</span>{/if}</p>
               </div>
             </details>
           </li>
         {/each}
       </ol>
     {:else}
-      <p class="muted">None recorded yet. That is not the same as none existing.</p>
+      <p class="muted">None recorded yet, which is not the same as none existing.</p>
     {/if}
   </section>
 
@@ -132,11 +140,11 @@
       <h3>Reading the data</h3>
       <dl class="kv">
         <div><dt>Time zone</dt><dd class:unk={c.timezone === "unknown"}>{zoneText(c.timezone)}</dd></div>
-        <div><dt>Time stamp</dt><dd class:unk={c.timestamp === "unknown"}>The stamp {STAMP[c.timestamp] ?? c.timestamp}</dd></div>
-        <div><dt>Values</dt><dd class:unk={c.value === "unknown" && c.unit === "unknown"}>{c.unit === "unknown" ? "Unit not stated" : c.unit}, {VALUE[c.value] ?? c.value}</dd></div>
+        <div><dt>Time stamp</dt><dd class:unk={c.timestamp === "unknown"}>{cap(STAMP[c.timestamp] ?? c.timestamp)}</dd></div>
+        <div><dt>Values</dt><dd class:unk={c.value === "unknown" && c.unit === "unknown"}>{c.unit === "unknown" && c.value === "unknown" ? "Unit and type of value (mean, total or instantaneous) not stated" : `${c.unit === "unknown" ? "Unit not stated" : c.unit}, ${VALUE[c.value] ?? c.value}`}</dd></div>
         <div><dt>Stated in</dt><dd><Ext href={c.evidence} /></dd></div>
       </dl>
-      {#if c.note}<p class="conv-note">{c.note}</p>{/if}
+      {#if c.note}<p class="conv-note">{#each linkify(c.note) as part, j (j)}{#if part.url}<Ext href={part.url} />{:else}{part.text}{/if}{/each}</p>{/if}
     </section>
   {/if}
 
@@ -147,8 +155,6 @@
     <dl class="kv">
       <div><dt>Where</dt><dd><Ext href={s.access.url} /></dd></div>
       {#if s.access.docs}<div><dt>Documentation</dt><dd><Ext href={s.access.docs} /></dd></div>{/if}
-      <div><dt>Method</dt><dd>{TEXT.method[s.access.method]}</dd></div>
-      <div><dt>Key required</dt><dd>{yesNo(s.access.key_required)}</dd></div>
       {#if s.access.registration != null}<div><dt>Registration</dt><dd>{yesNo(s.access.registration)}</dd></div>{/if}
       {#if s.access.formats?.length}<div><dt>Formats</dt><dd>{s.access.formats.join(", ").toUpperCase()}</dd></div>{/if}
       {#if s.access.languages?.length}<div><dt>Languages</dt><dd>{s.access.languages.join(", ")}</dd></div>{/if}
@@ -159,10 +165,7 @@
   <section id="sd-licence">
     <h3>Licence</h3>
     <dl class="kv">
-      <div><dt>Re-hosting</dt><dd><Verdict value={s.licence.redistribution} /></dd></div>
-      <div><dt>Terms</dt><dd>{#if s.licence.url}<Ext href={s.licence.url} label={s.licence.name} />{:else}{s.licence.name}{/if}{#if s.licence.spdx}<span class="sub"> · {s.licence.spdx}</span>{/if}</dd></div>
-      <div><dt>Read on the publisher's page</dt><dd>{s.licence.verified ? "Yes" : "Not yet"}</dd></div>
-      {#if s.licence.attribution}<div><dt>Credit line</dt><dd class="cred"><q>{s.licence.attribution}</q><CopyButton text={s.licence.attribution} what="credit line" /></dd></div>{/if}
+      <div><dt>Terms</dt><dd>{#if s.licence.url}<Ext href={s.licence.url} label={s.licence.name} />{:else}{s.licence.name}{/if}{#if s.licence.spdx}<span class="sub">{" · "}{s.licence.spdx}</span>{/if}</dd></div>
       {#if s.licence.note}<div><dt>Note</dt><dd>{s.licence.note}</dd></div>{/if}
     </dl>
   </section>
@@ -173,10 +176,9 @@
       <div><dt>Measure</dt><dd>{TEXT.measure[s.measure]}</dd></div>
       <div><dt>Level</dt><dd>{TEXT.levelLong[s.level]}</dd></div>
       <div><dt>Technology</dt><dd>{TEXT.technology[s.technology]}</dd></div>
-      <div><dt>Time step</dt><dd>{TEXT.step[s.resolution]}</dd></div>
       {#if s.coverage.update}<div><dt>Updates</dt><dd>{s.coverage.update}</dd></div>{/if}
       {#if s.area}<div><dt>Area</dt><dd>{s.area}</dd></div>{/if}
-      {#if s.countries.length > 4}<div><dt>Countries</dt><dd class="codes">{s.countries.join(" ")}</dd></div>{/if}
+      {#if s.countries.length > 3}<div><dt>Countries</dt><dd class="codes">{s.countries.join(" ")}</dd></div>{/if}
       <div><dt>Capacity</dt><dd>{TEXT.presence[s.capacity]}</dd></div>
       <div><dt>Coordinates</dt><dd>{TEXT.presence[s.coordinates]}</dd></div>
       <div><dt>Curtailment</dt><dd>{TEXT.curtailment[s.curtailment ?? "unknown"]}</dd></div>
@@ -189,13 +191,13 @@
   <section id="sd-checks">
     <h3>Checks</h3>
     <dl class="kv">
-      <div><dt>Reviewed</dt><dd>{s.reviewed === false ? "Not yet by a person" : `By a person, ${s.last_checked}`}</dd></div>
+      <div><dt>Reviewed</dt><dd>{s.reviewed === false ? "Not yet by a person" : "By a person"}</dd></div>
       <div><dt>Links</dt><dd>
         {#if links}
-          {links.ok} of {links.total} answer<span class="sub"> · {store.checks.links?.checked}</span>
+          {links.ok} of {links.total} load<span class="sub">, checked {store.checks.links?.checked}</span>
           {#each links.broken as b (b.url)}<span class="bad">Broken: <Ext href={b.url} /> ({b.role})</span>{/each}
           {#each links.recheck as b (b.url)}<span class="bad">Now loads, so the trap may be fixed: <Ext href={b.url} /></span>{/each}
-          {#if links.unchecked.length}<span class="sub block">{links.unchecked.length} refused or timed out on an automated check, so they were not judged.</span>{/if}
+          {#if links.unchecked.length}<span class="sub block">{links.unchecked.length} not judged: refused automated requests or timed out</span>{/if}
         {:else}Not checked yet{/if}
       </dd></div>
       {#if agr}
@@ -206,7 +208,7 @@
           {:else if comps.length > 1}
             Compared for {comps.length} countries: {comps.filter((r) => r.band === "agrees").length} within 15%.
             {@const off = comps.filter((r) => r.band === "outside" || r.band === "noted")}
-            {#if off.length}<span class="block">Further out: {#each off as r, i (r.iso)}{i ? ", " : ""}<button type="button" class="lnk" onclick={() => store.go({ country: r.iso, source: "" })}>{store.placeName(r.iso)}</button> <span class="num">{r.ratio?.toFixed(2)}</span>{/each}</span>{/if}
+            {#if off.length}<span class="block">Further out: {#each off as r, i (r.iso)}{i ? ", " : ""}<a class="lnk" {...store.link({ country: r.iso, source: "" })}>{store.placeName(r.iso)}</a> <span class="num">{r.ratio?.toFixed(2)}</span>{/each}</span>{/if}
           {:else if asRef}
             The reference for {plural(asRef, "country", "countries")} in the cross-check.
           {:else if agr.failures.some((f) => f.source === s.id)}
@@ -221,17 +223,18 @@
   </section>
 
   {#if s.notes}
-    <section><h3>Notes</h3><p class="prose">{s.notes}</p></section>
+    <section><h3>Notes</h3><p class="prose">{#each linkify(s.notes) as part, j (j)}{#if part.url}<Ext href={part.url} />{:else}{part.text}{/if}{/each}</p></section>
   {/if}
 
   <footer>
     <p class="sub">Last checked {s.last_checked}{s.checked_by ? ` · ${s.checked_by}` : ""}</p>
-    <a href="{REPO}/blob/main/sources/{s.id}.yaml" target="_blank" rel="noopener">Correct this entry on GitHub</a>
+    <a href="{REPO}/edit/main/sources/{s.id}.yaml" target="_blank" rel="noopener">Correct this entry on GitHub</a>
   </footer>
 </article>
 
 <style>
-  .detail { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .detail :global([tabindex="-1"]:focus) { outline: none; }
+  .detail { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; overflow-wrap: anywhere; }
   header { display: grid; gap: 4px; }
   .title { font-size: 19px; line-height: 1.3; letter-spacing: -0.011em; }
   .pub { color: var(--ink-2); }
@@ -249,12 +252,13 @@
   .primary:hover { background: var(--accent-ink); }
   .note { margin-top: -8px; padding: 8px 12px; border-radius: var(--radius); background: var(--surface-3);
     font-size: 12.5px; color: var(--ink-2); }
+  .note strong { color: var(--ink); font-weight: 600; }
   .use { display: grid; gap: 8px; margin-top: -6px; }
   .terms { font-size: 13px; color: var(--ink-2); }
   .credit { font-size: 13px; color: var(--ink-2); }
   .credit q { color: var(--ink); margin-right: 6px; }
   .credit :global(.copy) { vertical-align: middle; }
-  .toc { position: sticky; top: var(--toc-top, 0); z-index: 2; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
+  .toc { position: sticky; top: var(--toc-top, 0); z-index: 2; display: flex; flex-wrap: wrap; gap: 2px;
     margin: -6px -8px -10px; padding: 8px; background: var(--detail-bg, var(--surface-2)); border-bottom: 1px solid var(--line); }
   .toc button { flex: none; height: 28px; padding: 0 8px; border: 0; border-radius: var(--radius-sm); background: none; font-size: 12.5px; font-weight: 500; color: var(--ink-2); }
   .toc button:hover { background: var(--surface-3); color: var(--ink); }
@@ -284,7 +288,6 @@
   .kv div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--line); }
   .kv dt { font-size: 12.5px; color: var(--ink-3); }
   .kv dd { margin: 0; font-size: 13.5px; overflow-wrap: anywhere; }
-  .cred { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
   q { font-style: italic; }
   .codes { font-family: var(--mono); font-size: 12px; line-height: 1.6; }
   .sub { color: var(--ink-3); }
@@ -298,7 +301,6 @@
   footer { display: grid; gap: 4px; padding-top: 4px; font-size: 12.5px; }
   @media (max-width: 420px) { .kv div { grid-template-columns: 1fr; gap: 2px; } }
   /* On a phone the index wraps rather than hiding sections off to the side. */
-  @media (max-width: 480px) { .toc { flex-wrap: wrap; overflow-x: visible; } }
   .unk { color: var(--ink-3); font-style: italic; }
   .conv-note { font-size: 12.5px; color: var(--ink-2); margin: 6px 0 0; }
 </style>

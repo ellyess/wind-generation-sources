@@ -1,0 +1,78 @@
+id: az-ssc-electricity-production-by-source
+name: Production of electricity (table 5.4), Energy statistics of the State Statistical Committee of Azerbaijan
+publisher: State Statistical Committee of the Republic of Azerbaijan (SSC, Azərbaycan Respublikasının Dövlət Statistika Komitəsi)
+publisher_role: statistics-office
+countries: [AZ]
+level: country
+technology: onshore
+measure: reported-generation
+resolution: annual
+coverage:
+  start: 2009
+  update: annual; the tables were last saved on 2026-09-04 with data to 2025
+capacity: separate-dataset
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: not-applicable
+  timestamp: period-label
+  unit: GWh
+  value: period-total
+  evidence: https://www.stat.gov.az/source/balance_fuel/en/005_4en.xls
+  note: >-
+    The table is headed "5.4 Production of electricity, million kWh" (million kWh are GWh), with
+    one row per calendar year and a "wind power plants" column next to fuel-fired, hydro, solar,
+    waste-incineration and biomass plants. Read 2026-11-08 by an automated research pass; not
+    yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.stat.gov.az/source/balance_fuel/?lang=en
+  key_required: false
+  registration: false
+  formats: [xls, pdf]
+  languages: [az, en]
+licence:
+  name: none found; the site asks users to cite it
+  url: https://www.stat.gov.az/menu/6/dissemination_policy/DissPolicy_en_2014.pdf
+  redistribution: unclear
+  verified: false
+  note: >-
+    The site footer says "It is necessary to refer to the information on the site". The
+    Committee's dissemination policy shows, as a model notice for its printed publications, that
+    under the law on official statistics the material "can not be copied" and that the Committee
+    must be cited. No terms for the online tables were found, so re-hosting is left unclear.
+traps:
+  - summary: Wind output falls in 2023 and 2024 while capacity stays flat, then capacity jumps nearly fivefold at the end of 2025.
+    detail: >-
+      Table 5.4 gives wind 105.4 GWh in 2019, 55.4 in 2023, 50.9 in 2024 and 172.3 in 2025;
+      table 5.3 gives wind capacity at the end of the year as 66.0 MW (2018 to 2021), 64 MW (2022
+      to 2024) and 303.8 MW (2025). Year-end capacity is the only denominator, so a capacity
+      factor for 2025 is about 6.5% against year-end capacity and about 31% against the previous
+      year-end; neither is right without commissioning dates. The 2023 and 2024 drop has no
+      explanation in the tables. Found by an automated research pass on 2026-11-08; not yet
+      reviewed by a person.
+    evidence: https://www.stat.gov.az/source/balance_fuel/en/005_3en.xls
+    found: 2026-11-08
+  - summary: The Ministry of Energy's chart gives a different 2025 figure from the statistics table.
+    detail: >-
+      The Ministry of Energy's infographic "Electricity generation by type of power plants in the
+      republic in 2014-2025" gives wind as 0.1697 billion kWh for 2025, against 172.3 million kWh
+      in table 5.4; the earlier years agree (0.0827 and 82.7 for 2018, 0.0833 and 83.3 for 2022).
+      2011 and 2012 are "-" in both the generation and the capacity table. Found by an automated
+      research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://minenergy.gov.az/en/statistika/elektrik-stansiyalarinin-novune-gore-elektrik-enerjisinin-istehsali_1282
+    found: 2026-11-08
+notes: >-
+  National annual wind generation for Azerbaijan from 2009, in the Committee's energy statistics
+  section, as an Excel table that downloads without login. Checked 2026-11-08: the wind column
+  reads 2.1 GWh (2009), 0.5 (2010), "-" (2011 and 2012), 0.8 (2013), then 2.3, 4.6, 22.8, 22.1,
+  82.7, 105.4, 96.1, 91.4, 83.3, 55.4, 50.9 and 172.3 (2025). Installed capacity by plant type is
+  table 5.3 (https://www.stat.gov.az/source/balance_fuel/en/005_3en.xls). The same section offers
+  the yearbook "Energy of Azerbaijan 2026" as a PDF. No monthly or per-farm wind series was found
+  on the Committee's site. The Ministry of Energy's statistics page
+  (https://minenergy.gov.az/en/statistika/elektrik-enerjisi) publishes the same annual series
+  only as an image.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

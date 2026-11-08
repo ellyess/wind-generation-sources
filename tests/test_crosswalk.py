@@ -208,3 +208,25 @@ def test_wikidata_point_used_when_no_osm_farm_and_proposed_link_stands_against_d
     assert (thanet["status"], thanet["method"]) == ("proposed", "name")
     assert "capacity disagrees" in thanet["notes"] and "Q3" in thanet["notes"]
     assert outcome["newly placed"] == 1
+
+
+def test_corrections_move_and_keep(tmp_path):
+    path = tmp_path / "corrections.csv"
+    path.write_text(
+        "entry,unit_id,action,farm_name,osm_url,lat,lon,reason,checked\n"
+        "e,A,move,Right Farm,https://osm/1,54.2,-3.3,wrong county,someone\n"
+        "e,B,keep,,,,,name and capacity match,someone\n", encoding="utf-8")
+    rows = [
+        {"unit_id": "A", "status": "proposed", "farm_name": "Wrong Farm", "lat": 52.0, "lon": 0.0,
+         "repd_id": "9", "notes": "4 units point at this farm; check: postcode is 284 km away"},
+        {"unit_id": "B", "status": "proposed", "farm_name": "B Farm", "lat": 1.0, "lon": 1.0,
+         "notes": "check: postcode is 21 km away"},
+        {"unit_id": "C", "status": "review", "notes": ""},
+    ]
+    assert cl.apply_corrections("e", rows, path) == 2
+    a, b, c = rows
+    assert (a["farm_name"], a["lat"], a["method"]) == ("Right Farm", 54.2, "corrected")
+    assert a["repd_id"] == ""
+    assert "check:" not in a["notes"] and "was matched to Wrong Farm" in a["notes"]
+    assert b["farm_name"] == "B Farm" and b["notes"].startswith("corrected (someone)")
+    assert c["notes"] == ""

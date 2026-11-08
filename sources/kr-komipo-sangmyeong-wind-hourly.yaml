@@ -1,0 +1,83 @@
+id: kr-komipo-sangmyeong-wind-hourly
+name: Wind generation results, Sangmyeong wind farm, AI-ready (한국중부발전(주)_(AI 친화 데이터)풍력 발전 실적(상명풍력))
+publisher: Korea Midland Power Co. (KOMIPO, 한국중부발전), via the Public Data Portal (data.go.kr)
+publisher_role: owner-operator
+countries: [KR]
+area: Sangmyeong wind farm, Sangmyeong ranch, Hallim-eup, Jeju island
+level: farm
+technology: onshore
+measure: reported-generation
+resolution: hourly
+coverage:
+  start: 2023
+  update: annual (업데이트 주기 연간); current file runs to 2026-03-30, next release due 2027-03-31
+capacity: none
+coordinates: none
+curtailment: not-reported
+conventions:
+  timezone: unknown
+  timestamp: unknown
+  unit: kWh
+  value: period-total
+  evidence: https://www.data.go.kr/data/15119454/fileData.do
+  note: >-
+    The description says the hourly columns 1시 to 24시 are energy sent out (송전량) in kWh, and that
+    the farm is 21 MW; the column definitions on the same page say MWh. The data settle it for
+    kWh: from February 2025 the hourly values peak at about 20,109, which is possible in kWh for
+    a 21 MW farm and impossible in MWh. The page does not say whether column 1시 is the hour
+    starting or ending at 01:00, nor the time zone. Read 2026-11-08 by an automated research
+    pass; not yet reviewed.
+access:
+  method: bulk-download
+  url: https://www.data.go.kr/data/15119454/fileData.do
+  key_required: false
+  registration: false
+  formats: [csv]
+  languages: [ko]
+licence:
+  name: Public Data Portal terms for this dataset, scope of permitted use "no restriction" (이용허락범위 제한 없음), free of charge
+  url: https://www.data.go.kr/data/15119454/fileData.do
+  redistribution: allowed
+  verified: true
+  note: The dataset page states free use with no restriction on the scope of use. The CSV downloaded without login on the check date.
+traps:
+  - summary: Every value from January 2023 to January 2025 is 1,000 times too large; the decimal point was dropped.
+    detail: >-
+      Rows up to 2025-01-31 hold whole numbers in the millions, for example 2023-01-01 hour 1 is
+      2285684 and the largest is about 20.1 million, for a 21 MW farm. From 2025-02-01 the same
+      quantity has three decimals (9337.263 in hour 1 that day) and peaks at 20,109.158. Dividing
+      the earlier rows by 1,000 gives about 31.3 GWh for 2023 and 30.9 GWh for 2024, against
+      31.7 GWh for 2025 and the description's "over 30 million kWh a year". Divide rows before
+      February 2025 by 1,000. Found by an automated research pass on 2026-11-08; not yet
+      reviewed by a person.
+    evidence: https://www.data.go.kr/data/15119454/fileData.do
+    found: 2026-11-08
+  - summary: The page gives the hourly unit as kWh in its description and MWh in its column definitions.
+    detail: >-
+      The description says the hourly columns are 송전량(kWh); the column definitions say each is
+      송전량(MWh). The 2025 and 2026 values only fit kWh. The description also calls the farm
+      offshore (해상풍력) while placing it on Sangmyeong ranch in Hallim-eup, which is on land.
+      Found by an automated research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.data.go.kr/data/15119454/fileData.do
+    found: 2026-11-08
+  - summary: Three days in 2026 are blank, and the file ends with an empty row.
+    detail: >-
+      2026-01-31, 2026-02-03 and 2026-02-15 have no values in any hour; 2026-02-21 is zero in
+      every hour, which the page says is a real calm or stopped period, not an error. The last
+      line of the CSV is all commas. The file is CP949 (EUC-KR) encoded. Found by an automated
+      research pass on 2026-11-08; not yet reviewed by a person.
+    evidence: https://www.data.go.kr/data/15119454/fileData.do
+    found: 2026-11-08
+notes: >-
+  Hourly energy sent out by KOMIPO's Sangmyeong wind farm in western Jeju, one row per day with
+  the 24 hours as columns 1시 to 24시. The column 호기 (unit) is 1 on every row, so this is the farm
+  total, not per turbine. Checked 2026-11-08: the file (한국중부발전(주)_(AI 친화 데이터)풍력 발전
+  실적(상명풍력)_20260330.csv, 215 kB, registered 2026-04-08, modified 2026-09-18) has 1,185 daily
+  rows, one for every day from 2023-01-01 to 2026-03-30, although the description speaks of data
+  from 2022. The page gives the capacity as 21 MW in text only. The description links a worked
+  example on KOMIPO's own site. KOMIPO also runs a keyed open API of regional wind results
+  (https://www.data.go.kr/data/15157017/openapi.do), not checked.
+status: active
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-08; not yet reviewed by a person"
+reviewed: false

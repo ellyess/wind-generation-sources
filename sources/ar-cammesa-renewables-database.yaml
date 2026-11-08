@@ -9,6 +9,7 @@ measure: reported-generation
 resolution: monthly
 coverage:
   start: 2011
+  update: monthly release, about two months behind (the 2026-09 release was current on 2026-11-08)
 capacity: none
 coordinates: none
 curtailment: not-reported
@@ -75,6 +76,9 @@ notes: >-
   EOLICO. No coordinates, capacity or hub heights. Added 2026-11-07: in the 2026-09 release the 75
   wind plants are 75 codes in "Base de Datos" but 77 named rows in "Tabla Resumen x Central",
   because two Arauco plants were renamed in August 2026 (see traps).
+  Added 2026-11-08: coverage.update was missing. On 2026-11-08 the page's download button
+  (?wpdmdl=37500) still redirected to the 2026-09 release, and the dated addresses for 2026-10 and
+  2026-11 returned 404.
 status: active
-last_checked: 2026-09-19
-checked_by: Ellyess Benmoufok, from the PyVWF runbook and dataset survey (file verified July 2026); licence read on the publisher's page 2026-11-06
+last_checked: 2026-11-08
+checked_by: Ellyess Benmoufok, from the PyVWF runbook and dataset survey (file verified July 2026); licence read on the publisher's page 2026-11-06; links and conventions re-checked by an automated pass 2026-11-08

@@ -8,12 +8,12 @@ Uses the undocumented text resource the chart page itself calls: rows split by "
 ";", in the order time, consumption, mean consumption, production, balance, coal, hydrocarbons,
 hydro, nuclear, wind (Eolian), solar, biomass. Traps handled:
 - values are instantaneous snapshots at drifting times about every 10 minutes, not averages
-  or energy, so time_utc is the snapshot instant (resample before joining to hourly data);
+  or energy, so time is the snapshot instant (resample before joining to hourly data);
 - some rows appear twice, so duplicates are dropped;
 - a value containing ".00" is an estimate (shown with "*" on screen), kept as wind_estimated;
-- stamps behave as Romanian local time (Transelectrica does not say so). The sample is the
-  autumn clock change, 25 October 2026, where the 03:00 hour appears once; it is read as summer
-  time, since the repeated hour is the one missing.
+- stamps behave as Romanian local time, but Transelectrica does not say so, so they are kept
+  as a naive `time`, not UTC. The sample is the autumn clock change, 25 October 2026, where the
+  03:00 hour appears once, although local clocks ran through it twice.
 Wind is zero on every row before mid-2010; treat those zeros as missing.
 """
 
@@ -38,11 +38,10 @@ rows = pd.DataFrame({"local": [f[0] for f in fields], "wind": [f[9] for f in fie
 
 local = pd.to_datetime(rows["local"], format="%d-%m-%Y %H:%M:%S")
 df = (
-    rows.assign(time_utc=local.dt.tz_localize("Europe/Bucharest", ambiguous=True)
-                .dt.tz_convert("UTC"),
+    rows.assign(time=local,  # zone not stated
                 wind_mw=pd.to_numeric(rows["wind"]),
                 wind_estimated=rows["wind"].str.contains(".00", regex=False))
-    .set_index("time_utc")
+    .set_index("time")
     .sort_index()[["wind_mw", "wind_estimated"]]
 )
 print(df)

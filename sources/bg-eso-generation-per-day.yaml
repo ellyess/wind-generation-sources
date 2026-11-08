@@ -40,10 +40,14 @@ licence:
   verified: false
   note: No terms of use or reuse licence were found on eso.bg on 2026-11-06 (site search for "условия", "авторски" and "лиценз" returned nothing).
 traps:
-  - summary: Wind is empty before late April 2021, although the page returns other fuels for earlier dates.
+  - summary: Wind is empty before 5 April 2021, although the page returns other fuels for earlier dates.
     detail: >-
       For 1 January 2015, 1 June 2020 and 1 April 2021 the page draws the chart but the wind
       series (ВяЕЦ) has no values; 1 May 2021 is the first day checked with wind data.
+      Corrected 2026-11-08: this trap said wind starts in late April 2021. Day by day, 1 to 4
+      April 2021 have an empty wind array; 5 April 2021 has 9 wind values against 24 stamps, so
+      the wind array is shorter than xValues; 6 April 2021 is the first full day (24 values,
+      220.7 MW in the first hour). Treat 5 April 2021 as a partial day.
     evidence: https://www.eso.bg/doc/?generation_per_day&date=01.04.2021
     found: 2026-11-06
   - summary: There is no file download; one day at a time is embedded in the page as JavaScript arrays.
@@ -78,6 +82,6 @@ notes: >-
   annual statistical book (https://www.eso.bg/doc/?pbook) returned an error page when downloaded
   on 2026-11-06.
 status: active
-last_checked: 2026-11-06
-checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06; not yet reviewed by a person"
+last_checked: 2026-11-08
+checked_by: "Claude Code research pass for Ellyess Benmoufok, 2026-11-06, re-checked 2026-11-08; not yet reviewed by a person"
 reviewed: false

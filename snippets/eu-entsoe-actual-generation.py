@@ -61,6 +61,6 @@ for ts in root.iterfind("g:TimeSeries", ns):
 
 df = pd.DataFrame(series).rename_axis("time_utc").sort_index()
 df["wind_mw"] = df.sum(axis=1)
-hours = df.index.to_series().diff().median() / pd.Timedelta("1h")
 print(df)
-print(f"{len(df)} intervals, {df['wind_mw'].sum() * hours / 1000:.1f} GWh")  # MW x hours
+print(f"{len(df)} intervals, mean {df['wind_mw'].mean():,.0f} MW, "
+      f"peak {df['wind_mw'].max():,.0f} MW")  # MW, not energy: the value type is not stated

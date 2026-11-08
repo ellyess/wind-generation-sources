@@ -130,3 +130,24 @@ figures:
       isolated territorial systems ("в том числе в ЕЭС России - 1 180,7 млрд кВт∙ч, в ТИТЭС -
       16,2"). Its geography is the operator's, which lists 89 regions and so includes occupied
       Ukrainian territory; international compilers may draw it differently.
+
+  - country: ZA
+    publisher: CSIR Energy Centre, from Eskom data
+    short: CSIR
+    entry: za-csir-utility-scale-power-statistics
+    value: 11.1
+    unit: TWh
+    twh: 11.1
+    period: calendar 2024
+    url: https://www.csir.co.za/sites/default/files/2025-09/Utility%20Statistics%20Report_Jan%202025_Final.pdf
+    where: Statistics of utility-scale power generation in South Africa, January 2025, page 8
+    quote: >-
+      The 2024 row of the generation table gives Wind "11,1" TWh (decimal comma), with the note
+      "Wind includes Eskom's Sere wind farm (100 MW). Wind and solar PV energy excludes
+      curtailment and is thus lower than actual wind and solar PV generation."
+    fetched: "2026-11-08"
+    whole_fleet: true
+    why: >-
+      The figure covers all utility-scale wind, the private REIPPPP farms and Eskom's Sere farm.
+      It leaves out curtailed energy and any small embedded wind, neither quantified, so it reads
+      slightly low against a gross production figure.

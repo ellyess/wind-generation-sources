@@ -7,16 +7,16 @@
 There is no file or API: the page embeds the day's chart data as JavaScript arrays, "xValues"
 (UTC epoch milliseconds) and one array per fuel; wind is 'ВяЕЦ', in MW. Reading those arrays is
 undocumented and will break if ESO changes the page script. ESO does not say whether a value is an
-hourly mean or a reading, or whether a stamp starts its hour; each value is taken here as the hour
-starting at its stamp, which is local midnight for the first one. The sample is 25 October 2026,
+hourly mean or a reading, or whether a stamp starts its hour, so time_utc is each value's stamp
+(the first is local midnight), not a claimed period start. The sample is 25 October 2026,
 the autumn clock change, so the day has 25 hours.
 
 Traps handled:
 - On the autumn change day the page stamps two hours with the same instant and skips 00:00 UTC,
   so the stamps are not used as the index: values are taken in order and given consecutive hours
   from local midnight, after checking their count matches the hours in the local day.
-- Wind is empty before late April 2021 although other fuels are present; the snippet stops if
-  the wind array is empty.
+- Wind is empty before 5 April 2021 (and 5 April has only 9 of 24 values) although other
+  fuels are present; the snippet stops if the wind array is empty or short.
 """
 
 import json
