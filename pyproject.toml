@@ -5,7 +5,7 @@ description = "An open, licence-annotated catalogue of where to find observed wi
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT (code); CC-BY-4.0 (catalogue entries)" }
-authors = [{ name = "Ellyess Benmoufok" }]
+authors = [{ name = "Ellyess F. Benmoufok" }]
 dependencies = ["pyyaml>=6", "jsonschema>=4.21"]
 
 [project.scripts]

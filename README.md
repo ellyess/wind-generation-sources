@@ -12,6 +12,15 @@ Every licence is read on the publisher's own page and dated. Until it has been r
 
 The catalogue holds metadata and links only. It never re-hosts a publisher's data.
 
+## Why it exists
+
+I spent a large part of my PhD tracking down observed wind generation data, scattered across
+grid operators, market operators, statistics offices and research archives, with licences and
+traps rarely written down. I had to list the sources out again for each piece of work. This
+catalogue publishes that list so you can start from it instead of repeating the search.
+
+— Ellyess F. Benmoufok
+
 ## Use it
 
 - **Browse:** the site, built from this repository by GitHub Actions and served on GitHub Pages.
@@ -91,4 +100,4 @@ nothing is stored.
 
 Catalogue entries are [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Code is MIT. The Inter typeface is under the SIL Open Font License. Each publisher's data stays under its own terms, as recorded in its entry.
 
-Maintained by Ellyess Benmoufok. Many of the traps come from the validation audits of [PyVWF](https://github.com/ellyess/PyVWF).
+Maintained by Ellyess F. Benmoufok. Many of the traps come from the validation audits of [PyVWF](https://github.com/ellyess/PyVWF).

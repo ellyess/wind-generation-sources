@@ -4,7 +4,7 @@ title: "Wind Generation Sources: an open, licence-annotated catalogue of observe
 type: dataset
 authors:
   - family-names: Benmoufok
-    given-names: Ellyess
+    given-names: Ellyess F.
 license: CC-BY-4.0
 repository-code: "https://github.com/ellyess/wind-generation-sources"
 keywords:

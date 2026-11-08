@@ -1,7 +1,7 @@
 <script lang="ts">
   import { REPO, store } from "../store.svelte";
   let year = $derived((store.cat?.generated ?? "2026").slice(0, 4));
-  let cite = $derived(`Benmoufok, E. (${year}). Wind Generation Sources: an open, licence-annotated catalogue of observed wind power generation data. ${REPO}`);
+  let cite = $derived(`Benmoufok, E. F. (${year}). Wind Generation Sources: an open, licence-annotated catalogue of observed wind power generation data. ${REPO}`);
   import CopyButton from "./CopyButton.svelte";
 </script>
 
@@ -10,6 +10,13 @@
     <h1>About this catalogue</h1>
     <p class="lead">Where to find observed wind power generation, metered or reported by its publisher, country by country. Each entry
       says what the data are, how to get them, whether you may re-host them, and what goes wrong when you use them.</p>
+
+    <h2>Why it exists</h2>
+    <p>I spent a large part of my PhD tracking down observed wind generation data, scattered across grid operators, market
+      operators, statistics offices and research archives, with licences and traps rarely written down. I had to list the sources
+      out again for each piece of work. This catalogue publishes that list so you can start from it instead of repeating the
+      search.</p>
+    <p>— Ellyess F. Benmoufok</p>
 
     <h2>How the entries are made</h2>
     <dl>
@@ -92,7 +99,7 @@
     <div class="cite"><p>{cite}</p><CopyButton text={cite} what="citation" /></div>
     <p>Each source is one YAML file. Edit it and open a pull request; the validator checks the schema and house rules.
       <a href="{REPO}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">How to contribute</a>.</p>
-    <p class="maint">Maintained by Ellyess Benmoufok.</p>
+    <p class="maint">Maintained by Ellyess F. Benmoufok.</p>
   </article>
 </div>
 
