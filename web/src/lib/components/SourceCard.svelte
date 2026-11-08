@@ -19,7 +19,7 @@
     <span class="lvl">{TEXT.level[s.level]} · {TEXT.step[s.resolution]} · <span class="num">{coverageText(s.coverage)}</span></span>
     {#if hasLive(s.id)}<span class="tag live"><Icon name="live" size={12} />Live</span>{/if}
     {#if s.status !== "active"}<span class="tag">{TEXT.status[s.status]}</span>{/if}
-    {#if s.reviewed === false}<span class="tag dashed" title="Compiled by an automated research pass; no person has checked it yet">Unreviewed</span>{/if}
+    {#if s.reviewed !== false}<span class="tag rev" title="A person has checked this entry against the publisher's pages"><Icon name="check" size={11} />Reviewed</span>{/if}
   </span>
   <span class="foot">
     <Verdict value={s.licence.redistribution} />
@@ -45,5 +45,5 @@
   .tag { display: inline-flex; align-items: center; gap: 3px; padding: 0 6px; height: 18px; border-radius: 9px;
     background: var(--surface-3); font-size: 11px; font-weight: 500; color: var(--ink-2); }
   .tag.live { background: var(--accent-wash); color: var(--accent-ink); }
-  .tag.dashed { background: none; border: 1px dashed var(--line-strong); border-radius: 9px; }
+  .tag.rev { gap: 3px; background: none; border: 1px solid var(--line-strong); color: var(--ink-2); }
 </style>

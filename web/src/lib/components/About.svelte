@@ -26,13 +26,13 @@
       <dt>Checked by machine, and said so</dt>
       <dd>Every link is requested again each week; a link that refuses automated requests is reported as not checked, never as working.
         Annual totals are compared with a national figure for the whole wind fleet where there is one, otherwise Eurostat or Ember, and the time step found in the data with the one the entry states.
-        Entries compiled by an automated research pass are marked <em>Unreviewed</em> until a person has checked them.
+        Entries a person has checked against the publisher's pages are marked <em>Reviewed</em>; the rest were compiled by an automated research pass and are leads until checked.
         <button type="button" class="lnk" onclick={() => store.go({ view: "checks" })}>See the latest results.</button></dd>
     </dl>
 
     <h2>The map</h2>
     <p>Each country is shaded by the finest level any catalogued source publishes: per turbine, per farm or plant, per zone or company, or a
-      national total. Orange points are farms or turbines whose own output is published and whose location is known. Where the publisher
+      national total. Blue marks data finer than a country total; countries with only a national total are grey. Orange points are farms or turbines whose own output is published and whose location is known. Where the publisher
       gives locations (Denmark's and Germany's turbine registers, EIA-860 in the US, the Brazilian, Swiss, Norwegian and Chilean operators, the
       research datasets), the point is theirs. Elsewhere the publisher names its plants but gives no location, so each name was matched to a
       wind farm in OpenStreetMap (or, in Great Britain, the Renewable Energy Planning Database). Great Britain's balancing mechanism units are linked to their farms through Wikidata (CC0) where it records the unit's ID. All these links are unreviewed proposals, and the
@@ -96,7 +96,7 @@
 
 <style>
   .about { overflow-y: auto; height: 100%; padding: 36px 28px 64px; }
-  article { max-width: 70ch; margin: 0 auto; display: grid; gap: 14px; font-size: 15px; color: var(--ink-2); }
+  article { max-width: 62ch; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; overflow-wrap: break-word; font-size: 15px; color: var(--ink-2); }
   h1 { font-size: 28px; letter-spacing: -0.02em; color: var(--ink); }
   h2 { font-size: 17px; color: var(--ink); margin-top: 18px; }
   .lead { font-size: 16.5px; color: var(--ink); line-height: 1.55; }

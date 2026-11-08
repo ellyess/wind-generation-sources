@@ -11,7 +11,7 @@
   import Snippet from "./Snippet.svelte";
   import Verdict from "./Verdict.svelte";
 
-  let { s }: { s: Indexed } = $props();
+  let { s, heading = "h1" }: { s: Indexed; heading?: "h1" | "h2" } = $props();
   let traps = $derived(s.traps ?? []);
   let links = $derived(store.checks.links?.entries[s.id]);
   let agr = $derived(store.checks.agreement);
@@ -34,17 +34,46 @@
   });
   let entryLink = $derived(`${location.origin}${location.pathname}?source=${encodeURIComponent(s.id)}`);
   const yesNo = (v?: boolean) => (v == null ? "" : v ? "Yes" : "No");
+  let allOpen = $state(false);
+  // In-page index: the source page runs long, so each section is one tap away.
+  let toc = $derived([
+    ["sd-traps", "Traps"],
+    ...(hasLive(s.id) ? [["sd-live", "Live"]] : []),
+    ...(s.conventions ? [["sd-reading", "Reading"]] : []),
+    ...(s.snippet ? [["sd-python", "Python"]] : []),
+    ["sd-access", "Access"], ["sd-licence", "Licence"], ["sd-data", "Data"], ["sd-checks", "Checks"],
+  ] as [string, string][]);
+  let root: HTMLElement;
+  const jump = (id: string) => root?.querySelector(`#${id}`)?.scrollIntoView({
+    block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  /** Split prose into text and bare URLs, so pasted evidence links become real links. */
+  function linkify(text: string): { text: string; url?: string }[] {
+    const out: { text: string; url?: string }[] = [];
+    let last = 0;
+    for (const m of text.matchAll(/https?:\/\/[^\s"<>]+/g)) {
+      let url = m[0].replace(/[.,;:)\]]+$/, "");
+      if (m.index > last) out.push({ text: text.slice(last, m.index) });
+      out.push({ text: url, url });
+      last = m.index + url.length;
+    }
+    if (last < text.length) out.push({ text: text.slice(last) });
+    return out;
+  }
   let notCross = $derived(s.access.key_required ? "it needs a key" : s.access.method === "api" ? "no reader is written for it yet" : "it is not read by machine yet");
 </script>
 
-<article class="detail">
+<article class="detail" bind:this={root}>
   <header>
-    <h2>{s.name}</h2>
+    <svelte:element this={heading} class="title">{s.name}</svelte:element>
     <p class="pub">{s.publisher}{s.publisher_role ? `, ${TEXT.role[s.publisher_role]?.toLowerCase() ?? s.publisher_role}` : ""}</p>
     <p class="id"><code>{s.id}</code>
       {#if s.status !== "active"}<span class="tag">{TEXT.status[s.status]}</span>{/if}
-      {#if s.reviewed === false}<span class="tag dashed">Unreviewed</span>{/if}</p>
+      {#if s.reviewed !== false}<span class="tag rev"><Icon name="check" size={12} />Reviewed by a person</span>{/if}</p>
   </header>
+
+  {#if s.reviewed === false}
+    <p class="note">Compiled by an automated research pass from the publisher's own pages. A person has not checked it yet, so treat the details as leads.</p>
+  {/if}
 
   <dl class="facts">
     <div><dt>Finest level</dt><dd class="lvl"><LevelDot tier={s._tier} size={10} />{TEXT.level[s.level]}</dd></div>
@@ -55,15 +84,36 @@
     <div><dt>Area</dt><dd>{s.countries.length > 4 ? `${s.countries.length} countries` : s.countries.map(store.placeName).join(", ")}</dd></div>
   </dl>
 
-  <section>
-    <h3>Known traps <span class="count num">{traps.length}</span></h3>
+  <div class="use">
+    <div class="actions">
+      <a class="primary" href={s.access.url} target="_blank" rel="noopener">Open the data<Icon name="out" size={14} /></a>
+      <CopyButton text={s.access.url} what="access URL" label="Copy URL" />
+      <CopyButton text={entryLink} what="link to this entry" label="Copy link" />
+    </div>
+    <p class="terms">Terms: {#if s.licence.url}<Ext href={s.licence.url} label={s.licence.name} />{:else}{s.licence.name}{/if}<span class="sub"> · {s.licence.verified ? "read on the publisher's page" : "not yet read on the publisher's page"}</span></p>
+    {#if s.licence.attribution}<p class="credit"><span class="sub">Credit:</span> <q>{s.licence.attribution}</q><CopyButton text={s.licence.attribution} what="credit line" /></p>{/if}
+  </div>
+
+  <nav class="toc" aria-label="On this page">
+    {#each toc as [id, label] (id)}<button type="button" onclick={() => jump(id)}>{label}</button>{/each}
+  </nav>
+
+  <section id="sd-traps">
+    <div class="sec-head">
+      <h3>Known traps <span class="count num">{traps.length}</span></h3>
+      {#if traps.length > 1}<button type="button" class="lnk-btn" onclick={() => (allOpen = !allOpen)}>{allOpen ? "Collapse all" : "Expand all"}</button>{/if}
+    </div>
     {#if traps.length}
       <ol class="traps">
         {#each traps as t, i (i)}
           <li>
-            <p class="ts">{t.summary}</p>
-            {#if t.detail}<p class="td">{t.detail}</p>{/if}
-            <p class="te">Evidence: <Ext href={t.evidence} />{#if t.found}<span class="sub"> · found {t.found}</span>{/if}</p>
+            <details open={allOpen}>
+              <summary><span class="tn num" aria-hidden="true">{i + 1}</span><span class="ts">{t.summary}</span><Icon name="chev" size={14} /></summary>
+              <div class="tb">
+                {#if t.detail}<p class="td">{#each linkify(t.detail) as part, j (j)}{#if part.url}<Ext href={part.url} />{:else}{part.text}{/if}{/each}</p>{/if}
+                <p class="te">Evidence: <Ext href={t.evidence} />{#if t.found}<span class="sub"> · found {t.found}</span>{/if}</p>
+              </div>
+            </details>
           </li>
         {/each}
       </ol>
@@ -72,23 +122,13 @@
     {/if}
   </section>
 
-  <div class="actions">
-    <a class="primary" href={s.access.url} target="_blank" rel="noopener">Open the data<Icon name="out" size={14} /></a>
-    <CopyButton text={s.access.url} what="access URL" label="Copy URL" />
-    <CopyButton text={entryLink} what="link to this entry" label="Copy link" />
-  </div>
-
-  {#if s.reviewed === false}
-    <p class="note">Compiled by an automated research pass from the publisher's own pages. A person has not checked it yet, so treat the details as leads.</p>
-  {/if}
-
   {#if hasLive(s.id)}
-    <section><LiveChart id={s.id} /></section>
+    <section id="sd-live"><LiveChart id={s.id} /></section>
   {/if}
 
   {#if s.conventions}
     {@const c = s.conventions}
-    <section>
+    <section id="sd-reading">
       <h3>Reading the data</h3>
       <dl class="kv">
         <div><dt>Time zone</dt><dd class:unk={c.timezone === "unknown"}>{zoneText(c.timezone)}</dd></div>
@@ -100,9 +140,9 @@
     </section>
   {/if}
 
-  {#if s.snippet}<Snippet id={s.id} />{/if}
+  {#if s.snippet}<div id="sd-python" class="anchor"><Snippet id={s.id} /></div>{/if}
 
-  <section>
+  <section id="sd-access">
     <h3>Access</h3>
     <dl class="kv">
       <div><dt>Where</dt><dd><Ext href={s.access.url} /></dd></div>
@@ -116,7 +156,7 @@
     </dl>
   </section>
 
-  <section>
+  <section id="sd-licence">
     <h3>Licence</h3>
     <dl class="kv">
       <div><dt>Re-hosting</dt><dd><Verdict value={s.licence.redistribution} /></dd></div>
@@ -127,7 +167,7 @@
     </dl>
   </section>
 
-  <section>
+  <section id="sd-data">
     <h3>The data</h3>
     <dl class="kv">
       <div><dt>Measure</dt><dd>{TEXT.measure[s.measure]}</dd></div>
@@ -146,7 +186,7 @@
   <!-- Rows fly the map to a farm, so the table shows only beside the map. -->
   {#if store.view === "map" && farmRows.length}<FarmTable rows={farmRows} />{/if}
 
-  <section>
+  <section id="sd-checks">
     <h3>Checks</h3>
     <dl class="kv">
       <div><dt>Reviewed</dt><dd>{s.reviewed === false ? "Not yet by a person" : `By a person, ${s.last_checked}`}</dd></div>
@@ -191,9 +231,9 @@
 </article>
 
 <style>
-  .detail { display: grid; gap: 20px; }
+  .detail { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
   header { display: grid; gap: 4px; }
-  h2 { font-size: 19px; line-height: 1.3; }
+  .title { font-size: 19px; line-height: 1.3; letter-spacing: -0.011em; }
   .pub { color: var(--ink-2); }
   .id { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
   .id code { font-size: 12px; color: var(--ink-3); }
@@ -205,22 +245,41 @@
   .facts dd { margin: 0; font-size: 13.5px; font-weight: 500; }
   .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .primary { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: var(--radius-sm);
-    background: var(--accent); color: var(--surface); font-weight: 600; font-size: 13.5px; text-decoration: none; }
+    background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 13.5px; text-decoration: none; }
   .primary:hover { background: var(--accent-ink); }
-  .note { padding: 10px 12px; border-radius: var(--radius); background: var(--surface-2); border: 1px dashed var(--line-strong);
-    font-size: 13px; color: var(--ink-2); }
+  .note { margin-top: -8px; padding: 8px 12px; border-radius: var(--radius); background: var(--surface-3);
+    font-size: 12.5px; color: var(--ink-2); }
+  .use { display: grid; gap: 8px; margin-top: -6px; }
+  .terms { font-size: 13px; color: var(--ink-2); }
+  .credit { font-size: 13px; color: var(--ink-2); }
+  .credit q { color: var(--ink); margin-right: 6px; }
+  .credit :global(.copy) { vertical-align: middle; }
+  .toc { position: sticky; top: var(--toc-top, 0); z-index: 2; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
+    margin: -6px -8px -10px; padding: 8px; background: var(--detail-bg, var(--surface-2)); border-bottom: 1px solid var(--line); }
+  .toc button { flex: none; height: 28px; padding: 0 8px; border: 0; border-radius: var(--radius-sm); background: none; font-size: 12.5px; font-weight: 500; color: var(--ink-2); }
+  .toc button:hover { background: var(--surface-3); color: var(--ink); }
+  section, .anchor { scroll-margin-top: 56px; }
+  .sec-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .lnk-btn { border: 0; background: none; padding: 2px 6px; border-radius: var(--radius-sm); color: var(--accent-ink); font-size: 12.5px; font-weight: 500; }
+  .lnk-btn:hover { background: var(--accent-wash); }
   section { display: grid; gap: 8px; }
   h3 { font-size: 14px; display: flex; align-items: center; gap: 8px; }
   .count { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px;
     background: var(--surface-3); font-size: 12px; }
-  .traps { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: t; }
-  .traps li { position: relative; padding: 10px 12px 10px 38px; border-radius: var(--radius);
-    background: var(--surface); border: 1px solid var(--line-strong); counter-increment: t; }
-  .traps li::before { content: counter(t); position: absolute; left: 12px; top: 10px; width: 18px; height: 18px; display: grid; place-items: center;
-    border-radius: 50%; background: var(--ink); color: var(--surface); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .traps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .traps li { border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line-strong); }
+  summary { display: grid; grid-template-columns: 18px minmax(0, 1fr) 14px; gap: 10px; align-items: start; padding: 10px 12px;
+    list-style: none; cursor: pointer; border-radius: var(--radius); }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: var(--surface-2); }
+  summary :global(.ic) { margin-top: 2px; color: var(--ink-3); transition: transform 160ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+  details[open] summary :global(.ic) { transform: rotate(90deg); }
+  .tn { width: 18px; height: 18px; margin-top: 1px; display: grid; place-items: center; border-radius: 50%;
+    background: var(--ink); color: var(--surface); font-size: 11px; font-weight: 700; }
   .ts { font-weight: 600; font-size: 13.5px; line-height: 1.4; }
-  .td { margin-top: 3px; font-size: 13px; color: var(--ink-2); }
-  .te { margin-top: 5px; font-size: 12.5px; color: var(--ink-2); }
+  .tb { padding: 0 12px 11px 40px; }
+  .td { font-size: 13px; color: var(--ink-2); max-width: 68ch; }
+  .te { margin-top: 6px; font-size: 12.5px; color: var(--ink-2); }
   .kv { margin: 0; display: grid; border-top: 1px solid var(--line); }
   .kv div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--line); }
   .kv dt { font-size: 12.5px; color: var(--ink-3); }
@@ -235,9 +294,11 @@
   .prose { font-size: 13.5px; color: var(--ink-2); max-width: 68ch; }
   .lnk { border: 0; background: none; padding: 0; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 0.18em; }
   .tag { display: inline-flex; align-items: center; padding: 0 6px; height: 18px; border-radius: 9px; background: var(--surface-3); font-size: 11px; font-weight: 500; }
-  .tag.dashed { background: none; border: 1px dashed var(--line-strong); }
+  .tag.rev { gap: 3px; background: none; border: 1px solid var(--line-strong); color: var(--ink-2); }
   footer { display: grid; gap: 4px; padding-top: 4px; font-size: 12.5px; }
   @media (max-width: 420px) { .kv div { grid-template-columns: 1fr; gap: 2px; } }
+  /* On a phone the index wraps rather than hiding sections off to the side. */
+  @media (max-width: 480px) { .toc { flex-wrap: wrap; overflow-x: visible; } }
   .unk { color: var(--ink-3); font-style: italic; }
   .conv-note { font-size: 12.5px; color: var(--ink-2); margin: 6px 0 0; }
 </style>

@@ -3,23 +3,6 @@
   import Icon from "./Icon.svelte";
 
   const TABS: [View, string][] = [["map", "Map"], ["sources", "Sources"], ["checks", "Checks"], ["about", "About"]];
-  let dark = $state(false);
-  const sync = () => {
-    const t = document.documentElement.dataset.theme;
-    dark = t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-  };
-  $effect(() => {
-    sync();
-    const mq = matchMedia("(prefers-color-scheme: dark)");
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  });
-  function toggle() {
-    const next = dark ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    try { localStorage.setItem("wgs-theme", next); } catch { /* private mode */ }
-    dark = !dark;
-  }
 </script>
 
 <header class="bar">
@@ -33,10 +16,9 @@
     {/each}
   </nav>
   <div class="act">
-    <a href="./data/catalogue.csv" download class="btn"><Icon name="download" /><span>CSV</span></a>
-    <a href="./data/catalogue.json" class="btn"><Icon name="code" /><span>JSON</span></a>
+    <a href="./data/catalogue.csv" download class="btn" aria-label="Download the catalogue as CSV"><Icon name="download" /><span>CSV</span></a>
+    <a href="./data/catalogue.json" class="btn" aria-label="The catalogue as JSON"><Icon name="code" /><span>JSON</span></a>
     <a href={REPO} class="btn" target="_blank" rel="noopener"><span>GitHub</span></a>
-    <button type="button" class="btn icon" onclick={toggle} aria-label={dark ? "Use the light theme" : "Use the dark theme"}><Icon name={dark ? "sun" : "moon"} /></button>
   </div>
 </header>
 
@@ -52,12 +34,16 @@
   .act { margin-left: auto; display: flex; gap: 4px; align-items: center; }
   .btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border: 0; border-radius: var(--radius-sm); background: none; color: var(--ink-2); font-size: 13px; font-weight: 500; text-decoration: none; }
   .btn:hover { background: var(--surface-3); color: var(--ink); }
-  .btn.icon { width: 32px; padding: 0; justify-content: center; }
   @media (max-width: 900px) { .act .btn span { display: none; } .act a.btn:nth-child(3) { display: none; } }
   @media (max-width: 640px) {
     .bar { gap: 8px; padding: 0 8px 0 12px; }
     .brand span { display: none; }
     nav button { padding: 0 9px; font-size: 13.5px; }
     .act a.btn { display: none; }
+  }
+  @media (max-width: 360px) {
+    .bar { gap: 4px; padding: 0 4px 0 10px; }
+    nav button { padding: 0 7px; font-size: 13px; }
+    nav button.on::after { left: 6px; right: 6px; }
   }
 </style>

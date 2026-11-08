@@ -55,7 +55,7 @@ export const TEXT: Record<string, Record<string, string>> = {
     reported: "Reported", "separate-dataset": "In a separate dataset",
     "not-reported": "Not reported", unknown: "Unknown",
   },
-  status: { active: "Active", discontinued: "Discontinued", restricted: "Restricted" },
+  status: { active: "Active", discontinued: "Discontinued", restricted: "Access restricted" },
   role: {
     tso: "Transmission operator", "market-operator": "Market operator",
     "owner-operator": "Owner and operator", utility: "Utility", research: "Research body",

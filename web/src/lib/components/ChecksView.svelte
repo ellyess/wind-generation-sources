@@ -10,8 +10,11 @@
   let w = $state(700);
   let hover = $state<{ x: number; y: number; lines: string[] } | null>(null);
   const LO = 0.05, HI = 8;
-  const LABEL = 150, PAD = 16;
-  let x = $derived(scaleLog().domain([LO, HI]).range([LABEL, Math.max(LABEL + 200, w - PAD)]).clamp(true));
+  const PAD = 16, TOP = 22;
+  // Narrow screens get a slimmer label column and fewer ticks, so the marks keep most of the width.
+  let narrow = $derived(w < 560);
+  let LABEL = $derived(narrow ? 104 : 150);
+  let x = $derived(scaleLog().domain([LO, HI]).range([LABEL, Math.max(LABEL + 160, w - PAD)]).clamp(true));
 
   let rows = $derived.by(() => {
     if (!agr) return [];
@@ -26,7 +29,9 @@
   let judged = $derived(rows.flatMap((r) => r.vals).filter((v) => v.band && v.band !== "small"));
   let counts = $derived(["agrees", "noted", "outside"].map((b) => judged.filter((v) => v.band === b).length));
   const ROW = 22;
-  const ticks = [0.1, 0.25, 0.5, 0.7, 1, 1.3, 2, 4];
+  let ticks = $derived(narrow ? [0.1, 0.5, 1, 2, 4] : [0.1, 0.25, 0.5, 0.7, 1, 1.3, 2, 4]);
+  let H = $derived(rows.length * ROW);
+  const short = (name: string) => (narrow && name.length > 15 ? `${name.slice(0, 14).trimEnd()}…` : name);
   let broken = $derived(links ? Object.entries(links.entries).flatMap(([id, r]) => r.broken.map((b) => ({ id, ...b }))) : []);
   let stepsOff = $derived(agr?.steps.filter((s) => !s.agrees) ?? []);
   let natRefs = $derived(agr ? Object.entries(agr.countries).filter(([, c]) => c.reference.kind.startsWith("national"))
@@ -71,22 +76,26 @@
             {#if tone === "good"}<circle cx="6" cy="6" r="5" />{:else if tone === "warn"}<path d="M6 0.5 11.5 10.5H.5z" />{:else if tone === "bad"}<rect x="1.5" y="1.5" width="9" height="9" rx="1" />{:else}<circle class="ring" cx="6" cy="6" r="4" />{/if}
           </svg>{BAND_TEXT[b]}</span>
         {/each}
-        <span><svg class="mk t-none" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M10 1 3 6l7 5z" /></svg>Off the scale</span>
+        <span><svg class="mk t-bad" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M10 1 3 6l7 5z" /></svg>Off the scale</span>
       </div>
       <div class="svgwrap" bind:clientWidth={w}>
-        <svg width={w} height={rows.length * ROW + 28} role="img" aria-label="Cross-check of annual wind totals for {rows.length} countries" onpointerleave={() => (hover = null)}>
-          <rect class="b30" x={x(0.7)} y="0" width={x(1.3) - x(0.7)} height={rows.length * ROW} />
-          <rect class="b15" x={x(0.85)} y="0" width={x(1.15) - x(0.85)} height={rows.length * ROW} />
+        <svg width={w} height={H + TOP + 28} role="img" aria-label="Cross-check of annual wind totals for {rows.length} countries" onpointerleave={() => (hover = null)}>
+          <g transform="translate(0,{TOP})">
+          <rect class="b30" x={x(0.7)} y="0" width={x(1.3) - x(0.7)} height={H} />
+          <rect class="b15" x={x(0.85)} y="0" width={x(1.15) - x(0.85)} height={H} />
+          <!-- Ticks top and bottom, so the scale is readable wherever the long plot is scrolled to. -->
+          <text class="ax cap" x={LABEL - 10} y="-8" text-anchor="end">Ratio</text>
           {#each ticks as t (t)}
-            <line class={t === 1 ? "one" : "grid"} x1={x(t)} x2={x(t)} y1="0" y2={rows.length * ROW} />
-            <text class="ax" x={x(t)} y={rows.length * ROW + 16} text-anchor="middle">{t}</text>
+            <line class={t === 1 ? "one" : "grid"} x1={x(t)} x2={x(t)} y1="0" y2={H} />
+            <text class="ax" x={x(t)} y="-8" text-anchor="middle">{t}</text>
+            <text class="ax" x={x(t)} y={H + 16} text-anchor="middle">{t}</text>
           {/each}
           {#each rows as r, i (r.iso)}
             <g transform="translate(0,{i * ROW})">
               <line class="row" x1={LABEL} x2={w - PAD} y1={ROW / 2} y2={ROW / 2} />
               <text class="cn" x={LABEL - 10} y={ROW / 2} dy="0.32em" text-anchor="end" role="button" tabindex="0"
                 onclick={() => store.go({ view: "map", country: r.iso, source: "" })}
-                onkeydown={(e) => e.key === "Enter" && store.go({ view: "map", country: r.iso, source: "" })}>{store.placeName(r.iso)}</text>
+                onkeydown={(e) => e.key === "Enter" && store.go({ view: "map", country: r.iso, source: "" })}><title>{store.placeName(r.iso)}</title>{short(store.placeName(r.iso))}</text>
               {#each r.vals as v (v.source)}
                 {@const s = store.byId.get(v.source)}
                 {@const tone = BAND_TONE[v.band ?? "small"]}
@@ -94,7 +103,7 @@
                 {@const cx = x(v.ratio!)}
                 {@const cy = ROW / 2}
                 <g class="mk t-{tone}" role="button" tabindex="-1"
-                  onpointerenter={(e) => (hover = { x: e.offsetX, y: e.offsetY, lines: [`${store.placeName(r.iso)}: ${s?.publisher ?? v.publisher ?? v.source}`, `${twh(v.twh)} TWh against ${r.ref}'s ${twh(r.refTwh)} TWh`, `Ratio ${v.ratio!.toFixed(2)}, ${BAND_TEXT[v.band ?? "small"].toLowerCase()}`, ...(off ? [`Off the scale: drawn at the ${off < 0 ? "left" : "right"} edge`] : [])] })}
+                  onpointerenter={(e) => (hover = { x: Math.max(0, Math.min(e.offsetX, w - 240)), y: e.offsetY, lines: [`${store.placeName(r.iso)}: ${s?.publisher ?? v.publisher ?? v.source}`, `${twh(v.twh)} TWh against ${r.ref}'s ${twh(r.refTwh)} TWh`, `Ratio ${v.ratio!.toFixed(2)}, ${BAND_TEXT[v.band ?? "small"].toLowerCase()}`, ...(off ? [`Off the scale: drawn at the ${off < 0 ? "left" : "right"} edge`] : [])] })}
                   onclick={() => (s ? store.go({ view: "sources", source: v.source }) : v.url && window.open(v.url, "_blank", "noopener"))} onkeydown={() => {}}>
                   {#if off}
                     <path d={off < 0 ? `M${cx + 5},${cy - 6}L${cx - 3},${cy}L${cx + 5},${cy + 6}Z` : `M${cx - 5},${cy - 6}L${cx + 3},${cy}L${cx - 5},${cy + 6}Z`} />
@@ -107,6 +116,7 @@
               {/each}
             </g>
           {/each}
+          </g>
         </svg>
         {#if hover}
           <div class="tip" style:left="{hover.x}px" style:top="{hover.y}px">{#each hover.lines as l, i (i)}<span class:b={i === 0}>{l}</span>{/each}</div>
@@ -128,11 +138,11 @@
 </div>
 
 <style>
-  .checks { overflow-y: auto; height: 100%; padding: 28px 28px 56px; display: grid; gap: 22px; align-content: start; max-width: 1180px; margin: 0 auto; width: 100%; }
+  .checks { overflow-y: auto; height: 100%; padding: 28px 28px 56px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; align-content: start; max-width: 1180px; margin: 0 auto; width: 100%; }
   header { display: grid; gap: 8px; }
   h1 { font-size: 24px; letter-spacing: -0.02em; }
   h2 { font-size: 15px; }
-  .lead { color: var(--ink-2); max-width: 72ch; }
+  .lead { color: var(--ink-2); max-width: 64ch; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 0; }
   .stats div { padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
   .stats dt { font-size: 12.5px; color: var(--ink-2); }
@@ -140,18 +150,19 @@
   .stats dd.num { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
   .stats small { font-size: 14px; font-weight: 400; color: var(--ink-3); }
   .sub { font-size: 12.5px; color: var(--ink-3); }
-  .plot { display: grid; gap: 8px; padding: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+  .plot { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
   .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--ink-2); }
   .legend span { display: inline-flex; align-items: center; gap: 6px; }
 
-  .svgwrap { position: relative; }
+  .svgwrap { position: relative; min-width: 0; }
   svg { display: block; overflow: visible; }
-  .b30 { fill: color-mix(in srgb, var(--warn-dot) 12%, transparent); }
-  .b15 { fill: color-mix(in srgb, var(--good-dot) 16%, transparent); }
+  .b30 { fill: color-mix(in srgb, var(--ink) 5%, transparent); }
+  .b15 { fill: color-mix(in srgb, var(--good-dot) 13%, transparent); }
   .grid { stroke: var(--line); }
   .one { stroke: var(--ink-3); }
   .row { stroke: var(--line); stroke-dasharray: 1 3; }
   .ax { fill: var(--ink-3); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .ax.cap { font-weight: 500; }
   .cn { fill: var(--ink); font-size: 12.5px; cursor: pointer; }
   .cn:hover { fill: var(--accent-ink); text-decoration: underline; }
   g.mk { cursor: pointer; }
@@ -168,5 +179,11 @@
   .lnk { border: 0; background: none; padding: 0; font: inherit; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 0.18em; }
   .issues ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; font-size: 13.5px; }
   .issues button { border: 0; background: none; padding: 0; color: var(--accent-ink); text-decoration: underline; font-weight: 500; }
-  @media (max-width: 819px) { .checks { padding: 18px 16px 48px; } }
+  @media (max-width: 819px) {
+    .checks { padding: 18px 16px 48px; }
+    .plot { padding: 14px 12px; }
+    .cn { font-size: 12px; }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .stats div { padding: 12px; }
+  }
 </style>

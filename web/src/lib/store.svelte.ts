@@ -9,6 +9,9 @@ const POS = /^\d+(\.\d+)?\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/;
 const FILTERS = ["level", "step", "reuse", "cap", "status", "review", "region", "q"] as const;
 type FilterKey = (typeof FILTERS)[number];
 
+// Codes the outlines file names oddly or not at all.
+const FALLBACK_NAMES: Record<string, string> = { XK: "Kosovo" };
+
 export type Indexed = Source & { _hay: string; _tier: number };
 
 class Store {
@@ -73,7 +76,7 @@ class Store {
   activeFilters = $derived(FILTERS.filter((k) => this[k] !== "").length);
 
   continentOf = (code: string) => this.places[code]?.continent ?? "Elsewhere";
-  placeName = (code: string) => this.places[code]?.name ?? code;
+  placeName = (code: string) => this.places[code]?.name ?? FALLBACK_NAMES[code] ?? code;
   /** The country a farm point sits in. */
   farmCountry = (f: { entry: string; iso?: string }) => f.iso ?? this.byId.get(f.entry)?.countries[0] ?? "";
 
