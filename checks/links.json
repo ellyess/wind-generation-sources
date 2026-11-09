@@ -1,10 +1,10 @@
 {
- "checked": "2026-11-08",
+ "checked": "2026-11-09",
  "summary": {
   "broken": 0,
   "recheck": 0,
-  "unchecked": 35,
-  "ok": 582
+  "unchecked": 79,
+  "ok": 538
  },
  "entries": {
   "apec-egeda-power-generation": {
@@ -15,21 +15,50 @@
    "total": 3
   },
   "ar-cammesa-renewables-database": {
-   "ok": 4,
+   "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/ar.md",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 4
   },
   "at-apg-transparency": {
-   "ok": 6,
+   "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://transparency.apg.at/",
+     "state": "unchecked",
+     "code": null,
+     "error": "timed out"
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://transparency.apg.at/api/v1/AGPT/Data/English/PT15M/2024-01-15T000000/2024-01-16T000000?p_agptMode=settlement&resolution=PT15M",
+     "state": "unchecked",
+     "code": null,
+     "error": "timed out"
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://transparency.apg.at/api/v1/AGPT/Download/English/PT15M/2024-10-27T000000/2024-10-28T000000",
+     "state": "unchecked",
+     "code": null,
+     "error": "timed out"
+    }
+   ],
    "total": 6
   },
   "au-aemo-nem-unit-scada": {
-   "ok": 4,
+   "ok": 2,
    "broken": [],
    "recheck": [],
    "unchecked": [
@@ -38,6 +67,18 @@
      "url": "https://www.aemo.com.au/privacy-and-legal-notices/copyright-permissions",
      "state": "unchecked",
      "code": 403
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/au_nem.md",
+     "state": "unchecked",
+     "code": 504
+    },
+    {
+     "role": "tool",
+     "url": "https://github.com/UNSW-CEEM/NEMOSIS",
+     "state": "unchecked",
+     "code": 504
     }
    ],
    "total": 5
@@ -78,10 +119,17 @@
    "total": 4
   },
   "be-elia-wind-production": {
-   "ok": 4,
+   "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/entsoe.md",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 4
   },
   "bg-eso-generation-per-day": {
@@ -133,10 +181,17 @@
    "total": 2
   },
   "br-ons-capacity-factor": {
-   "ok": 4,
+   "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/br.md",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 4
   },
   "br-ons-generation-by-plant-hourly": {
@@ -254,7 +309,7 @@
    "total": 5
   },
   "cl-cen-generacion-real": {
-   "ok": 2,
+   "ok": 1,
    "broken": [],
    "recheck": [],
    "unchecked": [
@@ -263,14 +318,20 @@
      "url": "https://portal.api.coordinador.cl/",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)"
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md",
+     "state": "unchecked",
+     "code": 504
     },
     {
      "role": "trap evidence",
      "url": "https://portal.api.coordinador.cl/swagger/spec/sip.json",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)"
     },
     {
      "role": "trap evidence",
@@ -317,39 +378,10 @@
    "total": 3
   },
   "cv-electra-production-by-island": {
-   "ok": 0,
+   "ok": 4,
    "broken": [],
    "recheck": [],
-   "unchecked": [
-    {
-     "role": "access",
-     "url": "https://www.electra.cv/frontend/web/index.php?r=site%2Frelatorio&type=2&inst=3",
-     "state": "unchecked",
-     "code": null,
-     "error": "[Errno 61] Connection refused"
-    },
-    {
-     "role": "licence",
-     "url": "https://www.electra.cv/",
-     "state": "unchecked",
-     "code": null,
-     "error": "[Errno 61] Connection refused"
-    },
-    {
-     "role": "trap evidence",
-     "url": "https://www.electra.cv/backend/web/uploads/RELAT%C3%93RIOECONTAS2024ELECTRA,SA.pdf",
-     "state": "unchecked",
-     "code": null,
-     "error": "[Errno 61] Connection refused"
-    },
-    {
-     "role": "trap evidence",
-     "url": "https://www.electra.cv/backend/web/uploads/RELAT%C3%93RIOECONTAS2023ELECTRANORTE.pdf",
-     "state": "unchecked",
-     "code": null,
-     "error": "[Errno 61] Connection refused"
-    }
-   ],
+   "unchecked": [],
    "total": 4
   },
   "cw-aqualectra-annual-report-wind-intake": {
@@ -381,10 +413,17 @@
    "total": 3
   },
   "de-smard": {
-   "ok": 4,
+   "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "docs",
+     "url": "https://github.com/bundesAPI/smard-api",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 4
   },
   "dk-dtu-norrekaer-enge-scada": {
@@ -409,10 +448,17 @@
    "total": 4
   },
   "dk-ens-turbine-register": {
-   "ok": 6,
+   "ok": 5,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/ellyess/PyVWF",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 6
   },
   "dk-orsted-offshore-operational-data": {
@@ -493,17 +539,43 @@
    "total": 6
   },
   "eu-entsoe-actual-generation": {
-   "ok": 5,
+   "ok": 2,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "licence",
+     "url": "https://transparencyplatform.zendesk.com/hc/en-us/articles/40921911218961",
+     "state": "unchecked",
+     "code": 403
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md",
+     "state": "unchecked",
+     "code": 504
+    },
+    {
+     "role": "tool",
+     "url": "https://github.com/EnergieID/entsoe-py",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 5
   },
   "eu-eurostat-nrg-bal-peh": {
-   "ok": 5,
+   "ok": 4,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 5
   },
   "eu-eurostat-nrg-cb-pem": {
@@ -514,10 +586,17 @@
    "total": 5
   },
   "eu-opsd-time-series": {
-   "ok": 5,
+   "ok": 4,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "docs",
+     "url": "https://github.com/Open-Power-System-Data/time_series/blob/2020-10-06/main.ipynb",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 5
   },
   "fi-fingrid-open-data": {
@@ -528,17 +607,37 @@
    "total": 4
   },
   "fr-engie-la-haute-borne-scada": {
-   "ok": 4,
+   "ok": 2,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/NatLabRockies/OpenOA/blob/main/examples/data/readme.md",
+     "state": "unchecked",
+     "code": 504
+    },
+    {
+     "role": "tool",
+     "url": "https://github.com/NatLabRockies/OpenOA",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 4
   },
   "fr-rte-eco2mix-national": {
-   "ok": 3,
+   "ok": 2,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/guides/data-sources.md",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 3
   },
   "fr-rte-eco2mix-regional": {
@@ -577,17 +676,31 @@
    "total": 3
   },
   "gb-elexon-bmrs-fuel-type": {
-   "ok": 7,
+   "ok": 6,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/openclimatefix-archives/Elexonpy",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 7
   },
   "gb-elexon-bmrs-unit-output": {
-   "ok": 7,
+   "ok": 6,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/openclimatefix-archives/Elexonpy",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 7
   },
   "gb-hill-of-towie-scada": {
@@ -598,10 +711,17 @@
    "total": 5
   },
   "gb-kelmarsh-scada": {
-   "ok": 8,
+   "ok": 7,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/NatLabRockies/OpenOA",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 8
   },
   "gb-neso-embedded-wind": {
@@ -619,10 +739,17 @@
    "total": 3
   },
   "gb-penmanshiel-scada": {
-   "ok": 5,
+   "ok": 4,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/NatLabRockies/OpenOA",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 5
   },
   "ge-gse-electricity-balance": {
@@ -633,10 +760,39 @@
    "total": 3
   },
   "gr-dapeep-res-special-account-bulletin": {
-   "ok": 4,
+   "ok": 0,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://www.dapeep.gr/dimosieuseis/miniaio-deltio-eidikou-logariasmoy/",
+     "state": "unchecked",
+     "code": null,
+     "error": "RemoteDisconnected"
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://www.dapeep.gr/wp-content/uploads/2026/10/39_JUNE_2026_min_DELTIO_ELAPE_v_1.0_8.10.2026.pdf",
+     "state": "unchecked",
+     "code": null,
+     "error": "RemoteDisconnected"
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://www.dapeep.gr/wp-content/uploads/2026/06/35_FEB_2026_min_DELTIO_ELAPE_v_2.0_23.06.2026.pdf",
+     "state": "unchecked",
+     "code": null,
+     "error": "RemoteDisconnected"
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://www.dapeep.gr/wp-content/uploads/ELAPE/2013/2013_12_Miniaio_Deltio_EL_APESITHYA.pdf",
+     "state": "unchecked",
+     "code": null,
+     "error": "RemoteDisconnected"
+    }
+   ],
    "total": 4
   },
   "gr-ipto-scada-unit-production": {
@@ -668,10 +824,18 @@
    "total": 3
   },
   "hu-mavir-wind-estimate-and-actual": {
-   "ok": 4,
+   "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://rtdwweb.mavir.hu/rtdwweb/webuser/chart/11840/export?exportType=xlsx&fromTime=1793574000000&toTime=1793660400000&periodType=min&period=15",
+     "state": "unchecked",
+     "code": null,
+     "error": "timed out"
+    }
+   ],
    "total": 4
   },
   "ie-dkit-vestas-v52-scada": {
@@ -682,10 +846,17 @@
    "total": 2
   },
   "ie-eirgrid-smart-grid-dashboard": {
-   "ok": 6,
+   "ok": 5,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/Daniel-Parke/EirGrid_Data_Download",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 6
   },
   "ie-semo-daily-meter-data": {
@@ -738,10 +909,23 @@
    "total": 2
   },
   "jp-tso-area-supply-demand": {
-   "ok": 7,
+   "ok": 5,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/electricitymaps/electricitymaps-contrib/blob/master/electricitymap/contrib/parsers/JP.py",
+     "state": "unchecked",
+     "code": 504
+    },
+    {
+     "role": "tool",
+     "url": "https://github.com/earth06/jpelectricdata",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 7
   },
   "ke-epra-energy-statistics-report": {
@@ -845,14 +1029,14 @@
      "url": "https://openapi.litgrid.eu/v1/kategorijos/gamyba/106?fromUtc=2026-07-01T00:00:00Z&order=desc",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1081)"
     },
     {
      "role": "trap evidence",
      "url": "https://openapi.litgrid.eu/v1/kategorijos/gamyba/106?fromUtc=2025-03-29T22:00:00Z&toUtc=2025-03-30T08:00:00Z",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1081)"
     }
    ],
    "total": 6
@@ -969,10 +1153,17 @@
    "total": 5
   },
   "no-nve-wind-production-per-plant": {
-   "ok": 3,
+   "ok": 2,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 3
   },
   "nordic-esett-production-volumes": {
@@ -983,10 +1174,17 @@
    "total": 8
   },
   "nz-ea-emi-generation-md": {
-   "ok": 4,
+   "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/nz.md",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 4
   },
   "pa-asep-monthly-market-statistics": {
@@ -997,10 +1195,17 @@
    "total": 5
   },
   "pe-coes-generation-by-plant": {
-   "ok": 4,
+   "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/dataset-survey.md",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 4
   },
   "pk-cppa-fca-wind-per-plant": {
@@ -1069,27 +1274,27 @@
      "url": "https://pxexternal.energimyndigheten.se/",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)"
     },
     {
      "role": "docs",
      "url": "https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)"
     },
     {
      "role": "trap evidence",
      "url": "https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_3.px",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)"
     }
    ],
    "total": 4
   },
   "se-energimyndigheten-wind-statistics": {
-   "ok": 2,
+   "ok": 1,
    "broken": [],
    "recheck": [],
    "unchecked": [
@@ -1098,21 +1303,27 @@
      "url": "https://pxexternal.energimyndigheten.se/",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)"
     },
     {
      "role": "docs",
      "url": "https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)"
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md",
+     "state": "unchecked",
+     "code": 504
     },
     {
      "role": "trap evidence",
      "url": "https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_5.px",
      "state": "unchecked",
      "code": null,
-     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)"
+     "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)"
     }
    ],
    "total": 5
@@ -1132,18 +1343,10 @@
    "total": 5
   },
   "si-surs-monthly-electricity": {
-   "ok": 2,
+   "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [
-    {
-     "role": "licence",
-     "url": "https://www.stat.si/StatWeb/en/StaticPages/Index/Copyright",
-     "state": "unchecked",
-     "code": null,
-     "error": "[Errno 54] Connection reset by peer"
-    }
-   ],
+   "unchecked": [],
    "total": 3
   },
   "sn-senelec-annual-report": {
@@ -1161,14 +1364,21 @@
    "total": 2
   },
   "tr-epias-transparency": {
-   "ok": 5,
+   "ok": 4,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/Tideseed/eptr2",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 5
   },
   "tw-taipower-unit-generation": {
-   "ok": 3,
+   "ok": 1,
    "broken": [],
    "recheck": [],
    "unchecked": [
@@ -1183,6 +1393,19 @@
      "url": "https://data.gov.tw/dataset/37331",
      "state": "unchecked",
      "code": 500
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://service.taipower.com.tw/data/opendata/apply/file/d006001/001.json",
+     "state": "unchecked",
+     "code": null,
+     "error": "_ssl.c:1063: The handshake operation timed out"
+    },
+    {
+     "role": "tool",
+     "url": "https://github.com/electricitymaps/electricitymaps-contrib/blob/master/electricitymap/contrib/parsers/TAIPOWER.py",
+     "state": "unchecked",
+     "code": 504
     }
    ],
    "total": 5
@@ -1202,17 +1425,31 @@
    "total": 7
   },
   "us-eia-923-plant-generation": {
-   "ok": 5,
+   "ok": 4,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/catalyst-cooperative/pudl",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 5
   },
   "us-eia-930-hourly": {
-   "ok": 7,
+   "ok": 6,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/catalyst-cooperative/pudl",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 7
   },
   "us-isone-daily-generation-by-fuel": {
@@ -1251,7 +1488,7 @@
    "total": 5
   },
   "world-ei-statistical-review": {
-   "ok": 1,
+   "ok": 0,
    "broken": [],
    "recheck": [],
    "unchecked": [
@@ -1266,6 +1503,12 @@
      "url": "https://www.energyinst.org/terms",
      "state": "unchecked",
      "code": 403
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://www.energyinst.org/__data/assets/excel_doc/0008/1656215/EI-Stats-Review-ALL-data.xlsx",
+     "state": "unchecked",
+     "code": 403
     }
    ],
    "total": 3
@@ -1278,24 +1521,69 @@
    "total": 5
   },
   "world-ember-monthly": {
-   "ok": 6,
+   "ok": 4,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://ember-energy.org/data/monthly-electricity-data/",
+     "state": "unchecked",
+     "code": 403
+    },
+    {
+     "role": "licence",
+     "url": "https://ember-energy.org/creative-commons/",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
    "total": 6
   },
   "world-ember-yearly": {
-   "ok": 5,
-   "broken": [],
-   "recheck": [],
-   "unchecked": [],
-   "total": 5
-  },
-  "world-iea-monthly-electricity-statistics": {
    "ok": 3,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://ember-energy.org/data/yearly-electricity-data/",
+     "state": "unchecked",
+     "code": 403
+    },
+    {
+     "role": "licence",
+     "url": "https://ember-energy.org/creative-commons/",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
+   "total": 5
+  },
+  "world-iea-monthly-electricity-statistics": {
+   "ok": 0,
+   "broken": [],
+   "recheck": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://www.iea.org/data-and-statistics/data-product/monthly-electricity-statistics",
+     "state": "unchecked",
+     "code": 403
+    },
+    {
+     "role": "docs",
+     "url": "https://www.iea.org/files/871a6316-8470-4f6f-840e-f004cbd953fd/Monthly_electricity_statistics_Documentation_Sep_2026.pdf",
+     "state": "unchecked",
+     "code": 403
+    },
+    {
+     "role": "licence",
+     "url": "https://www.iea.org/terms/creative-commons-cc-licenses",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
    "total": 3
   },
   "world-irena-irenastat": {
@@ -1320,10 +1608,17 @@
    "total": 2
   },
   "za-eskom-data-portal": {
-   "ok": 6,
+   "ok": 5,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "tool",
+     "url": "https://github.com/electricitymaps/electricitymaps-contrib/blob/master/electricitymap/contrib/parsers/ESKOM.py",
+     "state": "unchecked",
+     "code": 504
+    }
+   ],
    "total": 6
   }
  }

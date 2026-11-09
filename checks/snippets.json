@@ -1,888 +1,887 @@
 {
- "checked": "2026-11-08",
+ "checked": "2026-11-09",
  "summary": {
-  "ok": 119,
-  "failed": 0,
-  "skipped": 9
+  "ok": 112,
+  "failed": 6,
+  "skipped": 10
  },
  "entries": {
   "apec-egeda-power-generation": {
    "result": "ok",
-   "seconds": 5.0,
+   "seconds": 4.0,
    "summary": "21 economies (4 dashes), 1461 TWh in 2023",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ar-cammesa-renewables-database": {
    "result": "ok",
-   "seconds": 13.7,
+   "seconds": 5.1,
    "summary": "6027 plant-months, 75 plants, 108860 GWh since 2011; 2026-09: 75 plants, 1643 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "at-apg-transparency": {
-   "result": "ok",
-   "seconds": 2.5,
-   "summary": "100 quarter hours, 9.1 GWh",
-   "checked": "2026-11-08",
+   "result": "failed",
+   "seconds": 61.9,
+   "error": "requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='transparency.apg.at', port=443): Max retries exceeded with url: /api/v1/AGPT/Download/English/PT15M/2024-10-27T000000/2024-10-28T000000 (Caused by ConnectTimeoutError(<HTTPSConnection(host='transparency.apg.at', port=443) at 0x70e5558aa7b",
+   "checked": "2026-11-09",
    "last_ok": "2026-11-08"
   },
   "au-aemo-nem-unit-scada": {
    "result": "ok",
-   "seconds": 11.6,
+   "seconds": 10.0,
    "summary": "837748 readings, 97 wind units, ~3299 GWh estimated (MW x 5/60 h)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "au-aemo-wem-facility-scada": {
    "result": "ok",
-   "seconds": 83.5,
+   "seconds": 49.1,
    "summary": "146880 intervals, 17 wind farms (1207 MW), 292.7 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "au-open-electricity-api": {
    "result": "skipped",
    "reason": "needs OPENELECTRICITY_API_KEY",
-   "checked": "2026-11-08"
+   "checked": "2026-11-09"
   },
   "az-ssc-electricity-production-by-source": {
    "result": "ok",
-   "seconds": 2.5,
+   "seconds": 4.8,
    "summary": "15 years, 792.7 GWh in all; 2025: 172.3 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ba-fzs-monthly-energy-indicators": {
    "result": "ok",
-   "seconds": 2.4,
+   "seconds": 4.5,
    "summary": "4 months, 201 GWh (year to date in the release: [152.0, 242.0] GWh)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "be-elia-wind-production": {
    "result": "ok",
-   "seconds": 2.0,
+   "seconds": 2.5,
    "summary": "96 quarter hours, 52.4 GWh (mean 2185 MW of 5290 MW monitored)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "bg-eso-generation-per-day": {
    "result": "ok",
-   "seconds": 2.6,
+   "seconds": 2.8,
    "summary": "25 hours (24 distinct stamps on the page), 4.67 GWh if each value is an hourly mean",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "bg-nsi-monthly-electricity-production": {
    "result": "ok",
    "seconds": 2.1,
    "summary": "8 months, 845 GWh net wind production",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "bo-cndc-realised-dispatch-by-plant": {
    "result": "ok",
-   "seconds": 5.8,
+   "seconds": 4.3,
    "summary": "120 readings, 5 farms, about 549 MWh (readings x 1 h, an approximation)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "bq-cbs-electricity-production-by-island": {
    "result": "ok",
-   "seconds": 2.1,
+   "seconds": 2.4,
    "summary": "19 years, 529.0 GWh of wind on Bonaire",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "br-ons-capacity-factor": {
    "result": "ok",
-   "seconds": 4.1,
+   "seconds": 4.7,
    "summary": "109632 complex-hours, 154 complexes, 10306 GWh, fleet mean 14313 MW of 34178 MW",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "br-ons-generation-by-plant-hourly": {
    "result": "ok",
-   "seconds": 3.5,
+   "seconds": 2.7,
    "summary": "111072 plant-hours, 156 plants, 10470 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "br-ufsc-pedra-do-sal-beberibe-scada": {
    "result": "skipped",
    "reason": "downloads 163 MB (the smaller of the two files; no smaller sample exists)",
-   "checked": "2026-11-08"
+   "checked": "2026-11-09"
   },
   "ca-ab-aeso-metered-volumes": {
    "result": "ok",
-   "seconds": 11.8,
+   "seconds": 8.2,
    "summary": "32736 asset-hours, 44 wind assets, 1037 GWh (read as MWh per hour)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ca-ccei-hfed": {
    "result": "ok",
    "seconds": 2.2,
    "summary": "288 readings (288 for a full day), mean 556 MW",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ca-on-ieso-generator-output": {
    "result": "ok",
-   "seconds": 4.8,
+   "seconds": 3.4,
    "summary": "33480 generator-hours, 45 wind generators, 1059 GWh (hourly mean MW x 1 h)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ca-qc-hydroquebec-generation-by-source": {
    "result": "ok",
-   "seconds": 2.0,
+   "seconds": 1.8,
    "summary": "24 hours (2 unknown, 2 rows dropped as repeated stamps), mean 1916 MW, peak 3310 MW",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ca-statcan-monthly-generation-by-type": {
    "result": "ok",
-   "seconds": 3.2,
+   "seconds": 2.4,
    "summary": "168 rows, 0 not available; Canada 2025: 50.5 TWh over 12 months",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ch-bfe-wind-energy-plants": {
    "result": "ok",
-   "seconds": 1.5,
+   "seconds": 2.3,
    "summary": "229 facility-years; 2025: 14 facilities reporting, 160.9 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ch-energy-dashboard-swissgrid-production": {
    "result": "ok",
    "seconds": 5.7,
    "summary": "365 days, 154.0 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ch-pronovo-guarantees-of-origin-raw-data": {
    "result": "ok",
-   "seconds": 9.5,
+   "seconds": 12.2,
    "summary": "12 months, 160.2 GWh issued for Swiss wind",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "cl-cen-generacion-real": {
    "result": "skipped",
    "reason": "needs CEN_API_KEY",
-   "checked": "2026-11-08"
+   "checked": "2026-11-09"
   },
   "co-xm-simem-generation": {
    "result": "ok",
-   "seconds": 13.1,
+   "seconds": 12.5,
    "summary": "72 plant-hours, 3 wind plants, 523.5 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "cw-aqualectra-annual-report-wind-intake": {
    "result": "ok",
-   "seconds": 4.5,
+   "seconds": 2.8,
    "summary": "1 usable year, 330,992 MWh bought from wind farms",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "cz-ceps-generation": {
    "result": "ok",
-   "seconds": 1.8,
+   "seconds": 2.3,
    "summary": "100 quarter hours, 5040 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "cz-eru-electricity-operation-reports": {
    "result": "ok",
-   "seconds": 2.3,
+   "seconds": 3.1,
    "summary": "3 months, 134.8 GWh gross wind",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "de-netztransparenz-eeg-movement-data": {
    "result": "ok",
-   "seconds": 11.2,
+   "seconds": 35.0,
    "summary": "149899 rows, 11089 wind installations, 38.43 TWh (0.35 TWh in annual rows)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "de-smard": {
    "result": "ok",
-   "seconds": 2.1,
+   "seconds": 3.4,
    "summary": "100 quarter hours, 1110.8 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "dk-dtu-norrekaer-enge-scada": {
    "result": "ok",
-   "seconds": 7.8,
+   "seconds": 25.0,
    "summary": "348120 turbine-records, 40 turbines, 6725 MWh recorded",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "dk-energinet-prodex-5min": {
    "result": "ok",
-   "seconds": 1.6,
+   "seconds": 2.7,
    "summary": "576 area-intervals of 5 minutes, about 40.0 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "dk-energinet-production-settlement": {
    "result": "ok",
-   "seconds": 1.6,
+   "seconds": 2.8,
    "summary": "50 area-hours (25 hours), 65.1 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "dk-ens-turbine-register": {
    "result": "ok",
-   "seconds": 4.9,
+   "seconds": 6.4,
    "summary": "147861 turbine-months, 3315 turbines with output, 35162 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "do-oc-daily-operation-report-by-plant": {
    "result": "ok",
-   "seconds": 3.0,
+   "seconds": 3.3,
    "summary": "264 plant-hours, 11 wind plants, 6485.3 MWh (MW x 1 h)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ec-arconel-annual-statistics": {
    "result": "ok",
-   "seconds": 14.6,
+   "seconds": 15.9,
    "summary": "2 rows, 188.31 GWh national wind (2.49 GWh outside the SNI, mainly Galápagos)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ee-elering-live-wind-parks": {
    "result": "ok",
-   "seconds": 1.9,
+   "seconds": 2.2,
    "summary": "24 values every 1 h, about 2978 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "eg-eehc-annual-report-plant-generation": {
    "result": "ok",
-   "seconds": 4.4,
+   "seconds": 7.2,
    "summary": "8 fiscal years, 4,246 GWh gross wind generation",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "es-ree-esios-measured-generation": {
    "result": "skipped",
    "reason": "needs ESIOS_API_KEY",
-   "checked": "2026-11-08"
+   "checked": "2026-11-09"
   },
   "es-ree-esios-real-time-wind": {
    "result": "skipped",
    "reason": "needs ESIOS_API_KEY",
-   "checked": "2026-11-08"
+   "checked": "2026-11-09"
   },
   "es-ree-redata": {
    "result": "ok",
-   "seconds": 1.9,
+   "seconds": 3.5,
    "summary": "3 days, 638.2 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "eu-entsoe-actual-generation": {
-   "result": "ok",
-   "seconds": 4.8,
-   "summary": "25 intervals, mean 189 MW, peak 556 MW",
-   "checked": "2026-11-08",
+   "result": "skipped",
+   "reason": "needs ENTSOE_API_KEY",
+   "checked": "2026-11-09",
    "last_ok": "2026-11-08"
   },
   "eu-eurostat-nrg-bal-peh": {
    "result": "ok",
-   "seconds": 1.5,
+   "seconds": 2.2,
    "summary": "76 country-years, 1076 TWh in all",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "eu-eurostat-nrg-cb-pem": {
    "result": "ok",
-   "seconds": 1.4,
+   "seconds": 2.0,
    "summary": "454 country-months (19 flagged), 538 TWh in all",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "eu-opsd-time-series": {
    "result": "ok",
-   "seconds": 2.9,
+   "seconds": 4.4,
    "summary": "1488 half-hours, about 6141 GWh (mean 8254 MW)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "fi-fingrid-open-data": {
    "result": "skipped",
    "reason": "needs FINGRID_API_KEY",
-   "checked": "2026-11-08"
+   "checked": "2026-11-09"
   },
   "fr-engie-la-haute-borne-scada": {
    "result": "ok",
-   "seconds": 4.6,
+   "seconds": 11.0,
    "summary": "212786 10-minutes kept (42422 a year of 52,560), 16940 MWh in the kept rows only",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "fr-rte-eco2mix-national": {
    "result": "ok",
-   "seconds": 1.9,
+   "seconds": 2.1,
    "summary": "50 half-hours (2 missing), about 26.1 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "fr-rte-eco2mix-regional": {
    "result": "ok",
-   "seconds": 2.5,
+   "seconds": 2.2,
    "summary": "552 region-half-hours over 12 regions, about 174.7 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "fr-smarteole-scada": {
    "result": "ok",
-   "seconds": 3.5,
+   "seconds": 6.9,
    "summary": "10080 turbine-minutes over 7 turbines, 250 MWh in the minutes kept",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gb-ace-lawrence-weston-scada": {
    "result": "ok",
-   "seconds": 6.5,
+   "seconds": 15.3,
    "summary": "4457 10-minutes, 964 MWh from power, 971 MWh on the counter",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gb-altahullion-scada": {
    "result": "ok",
-   "seconds": 13.9,
+   "seconds": 44.6,
    "summary": "153570 turbine-10-minutes over 6 turbines, 6576 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gb-dtu-delabole-scada": {
    "result": "ok",
-   "seconds": 10.2,
+   "seconds": 30.0,
    "summary": "299604 turbine-10-minutes over 10 turbines, 8003 MWh (mean 160 kW per 400 kW turbine)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gb-elexon-bmrs-fuel-type": {
    "result": "ok",
-   "seconds": 1.7,
+   "seconds": 2.1,
    "summary": "48 half-hours, 312.0 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gb-elexon-bmrs-unit-output": {
    "result": "ok",
-   "seconds": 11.3,
+   "seconds": 14.0,
    "summary": "9384 unit-half-hours over 46 periods and 204 units, 145.5 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gb-hill-of-towie-scada": {
    "result": "ok",
-   "seconds": 13.8,
+   "seconds": 36.7,
    "summary": "90687 turbine-10-minutes over 21 turbines, 8322 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gb-kelmarsh-scada": {
    "result": "ok",
-   "seconds": 11.2,
+   "seconds": 32.2,
    "summary": "52416 10-minutes, 4209 MWh from power (kW x 1/6 h), 4240 MWh exported",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gb-neso-embedded-wind": {
    "result": "ok",
-   "seconds": 1.7,
+   "seconds": 2.4,
    "summary": "50 half-hours, 43.2 GWh estimated (mean 1728 MW of 6622 MW)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gb-penmanshiel-scada": {
    "result": "ok",
-   "seconds": 8.3,
+   "seconds": 22.3,
    "summary": "23846 10-minutes, 1845 MWh from power (kW x 1/6 h), 1847 MWh exported",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ge-gse-electricity-balance": {
    "result": "ok",
-   "seconds": 3.2,
+   "seconds": 4.7,
    "summary": "12 plant-months, 79.4 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gr-dapeep-res-special-account-bulletin": {
-   "result": "ok",
-   "seconds": 2.6,
-   "summary": "6 months, 5,964 GWh (the bulletin's year-to-date row: 5.964)",
-   "checked": "2026-11-08",
+   "result": "failed",
+   "seconds": 2.8,
+   "error": "requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://www.dapeep.gr/wp-content/uploads/2026/10/39_JUNE_2026_min_DELTIO_ELAPE_v_1.0_8.10.2026.pdf",
+   "checked": "2026-11-09",
    "last_ok": "2026-11-08"
   },
   "gr-ipto-scada-unit-production": {
    "result": "ok",
-   "seconds": 2.7,
+   "seconds": 3.3,
    "summary": "2064 station-hours over 86 stations, 33.4 GWh (MWh per hour, so also average MW)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gr-underpin-wind-farm-scada": {
    "result": "ok",
-   "seconds": 18.1,
+   "seconds": 46.2,
    "summary": "4464 10-minutes, 485 MWh (possible 512 MWh)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "gt-amm-posdespacho-diario": {
    "result": "ok",
-   "seconds": 3.0,
+   "seconds": 2.2,
    "summary": "72 unit-hours over 3 units, 280.8 MWh if hourly means (AMM's daily row sums to 278.6)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "hr-hops-wind-generation-reports": {
    "result": "ok",
-   "seconds": 6.7,
+   "seconds": 4.8,
    "summary": "1 month, 273.7 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "hu-mavir-wind-estimate-and-actual": {
    "result": "ok",
-   "seconds": 3.0,
+   "seconds": 3.8,
    "summary": "100 quarter-hours, 1.65 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ie-dkit-vestas-v52-scada": {
    "result": "ok",
-   "seconds": 40.0,
+   "seconds": 56.2,
    "summary": "4464 ten-minute rows, mean 210 kW, 156.2 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ie-eirgrid-smart-grid-dashboard": {
    "result": "ok",
-   "seconds": 1.7,
+   "seconds": 1.9,
    "summary": "92 quarter-hours (4 ambiguous dropped), 60.9 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ie-semo-daily-meter-data": {
-   "result": "ok",
-   "seconds": 2.2,
-   "summary": "10224 unit half-hours, 213 units (16 solar-named dropped, 50 unnamed kept), 24.3 GWh",
-   "checked": "2026-11-08",
+   "result": "failed",
+   "seconds": 3.0,
+   "error": "KeyError: 'items'",
+   "checked": "2026-11-09",
    "last_ok": "2026-11-08"
   },
   "in-cea-daily-re-generation": {
    "result": "ok",
-   "seconds": 2.8,
+   "seconds": 3.1,
    "summary": "35 states, 139.96 GWh (all-India row: 139.96 GWh)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "is-hagstofa-public-power-plants": {
    "result": "ok",
-   "seconds": 1.7,
+   "seconds": 2.5,
    "summary": "7 years, 50.4 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "it-terna-download-centre": {
    "result": "ok",
-   "seconds": 2.6,
+   "seconds": 3.1,
    "summary": "2972 quarter-hours (8 repeated dropped), 1.86 TWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "it-terna-production-by-province": {
    "result": "ok",
-   "seconds": 1.9,
+   "seconds": 2.3,
    "summary": "107 provinces, 22,321.9 GWh gross (75 with wind)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "jp-tso-area-supply-demand": {
    "result": "ok",
-   "seconds": 4.7,
+   "seconds": 4.0,
    "summary": "2976 area half-hours, 419.4 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "kr-koen-wind-farm-hourly": {
    "result": "ok",
-   "seconds": 4.6,
+   "seconds": 2.7,
    "summary": "3720 unit-hours, 14866 MWh in January 2026",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "kr-komipo-sangmyeong-wind-hourly": {
    "result": "ok",
-   "seconds": 6.5,
+   "seconds": 4.5,
    "summary": "28368 hours, max 20.11 MWh in an hour (21 MW farm); GWh by year: 2023 31.3, 2024 30.9, 2025 31.7, 2026 9.8",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "kr-kospo-hankyung-wind-hourly": {
    "result": "ok",
-   "seconds": 14.6,
+   "seconds": 7.3,
    "summary": "232168 unit-hours, 494.5 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "kr-kospo-seongsan-wind-hourly": {
    "result": "ok",
-   "seconds": 12.3,
+   "seconds": 8.1,
    "summary": "232218 unit-hours, 550.6 GWh; farm GWh by year: 2013 52.3, 2014 45.2, 2015 41.6, 2016 45.6, 2017 47.9, 2018 45.6, 2019 45.2, 2020 41.1, 2021 37.7, 2022 38.6, 2023 36.7, 2024 30.7, 2025 30.8, 2026 11.5",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "kr-kowepo-hwasun-turbine-scada": {
    "result": "ok",
-   "seconds": 9.1,
+   "seconds": 4.5,
    "summary": "5944 turbine-hours, 8 turbines, 2.65 GWh net",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "kr-kowepo-jangheung-turbine-scada": {
    "result": "ok",
-   "seconds": 8.8,
+   "seconds": 5.3,
    "summary": "4464 rows of turbine 1, step 0 days 00:10:00, 741.3 MWh net",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "kr-kpx-hourly-solar-wind-by-region": {
    "result": "ok",
-   "seconds": 26.6,
+   "seconds": 12.2,
    "summary": "17520 region-hours, 3646 GWh (Jeju 76 GWh)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "lac-olacde-sielac": {
    "result": "skipped",
    "reason": "needs OLACDE_USERNAME",
-   "checked": "2026-11-08"
+   "checked": "2026-11-09"
   },
   "lk-pucsl-generation-dispatch-data": {
    "result": "ok",
-   "seconds": 20.8,
+   "seconds": 23.8,
    "summary": "96 quarter-hours, 328 MWh telemetered; daily report: private 197 MWh + state utility 138 MWh = 335 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "lt-vda-gross-renewable-generation": {
    "result": "ok",
-   "seconds": 2.5,
+   "seconds": 3.2,
    "summary": "22 years, 23,470.3 GWh in all; 2025: 4,214.3 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "lu-statec-monthly-electricity-supply": {
    "result": "ok",
-   "seconds": 2.6,
+   "seconds": 3.7,
    "summary": "12 months, 454.9 GWh (annual table DF_A4203: 466.8 GWh)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "lv-csb-monthly-electricity-production": {
    "result": "ok",
-   "seconds": 1.8,
+   "seconds": 2.6,
    "summary": "12 months, 206 GWh (rounding: +/- 6 GWh at most)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "lv-csb-renewable-electricity-by-municipality": {
    "result": "ok",
-   "seconds": 1.9,
+   "seconds": 2.9,
    "summary": "44 municipalities and cities, 202.509 GWh (Latvia row: 202.509 GWh)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "mk-makstat-monthly-electricity": {
    "result": "ok",
-   "seconds": 2.0,
+   "seconds": 3.8,
    "summary": "12 months, 275.4 GWh gross",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "mu-statsmauritius-electricity-generation": {
    "result": "ok",
-   "seconds": 2.7,
+   "seconds": 3.3,
    "summary": "164 months, 160.8 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ni-cndc-posdespacho-energia": {
    "result": "ok",
-   "seconds": 3.8,
+   "seconds": 3.0,
    "summary": "120 unit-hours, 5 units, 876.2 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "nl-cbs-electricity-balance-monthly": {
    "result": "ok",
-   "seconds": 1.6,
+   "seconds": 2.0,
    "summary": "12 months, 32,037 GWh (16,422 onshore, 15,614 offshore)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "nl-cbs-onshore-wind-by-province": {
    "result": "ok",
-   "seconds": 1.5,
+   "seconds": 3.4,
    "summary": "12 provinces, 17,842 GWh actual, 6,691 MW at year end",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "no-nve-wind-production-per-plant": {
    "result": "ok",
-   "seconds": 13.8,
+   "seconds": 17.1,
    "summary": "1272 plant-hours, 53 plants, 7,859 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "nordic-esett-production-volumes": {
    "result": "ok",
-   "seconds": 2.9,
+   "seconds": 7.5,
    "summary": "960 zone-quarter-hours, 329.1 GWh (mean 13,712 MW across zones)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "nz-ea-emi-generation-md": {
    "result": "ok",
-   "seconds": 5.9,
+   "seconds": 4.7,
    "summary": "18746 farm-half-hours, 13 farms, 309.3 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "pa-asep-monthly-market-statistics": {
    "result": "ok",
    "seconds": 4.5,
    "summary": "4 wind plants, 78,492 MWh in the month",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "pe-coes-generation-by-plant": {
    "result": "ok",
-   "seconds": 2.9,
+   "seconds": 2.7,
    "summary": "13 plant-days, 9 farms, 8,239 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "pl-pse-wind-generation": {
    "result": "ok",
-   "seconds": 2.0,
+   "seconds": 2.9,
    "summary": "92 quarter-hours, mean 2,255 MW, peak 3,105 MW",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "pt-dgeg-electricity-production": {
    "result": "ok",
-   "seconds": 2.3,
+   "seconds": 3.3,
    "summary": "21 years (dgeg-epa-2005-2025.xlsx); 2025: 13,777 GWh Portugal, regions sum to 13,777",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "pt-ren-datahub-production-breakdown": {
    "result": "ok",
-   "seconds": 1.9,
+   "seconds": 2.6,
    "summary": "100 quarter-hours, mean 1,288 MW, peak 1,998 MW",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ro-ins-tempo-electricity-by-plant-type": {
    "result": "ok",
-   "seconds": 1.9,
+   "seconds": 3.3,
    "summary": "18 years (2007 to 2024), 83,640 GWh in all",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "ro-transelectrica-sen-production": {
    "result": "ok",
-   "seconds": 2.0,
+   "seconds": 2.6,
    "summary": "145 snapshots, mean 135 MW, about 3.3 GWh from 24 hourly means",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "rs-ems-annual-technical-report": {
    "result": "ok",
-   "seconds": 2.7,
+   "seconds": 4.2,
    "summary": "12 months, 1,382 GWh (the report's text gives 1,384)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "se-energimyndigheten-wind-by-county": {
-   "result": "ok",
-   "seconds": 2.6,
-   "summary": "21 counties (2 withheld), 40,392.0 GWh summed; national 40,419.0 GWh",
-   "checked": "2026-11-08",
+   "result": "failed",
+   "seconds": 2.3,
+   "error": "requests.exceptions.SSLError: HTTPSConnectionPool(host='pxexternal.energimyndigheten.se', port=443): Max retries exceeded with url: /api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_3.px (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFIC",
+   "checked": "2026-11-09",
    "last_ok": "2026-11-08"
   },
   "se-energimyndigheten-wind-statistics": {
-   "result": "ok",
+   "result": "failed",
    "seconds": 2.0,
-   "summary": "23 years; 2025: 38,447 GWh onshore and offshore, 18,127 MW",
-   "checked": "2026-11-08",
+   "error": "requests.exceptions.SSLError: HTTPSConnectionPool(host='pxexternal.energimyndigheten.se', port=443): Max retries exceeded with url: /api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_5.px (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFIC",
+   "checked": "2026-11-09",
    "last_ok": "2026-11-08"
   },
   "se-scb-monthly-electricity-supply": {
    "result": "ok",
-   "seconds": 24.2,
+   "seconds": 3.5,
    "summary": "48 zone-months, 40,766 GWh across zones; national table 40,767 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "se-svk-mimer-production": {
    "result": "ok",
-   "seconds": 2.3,
+   "seconds": 3.9,
    "summary": "96 zone-hours, 4 zeros set to missing, 49.8 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "si-surs-monthly-electricity": {
    "result": "ok",
-   "seconds": 2.3,
+   "seconds": 3.1,
    "summary": "12 months, 6.86 GWh gross, 7.01 GWh net",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "sn-senelec-annual-report": {
    "result": "ok",
-   "seconds": 12.0,
+   "seconds": 16.3,
    "summary": "3 years, 756.30 GWh in the years with production",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "tn-onem-conjoncture-energetique": {
    "result": "ok",
-   "seconds": 7.0,
+   "seconds": 11.0,
    "summary": "2 bulletins, 9 GWh in August 2026 (August 2025: 16 GWh)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "tr-epias-transparency": {
    "result": "skipped",
    "reason": "needs EPIAS_USERNAME",
-   "checked": "2026-11-08"
+   "checked": "2026-11-09"
   },
   "tw-taipower-unit-generation": {
-   "result": "ok",
-   "seconds": 3.9,
-   "summary": "31 wind rows, 4,234.3 MW now (Taipower subtotal 4,234.3 MW)",
-   "checked": "2026-11-08",
+   "result": "failed",
+   "seconds": 62.7,
+   "error": "requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='service.taipower.com.tw', port=443): Read timed out. (read timeout=60)",
+   "checked": "2026-11-09",
    "last_ok": "2026-11-08"
   },
   "us-bpa-wind-generation": {
    "result": "ok",
-   "seconds": 33.2,
+   "seconds": 22.2,
    "summary": "105120 five-minute snapshots, 6.58 TWh (approx.)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "us-caiso-renewables-outlook": {
    "result": "ok",
-   "seconds": 2.4,
+   "seconds": 2.2,
    "summary": "288 five-minute intervals, 56.7 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "us-eia-923-plant-generation": {
    "result": "ok",
-   "seconds": 9.6,
+   "seconds": 11.2,
    "summary": "15996 plant-months from 1333 plants reporting monthly values, 449.7 TWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "us-eia-930-hourly": {
    "result": "ok",
-   "seconds": 3.1,
+   "seconds": 2.5,
    "summary": "23 hours, 189.4 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "us-isone-daily-generation-by-fuel": {
    "result": "ok",
-   "seconds": 2.6,
+   "seconds": 2.2,
    "summary": "365 days, 3877 GWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "us-miso-wind-generation": {
    "result": "ok",
-   "seconds": 2.5,
+   "seconds": 2.0,
    "summary": "8760 hours, 99.0 TWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "us-nyiso-fuel-mix": {
    "result": "ok",
    "seconds": 1.9,
    "summary": "300 five-minute values, 14089 MWh",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "us-pjm-wind-generation": {
    "result": "skipped",
    "reason": "needs PJM_API_KEY",
-   "checked": "2026-11-08"
+   "checked": "2026-11-09"
   },
   "uy-adme-hourly-by-plant": {
    "result": "ok",
-   "seconds": 7.8,
+   "seconds": 7.2,
    "summary": "2976 plant-hours, 67,739 MWh; Artilleros 11,027, Florida I 10,490, Pampa 29,887, Valentines 16,335",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "world-eia-international": {
    "result": "ok",
-   "seconds": 3.1,
+   "seconds": 2.8,
    "summary": "10222 country-years, 229 countries; 2024: 2512 TWh summed, 2512 TWh World",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "world-ember-monthly": {
    "result": "ok",
-   "seconds": 2.1,
+   "seconds": 3.0,
    "summary": "10342 country-months, 81 countries; 2025: 2672 TWh over 80 countries",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "world-ember-yearly": {
    "result": "ok",
-   "seconds": 2.1,
+   "seconds": 2.5,
    "summary": "5658 country-years, 206 countries; 2024: 2506 TWh summed, 2506 TWh World",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "world-irena-irenastat": {
    "result": "ok",
-   "seconds": 2.7,
+   "seconds": 4.1,
    "summary": "3393 country-technology-years; 2024: 2499 TWh from 1133 GW",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "world-unsd-energy-statistics": {
    "result": "ok",
-   "seconds": 2.2,
+   "seconds": 2.3,
    "summary": "2703 country-years (125 estimates); 2023: 2330 TWh; countries ending in 2023: 87, 2024: 51",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   },
   "za-eskom-data-portal": {
    "result": "ok",
-   "seconds": 1.8,
-   "summary": "840 hours, 920.6 GWh (if the values are MW)",
-   "checked": "2026-11-08",
-   "last_ok": "2026-11-08"
+   "seconds": 2.1,
+   "summary": "912 hours, 1068.7 GWh (if the values are MW)",
+   "checked": "2026-11-09",
+   "last_ok": "2026-11-09"
   }
  }
 }
