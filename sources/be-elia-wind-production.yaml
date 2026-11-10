@@ -44,6 +44,10 @@ traps:
     detail: >-
       The series is upscaled from measurements, not fully metered, and Elia states it is still
       investigating the offshore deltas. Treat offshore quarter-hours in that period with care.
+      Over a year the differences do not bias the total: PyVWF found Elia's offshore energy 0.97
+      to 1.02 of Eurostat's offshore net generation (nrg_cb_pem, RA320) in every year 2017-24
+      (https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/region_tools/build_be_obs_from_elia.py#L18-L22),
+      added 2026-11-10.
     evidence: https://opendata.elia.be/explore/dataset/ods031/information/
     found: 2026-11-06
   - summary: Rows are split by onshore or offshore, region and grid connection (Elia or distribution grid), so a national total is a sum over rows.
@@ -68,6 +72,14 @@ traps:
       on 2026-11-07; not yet reviewed by a person.
     evidence: "https://opendata.elia.be/api/explore/v2.1/catalog/datasets/ods031/records?limit=10&select=datetime,offshoreonshore,region,gridconnectiontype,measured,monitoredcapacity,loadfactor&where=datetime%3Ddate%272024-01-15T12%3A00%3A00%2B00%3A00%27"
     found: 2026-11-07
+  - summary: In some quarter-hours every row's monitored capacity is empty while output is still given, so a summed national capacity reads zero and the load factor infinite.
+    detail: >-
+      On 2026-11-10 the API returned 1,080 rows with no monitored capacity, 1,060 of them with a
+      measured value: 216 whole quarter-hours in which all five rows are empty together. 108 fall
+      in 2015-24 (on 28 and 29 March 2015, 31 October 2021, 23 and 24 June 2023 and 27 and 28
+      March 2024, UTC dates) and the rest in 2025 and 2026. Most tools sum an empty value as zero.
+      Treat these steps as gaps, as PyVWF does. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://opendata.elia.be/api/explore/v2.1/catalog/datasets/ods031/records?select=count(*)%20as%20n,count(measured)%20as%20with_measured&where=monitoredcapacity%20is%20null&limit=1
 notes: >-
   Measured-and-upscaled output with monitored capacity and a load factor every 15 minutes, plus
   Elia's forecasts with P10 and P90. A decremental-bid field marks quarter-hours when Elia asked

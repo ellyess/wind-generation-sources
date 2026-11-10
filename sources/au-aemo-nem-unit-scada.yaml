@@ -67,6 +67,31 @@ traps:
       automated research pass on 2026-11-07; not yet reviewed by a person.
     evidence: "https://nemweb.com.au/Reports/CURRENT/MMSDataModelReport/Electricity/ElectricityDataModelReport_files/Elec20.htm"
     found: 2026-11-07
+  - summary: A dispatch unit (DUID) is not always one wind farm; some farms are split across several units, and some units cover more than one farm.
+    detail: >-
+      Snowtown II is split across SNOWNTH1 and SNOWSTH1, Goyder South across GSWF1A and GSWF1B1,
+      and the east stage of Golden Plains across GPWFEST1, GPWFEST2 and GPWFEST3. The other way
+      round, WOOLNTH1 covers both Studland Bay and Bluff Point, MOORAWF1 both Moorabool North and
+      Moorabool South, and PORTWF three Portland sites. Site names in the Generation Information
+      workbook also repeat across stages, so key on the DUID, and decide the unit of analysis
+      before joining units to locations or adding them up. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/configs/curation/aemo_au_aliases.csv?plain=1#L8-L33
+    found: 2026-07-16
+  - summary: The Generation Information workbook gives capacity on one row per group of identical turbines, so a unit's capacity is the sum of its rows, not its first row.
+    detail: >-
+      "Agg Nameplate Capacity (MW AC)" is per row, and a unit with two turbine types has two
+      rows: Boco Rock is listed as 9 turbines of 1.60 MW and 58 of 1.70 MW. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/src/pyvwf/datasets/aemo_au.py#L104-L106
+    found: 2026-07-16
+  - summary: Registered capacity over time is in the DUDETAIL table, not DUDETAILSUMMARY, and each monthly archive repeats the whole history.
+    detail: >-
+      DUDETAILSUMMARY holds effective-dated region and dispatch type but no capacity; the
+      effective-dated REGISTEREDCAPACITY column is in the sibling DUDETAIL table. The monthly
+      DUDETAIL archives repeat earlier rows, so drop duplicates and keep the highest VERSIONNO for
+      each unit and EFFECTIVEDATE. A history matters for farms built in stages, because the
+      workbook's nameplate is today's and would make early months look too low. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/fetch/aemo_au.sh#L5-L9
+    found: 2026-07-16
 tools:
   - name: NEMOSIS
     url: https://github.com/UNSW-CEEM/NEMOSIS

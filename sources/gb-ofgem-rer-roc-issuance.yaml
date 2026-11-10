@@ -46,9 +46,20 @@ traps:
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/uk.md
   - summary: Obligation years run April to March, not calendar years.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/uk.md
-  - summary: Station locations are not in the register; the Renewable Energy Planning Database has them, but no hub heights or turbine models for most sites.
-    detail: The planning database gives hub height for about 13% of sites.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/uk.md
+  - summary: Station locations are not in the register; the Renewable Energy Planning Database has them, but no turbine models, and a tip height (not hub height) for only about 13% of sites.
+    detail: >-
+      The planning database's "Height of Turbines (m)" column is the height to the blade tip.
+      Corrected 2026-11-10: this trap said hub height, after an older PyVWF runbook; the
+      current runbook says tip height. Not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/docs/runbooks/uk.md#L16
+  - summary: The planning database has no Renewables Obligation accreditation number and no history, so its sites cannot be joined to certificate issuance by key.
+    detail: >-
+      Issuance is keyed by accreditation number (for example R00116SQSC), the planning database
+      by its own Ref ID, and each quarterly extract describes only the fleet at that date.
+      PyVWF's open table from it held 826 operational stations (about 30 GW), against 360
+      accredited stations (about 16 GW) in its 2015-2019 certificate set. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/uk.md#L40-L44
+    found: 2026-07-23
 notes: >-
   Station-level monthly output, recovered from certificates. Only stations accredited under the
   Renewables Obligation appear. The start

@@ -63,8 +63,13 @@ traps:
       for January to March 2021 as "A", and 202, 266, 243 MWh in 2024 as "AM". Keep "M" and
       "AM"; drop "A". Keeping only "M" loses more than half the wind plants.
     evidence: https://www.eia.gov/survey/form/eia_923/instructions.pdf
-  - summary: Net generation is net of station use, so it runs a little below gross output.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/us.md
+  - summary: Net generation is net of station use, so it runs a little below gross output and can be negative in a calm month.
+    detail: >-
+      Negative monthly values occur on monthly ("M") wind records: Cape Cod Air Force Station - 6
+      SWS (plant 58661) reads -8.0 MWh in June 2019 and Tatanka Wind Power LLC (plant 56669)
+      -109.0 MWh in February 2021. Keep them rather than clipping to zero. Detail added
+      2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/src/pyvwf/sources/eia_us.py#L65-L68
   - summary: Coordinates and nameplate are in a separate form (EIA-860), and a few plants use a placeholder code that joins to nothing.
     detail: >-
       Join on plant code to EIA-860. In 2021 one plant (code 99999 and similar placeholders) did
@@ -73,6 +78,21 @@ traps:
   - summary: The file covers Alaska and Hawaii, which fall outside a contiguous-US domain.
     detail: Filter by location before matching plants to a gridded wind field.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/us.md
+  - summary: The generation sheet has a title block above its header row, and multi-word column names break across two lines, so exact name matching fails.
+    detail: >-
+      In "Page 1 Generation and Fuel Data" the column header is on row 6 in the 2019 to 2022
+      final files. Headers such as "Reported Fuel Type Code", "Respondent Frequency" and "Netgen
+      January" carry a line break inside the cell. Collapse whitespace in the headers before
+      selecting columns. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/src/pyvwf/datasets/eia_us.py#L123-L128
+  - summary: A plant can appear on two wind rows in one year, each holding "." for the months it does not cover; sum the rows and read "." as missing, not zero.
+    detail: >-
+      In the 2020 file Willmar (plant 2022) has one wind row flagged as a combined heat and power
+      plant ("Y") with net generation for January to June (581.988 MWh in January) and "." for
+      July to December, and a second row ("N") with "." for January to June and values from July
+      (395.504 MWh). Wind rows with "." in at least one monthly net generation cell number 49,
+      108, 64 and 39 in the 2019 to 2022 final files. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/src/pyvwf/datasets/eia_us.py#L101-L105
 tools:
   - name: PUDL (Public Utility Data Liberation)
     url: https://github.com/catalyst-cooperative/pudl

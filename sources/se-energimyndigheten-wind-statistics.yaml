@@ -73,6 +73,17 @@ traps:
       not yet reviewed by a person.
     evidence: https://pxexternal.energimyndigheten.se/api/v1/en/Energimyndighetens_statistikdatabas/Officiell_energistatistik/Vindkraftsstatistik/EN0105_5.px
     found: 2026-11-07
+  - summary: A decommissioned turbine stays in the statistics until its third year, so installed capacity and turbine counts run high, and past production can be revised upward.
+    detail: >-
+      Energimyndigheten's quality declaration for the 2020 wind statistics (section 2.2.3)
+      treats a turbine as out of operation only after three years without reported production or
+      notice, and says this overstates installed capacity in the first two years. If a turbine
+      silent for two years reports in the third, its production for those years is added back.
+      A capacity factor on the 31 December fleet therefore runs slightly low, and older years'
+      production can change between downloads. PyVWF's Swedish builder notes the same
+      overstatement. Added 2026-11-10 from PyVWF's records and the publisher's quality
+      declaration; not yet reviewed by a person.
+    evidence: https://www.energimyndigheten.se/globalassets/statistik/officiell-statistik/statistikprodukter/vindkraftsstatistik/kvalitetsdeklaration-vindkraftstatistik-2020.pdf
 notes: >-
   Official annual wind production and year-end installed capacity, onshore and offshore. ENTSO-E's
   Swedish generation came to 0.976-1.007 of this table's production each year in 2015-21.

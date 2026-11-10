@@ -73,9 +73,12 @@ traps:
   - summary: Offshore wind can come back with an "Actual Consumption" column beside generation.
     detail: >-
       For Belgium, entsoe-py returns ("Wind Offshore", "Actual Consumption"), about 0.2-0.3% of
-      offshore output in 2021 and 2023. Keep only the "Actual Aggregated" columns, or the
-      consumption is summed into generation.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+      offshore output in 2021 and 2023. Drop the "Actual Consumption" columns rather than
+      keeping only "Actual Aggregated": a query chunk with no consumption returns the type as a
+      plain column on its own hours, as for Belgium's last three days of each year, and selecting
+      "Actual Aggregated" loses those hours. Corrected 2026-11-10: this trap advised keeping
+      only "Actual Aggregated".
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/src/pyvwf/datasets/fetch_entsoe_capacity_factors.py#L132-L145
     found: 2026-10-22
   - summary: The installed-capacity series disagrees with national registers by up to a third, and is sometimes empty.
     detail: >-
@@ -91,6 +94,44 @@ traps:
       metered each year. In 2023 it matched Statistics Norway's monthly production.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
     found: 2026-10-25
+  - summary: For some countries the installed-capacity series stops changing for years while the fleet grows, so capacity factors come out too high.
+    detail: >-
+      Ireland's installed wind capacity is 1,907.13 MW in every year from 2015 to 2021, while
+      the fleet nearly doubled; divided by it, Ireland's output gives capacity factors that peak
+      at 1.87. Portugal's is 4,486 MW in every year from 2015 to 2019. Generation is not
+      affected. A value that does not move for several years in a growing fleet has stopped
+      tracking it; take the denominator from a national register. From PyVWF's audit of its
+      country-level observations; added 2026-11-10 from PyVWF's records, not yet reviewed by a
+      person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/region_tools/repair_country_capacity.py#L3-L41
+  - summary: Italy's installed-capacity series runs about two years behind the fleet, which raises capacity factors by 3 to 7%.
+    detail: >-
+      The value given for each year is within 0.1 to 3.5% of the fleet Eurostat counts at the end
+      of the year two before: 11,234 MW for 2023 against 11,254 MW at the end of 2021. Against
+      the fleet installed during the year it is 5 to 8% low in every year. Italy's generation is
+      sound, 0.97 to 0.99 of Eurostat's gross wind production in each year 2015-23, so only the
+      denominator needs replacing, for example with Eurostat's year-end capacity (table
+      nrg_inf_epcrw). From PyVWF's check of 2026-11-09; added 2026-11-10 from PyVWF's records,
+      not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/region_tools/build_it_capacity_from_eurostat.py#L3-L13
+  - summary: Dutch wind generation covers a growing share of the fleet, so the Netherlands' capacity factor never goes above 0.57.
+    detail: >-
+      With onshore and offshore both fetched and divided by the installed capacity, the Dutch
+      peak hourly capacity factor was 0.23 in 2015, 0.51 in 2019, 0.57 in 2021 and 0.50 in 2023,
+      while the annual mean rose 3.4 times; a national fleet reaches 0.85 or more in some hour of
+      every year. PyVWF reads this as units below the reporting threshold entering the series a
+      few at a time. The covered share was still growing at the end of the record, so no
+      constant rescaling fixes it. For Dutch totals compare with
+      nl-cbs-electricity-balance-monthly. From PyVWF's audit of its country-level observations;
+      added 2026-11-10 from PyVWF's records, not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/method-country-level.md?plain=1#L304-L375
+  - summary: One wind type can be missing for an hour while the other reports, so a plain sum of the types reads that hour as a tiny fleet.
+    detail: >-
+      France's onshore series has no value at 2023-07-20 07:00 UTC while offshore reports, so
+      the summed hour holds 3 MW against a fleet of about 21 GW. Drop an hour in which a type
+      that reports before and after it is missing, and do not read an hour with no values as
+      zero output. Added 2026-11-10 from PyVWF's records, not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/src/pyvwf/datasets/fetch_entsoe_capacity_factors.py#L148-L160
 tools:
   - name: entsoe-py
     url: https://github.com/EnergieID/entsoe-py

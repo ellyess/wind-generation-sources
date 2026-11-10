@@ -50,6 +50,16 @@ traps:
       missing a segment showed 0.34-0.44. PyVWF fails a country-year outside 0.70-1.30 and notes
       it outside 0.85-1.15. A 10% band would fail correct data.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+  - summary: Installed wind capacity is in a separate table, nrg_inf_epcrw, whose metadata page no longer resolves, so the date each value refers to is not stated.
+    detail: >-
+      Query nrg_inf_epcrw with siec RA300, plant_tec CAP_NET_ELC and unit MW. Checked against two
+      fleets counted on 31 December, it matches Energimyndigheten's Swedish fleet to the megawatt
+      in nine of the ten years 2014-23 and RTE's French fleet within 2%, so treat each value as
+      the year-end fleet and interpolate between year ends for a year's capacity factor. The
+      metadata page (ec.europa.eu/eurostat/cache/metadata/en/nrg_inf_epcrw_esms.htm) returned
+      404 on 2026-11-10. From PyVWF's check of 2026-11-09; added 2026-11-10 from PyVWF's
+      records, not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/region_tools/build_it_capacity_from_eurostat.py#L11-L18
 notes: >-
   The audit reference. Compare each year's energy from a higher-resolution source against
   Eurostat's gross wind production to catch series that measure only part of a fleet. Wind is
