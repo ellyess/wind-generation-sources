@@ -69,6 +69,36 @@ traps:
       yet reviewed by a person.
     evidence: https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/202604_Generation_MD.csv
     found: 2026-11-07
+  - summary: One point of connection can carry two different wind farms, so connection codes do not identify a farm either.
+    detail: >-
+      Tararua III and Te Rere Hau both inject at TWC2201 and are told apart only by Gen_Code
+      (twf_3 and te_rere_hau). Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/configs/curation/nz_wind_farms.csv?plain=1#L3-L6
+    found: 2026-07-22
+  - summary: Column names and plant codes change capitalisation between files.
+    detail: >-
+      The 2019 files name the date column Trading_date; later files say Trading_Date. Gen_Code
+      spellings vary too: Harapaki is capitalised, and Kaiwera Downs stage 1 is KaiweraDowns with
+      no underscore, beside lower-case codes such as te_apiti. Match column names and codes
+      without regard to case. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/src/pyvwf/datasets/emi_nz.py#L407-L410
+    found: 2026-07-22
+  - summary: The plant register's capacity is not always turbine capacity; for West Wind it is the rating of its two connections.
+    detail: >-
+      The register lists West Wind as 80 MW plus 80 MW, while its 62 turbines of 2.3 MW make
+      142.6 MW. For Tararua stages I and II it gives 73 MW against 103 turbines of 660 kW
+      (67.98 MW), a difference PyVWF has not resolved. Check the register against turbine counts
+      before dividing output by it. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/configs/curation/nz_wind_farms.csv?plain=1#L2-L7
+    found: 2026-07-22
+  - summary: A farm built in stages can keep one Gen_Code, so its output ramps up over months or years with no change of code.
+    detail: >-
+      Turitea's North stage (33 turbines) and South stage (27 turbines) both report as turitea.
+      PyVWF divides by 118.8 MW from November 2021 and 221.4 MW from January 2024; holding the
+      North-stage figure while the South stage was commissioning gave capacity factors above 1 in
+      September and October 2023. Use a dated capacity history and leave out commissioning
+      months. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/configs/curation/nz_capacity_stages.csv?plain=1#L2-L3
 notes: >-
   Half-hourly metered injection for every grid-connected generator, monthly files from August
   1997. About 13 dispatched wind farms and 1.5 GW in 2024. The plant register gives capacity and

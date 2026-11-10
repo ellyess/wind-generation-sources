@@ -57,6 +57,26 @@ traps:
       output in every month of 2015-21, and ENTSO-E's Norwegian generation matched Statistics
       Norway in 2023.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/scorecard.md
+  - summary: NVE's other hourly per-plant file, timeseries_utc_kwh_2022_all.zip, holds modelled production, not metered output, filled back to 2003 for every plant.
+    detail: >-
+      The file (https://www.nve.no/media/14352/timeseries_utc_kwh_2022_all.zip) has per-plant
+      production columns, so it is easy to take for metered output or a newer release of this
+      file. PyVWF found its output modelled back to 2003 for every farm, including farms built in
+      2021, and does not use it as observations. For metered output use this file. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/region_tools/build_no_obs_from_nve.py#L15-L16
+    found: 2026-10-25
+  - summary: NVE's turbine register dates turbines when they are formally commissioned, often months after they start producing, so a new farm's output can exceed the capacity it is given.
+    detail: >-
+      This file has no capacity; the usual denominator is NVE's register
+      (https://api.nve.no/web/WindPowerplant/GetWindPowerPlants), whose turbine groups carry a
+      commissioning date. In build-out months a farm's output is set against capacity the
+      register has not yet given it. PyVWF counts a farm in a month only when it is metered every
+      hour, its registered capacity is above zero and unchanged all month, and its output never
+      exceeds 1.05 times that capacity; that keeps 91 to 99.8% of each year's metered energy in
+      2015-21. A calm build-out month can still pass that test against too small a capacity.
+      Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/region_tools/build_no_obs_from_nve.py#L18-L24
+    found: 2026-10-25
 notes: >-
   Hourly output per wind farm, metered at the grid connection. Capacity, turbines and
   commissioning dates come from NVE's wind power plant register API

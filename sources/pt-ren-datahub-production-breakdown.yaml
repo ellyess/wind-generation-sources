@@ -75,6 +75,13 @@ traps:
       pass on 2026-11-08; not yet reviewed by a person.
     evidence: https://datahub.ren.pt/en/api-instructions/
     found: 2026-11-08
+  - summary: ENTSO-E's Portuguese wind generation is this series averaged to hours, so the two do not confirm each other.
+    detail: >-
+      PyVWF found the hourly mean of REN's 15-minute wind series equal to ENTSO-E's value on
+      sample hours in 2015 and 2023, onshore plus offshore. Check either against an annual
+      statistic, not against the other. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/region_tools/build_pt_capacity_from_ren.py#L3-L5
+    found: 2026-10-27
 notes: >-
   One request per day returns chart-ready JSON (xAxis categories plus a series per source) in
   MW at 15-minute steps, with a "Wind" series alongside hydro, solar, gas, imports and

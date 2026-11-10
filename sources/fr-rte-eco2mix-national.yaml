@@ -68,6 +68,15 @@ traps:
   - summary: Installed capacity is a separate dataset (parc-prod-par-filiere), given at year end.
     detail: Interpolate through the year, or the year's growth is assigned to the wrong months.
     evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/guides/data-sources.md
+  - summary: The same definitive series downloaded from RTE's own eCO2mix site comes under RTE's terms, which forbid redistributing the files; only this copy on ODRE is under Licence Ouverte.
+    detail: >-
+      PyVWF first built France's observations from RTE's annual definitive eCO2mix files, whose
+      terms allow reuse with credit but forbid redistribution, and switched to this dataset on
+      2026-10-25 for that reason. Hour by hour the two agreed, except 2021-12-31 23:00 UTC
+      (3,187.5 MW here against 3,182.0 MW) and the March clock-change hour, which RTE's files
+      write once and this copy twice. RTE's terms page was not re-read for this trap. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/region_tools/build_fr_obs_from_rte.py#L23-L24
+    found: 2026-10-25
 notes: >-
   The complete French national series, offshore included in every month. ENTSO-E's French
   per-type data lacks offshore before June 2023 (see eu-entsoe-actual-generation). First record

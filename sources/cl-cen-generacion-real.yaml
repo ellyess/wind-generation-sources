@@ -81,10 +81,35 @@ traps:
     evidence: https://sipub.api.coordinador.cl/generacion-real/v3/findByDate?startDate=2024-04-07&endDate=2024-04-07&tipoTecnologia=E%C3%B3lica
     found: 2026-11-07
   - summary: The data are delivered energy after curtailment, and no curtailment series is reachable with a public key.
-    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/runbooks/cl.md
+    detail: >-
+      No curtailment ("vertimiento") path exists under the public information host; every
+      candidate PyVWF tried returned 404. The two fields that look as if they might adjust output
+      carry nothing: factor_ernc (ERNC is Chile's term for non-conventional renewable energy) is
+      1.0 on every wind row, and valor_ernc equals gen_real_mw, across 1,932,526 wind rows for
+      2021 to 2024. Detail added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/archive/research-2026-10-27/docs/findings/region-south-america.md#L241-L249
+  - summary: The capacity on each row (potencia_maxima) never changes, so a farm built in stages carries its full capacity from its first row and reads low while it ramps up.
+    detail: >-
+      In the responses PyVWF saved for 2021 to 2024, none of the 64 wind plants changes
+      potencia_maxima. The 24 that started generating inside that window carry their full value
+      from the start, for example PE HORIZONTE NORTE at 430.0 MW from its first output in May
+      2024. CEN does not say whether past rows carry today's registered capacity. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/src/pyvwf/datasets/cen_cl.py#L33-L36
+  - summary: The plant list endpoint (/centrales/v4/findByDate) returns at most 10 records whatever the date window, so build the fleet from the generation rows instead.
+    detail: >-
+      The generation records already carry id_central, central, propietario, potencia_maxima and
+      tipo_tecnologia. Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/fetch/cen_cl.py#L20-L22
+    found: 2026-07-22
+  - summary: The gateway returns HTTP 429 (too many requests) after about 59 calls in a row, so pace a day-by-day download and retry with a back-off.
+    detail: >-
+      PyVWF waits 1.5 seconds between calls and backs off for 30 seconds to 10 minutes on a 429.
+      Added 2026-11-10 from PyVWF's records; not yet reviewed by a person.
+    evidence: https://github.com/ellyess/PyVWF/blob/03a6f89215c47ce8af68431e1dff5134a71c94c5/scripts/fetch/cen_cl.py#L70-L73
 notes: >-
-  Hourly delivered energy per plant, with registered capacity on every row, so the denominator
-  tracks the build-out. Wind runs from at least 2010 (5 plants) to 2025 (65 plants). There are
+  Hourly delivered energy per plant, with a registered capacity (potencia_maxima) on every row.
+  Corrected 2026-11-10: this said the capacity tracks the build-out; in PyVWF's saved 2021-2024
+  responses it never changes (see traps). Wind runs from at least 2010 (5 plants) to 2025 (65 plants). There are
   no coordinates anywhere in the API. Endpoints: /generacion-real/v3/findByDate,
   /centrales/v4/findByDate and /capacidad-instalada/v4/findByDate, with user_key as a query
   parameter.

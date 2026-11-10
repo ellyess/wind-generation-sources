@@ -7,7 +7,7 @@ area: >-
   EU member states, the EU27 total, and other reporting countries including Kosovo; countries
   listed are those with a non-zero wind value on the check date.
 level: country
-technology: onshore-and-offshore-combined
+technology: onshore-and-offshore-split
 measure: reported-generation
 resolution: monthly
 coverage:
@@ -71,7 +71,8 @@ traps:
     evidence: https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Country_codes
     found: 2026-11-06
 notes: >-
-  Monthly net electricity generation in GWh by fuel, with wind as product RA300, for EU and
+  Monthly net electricity generation in GWh by fuel, with wind as product RA300, split into
+  onshore (RA310) and offshore (RA320) (both read for Belgium, January 2023, on 2026-11-10), for EU and
   reporting neighbour countries; a share-of-total unit (PC) is also given. Start years for wind
   differ: 2011 for most of the EU, later for Austria (2012), Slovakia (2018), Malta (2024) and
   several neighbour countries. The United Kingdom series stops in October 2020. Checked by reading the full wind series from the Eurostat API on
