@@ -1,10 +1,10 @@
 {
- "checked": "2026-11-16",
+ "checked": "2026-11-23",
  "summary": {
-  "broken": 1,
+  "broken": 3,
   "recheck": 0,
-  "unchecked": 45,
-  "ok": 599
+  "unchecked": 52,
+  "ok": 590
  },
  "entries": {
   "apec-egeda-power-generation": {
@@ -711,10 +711,17 @@
    "total": 2
   },
   "ie-eirgrid-smart-grid-dashboard": {
-   "ok": 6,
+   "ok": 5,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=default&dateRange=day&dateFrom=15-Jun-2013&dateTo=15-Jun-2013&areas=windactual",
+     "state": "unchecked",
+     "code": 400
+    }
+   ],
    "total": 6
   },
   "ie-semo-daily-meter-data": {
@@ -774,22 +781,34 @@
    "total": 7
   },
   "ke-epra-energy-statistics-report": {
-   "ok": 3,
+   "ok": 0,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "https://www.epra.go.ke/statistics-0",
+     "state": "unchecked",
+     "code": 403
+    },
+    {
+     "role": "licence",
+     "url": "https://www.epra.go.ke/sites/default/files/2026-09/Energy%20%26%20Petroleum%20Statistics%20Report%202026.pdf",
+     "state": "unchecked",
+     "code": 403
+    },
+    {
+     "role": "trap evidence",
+     "url": "https://www.epra.go.ke/sites/default/files/2025-02/Energy%20Statistics%20Report%202020.pdf",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
    "total": 3
   },
   "ke-kplc-annual-report-energy-purchased": {
-   "ok": 1,
-   "broken": [
-    {
-     "role": "trap evidence",
-     "url": "https://www.kplc.co.ke/storage/01KB4JTB49DXJ81DG79JVEE0M3.pdf",
-     "state": "broken",
-     "code": 404
-    }
-   ],
+   "ok": 2,
+   "broken": [],
    "recheck": [],
    "unchecked": [],
    "total": 2
@@ -879,10 +898,17 @@
    "total": 6
   },
   "lt-vda-gross-renewable-generation": {
-   "ok": 3,
+   "ok": 2,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://osp-rs.stat.gov.lt/rest_xml/data/S1R094_M8020313/06V.GWh",
+     "state": "unchecked",
+     "code": 500
+    }
+   ],
    "total": 3
   },
   "lu-statec-monthly-electricity-supply": {
@@ -948,8 +974,15 @@
    "total": 1
   },
   "mu-ceb-annual-report-plant-generation": {
-   "ok": 2,
-   "broken": [],
+   "ok": 1,
+   "broken": [
+    {
+     "role": "trap evidence",
+     "url": "https://ceb.mu/docs/files/files/publications/Annual%20Report/CEB%20ANNUAL%20REPORT%202024-2025.pdf",
+     "state": "broken",
+     "code": 404
+    }
+   ],
    "recheck": [],
    "unchecked": [],
    "total": 2
@@ -1053,10 +1086,25 @@
    "total": 6
   },
   "ro-ins-tempo-electricity-by-plant-type": {
-   "ok": 2,
+   "ok": 0,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "access",
+     "url": "http://statistici.insse.ro:8077/tempo-online/",
+     "state": "unchecked",
+     "code": null,
+     "error": "ConnectionResetError"
+    },
+    {
+     "role": "docs",
+     "url": "http://statistici.insse.ro:8077/tempo-ins/matrix/IND118A",
+     "state": "unchecked",
+     "code": null,
+     "error": "ConnectionResetError"
+    }
+   ],
    "total": 2
   },
   "ro-transelectrica-sen-production": {
@@ -1181,7 +1229,7 @@
    "total": 5
   },
   "tw-taipower-unit-generation": {
-   "ok": 2,
+   "ok": 3,
    "broken": [],
    "recheck": [],
    "unchecked": [
@@ -1196,13 +1244,6 @@
      "url": "https://data.gov.tw/dataset/37331",
      "state": "unchecked",
      "code": 500
-    },
-    {
-     "role": "trap evidence",
-     "url": "https://service.taipower.com.tw/data/opendata/apply/file/d006001/001.json",
-     "state": "unchecked",
-     "code": null,
-     "error": "_ssl.c:1063: The handshake operation timed out"
     }
    ],
    "total": 5
@@ -1250,8 +1291,15 @@
    "total": 6
   },
   "us-nyiso-fuel-mix": {
-   "ok": 5,
-   "broken": [],
+   "ok": 4,
+   "broken": [
+    {
+     "role": "trap evidence",
+     "url": "https://mis.nyiso.com/public/csv/rtfuelmix/20261105rtfuelmix.csv",
+     "state": "broken",
+     "code": 404
+    }
+   ],
    "recheck": [],
    "unchecked": [],
    "total": 5
@@ -1297,8 +1345,15 @@
    "total": 3
   },
   "world-eia-international": {
-   "ok": 5,
-   "broken": [],
+   "ok": 4,
+   "broken": [
+    {
+     "role": "access",
+     "url": "https://www.eia.gov/international/data/world",
+     "state": "broken",
+     "code": 404
+    }
+   ],
    "recheck": [],
    "unchecked": [],
    "total": 5
@@ -1370,10 +1425,17 @@
    "total": 3
   },
   "world-irena-irenastat": {
-   "ok": 6,
+   "ok": 5,
    "broken": [],
    "recheck": [],
-   "unchecked": [],
+   "unchecked": [
+    {
+     "role": "trap evidence",
+     "url": "https://www.epra.go.ke/sites/default/files/2025-03/Bi-Annual%20Energy%20%26%20Petroleum%20Statistics%20Report%202024_2025.pdf",
+     "state": "unchecked",
+     "code": 403
+    }
+   ],
    "total": 6
   },
   "world-unsd-energy-statistics": {

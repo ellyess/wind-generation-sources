@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-16",
+ "checked": "2026-11-23",
  "year": 2024,
  "method": "Compare each country's annual wind total across the sources that report it. The reference is the national figure where one exists for the whole wind fleet over the calendar year: a national source read live, or a figure taken from the national publisher's own report, quoted and linked. A series that covers only part of the fleet, such as Great Britain's transmission-metered wind, or a fiscal year, is compared but never used as the reference. Where there is no such national figure, the reference is Eurostat's gross electricity production, and outside Eurostat's countries Ember. A national figure is only as good as its publisher: it can be preliminary, and it can draw the country's borders differently from the international compilers. The bands follow the PyVWF scorecard audit: a ratio within 0.85-1.15 of the reference agrees, 0.70-1.30 is noted, and anything further out is flagged. Gross production runs above what transmission operators meter, so ratios a little under 1 are normal; the entry's traps usually say why. Fleets under 0.05 TWh a year are compared but not judged, because rounding alone moves their ratio. Ember and Eurostat compile national figures, so an exact match can mean the same upstream data rather than independent confirmation; the check catches a series that measures only part of a fleet, not a shared error.",
  "bands": [
@@ -73,7 +73,7 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.002
+     "twh": 0.001
     },
     {
      "source": "world-irena-irenastat",
@@ -95,7 +95,7 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 16.005,
+     "twh": 16.009,
      "ratio": 0.99,
      "band": "agrees"
     },
@@ -179,7 +179,7 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.09
+     "twh": 0.051
     },
     {
      "source": "world-irena-irenastat",
@@ -201,8 +201,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.428,
-     "ratio": 1.089,
+     "twh": 0.392,
+     "ratio": 0.997,
      "band": "agrees"
     },
     {
@@ -259,8 +259,8 @@
    "values": [
     {
      "source": "be-elia-wind-production",
-     "twh": 12.569,
-     "ratio": 0.909,
+     "twh": 13.465,
+     "ratio": 0.974,
      "band": "agrees"
     },
     {
@@ -329,8 +329,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.477,
-     "ratio": 0.962,
+     "twh": 0.496,
+     "ratio": 1.0,
      "band": "agrees"
     },
     {
@@ -381,8 +381,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.204,
-     "ratio": 1.14,
+     "twh": 0.2,
+     "ratio": 1.117,
      "band": "agrees"
     },
     {
@@ -407,8 +407,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 46.361,
-     "ratio": 1.011,
+     "twh": 47.271,
+     "ratio": 1.031,
      "band": "agrees"
     },
     {
@@ -459,8 +459,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 10.427,
-     "ratio": 0.944,
+     "twh": 11.008,
+     "ratio": 0.996,
      "band": "agrees"
     },
     {
@@ -511,9 +511,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.897,
-     "ratio": 6.02,
-     "band": "outside"
+     "twh": 0.149,
+     "ratio": 1.0,
+     "band": "agrees"
     },
     {
      "source": "world-irena-irenastat",
@@ -537,8 +537,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 1.244,
-     "ratio": 1.003,
+     "twh": 1.212,
+     "ratio": 0.977,
      "band": "agrees"
     },
     {
@@ -563,8 +563,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.198,
-     "ratio": 0.975,
+     "twh": 0.201,
+     "ratio": 0.99,
      "band": "agrees"
     },
     {
@@ -595,8 +595,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.696,
-     "ratio": 0.971,
+     "twh": 0.708,
+     "ratio": 0.987,
      "band": "agrees"
     },
     {
@@ -671,7 +671,7 @@
     },
     {
      "source": "world-eia-international",
-     "twh": 20.553,
+     "twh": 20.547,
      "ratio": 0.999,
      "band": "agrees"
     },
@@ -703,9 +703,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 1.299,
-     "ratio": 1.231,
-     "band": "noted"
+     "twh": 1.054,
+     "ratio": 0.999,
+     "band": "agrees"
     },
     {
      "source": "world-irena-irenastat",
@@ -729,8 +729,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.226,
-     "ratio": 1.013,
+     "twh": 0.224,
+     "ratio": 1.004,
      "band": "agrees"
     },
     {
@@ -755,8 +755,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 1.049,
-     "ratio": 0.9,
+     "twh": 1.164,
+     "ratio": 0.998,
      "band": "agrees"
     },
     {
@@ -787,8 +787,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 6.32,
-     "ratio": 0.945,
+     "twh": 6.692,
+     "ratio": 1.001,
      "band": "agrees"
     },
     {
@@ -819,8 +819,8 @@
     },
     {
      "source": "world-eia-international",
-     "twh": 61.02,
-     "ratio": 1.002,
+     "twh": 60.725,
+     "ratio": 0.997,
      "band": "agrees"
     },
     {
@@ -851,8 +851,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 19.851,
-     "ratio": 0.943,
+     "twh": 20.236,
+     "ratio": 0.962,
      "band": "agrees"
     },
     {
@@ -889,8 +889,8 @@
     },
     {
      "source": "world-eia-international",
-     "twh": 46.182,
-     "ratio": 0.986,
+     "twh": 46.549,
+     "ratio": 0.994,
      "band": "agrees"
     },
     {
@@ -927,8 +927,8 @@
     },
     {
      "source": "world-eia-international",
-     "twh": 82.855,
-     "ratio": 0.998,
+     "twh": 82.909,
+     "ratio": 0.999,
      "band": "agrees"
     },
     {
@@ -953,8 +953,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.088,
-     "ratio": 1.128,
+     "twh": 0.077,
+     "ratio": 0.987,
      "band": "agrees"
     },
     {
@@ -985,8 +985,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 11.939,
-     "ratio": 0.984,
+     "twh": 12.136,
+     "ratio": 1.0,
      "band": "agrees"
     },
     {
@@ -1017,8 +1017,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 2.423,
-     "ratio": 0.94,
+     "twh": 2.564,
+     "ratio": 0.995,
      "band": "agrees"
     },
     {
@@ -1049,8 +1049,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.641,
-     "ratio": 0.973,
+     "twh": 0.633,
+     "ratio": 0.961,
      "band": "agrees"
     },
     {
@@ -1171,8 +1171,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 22.01,
-     "ratio": 0.986,
+     "twh": 22.037,
+     "ratio": 0.987,
      "band": "agrees"
     },
     {
@@ -1231,9 +1231,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 2.174,
-     "ratio": 1.209,
-     "band": "noted"
+     "twh": 0.076,
+     "ratio": 0.042,
+     "band": "outside"
     },
     {
      "source": "world-ember-monthly",
@@ -1284,8 +1284,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 3.324,
-     "ratio": 0.986,
+     "twh": 3.386,
+     "ratio": 1.005,
      "band": "agrees"
     },
     {
@@ -1312,9 +1312,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 2.653,
-     "ratio": 0.59,
-     "band": "outside"
+     "twh": 4.481,
+     "ratio": 0.996,
+     "band": "agrees"
     },
     {
      "source": "world-ember-monthly",
@@ -1349,8 +1349,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.866,
-     "ratio": 1.093,
+     "twh": 0.797,
+     "ratio": 1.006,
      "band": "agrees"
     },
     {
@@ -1416,8 +1416,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.43,
-     "ratio": 0.921,
+     "twh": 0.467,
+     "ratio": 1.0,
      "band": "agrees"
     },
     {
@@ -1480,9 +1480,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 7.087,
-     "ratio": 0.766,
-     "band": "noted"
+     "twh": 9.367,
+     "ratio": 1.012,
+     "band": "agrees"
     },
     {
      "source": "world-irena-irenastat",
@@ -1506,9 +1506,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.21,
-     "ratio": 0.805,
-     "band": "noted"
+     "twh": 0.257,
+     "ratio": 0.985,
+     "band": "agrees"
     },
     {
      "source": "world-ember-monthly",
@@ -1538,9 +1538,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.338,
-     "ratio": 1.154,
-     "band": "noted"
+     "twh": 0.291,
+     "ratio": 0.993,
+     "band": "agrees"
     },
     {
      "source": "world-ember-monthly",
@@ -1570,8 +1570,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.165,
-     "ratio": 0.994,
+     "twh": 0.166,
+     "ratio": 1.0,
      "band": "agrees"
     },
     {
@@ -1604,8 +1604,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.51,
-     "ratio": 0.985,
+     "twh": 0.519,
+     "ratio": 1.002,
      "band": "agrees"
     },
     {
@@ -1723,8 +1723,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 14.533,
-     "ratio": 0.973,
+     "twh": 14.545,
+     "ratio": 0.974,
      "band": "agrees"
     },
     {
@@ -1761,8 +1761,8 @@
     },
     {
      "source": "world-eia-international",
-     "twh": 4.306,
-     "ratio": 1.142,
+     "twh": 3.919,
+     "ratio": 1.04,
      "band": "agrees"
     },
     {
@@ -1789,9 +1789,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 2.092,
-     "ratio": 0.534,
-     "band": "outside"
+     "twh": 3.866,
+     "ratio": 0.987,
+     "band": "agrees"
     },
     {
      "source": "world-ember-monthly",
@@ -1824,9 +1824,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 1.5,
-     "ratio": 1.233,
-     "band": "noted"
+     "twh": 1.291,
+     "ratio": 1.061,
+     "band": "agrees"
     },
     {
      "source": "world-irena-irenastat",
@@ -1850,9 +1850,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 6.859,
-     "ratio": 1.96,
-     "band": "outside"
+     "twh": 4.047,
+     "ratio": 1.156,
+     "band": "noted"
     },
     {
      "source": "world-irena-irenastat",
@@ -1876,8 +1876,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 25.288,
-     "ratio": 1.014,
+     "twh": 24.555,
+     "ratio": 0.984,
      "band": "agrees"
     },
     {
@@ -1908,9 +1908,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.176,
-     "ratio": 1.197,
-     "band": "noted"
+     "twh": 0.155,
+     "ratio": 1.054,
+     "band": "agrees"
     },
     {
      "source": "world-irena-irenastat",
@@ -1966,8 +1966,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 6.318,
-     "ratio": 0.995,
+     "twh": 6.287,
+     "ratio": 0.99,
      "band": "agrees"
     },
     {
@@ -1998,8 +1998,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 1.353,
-     "ratio": 0.999,
+     "twh": 1.336,
+     "ratio": 0.987,
      "band": "agrees"
     },
     {
@@ -2032,9 +2032,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 8.279,
-     "ratio": 0.941,
-     "band": "agrees"
+     "twh": 5.5,
+     "ratio": 0.625,
+     "band": "outside"
     },
     {
      "source": "world-ember-monthly",
@@ -2163,8 +2163,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.149,
-     "ratio": 1.021,
+     "twh": 0.147,
+     "ratio": 1.007,
      "band": "agrees"
     },
     {
@@ -2189,8 +2189,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 3.812,
-     "ratio": 1.085,
+     "twh": 3.497,
+     "ratio": 0.995,
      "band": "agrees"
     },
     {
@@ -2233,8 +2233,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 0.366,
-     "ratio": 1.083,
+     "twh": 0.337,
+     "ratio": 0.997,
      "band": "agrees"
     },
     {
@@ -2343,8 +2343,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 5.159,
-     "ratio": 1.091,
+     "twh": 4.728,
+     "ratio": 1.0,
      "band": "agrees"
     },
     {
@@ -2369,8 +2369,8 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 13.492,
-     "ratio": 1.061,
+     "twh": 11.533,
+     "ratio": 0.907,
      "band": "agrees"
     },
     {
@@ -2423,9 +2423,9 @@
    "values": [
     {
      "source": "world-eia-international",
-     "twh": 12.574,
-     "ratio": 1.133,
-     "band": "agrees"
+     "twh": 1.072,
+     "ratio": 0.097,
+     "band": "outside"
     },
     {
      "source": "world-ember-monthly",
@@ -2471,8 +2471,8 @@
   {
    "source": "be-elia-wind-production",
    "stated_minutes": 15,
-   "observed_minutes": 15.0,
-   "agrees": true
+   "observed_minutes": 52.85,
+   "agrees": false
   },
   {
    "source": "nz-ea-emi-generation-md",
